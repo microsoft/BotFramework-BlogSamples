@@ -15,6 +15,7 @@ namespace ScorableTest
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
+            // register our scorables
             var builder = new ContainerBuilder();
 
             builder.RegisterType<ScorableMakePayment>()
