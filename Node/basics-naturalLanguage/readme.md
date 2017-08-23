@@ -31,10 +31,9 @@ The following diagram shows the sequence of events that happen after the bot rec
 
 
 ## Create your LUIS app
-To create the LUIS app that provides the intents and entities to the bot, do the following steps.
+To create the LUIS app that provides the intents and entities to the bot, follow the steps in this section.
 
-    >[!TIP]
-    >The LUIS app that the following steps create can also be imported from a [JSON file](Notes.JSON).
+**Tip:** The LUIS app that the following steps create can also be imported from a [JSON file](Notes.json). To import the LUIS app in [www.luis.ai][LUIS], go to **My Apps** and click the **Import App** button.
 
 1.	Log in to [www.luis.ai][LUIS] using your Cognitive Services API account. If you don't have an account, you can create a free account in the [Azure portal](https://ms.portal.azure.com). 
 2.	In the **My Apps** page, click **New App**, enter a name like Notes in the **Name** field, and choose **Bootstrap Key** in the **Key to use** field. 
