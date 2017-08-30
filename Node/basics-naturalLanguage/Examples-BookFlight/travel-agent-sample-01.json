@@ -1,0 +1,204 @@
+{
+  "luis_schema_version": "2.1.0",
+  "versionId": "0.1",
+  "name": "Travel Agent - Sample 1",
+  "desc": "This LUIS app has a BookFlight, Weather.GetForecast, and None intents.",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "BookFlight"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "Weather.GetForecast",
+      "inherits": {
+        "domain_name": "Weather",
+        "model_name": "GetForecast"
+      }
+    }
+  ],
+  "entities": [
+    {
+      "name": "Airline"
+    },
+    {
+      "name": "Location",
+      "children": [
+        "ToLocation",
+        "FromLocation"
+      ]
+    },
+    {
+      "name": "PassengerCategory",
+      "children": [
+        "adult",
+        "child",
+        "infant"
+      ]
+    },
+    {
+      "name": "TravelClass",
+      "children": [
+        "economy",
+        "first",
+        "business"
+      ]
+    }
+  ],
+  "composites": [
+    {
+      "name": "TicketsOrder",
+      "children": [
+        "PassengerCategory",
+        "number",
+        "TravelClass"
+      ]
+    }
+  ],
+  "closedLists": [
+    {
+      "name": "Coastal Cities",
+      "subLists": [
+        {
+          "canonicalForm": "Barcelona",
+          "list": [
+            "capital city of catalonia",
+            "bcn",
+            "barna",
+            "second spanish city"
+          ]
+        },
+        {
+          "canonicalForm": "madrid",
+          "list": [
+            "MAD"
+          ]
+        }
+      ]
+    }
+  ],
+  "bing_entities": [
+    "datetimeV2",
+    "number"
+  ],
+  "actions": [],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "drive me home",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "will it snow today",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "will it rain this weekend",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "book me a flight to paris",
+      "intent": "BookFlight",
+      "entities": [
+        {
+          "entity": "Location::ToLocation",
+          "startPos": 20,
+          "endPos": 24
+        }
+      ]
+    },
+    {
+      "text": "book me 2 adult business tickets to paris tomorrow on air france",
+      "intent": "BookFlight",
+      "entities": [
+        {
+          "entity": "PassengerCategory",
+          "startPos": 10,
+          "endPos": 14
+        },
+        {
+          "entity": "Airline",
+          "startPos": 54,
+          "endPos": 63
+        },
+        {
+          "entity": "Location::ToLocation",
+          "startPos": 36,
+          "endPos": 40
+        },
+        {
+          "entity": "TicketsOrder",
+          "startPos": 8,
+          "endPos": 23
+        },
+        {
+          "entity": "TravelClass",
+          "startPos": 16,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "Get the forcast for me",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "What is the weather in redmond ?",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "soliciting today's weather",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "\"I need to know the temperature at bangor, me\"",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "forecast in celcius",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "Find out tomorrow's weather",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "Provide me by toronto weather please",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "will it be raining in ranchi",
+      "intent": "Weather.GetForecast",
+      "entities": []
+    },
+    {
+      "text": "book a flight from seattle to hong kong",
+      "intent": "BookFlight",
+      "entities": [
+        {
+          "entity": "Location::FromLocation",
+          "startPos": 19,
+          "endPos": 25
+        },
+        {
+          "entity": "Location::ToLocation",
+          "startPos": 30,
+          "endPos": 38
+        }
+      ]
+    }
+  ]
+}
