@@ -1,4 +1,4 @@
-This LUIS app provides a starting point for training and adding utterances. It has the following intents:
+This LUIS app provides a starting point for practicing how to train and add utterances to a LUIS app. It has the following intents:
  * BookFlight
  * Weather.GetForecast
  * None 
