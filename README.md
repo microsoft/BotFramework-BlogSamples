@@ -1,5 +1,5 @@
 # Bot Framework Samples
-This repository is for sample code and snippets that are referenced in the [Bot Framework documentation](https://docs.microsoft.com/bot-framework) and the [Bot Framework blog](http://blog.botframework.com). Please only submit PRs to this repo if you are contributing a sample used in a documentation article or a blog post.
+This repository is for sample code and snippets to show the capabilities of the Bot Framework. Most of the code samples are referenced in the [Bot Framework documentation](https://docs.microsoft.com/bot-framework) or the [Bot Framework blog](http://blog.botframework.com).
 
 If you want to contribute samples for the Bot Builder SDK, please visit the [Bot Builder SDK samples repo](https://github.com/Microsoft/BotBuilder-Samples).
 
