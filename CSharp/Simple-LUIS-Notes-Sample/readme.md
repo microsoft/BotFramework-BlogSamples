@@ -39,3 +39,4 @@ To create the LUIS app that provides the intents and entities to the bot, follow
 6.	In the **Train & Test** page, train your app.
 7.	In the **Publish** page, click **Publish**. After successful publish, copy the **Endpoint URL** from the **Publish App** page, to use later in your bot’s code. The URL has a format similar to this example: `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/3889f7d0-9501-45c8-be5f-8635975eea8b?subscription-key=67073e45132a459db515ca04cea325d3&timezoneOffset=0&verbose=true&q=`
 
+[LUIS]: https://www.luis.ai/
