@@ -9,9 +9,9 @@ In the note-taking bot example, the following table shows how each intent maps t
 
 | Intent | Example Utterances | Bot functionality |
 |------|----------------------|------|
-| Note.Create | Create a note <br/> Create a note called Grocery List <br/> save a new note | CreateNote dialog |
-| Note.Delete | Delete my note<br/> Delete my Grocery List note <br/>  | DeleteNote dialog |
-| Note.ReadAloud | Read my note<br/> Read me the Grocery List note <br/>  | ReadNote dialog |
+| Note.Create | Create a note <br/> Create a note called Grocery List <br/> save a new note | CreateNote method |
+| Note.Delete | Delete my note<br/> Delete my Grocery List note <br/>  | DeleteNote method |
+| Note.ReadAloud | Read my note<br/> Read me the Grocery List note <br/>  | ReadNote method |
 
 ## Entities
 A bot may also need to extract entities, which are important words in utterances. Sometimes entities are required to fulfill an intent. In the note-taking bot, the `Notes.Title` entity identifies the title of each note.
@@ -23,7 +23,10 @@ A bot may also need to extract entities, which are important words in utterances
 When your bot receives an utterance, it can use either regular expressions or an intent recognition service like LUIS to determine the intent. To use LUIS, you configure a web service known as a **LUIS app** at [www.luis.ai][LUIS], and integrate it with your bot using the **LuisDialog** class. 
 
 ## How LUIS passes intents and entities to your bot
-First, the bot passes the utterance to the LUIS app and gets a JSON result from LUIS that contains intents and entities. Next, your bot automatically invokes any matching handler that your bot associates with the high-scoring intent in the LUIS result. The matching handler is specified by the **LuisIntent** attribute. 
+The following diagram shows the sequence of events that happen after the bot receives an utterance from the user. First, the bot passes the utterance to the LUIS app and gets a JSON result from LUIS that contains intents and entities. Next, your bot automatically invokes any matching handler that your bot associates with the high-scoring intent in the LUIS result. The matching handler is specified by the **LuisIntent** attribute. 
+<p align=center>
+<img alt="How LUIS passes intents and entities to your bot" src="images/bot-builder-dotnet-luis-message-flow-bot-code-notes.png">
+</p>
 
 
 ## Create your LUIS app
@@ -38,5 +41,16 @@ To create the LUIS app that provides the intents and entities to the bot, follow
 5.	In the **Entities** page, click **Add prebuilt domain entities** and select **Notes.Title**.
 6.	In the **Train & Test** page, train your app.
 7.	In the **Publish** page, click **Publish**. After successful publish, copy the **Endpoint URL** from the **Publish App** page, to use later in your bot’s code. The URL has a format similar to this example: `https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/3889f7d0-9501-45c8-be5f-8635975eea8b?subscription-key=67073e45132a459db515ca04cea325d3&timezoneOffset=0&verbose=true&q=`
+
+## Try the bot
+
+You can run the bot using the Bot Framework Emulator and tell it to create a note.
+<p align=center>
+<img alt="Conversation for creating a note" src="images/dotnet-notes-sample-emulator.png">
+</p>
+
+> [!TIP]
+> A LUIS app learns from example, so you can improve its performance by giving it more example utterances to train it. You can retrain your LUIS app without any modification to your bot's code. See [Add example utterances](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/add-example-utterances) and [train and test your LUIS app](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/train-test).
+
 
 [LUIS]: https://www.luis.ai/
