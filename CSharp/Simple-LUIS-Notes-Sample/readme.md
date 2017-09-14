@@ -49,8 +49,7 @@ You can run the bot using the Bot Framework Emulator and tell it to create a not
 <img alt="Conversation for creating a note" src="images/dotnet-notes-sample-emulator.png">
 </p>
 
-> [!TIP]
-> A LUIS app learns from example, so you can improve its performance by giving it more example utterances to train it. You can retrain your LUIS app without any modification to your bot's code. See [Add example utterances](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/add-example-utterances) and [train and test your LUIS app](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/train-test).
+**Tip:** A LUIS app learns from example, so you can improve its performance by giving it more example utterances to train it. You can retrain your LUIS app without any modification to your bot's code. See [Add example utterances](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/add-example-utterances) and [train and test your LUIS app](https://docs.microsoft.com/en-us/azure/cognitive-services/LUIS/train-test).
 
 
 [LUIS]: https://www.luis.ai/
