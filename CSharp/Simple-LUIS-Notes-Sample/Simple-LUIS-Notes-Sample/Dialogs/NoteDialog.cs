@@ -9,7 +9,7 @@ using Microsoft.Bot.Builder.Luis.Models;
 namespace NotesBot.Dialogs
 {
 
-    [LuisModel("<YOUR_LUIS_APP_ID>", "<YOUR_SUBSCRIPTION_KEY>", domain: "westus.api.cognitive.microsoft.com", Staging = true)]
+    [LuisModel("<YOUR_LUIS_APP_ID>", "<YOUR_SUBSCRIPTION_KEY>", domain: "westus.api.cognitive.microsoft.com")]
     [Serializable]
     public class SimpleNoteDialog : LuisDialog<object>
     {
