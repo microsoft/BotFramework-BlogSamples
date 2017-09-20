@@ -1,0 +1,55 @@
+{
+    "name": "StackCode",
+    "displayName": "StackCode",
+    "description": "A Stack Overflow Bot Companion for Visual Studio Code",
+    "version": "0.1.1",
+    "publisher": "Microsoft",
+    "engines": {
+        "vscode": "^1.14.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:stobot.startBot"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "stobot.startBot",
+                "title": "Start Stack Overflow Bot"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "StackCode Configuration",
+            "properties": {
+                "StackCode.directLineToken": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Specifies the folder path containing the tsserver and lib*.d.ts files to use."
+                }
+            },
+            "required": "StackCode.directLineToken"
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    },
+    "dependencies": {
+        "express": "^4.15.3",
+        "opn": "^5.1.0",
+        "restify": "^5.2.0"
+    }
+}

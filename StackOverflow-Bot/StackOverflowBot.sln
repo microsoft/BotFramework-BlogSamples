@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogAnalyzerFunc", "DialogAnalyzerFunc\DialogAnalyzerFunc.csproj", "{A8EB4436-43A2-4F57-B381-1DC8C470E16D}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "StackBot", "StackBot\StackBot.njsproj", "{E7CE1022-2FF2-44E3-8057-D472019453EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8EB4436-43A2-4F57-B381-1DC8C470E16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8EB4436-43A2-4F57-B381-1DC8C470E16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8EB4436-43A2-4F57-B381-1DC8C470E16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8EB4436-43A2-4F57-B381-1DC8C470E16D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7CE1022-2FF2-44E3-8057-D472019453EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7CE1022-2FF2-44E3-8057-D472019453EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7CE1022-2FF2-44E3-8057-D472019453EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7CE1022-2FF2-44E3-8057-D472019453EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D37936F-4B78-43EC-A917-329B913AE10D}
+	EndGlobalSection
+EndGlobal

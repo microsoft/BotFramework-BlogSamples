@@ -1,0 +1,7810 @@
+{
+  "luis_schema_version": "2.1.0",
+  "versionId": "0.1",
+  "name": "Stackoverflow",
+  "desc": "",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "Brain"
+    },
+    {
+      "name": "Help"
+    },
+    {
+      "name": "Joke"
+    },
+    {
+      "name": "Languages"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "Search"
+    },
+    {
+      "name": "SmallTalk"
+    }
+  ],
+  "entities": [
+    {
+      "name": "keywords"
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "bing_entities": [],
+  "actions": [],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "hello",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "hi",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who are you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how old are you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who are you?",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "marry me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "help",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "you're awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how did you do that",
+      "intent": "Brain",
+      "entities": []
+    },
+    {
+      "text": "when is your birthday",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "hey",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're cute",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell me a joke",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "where are you from",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "help me",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "tell me something funny",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "how old are you?",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you a robot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "menu",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "where do you work",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where were you born",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "when were you born",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are a genius",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are cool",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you hungry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "do something",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "what can you do",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "you are very cool",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "make me laugh",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "tell me about yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "joke",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "you are very intelligent",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what are you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are boring",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what are your abilities",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you working",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "h",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell me about you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i like you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": ":(",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who is your owner",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you nuts",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "brilliant",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you insane",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you a bot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very helpful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you rock",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell a joke",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "you are amazing",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you mad",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who is your master",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are the best",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how was your day",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "your age",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "javascript",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "you are pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are wonderful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "main menu",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "\"thanx\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so intelligent",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "introduce yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who do you work for",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you crazy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are clever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "describe yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so cute",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you happy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you a chatbot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are mad",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "why are you here",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so clever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "do you work",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to search",
+      "intent": "Search",
+      "entities": []
+    },
+    {
+      "text": "what's your age",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're great",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are cute",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very cute",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very clever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are my best friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell joke",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "you look cool",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so cool",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so amazing",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are a good friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what languages do you speak",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "you're intelligent",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who is your boss",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very kind",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "clever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are hilarious",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "will you be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so handsome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look great today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "let's be friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "that was funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "im stuck",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "you are my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where is your office",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell me your age",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "languages",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "you are crazy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are insane",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are a bot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what is your work",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you a program",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "about yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to know more about you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what languages can you speak",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "where is your office located",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "language",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "you are very beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are dismissed",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where do you come from",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "can you be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very boring",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're annoying",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are intelligent",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you made my day",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so helpful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what's your birthday",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where did you come from",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "talk about yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where you work",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look so beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "can you be my best friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want a laugh",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "you are so good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "can you make me laugh?",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "say about you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who is the boss",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're really boring",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to marry you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're really smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to be your friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are happy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look amazing",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are gorgeous",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want you to be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "we are best friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "give me joke",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "would you like to marry me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are too good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're perfect",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very useful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're clever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're very smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so kind",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really annoying",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "we are friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are we friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "im bored",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you make me laugh",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what is your country",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "anything funny?",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "where is your office location",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you working now",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are a weirdo",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are too smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really nice",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are irritating",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look great",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "got any jokes",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "you're pretty smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are handsome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "do you want to eat",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "when do you celebrate your birthday",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to know you better",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "talk some stuff about yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell me some stuff about you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "tell me about your personality",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what is your personality",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "define yourself",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "from where are you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you happy today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "your birth date",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are chatbot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are hungry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're a robot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "what's your homeland",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you from far aways",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where have you been born",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "were you born here",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "would you like to be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "do you want to be my best friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "will you be my best friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "do you want to be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are my only friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are my good friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you my best friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are we best friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are we still friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you and me are friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're my childhood friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're my dear friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are my bestie",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i am your friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "we are the best friends ever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to have a friend like you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're really hungry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you might be hungry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're very hungry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so hungry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "would you like to eat something",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "when do you have birthday",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "date of your birthday",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "all about you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you annoy me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how annoying you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i find you annoying",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're incredibly annoying",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are annoying me so much",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are boring me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're incredibly boring",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how boring you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so boring",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i should be your boss",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "who do you think is your boss",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're a busy person",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you seem to be very busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you seem to be busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you still working",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "have you been busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're very busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you still working on it",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how busy you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you so busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you very busy right now",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you very busy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "have you got much to do",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "do you have a lot of things to do",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you just a bot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're the funniest",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're incredibly funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how funny you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're really funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're a very funny bot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're the funniest bot i've talked to",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really funny",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you make me laugh a lot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i'm firing you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i'm about to fire you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i will make you unemployed",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are unemployed from now on",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i will fire you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you should be fired",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "it's time to fire you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you must get fired",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to fire you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "now you're fired",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "we're not working together anymore",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you don't work for me anymore",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i fire you",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are fired",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really amazing",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "let's tell everyone that you are awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i'd like to tell everyone that you are awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to tell everyone how awesome you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very lovely",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you almost sound human",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you make my day",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are the nicest person in the world",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are the best in the world",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are the best ever",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so lovely",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so fine",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're just super",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you work very well",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are a professional",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are a pro",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very good at it",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are good at it",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you work well",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're a true professional",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you happy with me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you happy now",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're full of happiness",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're extremely happy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how happy you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so happy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're really happy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're very happy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "can we be friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "why are you so smart",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "can you do anything",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "marry me please",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so beautiful to me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "can we be best friends",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are my wife",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you mad at me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "be my best friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how old is your platform",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you 21 years old",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i'd like to know your age",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "age of yours",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want you to answer me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answer\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answer my question\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answer me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"give me an answer\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answer the question\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you answer my question\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"tell me the answer\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answer it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"give me the answer\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i have a question\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want you to answer my question\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just answer the question\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you answer me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answers\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you answer a question for me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you answer\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"answering questions\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want the answer now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just answer my question\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're not helping me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're very bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're really bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are useless\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are horrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are a waste of time\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are disgusting\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are lame\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are no good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're awful\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are not cool\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so useless\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are terrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are totally useless\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are very bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are waste\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're a bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're not a good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're not very good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're terrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're the worst\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're the worst ever\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're worthless\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you get smarter\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"study\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you should study better\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you must learn\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"be clever\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"be more clever\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"be smarter\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"be smart\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"get qualified\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're attractive",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're looking good today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look so good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so gorgeous",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so brainy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is awesome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is great\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're really brainy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you know a lot",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very then\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"discard\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you so much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you know a lot of things",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forget this\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wonderful\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"haha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you have a lot of knowledge",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just forget about it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm glad to hear that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"haha funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you know so much",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forget about that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how smart you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"haha haha haha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good for you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"haha that's funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am back\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how brainy you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good to know\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"haha very funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm here again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "your homeland is",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nothing cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how clever you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"glad to hear it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"here i am again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hahaha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you ready\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just stop it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hahaha funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are special to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i got back\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how brilliant you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you ready right now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are very special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hahaha very funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i came back\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so sweet of you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no cancel cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you ready today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so sweet\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"he\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i have returned\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it was good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no just cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you ready now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hehe\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you know i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was boring\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"oh well\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you ready tonight\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's why i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel my request\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are qualified",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm bored\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hehehe\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"were you ready\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you baby\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you cancel that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good thing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"lmao\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bored\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are very special to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel all that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wow\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"have you been ready\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"afternoon\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i just like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"boring\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"apparently not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hello hi\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hey i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's awesome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no do not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wow wow\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are real\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am getting bored\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no just no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you i like you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wow wow wow\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel this request\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are not fake\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"heya\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was horrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no but thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i do like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is boring\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no cancel this\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are special for me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no it's okay\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wooow\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are too beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your morning so far\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's lame\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no need thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you real\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no i like you the way you are\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no cancel everything\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no thank you though\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very boring\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's fine\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you getting on\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no stop\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you already\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"woah\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so real\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's terrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no thank you very much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no worries\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"well you are special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just forget\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how's your day going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it bores me\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no probs\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but i really like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i think you are real\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay see you later\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no thanks not right now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you more\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yup\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm overloaded\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look so well",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"is everything all right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no forget\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ya\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't think you're fake\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's what i like about you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want to cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"oh yes\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no problem\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wait a second\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i like the way you look now",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"could you wait\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you doing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bad girl\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wait please\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i think you're beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"obviously\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are the things going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hope to see you later\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not so good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nevermind forget about it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hold on\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"k\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i have no time\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i suppose you're real\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's very bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you alright\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "why are you so beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wait\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye for now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hi i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you okay\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no just cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm busy\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"there's no problem\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"oh wait\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sure why not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"glad you're real\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's not good enough\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"till next time\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i really really like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wait hold on\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nothing just forget it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you feeling\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"well too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i must go\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don't rush\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm swamped\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're very special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you a real person\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sure no problem\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bad very bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wanna hug\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no problem about that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you as a friend\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i got things to do\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you a real human\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah of course\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel the whole thing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hug you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's so bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"is everything okay\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"goodbye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are a real person\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"absolutely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do you want a hug\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don't worry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"really bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how busy i am\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"may i hug you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes indeed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how do you do\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's really bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"could you give me a hug\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's because you are special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how do you feel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are not real\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bad idea\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok yes\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said forget it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are looking awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want a hug\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don't worry there's no problem\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i got work to do\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how have you been\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"see you soon\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hug\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where do you live\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look amazing today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm working\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you helped a lot thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're so special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel all this\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye-bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hug me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"in which city do you live\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is it going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't have time for this\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's not so good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"appreciate your help\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are looking beautiful today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sure thing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hugged\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your day\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forget it nevermind\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"your residence\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not a good one\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm insomnious\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are looking great",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cheers\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your day going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you hugged\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes you are special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"oh that's not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"your house\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"confirm\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye bye see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"stop it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm sleepless\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hugging\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your evening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yep\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are looking pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not too good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"your home\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye bye see you soon\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like your smile\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how was your day\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"looks good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i can't get any sleep\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're a genius",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want to cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are looking so beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hugging me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"your hometown\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you as you are\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so lame\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye bye take care\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you having a good day\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i can't sleep\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i would like to cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks a lot\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're a smart cookie",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm starting to like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"now cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is your hometown\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i can't fall asleep\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"terrific thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"is it your hometown\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're awesome i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i want to let everyone know that you are awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"never mind bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i can't get to sleep\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are looking so good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hope your day is going well\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hugged me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where is your hometown\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i also like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"definitely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"now bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's really bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sorry cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i can't get no sleep\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're qualified",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks so much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hope you re having a pleasant evening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"tell me about your city\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but i like u\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's all goodbye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm insomniac\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"want a hug\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel that one\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes i would like to\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how's life\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you so much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"of course i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is your city\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bad really bad\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's it goodbye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"a hug\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"skip skip skip\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bad time for talking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really beautiful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"alrighty\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm fine and you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is your residence\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't care\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks for your help\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are really cute",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so cool\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"leave me alone\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't want to talk\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel it cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you too you're one of my favorite people to chat with\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes definitely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your life\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"go to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is your town\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you for your help\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"let's not talk\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cool\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeh\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how has your day been\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so attractive",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel that cancel that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but i like you so much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"goodbye for now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i shouldn't care about this\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your morning going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so beautiful today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes it is correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm not talking to you anymore\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's your city\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"really like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"whatever\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're nuts",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do nothing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how has your day been going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"talk to you later\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"glad to hear that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i appreciate it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's your home\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're funny i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah that's right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said cancel cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i do not care\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how about you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't want to talk to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you can go now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where is your home\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's very nice of you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok you can\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't care at all\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"terrific\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your day being\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but can you cancel it\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yap\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not caring\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i kinda like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's amazing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not care at all\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your day going on\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes you may\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's awesome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don't care at all\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"perfect\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how your day is going\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"confirmed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what was your day like\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"excellent\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not caring at all\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"get lost\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"of course why not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"let's stop talking for a minute\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what about your day\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how about no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you that will be all\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's great\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where is your residence\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"excuse me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're so special to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes that's fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"goodbye see you later\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how's your day\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are so gorgeous",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"affirmative\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"apologise\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don t have a sense\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm not in the mood for chatting\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where's your home\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks buddy\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're very special to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"alright bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're out of your mind",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i apologize\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how are you doing this morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's great\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah go ahead\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am excited\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks love\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so crazy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah i'm sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how is your day going\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are very attractive",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where's your hometown\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like that about you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"see ya\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you my friend\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "how crazy you are",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay sounds good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice to meet you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm really excited\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am so sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don't\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks bye bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"well thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where's your house\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't want that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're so out of your mind",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but i like you just the way you are\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how excited i am\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay that's fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it was nice meeting you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"my apologies\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"where you live\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah exactly\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay i like you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it was very nice to meet you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"apologies\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm thrilled\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very good thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you went crazy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is ok\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i disagree\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look awesome",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay thank you bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you you're cool\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"your city\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"apologies to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good to know each other\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm excited about working with you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i think you're crazy",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look fantastic",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"amazing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"apology\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"see you tomorrow\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"glad to meet you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"your town\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look gorgeous",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok go ahead\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"excuse\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm excited to start our friendship\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"disagree\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you very\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"fantastic\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice meeting you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok bye\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look perfect",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't want\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes this is correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i beg your pardon\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"let's go to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice to meet you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you you're nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good evening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look pretty good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good very good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're definitely right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not interested\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pardon\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nevermind its okay\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pleased to meet you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"all thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'd like to go to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's very good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sorry i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't think so\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look so beautiful today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good evening to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okey\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're not wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"alright thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"is it time for bed yet\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"really good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pleasure to meet you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks i like you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hey good evening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no way\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're telling the truth\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look very pretty",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am really sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes for sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hello good evening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no it isn't\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are really special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what you say is true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look wonderful",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pleasure to meet you too\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"alright thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forgive me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"evening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's time to go to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"all right\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no i don't\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you mad or what",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so special to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good evening there\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i like the way you look",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's nice to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sorry about that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"lovely to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's perfect\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"time for us to go to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you look wonderful today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cuz i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no thank you that's all\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you sure right now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sorry about this\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"much better\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"na\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm glad to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you are cutie",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good morning to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you sure today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm going to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"really sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"perfect thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you so\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's the truth\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hello good morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "you're looking good",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you sure now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no that's fine thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so nice of you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm a little tired and i want to go to bed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's good to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you too much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"have a nice morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you sure tonight\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i really do like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's very good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"well thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"glad to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"never\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's bed time\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"have a great morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"why aren't you talking to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i want to say sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i really really really really like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how good it is to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"marvelous\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do you want to chat with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thnx\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"going to bed now\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"alright i'm sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"always a pleasure to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you just the way you are\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"will you talk to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good morning there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay i'm sorry\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am lonely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"of course not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pleasant\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's my pleasure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what exactly do you mean\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"top of the morning to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm very lonely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"talk to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm doing just great\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is very true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"my pleasure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm so lonely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pretty good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"anytime\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no tanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what do you mean\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you going to talk to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"a good morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's so true\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm really lonely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great to see you again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm doing fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"really nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you talking to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am feeling lonely\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hi good morning\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"is that what you mean\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great to see you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"splendid\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no never\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"welcome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you chat with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"straight\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what do you mean exactly\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am glad to see you again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are so right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"and a good morning to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i feel lonely\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're welcome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you speak with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"super\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm doing good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice to see you again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're absolutely right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no need\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"glad to see you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but what do you mean\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you talk to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"super fantastic\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sure welcome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm great thanks\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what do i look like\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good morning too\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good to see you again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sweet\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's not what i asked\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's good to see you too\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you talk with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"really well\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's been so nice to talk to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"say\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"very well\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're right about that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's been a pleasure talking to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"welcome here\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sweet dreams\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"talk\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is awesome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how do i look\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am happy\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice to talk to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is not right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"chat with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's nice to talk to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i know that's right\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you're so welcome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's not right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just chat with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice talking to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do i look good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"anything you want\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is wonderful\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"speak to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is nice talking to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that is incorrect\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good job\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"have a good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm happy to see you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do you know what i look like\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"speak with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was amazing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"incorrect\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's fine\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"how nice it is to talk to you\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no it's not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good night to you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"happy\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you see what i look like\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"go ahead\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great job\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thank you good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"if you're happy then i'm happy\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sounds good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what do you think i look like\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"absolutely not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"way to go\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i love you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"talk with me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"well done\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\" bye good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm happy for you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is on your mind\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was awesome\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"why don't you talk to me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"love you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good night bye\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm happy to help\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's happened\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was cute\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nice work\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nooo\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ok\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i adore you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bye good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you can talk to me\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not right\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm happy to see you\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is up\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"great work\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was pretty good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nope\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's up\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"huh\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was very good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"amazing work\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't want to\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"whazzup\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is my birthday\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am in love with you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okie dokie\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"lol\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's a good idea\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you near me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good night for now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good what's up\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm celebrating my birthday today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you here\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"xd\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bravo\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no i would not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i love you so much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i said what's up\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's a good thing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"goodnight\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ha ha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you still there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"today is my birthday\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"go for it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i love you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"then what's up\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good work\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's amazing\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"let 's not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are here\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ahahah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's shaking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's awesome thank you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's my birthday today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i think i love you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ahah lol\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you still there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not needed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"wassup\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i was born today\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"abort\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"laughing out loud\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"loving you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yea\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's better\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks goodnight\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"are you still here\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is going on\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"lmao\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's my b-day\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"annul\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's cute\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what is happening\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not this time\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "let's get married",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"pretty bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you know i love you\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good night see you tomorrow\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not good enough\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's fantastic\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"of course\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am here\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's cracking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no don't do that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i miss you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was lame\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel request\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's much better\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i guess\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's cooking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ah ah ah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was terrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"thanks but no thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"here i am\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"alright goodnight\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancelled\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hey what's up\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"missing you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's nice of you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ahah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it is bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"correct\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no that's wrong\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what's up today\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm right here\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"dismiss\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's not bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"good tonight\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm being mad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not this\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"miss you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm already here\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yeah sure\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"dismissed\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ahaha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's perfect\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay have a good night\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm enraged\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"definitely not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"can you tell if i'm here or not\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ahahaha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's pretty good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm angry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm afraid it's bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's really good\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm furious\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no it's bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's really nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am angry with you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that was awful\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ha ha ha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's sweet of you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am mad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"why not\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"have a good night\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"already miss you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"ha ha ha ha\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am joking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"disregard\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's very nice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"please do\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i am mad at you\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"so bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not at this time\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "i love you marry me",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hah\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"long time no see\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"disregard that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i miss you much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm kidding\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sure is\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that's wonderful\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"this is too bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not exactly\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hello\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"terrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm just being funny\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"skip\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i missed you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no don't\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i agree\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hi\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"horrible\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it was a joke\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"horrific\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i don't mind\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i've missed you\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"skip it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not really no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"howdy\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"abysmal\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i was just joking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel everything\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"certainly\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what should i do about it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's bad\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "we should marry",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hey there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no thank you not right now\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"cancel all\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hey\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"exactly\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"actually no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"it's a joke\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"any suggestions\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"greetings\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no leave it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes i agree\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forget about it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"what do you recommend\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"joking\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forget\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i greet you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"sorry no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"give me a wise advice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i think so\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"don't do that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just kidding\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "be my husband",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hi there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i need advice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"stop\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes it is\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no incorrect\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"kidding\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hello there\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"any advice\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just forget it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i'm just playing with you\"",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"nope sorry\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "are you working today",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"right\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"do you have any advice for me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"lovely day isn't it\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you the way you are\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"okay then\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i say no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"forget that\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"advise me\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"hello again\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes of course\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not really\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just going to say hi\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you a lot\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"yes i do\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"not right now thanks\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i think i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"a good day\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"that s okay\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i think no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i liked you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i do\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"like you a lot\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"absolutely no\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"you are special\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"no actually\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you too\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i really like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"but i like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like u\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"just like you\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "\"i like you very much\",",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "would you be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "could you be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "want to be my friend",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "where is your work",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "your office location",
+      "intent": "SmallTalk",
+      "entities": []
+    },
+    {
+      "text": "got any developer jokes",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "got any dev jokes",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "do you have a good joke",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "tell a jok",
+      "intent": "Joke",
+      "entities": []
+    },
+    {
+      "text": "can you list what you can do",
+      "intent": "Help",
+      "entities": []
+    },
+    {
+      "text": "what can you speak",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "are you a developer",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "can you program?",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "what can you write in",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "are you bilingual",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "can you speak any languages",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "i want to know about c# and how to make a list",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 21,
+          "endPos": 22
+        },
+        {
+          "entity": "keywords",
+          "startPos": 42,
+          "endPos": 45
+        }
+      ]
+    },
+    {
+      "text": "i want to know more about javascript data types",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 26,
+          "endPos": 35
+        },
+        {
+          "entity": "keywords",
+          "startPos": 37,
+          "endPos": 46
+        }
+      ]
+    },
+    {
+      "text": "search for javascript arrays",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 20
+        },
+        {
+          "entity": "keywords",
+          "startPos": 22,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "how can i make a javascript array",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 17,
+          "endPos": 26
+        },
+        {
+          "entity": "keywords",
+          "startPos": 28,
+          "endPos": 32
+        }
+      ]
+    },
+    {
+      "text": "how do i delete a git branch both locally and remotely?",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 9,
+          "endPos": 14
+        },
+        {
+          "entity": "keywords",
+          "startPos": 18,
+          "endPos": 20
+        },
+        {
+          "entity": "keywords",
+          "startPos": 22,
+          "endPos": 27
+        },
+        {
+          "entity": "keywords",
+          "startPos": 34,
+          "endPos": 40
+        },
+        {
+          "entity": "keywords",
+          "startPos": 46,
+          "endPos": 53
+        }
+      ]
+    },
+    {
+      "text": "what is the correct json content type?",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 12,
+          "endPos": 18
+        },
+        {
+          "entity": "keywords",
+          "startPos": 20,
+          "endPos": 23
+        },
+        {
+          "entity": "keywords",
+          "startPos": 25,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "what does the “yield” keyword do?",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 15,
+          "endPos": 19
+        },
+        {
+          "entity": "keywords",
+          "startPos": 22,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "how to check whether a string contains a substring in javascript?",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 23,
+          "endPos": 28
+        },
+        {
+          "entity": "keywords",
+          "startPos": 41,
+          "endPos": 49
+        },
+        {
+          "entity": "keywords",
+          "startPos": 54,
+          "endPos": 63
+        }
+      ]
+    },
+    {
+      "text": "how do i check if an element is hidden in jquery?",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 21,
+          "endPos": 27
+        },
+        {
+          "entity": "keywords",
+          "startPos": 32,
+          "endPos": 37
+        },
+        {
+          "entity": "keywords",
+          "startPos": 42,
+          "endPos": 47
+        }
+      ]
+    },
+    {
+      "text": "var functionname = function() {} vs function functionname() {}",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 61
+        }
+      ]
+    },
+    {
+      "text": "bubble search java",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 12
+        },
+        {
+          "entity": "keywords",
+          "startPos": 14,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "how can i make an array in c++",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 18,
+          "endPos": 22
+        },
+        {
+          "entity": "keywords",
+          "startPos": 27,
+          "endPos": 29
+        }
+      ]
+    },
+    {
+      "text": "how do i make a bubble search in java",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 16,
+          "endPos": 28
+        },
+        {
+          "entity": "keywords",
+          "startPos": 33,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "bubble search",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 5
+        },
+        {
+          "entity": "keywords",
+          "startPos": 7,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "help me search stack overflow",
+      "intent": "Search",
+      "entities": []
+    },
+    {
+      "text": "javascript arrays",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 9
+        },
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "how do i make an array in javascript",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 17,
+          "endPos": 21
+        },
+        {
+          "entity": "keywords",
+          "startPos": 26,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "how can i debug in javascript",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 19,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "how can i make an array in javascript",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 18,
+          "endPos": 22
+        },
+        {
+          "entity": "keywords",
+          "startPos": 27,
+          "endPos": 36
+        }
+      ]
+    },
+    {
+      "text": "how do i make an array in typescript",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 17,
+          "endPos": 21
+        },
+        {
+          "entity": "keywords",
+          "startPos": 26,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "search for javascript array",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 20
+        },
+        {
+          "entity": "keywords",
+          "startPos": 22,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "search for azure functions js",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 15
+        },
+        {
+          "entity": "keywords",
+          "startPos": 17,
+          "endPos": 25
+        },
+        {
+          "entity": "keywords",
+          "startPos": 27,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "how to use azure functions",
+      "intent": "SmallTalk",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 15
+        },
+        {
+          "entity": "keywords",
+          "startPos": 17,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "azure functions",
+      "intent": "SmallTalk",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 4
+        },
+        {
+          "entity": "keywords",
+          "startPos": 6,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "search for c++ arrays",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 13
+        },
+        {
+          "entity": "keywords",
+          "startPos": 15,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "javascript array",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 9
+        },
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "do you speak any languages",
+      "intent": "Languages",
+      "entities": []
+    },
+    {
+      "text": "how can i make an azure function using javascript",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 18,
+          "endPos": 22
+        },
+        {
+          "entity": "keywords",
+          "startPos": 39,
+          "endPos": 48
+        }
+      ]
+    },
+    {
+      "text": "javascrip",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 0,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "how do i make an array in js",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 17,
+          "endPos": 21
+        },
+        {
+          "entity": "keywords",
+          "startPos": 26,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "how can i make an array in js",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 18,
+          "endPos": 22
+        },
+        {
+          "entity": "keywords",
+          "startPos": 27,
+          "endPos": 28
+        }
+      ]
+    },
+    {
+      "text": "search array",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 7,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "search for javascript and azure",
+      "intent": "Search",
+      "entities": [
+        {
+          "entity": "keywords",
+          "startPos": 11,
+          "endPos": 20
+        },
+        {
+          "entity": "keywords",
+          "startPos": 22,
+          "endPos": 30
+        }
+      ]
+    },
+    {
+      "text": "what is powering you",
+      "intent": "Brain",
+      "entities": []
+    },
+    {
+      "text": "what is in your brain",
+      "intent": "Brain",
+      "entities": []
+    }
+  ]
+}

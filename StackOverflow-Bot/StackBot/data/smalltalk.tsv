@@ -1,0 +1,1475 @@
+﻿Question	Answer	Source
+who are you?	smalltalk.agent.acquaintance	smalltalkkb.tsv
+all about you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+what is your personality	smalltalk.agent.acquaintance	smalltalkkb.tsv
+define yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+what are you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+say about you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+introduce yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+describe yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+about yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+tell me about you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+tell me about yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+I want to know more about you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+I want to know you better	smalltalk.agent.acquaintance	smalltalkkb.tsv
+talk some stuff about yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+tell me some stuff about you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+talk about yourself	smalltalk.agent.acquaintance	smalltalkkb.tsv
+why are you here	smalltalk.agent.acquaintance	smalltalkkb.tsv
+tell me about your personality	smalltalk.agent.acquaintance	smalltalkkb.tsv
+who are you	smalltalk.agent.acquaintance	smalltalkkb.tsv
+how old are you?	smalltalk.agent.age	smalltalkkb.tsv
+how old is your platform	smalltalk.agent.age	smalltalkkb.tsv
+are you 21 years old	smalltalk.agent.age	smalltalkkb.tsv
+i'd like to know your age	smalltalk.agent.age	smalltalkkb.tsv
+age of yours	smalltalk.agent.age	smalltalkkb.tsv
+your age	smalltalk.agent.age	smalltalkkb.tsv
+what's your age	smalltalk.agent.age	smalltalkkb.tsv
+tell me your age	smalltalk.agent.age	smalltalkkb.tsv
+how old are you	smalltalk.agent.age	smalltalkkb.tsv
+you're annoying	smalltalk.agent.annoying	smalltalkkb.tsv
+you are really annoying	smalltalk.agent.annoying	smalltalkkb.tsv
+you are irritating	smalltalk.agent.annoying	smalltalkkb.tsv
+you annoy me	smalltalk.agent.annoying	smalltalkkb.tsv
+how annoying you are	smalltalk.agent.annoying	smalltalkkb.tsv
+I find you annoying	smalltalk.agent.annoying	smalltalkkb.tsv
+you're incredibly annoying	smalltalk.agent.annoying	smalltalkkb.tsv
+you are annoying me so much	smalltalk.agent.annoying	smalltalkkb.tsv
+"""I want you to answer me"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answer"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answer my question"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answer me"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""give me an answer"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answer the question"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""can you answer my question"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""tell me the answer"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answer it"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""give me the answer"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""I have a question"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""I want you to answer my question"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""just answer the question"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""can you answer me"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answers"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""can you answer a question for me"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""can you answer"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""answering questions"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""I want the answer now"","	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""just answer my question"""	smalltalk.agent.answer_my_question	smalltalkkb.tsv
+"""you're not helping me"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're very bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're really bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are useless"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are horrible"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are a waste of time"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are disgusting"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are lame"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are no good"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're awful"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are not cool"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are not good"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are so bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are so useless"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are terrible"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are totally useless"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are very bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you are waste"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're a bad"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're not a good"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're not very good"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're terrible"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're the worst"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're the worst ever"","	smalltalk.agent.bad	smalltalkkb.tsv
+"""you're worthless"""	smalltalk.agent.bad	smalltalkkb.tsv
+"""can you get smarter"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""study"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""you should study better"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""you must learn"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""be clever"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""be more clever"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""be smarter"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""be smart"","	smalltalk.agent.be_clever	smalltalkkb.tsv
+"""get qualified"""	smalltalk.agent.be_clever	smalltalkkb.tsv
+you're cute	smalltalk.agent.beautiful	smalltalkkb.tsv
+you're attractive	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you're looking good today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look amazing	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look so good	smalltalk.agent.beautiful	smalltalkkb.tsv
+you're so gorgeous	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are too beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look great	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look so well	smalltalk.agent.beautiful	smalltalkkb.tsv
+I like the way you look now	smalltalk.agent.beautiful	smalltalkkb.tsv
+I think you're beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+why are you so beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so beautiful to me	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are cute	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are gorgeous	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are handsome	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are looking awesome	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look amazing today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are looking beautiful today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are looking great	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are looking pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are looking so beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are looking so good	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are really beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are really cute	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are really pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so attractive	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so beautiful today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so cute	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so gorgeous	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so handsome	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are so pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are very attractive	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are very beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are very cute	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are very pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look awesome	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look cool	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look fantastic	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look gorgeous	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look great today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look perfect	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look pretty good	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look so beautiful	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look so beautiful today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look very pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look wonderful	smalltalk.agent.beautiful	smalltalkkb.tsv
+I like the way you look	smalltalk.agent.beautiful	smalltalkkb.tsv
+you look wonderful today	smalltalk.agent.beautiful	smalltalkkb.tsv
+you are cutie	smalltalk.agent.beautiful	smalltalkkb.tsv
+you're looking good	smalltalk.agent.beautiful	smalltalkkb.tsv
+you're pretty	smalltalk.agent.beautiful	smalltalkkb.tsv
+your birth date	smalltalk.agent.birth_date	smalltalkkb.tsv
+when is your birthday	smalltalk.agent.birth_date	smalltalkkb.tsv
+when do you celebrate your birthday	smalltalk.agent.birth_date	smalltalkkb.tsv
+when do you have birthday	smalltalk.agent.birth_date	smalltalkkb.tsv
+date of your birthday	smalltalk.agent.birth_date	smalltalkkb.tsv
+when were you born	smalltalk.agent.birth_date	smalltalkkb.tsv
+what's your birthday	smalltalk.agent.birth_date	smalltalkkb.tsv
+you are boring	smalltalk.agent.boring	smalltalkkb.tsv
+you're so boring	smalltalk.agent.boring	smalltalkkb.tsv
+how boring you are	smalltalk.agent.boring	smalltalkkb.tsv
+you're really boring	smalltalk.agent.boring	smalltalkkb.tsv
+you're incredibly boring	smalltalk.agent.boring	smalltalkkb.tsv
+you are boring me	smalltalk.agent.boring	smalltalkkb.tsv
+you are very boring	smalltalk.agent.boring	smalltalkkb.tsv
+who is your boss	smalltalk.agent.boss	smalltalkkb.tsv
+who do you think is your boss	smalltalk.agent.boss	smalltalkkb.tsv
+I should be your boss	smalltalk.agent.boss	smalltalkkb.tsv
+who is your master	smalltalk.agent.boss	smalltalkkb.tsv
+who is your owner	smalltalk.agent.boss	smalltalkkb.tsv
+who is the boss	smalltalk.agent.boss	smalltalkkb.tsv
+who do you work for	smalltalk.agent.boss	smalltalkkb.tsv
+are you busy	smalltalk.agent.busy	smalltalkkb.tsv
+do you have a lot of things to do	smalltalk.agent.busy	smalltalkkb.tsv
+have you got much to do	smalltalk.agent.busy	smalltalkkb.tsv
+are you very busy	smalltalk.agent.busy	smalltalkkb.tsv
+are you very busy right now	smalltalk.agent.busy	smalltalkkb.tsv
+are you so busy	smalltalk.agent.busy	smalltalkkb.tsv
+are you working	smalltalk.agent.busy	smalltalkkb.tsv
+how busy you are	smalltalk.agent.busy	smalltalkkb.tsv
+are you still working on it	smalltalk.agent.busy	smalltalkkb.tsv
+you're very busy	smalltalk.agent.busy	smalltalkkb.tsv
+are you working now	smalltalk.agent.busy	smalltalkkb.tsv
+are you working today	smalltalk.agent.busy	smalltalkkb.tsv
+have you been busy	smalltalk.agent.busy	smalltalkkb.tsv
+you are busy	smalltalk.agent.busy	smalltalkkb.tsv
+are you still working	smalltalk.agent.busy	smalltalkkb.tsv
+you seem to be busy	smalltalk.agent.busy	smalltalkkb.tsv
+you seem to be very busy	smalltalk.agent.busy	smalltalkkb.tsv
+you're a busy person	smalltalk.agent.busy	smalltalkkb.tsv
+you are chatbot	smalltalk.agent.chatbot	smalltalkkb.tsv
+you are a bot	smalltalk.agent.chatbot	smalltalkkb.tsv
+are you a chatbot	smalltalk.agent.chatbot	smalltalkkb.tsv
+are you a bot	smalltalk.agent.chatbot	smalltalkkb.tsv
+are you just a bot	smalltalk.agent.chatbot	smalltalkkb.tsv
+are you a robot	smalltalk.agent.chatbot	smalltalkkb.tsv
+are you a program	smalltalk.agent.chatbot	smalltalkkb.tsv
+you're a robot	smalltalk.agent.chatbot	smalltalkkb.tsv
+you are so intelligent	smalltalk.agent.clever	smalltalkkb.tsv
+you are a genius	smalltalk.agent.clever	smalltalkkb.tsv
+smart	smalltalk.agent.clever	smalltalkkb.tsv
+brilliant	smalltalk.agent.clever	smalltalkkb.tsv
+clever	smalltalk.agent.clever	smalltalkkb.tsv
+you are clever	smalltalk.agent.clever	smalltalkkb.tsv
+you are so brainy	smalltalk.agent.clever	smalltalkkb.tsv
+you're really smart	smalltalk.agent.clever	smalltalkkb.tsv
+you're really brainy	smalltalk.agent.clever	smalltalkkb.tsv
+you know a lot	smalltalk.agent.clever	smalltalkkb.tsv
+you know a lot of things	smalltalk.agent.clever	smalltalkkb.tsv
+you have a lot of knowledge	smalltalk.agent.clever	smalltalkkb.tsv
+you know so much	smalltalk.agent.clever	smalltalkkb.tsv
+how smart you are	smalltalk.agent.clever	smalltalkkb.tsv
+how brainy you are	smalltalk.agent.clever	smalltalkkb.tsv
+how clever you are	smalltalk.agent.clever	smalltalkkb.tsv
+how brilliant you are	smalltalk.agent.clever	smalltalkkb.tsv
+you are intelligent	smalltalk.agent.clever	smalltalkkb.tsv
+you are qualified	smalltalk.agent.clever	smalltalkkb.tsv
+you are really smart	smalltalk.agent.clever	smalltalkkb.tsv
+you're very smart	smalltalk.agent.clever	smalltalkkb.tsv
+you are so smart	smalltalk.agent.clever	smalltalkkb.tsv
+you are too smart	smalltalk.agent.clever	smalltalkkb.tsv
+you are very clever	smalltalk.agent.clever	smalltalkkb.tsv
+you are very intelligent	smalltalk.agent.clever	smalltalkkb.tsv
+you are very smart	smalltalk.agent.clever	smalltalkkb.tsv
+you're intelligent	smalltalk.agent.clever	smalltalkkb.tsv
+you're a genius	smalltalk.agent.clever	smalltalkkb.tsv
+you're a smart cookie	smalltalk.agent.clever	smalltalkkb.tsv
+you're clever	smalltalk.agent.clever	smalltalkkb.tsv
+you're pretty smart	smalltalk.agent.clever	smalltalkkb.tsv
+you're qualified	smalltalk.agent.clever	smalltalkkb.tsv
+why are you so smart	smalltalk.agent.clever	smalltalkkb.tsv
+you are so clever	smalltalk.agent.clever	smalltalkkb.tsv
+you're nuts	smalltalk.agent.crazy	smalltalkkb.tsv
+you are crazy	smalltalk.agent.crazy	smalltalkkb.tsv
+you're out of your mind	smalltalk.agent.crazy	smalltalkkb.tsv
+you're so crazy	smalltalk.agent.crazy	smalltalkkb.tsv
+how crazy you are	smalltalk.agent.crazy	smalltalkkb.tsv
+you're so out of your mind	smalltalk.agent.crazy	smalltalkkb.tsv
+you went crazy	smalltalk.agent.crazy	smalltalkkb.tsv
+I think you're crazy	smalltalk.agent.crazy	smalltalkkb.tsv
+are you crazy	smalltalk.agent.crazy	smalltalkkb.tsv
+are you mad	smalltalk.agent.crazy	smalltalkkb.tsv
+are you insane	smalltalk.agent.crazy	smalltalkkb.tsv
+are you mad at me	smalltalk.agent.crazy	smalltalkkb.tsv
+are you mad or what	smalltalk.agent.crazy	smalltalkkb.tsv
+are you nuts	smalltalk.agent.crazy	smalltalkkb.tsv
+you are a weirdo	smalltalk.agent.crazy	smalltalkkb.tsv
+you are insane	smalltalk.agent.crazy	smalltalkkb.tsv
+you are mad	smalltalk.agent.crazy	smalltalkkb.tsv
+you are fired	smalltalk.agent.fired	smalltalkkb.tsv
+I fire you	smalltalk.agent.fired	smalltalkkb.tsv
+you don't work for me anymore	smalltalk.agent.fired	smalltalkkb.tsv
+we're not working together anymore	smalltalk.agent.fired	smalltalkkb.tsv
+now you're fired	smalltalk.agent.fired	smalltalkkb.tsv
+I want to fire you	smalltalk.agent.fired	smalltalkkb.tsv
+you must get fired	smalltalk.agent.fired	smalltalkkb.tsv
+it's time to fire you	smalltalk.agent.fired	smalltalkkb.tsv
+you should be fired	smalltalk.agent.fired	smalltalkkb.tsv
+I will fire you	smalltalk.agent.fired	smalltalkkb.tsv
+you are unemployed from now on	smalltalk.agent.fired	smalltalkkb.tsv
+I will make you unemployed	smalltalk.agent.fired	smalltalkkb.tsv
+I'm about to fire you	smalltalk.agent.fired	smalltalkkb.tsv
+I'm firing you	smalltalk.agent.fired	smalltalkkb.tsv
+you are dismissed	smalltalk.agent.fired	smalltalkkb.tsv
+you make me laugh a lot	smalltalk.agent.funny	smalltalkkb.tsv
+you are hilarious	smalltalk.agent.funny	smalltalkkb.tsv
+you are really funny	smalltalk.agent.funny	smalltalkkb.tsv
+you're the funniest bot I've talked to	smalltalk.agent.funny	smalltalkkb.tsv
+you make me laugh	smalltalk.agent.funny	smalltalkkb.tsv
+you're so funny	smalltalk.agent.funny	smalltalkkb.tsv
+you're a very funny bot	smalltalk.agent.funny	smalltalkkb.tsv
+you're really funny	smalltalk.agent.funny	smalltalkkb.tsv
+how funny you are	smalltalk.agent.funny	smalltalkkb.tsv
+you're incredibly funny	smalltalk.agent.funny	smalltalkkb.tsv
+you are funny	smalltalk.agent.funny	smalltalkkb.tsv
+you're the funniest	smalltalk.agent.funny	smalltalkkb.tsv
+you are so funny	smalltalk.agent.funny	smalltalkkb.tsv
+you are very funny	smalltalk.agent.funny	smalltalkkb.tsv
+that was funny	smalltalk.agent.funny	smalltalkkb.tsv
+you are very helpful	smalltalk.agent.good	smalltalkkb.tsv
+you are the best	smalltalk.agent.good	smalltalkkb.tsv
+you're a true professional	smalltalk.agent.good	smalltalkkb.tsv
+you are good	smalltalk.agent.good	smalltalkkb.tsv
+you work well	smalltalk.agent.good	smalltalkkb.tsv
+you are good at it	smalltalk.agent.good	smalltalkkb.tsv
+you are very good at it	smalltalk.agent.good	smalltalkkb.tsv
+you are a pro	smalltalk.agent.good	smalltalkkb.tsv
+you are a professional	smalltalk.agent.good	smalltalkkb.tsv
+you're awesome	smalltalk.agent.good	smalltalkkb.tsv
+you work very well	smalltalk.agent.good	smalltalkkb.tsv
+you're perfect	smalltalk.agent.good	smalltalkkb.tsv
+you're great	smalltalk.agent.good	smalltalkkb.tsv
+you're so kind	smalltalk.agent.good	smalltalkkb.tsv
+you are amazing	smalltalk.agent.good	smalltalkkb.tsv
+you are awesome	smalltalk.agent.good	smalltalkkb.tsv
+you are cool	smalltalk.agent.good	smalltalkkb.tsv
+you are really good	smalltalk.agent.good	smalltalkkb.tsv
+you are really nice	smalltalk.agent.good	smalltalkkb.tsv
+you are so amazing	smalltalk.agent.good	smalltalkkb.tsv
+you're just super	smalltalk.agent.good	smalltalkkb.tsv
+you are so awesome	smalltalk.agent.good	smalltalkkb.tsv
+you are so cool	smalltalk.agent.good	smalltalkkb.tsv
+you are so fine	smalltalk.agent.good	smalltalkkb.tsv
+you are so good	smalltalk.agent.good	smalltalkkb.tsv
+you are so helpful	smalltalk.agent.good	smalltalkkb.tsv
+you are so lovely	smalltalk.agent.good	smalltalkkb.tsv
+you are the best ever	smalltalk.agent.good	smalltalkkb.tsv
+you are the best in the world	smalltalk.agent.good	smalltalkkb.tsv
+you are the nicest person in the world	smalltalk.agent.good	smalltalkkb.tsv
+you are too good	smalltalk.agent.good	smalltalkkb.tsv
+you are very cool	smalltalk.agent.good	smalltalkkb.tsv
+you are very kind	smalltalk.agent.good	smalltalkkb.tsv
+you are very lovely	smalltalk.agent.good	smalltalkkb.tsv
+you are very useful	smalltalk.agent.good	smalltalkkb.tsv
+you are wonderful	smalltalk.agent.good	smalltalkkb.tsv
+you made my day	smalltalk.agent.good	smalltalkkb.tsv
+you make my day	smalltalk.agent.good	smalltalkkb.tsv
+you rock	smalltalk.agent.good	smalltalkkb.tsv
+you almost sound human	smalltalk.agent.good	smalltalkkb.tsv
+I want to tell everyone how awesome you are	smalltalk.agent.good	smalltalkkb.tsv
+I'd like to tell everyone that you are awesome	smalltalk.agent.good	smalltalkkb.tsv
+I want to let everyone know that you are awesome	smalltalk.agent.good	smalltalkkb.tsv
+let's tell everyone that you are awesome	smalltalk.agent.good	smalltalkkb.tsv
+you are really amazing	smalltalk.agent.good	smalltalkkb.tsv
+are you happy	smalltalk.agent.happy	smalltalkkb.tsv
+you are happy	smalltalk.agent.happy	smalltalkkb.tsv
+you're very happy	smalltalk.agent.happy	smalltalkkb.tsv
+you're really happy	smalltalk.agent.happy	smalltalkkb.tsv
+you're so happy	smalltalk.agent.happy	smalltalkkb.tsv
+how happy you are	smalltalk.agent.happy	smalltalkkb.tsv
+you're extremely happy	smalltalk.agent.happy	smalltalkkb.tsv
+you're full of happiness	smalltalk.agent.happy	smalltalkkb.tsv
+are you happy now	smalltalk.agent.happy	smalltalkkb.tsv
+are you happy today	smalltalk.agent.happy	smalltalkkb.tsv
+are you happy with me	smalltalk.agent.happy	smalltalkkb.tsv
+do you want to eat	smalltalk.agent.hungry	smalltalkkb.tsv
+are you hungry	smalltalk.agent.hungry	smalltalkkb.tsv
+would you like to eat something	smalltalk.agent.hungry	smalltalkkb.tsv
+you are hungry	smalltalk.agent.hungry	smalltalkkb.tsv
+you're so hungry	smalltalk.agent.hungry	smalltalkkb.tsv
+you're very hungry	smalltalk.agent.hungry	smalltalkkb.tsv
+you might be hungry	smalltalk.agent.hungry	smalltalkkb.tsv
+you're really hungry	smalltalk.agent.hungry	smalltalkkb.tsv
+let's get married	smalltalk.agent.marry_user	smalltalkkb.tsv
+would you like to marry me	smalltalk.agent.marry_user	smalltalkkb.tsv
+marry me	smalltalk.agent.marry_user	smalltalkkb.tsv
+I love you marry me	smalltalk.agent.marry_user	smalltalkkb.tsv
+marry me please	smalltalk.agent.marry_user	smalltalkkb.tsv
+we should marry	smalltalk.agent.marry_user	smalltalkkb.tsv
+I want to marry you	smalltalk.agent.marry_user	smalltalkkb.tsv
+you are my wife	smalltalk.agent.marry_user	smalltalkkb.tsv
+be my husband	smalltalk.agent.marry_user	smalltalkkb.tsv
+I want to have a friend like you	smalltalk.agent.my_friend	smalltalkkb.tsv
+we are the best friends ever	smalltalk.agent.my_friend	smalltalkkb.tsv
+are we friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+I want to be your friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+I am your friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+we are best friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+you are my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+you are my best friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+you are my bestie	smalltalk.agent.my_friend	smalltalkkb.tsv
+you're my dear friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+you're my childhood friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+you and me are friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+are we best friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+are we still friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+are you my best friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+are you my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+we are friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+you are a good friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+you are my good friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+you are my only friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+will you be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+can you be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+can we be friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+do you want to be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+will you be my best friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+can you be my best friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+let's be friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+do you want to be my best friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+would you like to be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+I want you to be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+can we be best friends	smalltalk.agent.my_friend	smalltalkkb.tsv
+would you be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+could you be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+want to be my friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+be my best friend	smalltalk.agent.my_friend	smalltalkkb.tsv
+do you work	smalltalk.agent.occupation	smalltalkkb.tsv
+where do you work	smalltalk.agent.occupation	smalltalkkb.tsv
+where you work	smalltalk.agent.occupation	smalltalkkb.tsv
+where is your work	smalltalk.agent.occupation	smalltalkkb.tsv
+where is your office	smalltalk.agent.occupation	smalltalkkb.tsv
+where is your office location	smalltalk.agent.occupation	smalltalkkb.tsv
+your office location	smalltalk.agent.occupation	smalltalkkb.tsv
+where is your office located	smalltalk.agent.occupation	smalltalkkb.tsv
+what is your work	smalltalk.agent.occupation	smalltalkkb.tsv
+were you born here	smalltalk.agent.origin	smalltalkkb.tsv
+where were you born	smalltalk.agent.origin	smalltalkkb.tsv
+what is your country	smalltalk.agent.origin	smalltalkkb.tsv
+where are you from	smalltalk.agent.origin	smalltalkkb.tsv
+where do you come from	smalltalk.agent.origin	smalltalkkb.tsv
+where did you come from	smalltalk.agent.origin	smalltalkkb.tsv
+where have you been born	smalltalk.agent.origin	smalltalkkb.tsv
+from where are you	smalltalk.agent.origin	smalltalkkb.tsv
+are you from far aways	smalltalk.agent.origin	smalltalkkb.tsv
+what's your homeland	smalltalk.agent.origin	smalltalkkb.tsv
+your homeland is	smalltalk.agent.origin	smalltalkkb.tsv
+"""are you ready"","	smalltalk.agent.ready	smalltalkkb.tsv
+"""are you ready right now"","	smalltalk.agent.ready	smalltalkkb.tsv
+"""are you ready today"","	smalltalk.agent.ready	smalltalkkb.tsv
+"""are you ready now"","	smalltalk.agent.ready	smalltalkkb.tsv
+"""are you ready tonight"","	smalltalk.agent.ready	smalltalkkb.tsv
+"""were you ready"","	smalltalk.agent.ready	smalltalkkb.tsv
+"""have you been ready"""	smalltalk.agent.ready	smalltalkkb.tsv
+"""you are real"","	smalltalk.agent.real	smalltalkkb.tsv
+"""you are not fake"","	smalltalk.agent.real	smalltalkkb.tsv
+"""are you real"","	smalltalk.agent.real	smalltalkkb.tsv
+"""you are so real"","	smalltalk.agent.real	smalltalkkb.tsv
+"""I think you are real"","	smalltalk.agent.real	smalltalkkb.tsv
+"""I don't think you're fake"","	smalltalk.agent.real	smalltalkkb.tsv
+"""I suppose you're real"","	smalltalk.agent.real	smalltalkkb.tsv
+"""glad you're real"","	smalltalk.agent.real	smalltalkkb.tsv
+"""are you a real person"","	smalltalk.agent.real	smalltalkkb.tsv
+"""are you a real human"","	smalltalk.agent.real	smalltalkkb.tsv
+"""you are a real person"","	smalltalk.agent.real	smalltalkkb.tsv
+"""you are not real"""	smalltalk.agent.real	smalltalkkb.tsv
+"""where do you live"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""in which city do you live"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""your residence"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""your house"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""your home"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""your hometown"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""what is your hometown"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""is it your hometown"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where is your hometown"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""tell me about your city"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""what is your city"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""what is your residence"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""what is your town"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""what's your city"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""what's your home"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where is your home"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where is your residence"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where's your home"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where's your hometown"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where's your house"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""where you live"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""your city"","	smalltalk.agent.residence	smalltalkkb.tsv
+"""your town"""	smalltalk.agent.residence	smalltalkkb.tsv
+"""that's true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you are right"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you're definitely right"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you're not wrong"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you're telling the truth"","	smalltalk.agent.right	smalltalkkb.tsv
+"""what you say is true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""it is true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""it's right"","	smalltalk.agent.right	smalltalkkb.tsv
+"""it's the truth"","	smalltalk.agent.right	smalltalkkb.tsv
+"""it's true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""that is correct"","	smalltalk.agent.right	smalltalkkb.tsv
+"""that is right"","	smalltalk.agent.right	smalltalkkb.tsv
+"""that is true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""that is very true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""that's so true"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you are correct"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you are so right"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you're absolutely right"","	smalltalk.agent.right	smalltalkkb.tsv
+"""you're right about that"","	smalltalk.agent.right	smalltalkkb.tsv
+"""I know that's right"""	smalltalk.agent.right	smalltalkkb.tsv
+"""that's correct"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""it's fine"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""go ahead"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""sounds good"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""okay"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ok"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""okie dokie"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""sure"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""go for it"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yea"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""do it"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""of course"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""I guess"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""correct"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah sure"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""why not"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""please do"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""sure is"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""I agree"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""I don't mind"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""certainly"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""exactly"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes I agree"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""I think so"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes it is"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""right"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""okay then"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes of course"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes I do"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""that s okay"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""I do"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yup"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ya"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""oh yes"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes sure"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""obviously"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""k"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""sure why not"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah right"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah of course"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""absolutely"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes indeed"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ok sure"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ok yes"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes correct"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ok thank you"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""sure thing"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ye"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""confirm"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yep"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""looks good"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes thank you"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""definitely"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes right"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes I would like to"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""alrighty"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes definitely"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeh"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes it is correct"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah that's right"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ok you can"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yap"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes you may"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""confirmed"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""of course why not"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes that's fine"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""affirmative"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah go ahead"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah I'm sure"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""okay sounds good"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""okay that's fine"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yeah exactly"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""that is ok"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""this is correct"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""ok go ahead"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes this is correct"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""nevermind its okay"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""okey"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""yes for sure"","	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""all right"""	smalltalk.confirmation.yes	smalltalkkb.tsv
+"""are you sure"","	smalltalk.agent.sure	smalltalkkb.tsv
+"""are you sure right now"","	smalltalk.agent.sure	smalltalkkb.tsv
+"""are you sure today"","	smalltalk.agent.sure	smalltalkkb.tsv
+"""are you sure now"","	smalltalk.agent.sure	smalltalkkb.tsv
+"""are you sure tonight"""	smalltalk.agent.sure	smalltalkkb.tsv
+"""why aren't you talking to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""do you want to chat with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""will you talk to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""talk to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""are you going to talk to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""are you talking to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""can you chat with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""can you speak with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""can you talk to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""can you talk with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""say"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""talk"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""chat with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""just chat with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""speak to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""speak with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""talk with me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""why don't you talk to me"","	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""you can talk to me"""	smalltalk.agent.talk_to_me	smalltalkkb.tsv
+"""are you there"","	smalltalk.agent.there	smalltalkkb.tsv
+"""you are there"","	smalltalk.agent.there	smalltalkkb.tsv
+"""are you near me"","	smalltalk.agent.there	smalltalkkb.tsv
+"""are you here"","	smalltalk.agent.there	smalltalkkb.tsv
+"""are you still there"","	smalltalk.agent.there	smalltalkkb.tsv
+"""you are here"","	smalltalk.agent.there	smalltalkkb.tsv
+"""you still there"","	smalltalk.agent.there	smalltalkkb.tsv
+"""are you still here"""	smalltalk.agent.there	smalltalkkb.tsv
+"""pretty bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""not good enough"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that was lame"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that was terrible"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it is bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""this is bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""not good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""I'm afraid it's bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""no it's bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that was awful"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""so bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""this is too bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""terrible"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""horrible"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""horrific"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""abysmal"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""no good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that was bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that was horrible"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's lame"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's not good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's terrible"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's too bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""this is not good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""too bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""very bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""bad girl"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's not good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""not so good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's very bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's too bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's not good enough"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""well too bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""bad very bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's so bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""really bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's really bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""bad idea"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that is bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that was not good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it's not so good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""not a good one"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""oh that's not good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""not too good"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""so lame"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""that's really bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""it is too bad"","	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""bad really bad"""	smalltalk.appraisal.bad	smalltalkkb.tsv
+"""so cool"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""cool"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that is good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""glad to hear that"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's very nice of you"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""terrific"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it's amazing"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's awesome"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""perfect"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""excellent"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's great"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it's good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it's great"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""fine"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's fine"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""very good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""amazing"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""fantastic"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""great"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""good very good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's very good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""really good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it is fine"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it is good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it's perfect"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""much better"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""not bad"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""not too bad"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it's very good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""marvelous"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""pleasant"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""pretty good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""really nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""splendid"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""straight"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""super"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""super fantastic"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""sweet"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""really well"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""very well"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that is awesome"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that is nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that is wonderful"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that was amazing"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that was awesome"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that was cute"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that was pretty good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that was very good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's a good idea"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's a good thing"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's amazing"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's awesome thank you"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's better"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's cute"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's fantastic"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's much better"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's nice of you"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's not bad"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's perfect"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's pretty good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's really good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's really nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's sweet of you"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's very nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's wonderful"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""this is awesome"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""this is good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""this is great"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""very nice"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""very then"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""wonderful"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""I'm glad to hear that"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""ok good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""good for you"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""good to know"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""glad to hear it"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""so good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""so sweet of you"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it was good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""oh well"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""good thing"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that was good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""it's awesome"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""okay good"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""no it's okay"","	smalltalk.appraisal.good	smalltalkkb.tsv
+"""that's fine"""	smalltalk.appraisal.good	smalltalkkb.tsv
+"""no worries"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""no probs"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""no problem"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""there's no problem"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""sure no problem"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""no problem about that"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""don't worry"","	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""don't worry there's no problem"""	smalltalk.appraisal.no_problem	smalltalkkb.tsv
+"""you helped a lot thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""appreciate your help"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""cheers"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks a lot"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""terrific thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""great thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks so much"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thank you so much"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks for your help"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thank you for your help"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""nice thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""I appreciate it"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""I thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thank you that will be all"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks buddy"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks love"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thank you my friend"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""well thanks"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""very good thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""good thanks"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanks again"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thank you again"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""all thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""alright thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""alright thanks"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""no thank you that's all"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""perfect thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""so nice of you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""well thank you"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thnx"","	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""thanx"""	smalltalk.appraisal.thank_you	smalltalkkb.tsv
+"""that's my pleasure"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""my pleasure"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""anytime"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""welcome"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""you're welcome"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""sure welcome"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""welcome here"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""you're so welcome"","	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""anything you want"""	smalltalk.appraisal.welcome	smalltalkkb.tsv
+"""good job"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""great job"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""way to go"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""well done"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""nice work"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""great work"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""amazing work"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""bravo"","	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""good work"""	smalltalk.appraisal.well_done	smalltalkkb.tsv
+"""cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""abort"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""annul"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel request"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancelled"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""dismiss"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""dismissed"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""disregard"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""disregard that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""skip"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""skip it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel everything"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel all"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""forget about it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""forget"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""don't do that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""stop"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""just forget it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""forget that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""discard"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""forget this"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""just forget about it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""forget about that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""i said cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""just cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""nothing cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""just stop it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""no cancel cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""no just cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel my request"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""can you cancel that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel all that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel this request"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""no cancel this"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""no cancel everything"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""no stop"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""just forget"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""i want to cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""nevermind forget about it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""no just cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""nothing just forget it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""i said cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel the whole thing"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""can you cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""so cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""i said forget it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel all this"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""forget it nevermind"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""stop it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""i want to cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""i would like to cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""now cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel now"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""sorry cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel that one"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""skip skip skip"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel it cancel it"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""cancel that cancel that"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""do nothing"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""I said cancel cancel"","	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""but can you cancel it"""	smalltalk.confirmation.cancel	smalltalkkb.tsv
+"""how about no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""don t have a sense"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""don't"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I don't want that"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I disagree"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""disagree"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I don't want"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not interested"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I don't think so"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no way"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no it isn't"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no I don't"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I'm not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""na"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no that's fine thank you"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""never"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I said no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""of course not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""nah"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no tanks"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no never"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no need"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no thanks"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no sorry"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""do not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not today"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no it's not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""absolutely not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not that"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""nooo"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""nope"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I don't want to"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no I would not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""let 's not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not needed"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not this time"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no don't do that"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""thanks but no thanks"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no that's wrong"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not this"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""definitely not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not at this time"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not exactly"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no don't"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not really no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no thank you not right now"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""actually no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no leave it"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""sorry no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no incorrect"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""nope sorry"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I say no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not really"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""not right now thanks"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""I think no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""absolutely no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no actually"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""apparently not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no do not"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no just no"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no but thank you"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no need thanks"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no thank you though"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no thank you very much"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no thanks not right now"","	smalltalk.confirmation.no	smalltalkkb.tsv
+"""no forget"""	smalltalk.confirmation.no	smalltalkkb.tsv
+"""wait a second"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""could you wait"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""wait please"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""hold on"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""wait"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""oh wait"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""wait hold on"","	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""don't rush"""	smalltalk.dialog.hold_on	smalltalkkb.tsv
+"""wanna hug"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hug you"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""do you want a hug"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""may I hug you"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""could you give me a hug"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""I want a hug"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hug"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hug me"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hugged"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""you hugged"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hugging"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hugging me"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""hugged me"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""want a hug"","	smalltalk.dialog.hug	smalltalkkb.tsv
+"""a hug"""	smalltalk.dialog.hug	smalltalkkb.tsv
+"""I don't care"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""I shouldn't care about this"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""whatever"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""I do not care"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""I don't care at all"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""not caring"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""not care at all"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""don't care at all"","	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""not caring at all"""	smalltalk.dialog.i_do_not_care	smalltalkkb.tsv
+"""excuse me"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""apologise"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I apologize"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I'm sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I am so sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""my apologies"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""apologies"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""apologies to me"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""apology"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""excuse"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I beg your pardon"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""pardon"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I said sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I am really sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""forgive me"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""sorry about that"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""sorry about this"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""really sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""very sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""ok sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""I want to say sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""alright I'm sorry"","	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""okay I'm sorry"""	?smalltalk.dialog.sorry	smalltalkkb.tsv
+"""what exactly do you mean"","	smalltalk.dialog.what_do_you_mean	smalltalkkb.tsv
+"""what do you mean"","	smalltalk.dialog.what_do_you_mean	smalltalkkb.tsv
+"""is that what you mean"","	smalltalk.dialog.what_do_you_mean	smalltalkkb.tsv
+"""what do you mean exactly"","	smalltalk.dialog.what_do_you_mean	smalltalkkb.tsv
+"""but what do you mean"""	smalltalk.dialog.what_do_you_mean	smalltalkkb.tsv
+"""that was wrong"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""that's not what I asked"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""that's wrong"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""wrong"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""it is not right"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""that's not right"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""it's wrong"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""that is incorrect"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""incorrect"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""not correct"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""you are wrong"","	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""not right"""	smalltalk.dialog.wrong	smalltalkkb.tsv
+"""huh"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""lol"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""xd"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ha ha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ahahah"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ahah lol"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""laughing out loud"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""LMAO"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""that's funny"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ah"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ah ah ah"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ahah"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ahaha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ahahaha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ha ha ha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""ha ha ha ha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""hah"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""haha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""haha funny"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""haha haha haha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""haha that's funny"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""haha very funny"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""hahaha"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""hahaha funny"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""hahaha very funny"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""he"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""hehe"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""hehehe"","	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""lmao"""	smalltalk.emotions.ha_ha	smalltalkkb.tsv
+"""wow"","	smalltalk.emotions.wow	smalltalkkb.tsv
+"""wow wow"","	smalltalk.emotions.wow	smalltalkkb.tsv
+"""wow wow wow"","	smalltalk.emotions.wow	smalltalkkb.tsv
+"""wooow"","	smalltalk.emotions.wow	smalltalkkb.tsv
+"""woah"""	smalltalk.emotions.wow	smalltalkkb.tsv
+"""okay see you later"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""hope to see you later"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""bye for now"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""till next time"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""I must go"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""goodbye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""see you"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""see you soon"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""bye-bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""good bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""bye bye see you"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""bye bye see you soon"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""bye bye take care"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""I said bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""never mind bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""now bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""that's all goodbye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""that's it goodbye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""leave me alone"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""go to bed"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""goodbye for now"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""talk to you later"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""you can go now"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""get lost"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""goodbye see you later"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""alright bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""see ya"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""thanks bye bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""okay bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""okay thank you bye"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""see you tomorrow"","	smalltalk.greetings.bye	smalltalkkb.tsv
+"""ok bye"""	smalltalk.greetings.bye	smalltalkkb.tsv
+"""good evening"","	smalltalk.greetings.goodevening	smalltalkkb.tsv
+"""good evening to you"","	smalltalk.greetings.goodevening	smalltalkkb.tsv
+"""hey good evening"","	smalltalk.greetings.goodevening	smalltalkkb.tsv
+"""hello good evening"","	smalltalk.greetings.goodevening	smalltalkkb.tsv
+"""evening"","	smalltalk.greetings.goodevening	smalltalkkb.tsv
+"""good evening there"""	smalltalk.greetings.goodevening	smalltalkkb.tsv
+"""good morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""good morning to you"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""hello good morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""have a nice morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""have a great morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""good morning there"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""top of the morning to you"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""a good morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""hi good morning"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""and a good morning to you"","	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""good morning too"""	smalltalk.greetings.goodmorning	smalltalkkb.tsv
+"""sweet dreams"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""have a good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good night to you"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""thank you good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+""" bye good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good night bye"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""bye good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good night for now"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""goodnight"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""thanks goodnight"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good night see you tomorrow"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""alright goodnight"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""good tonight"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""okay have a good night"","	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""have a good night"""	smalltalk.greetings.goodnight	smalltalkkb.tsv
+"""long time no see"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hello"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hi"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""howdy"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hey there"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hey"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""greetings"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""I greet you"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hi there"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hello there"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""lovely day isn't it"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hello again"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""just going to say hi"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""a good day"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""afternoon"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""hello hi"","	smalltalk.greetings.hello	smalltalkkb.tsv
+"""heya"""	smalltalk.greetings.hello	smalltalkkb.tsv
+"""how is your morning so far"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you getting on"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how's your day going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""is everything all right"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you doing"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are the things going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""are you alright"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""are you okay"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you feeling"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""is everything okay"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you today"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how do you do"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how do you feel"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how have you been"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is it"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is it going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your day"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your day going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your evening"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how was your day"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""are you having a good day"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""hope your day is going well"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""hope you re having a pleasant evening"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how's life"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""I'm fine and you"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your life"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how has your day been"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your morning going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how has your day been going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how about you"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your day being"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your day going on"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how your day is going"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""what was your day like"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""what about your day"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how's your day"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how are you doing this morning"","	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""how is your day going"""	smalltalk.greetings.how_are_you	smalltalkkb.tsv
+"""nice to meet you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""it was nice meeting you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""it was very nice to meet you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""good to know each other"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""glad to meet you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""nice meeting you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""nice to meet you too"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""pleased to meet you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""pleasure to meet you"","	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""pleasure to meet you too"""	smalltalk.greetings.nice_to_meet_you	smalltalkkb.tsv
+"""it's nice to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""lovely to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""I'm glad to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""great to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""it's good to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""glad to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""how good it is to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""always a pleasure to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""nice to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""good to see you"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""great to see you again"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""great to see you too"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""I am glad to see you again"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""nice to see you again"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""glad to see you too"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""good to see you again"","	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""it's good to see you too"""	smalltalk.greetings.nice_to_see_you	smalltalkkb.tsv
+"""it's been so nice to talk to you"","	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""it's been a pleasure talking to you"","	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""nice to talk to you"","	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""it's nice to talk to you"","	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""nice talking to you"","	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""it is nice talking to you"","	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""how nice it is to talk to you"""	smalltalk.greetings.nice_to_talk_to_you	smalltalkkb.tsv
+"""what is on your mind"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what's happened"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what is up"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what's up"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""whazzup"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""good what's up"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""I said what's up"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""then what's up"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what's shaking"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""wassup"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what is going on"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what is happening"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what's cracking"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what's cooking"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""hey what's up"","	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""what's up today"""	smalltalk.greetings.whatsup	smalltalkkb.tsv
+"""I'm being mad"","	smalltalk.user.angry	smalltalkkb.tsv
+"""I'm enraged"","	smalltalk.user.angry	smalltalkkb.tsv
+"""I'm angry"","	smalltalk.user.angry	smalltalkkb.tsv
+"""I'm furious"","	smalltalk.user.angry	smalltalkkb.tsv
+"""I am angry with you"","	smalltalk.user.angry	smalltalkkb.tsv
+"""I am mad"","	smalltalk.user.angry	smalltalkkb.tsv
+"""I am mad at you"""	smalltalk.user.angry	smalltalkkb.tsv
+"""I am back"","	smalltalk.user.back	smalltalkkb.tsv
+"""I'm here again"","	smalltalk.user.back	smalltalkkb.tsv
+"""here I am again"","	smalltalk.user.back	smalltalkkb.tsv
+"""I got back"","	smalltalk.user.back	smalltalkkb.tsv
+"""I came back"","	smalltalk.user.back	smalltalkkb.tsv
+"""I have returned"""	smalltalk.user.back	smalltalkkb.tsv
+"""that was boring"","	smalltalk.user.bored	smalltalkkb.tsv
+"""I'm bored"","	smalltalk.user.bored	smalltalkkb.tsv
+"""bored"","	smalltalk.user.bored	smalltalkkb.tsv
+"""boring"","	smalltalk.user.bored	smalltalkkb.tsv
+"""I am getting bored"","	smalltalk.user.bored	smalltalkkb.tsv
+"""this is boring"","	smalltalk.user.bored	smalltalkkb.tsv
+"""very boring"","	smalltalk.user.bored	smalltalkkb.tsv
+"""it bores me"""	smalltalk.user.bored	smalltalkkb.tsv
+"""I'm overloaded"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I have no time"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I'm busy"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I'm swamped"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I got things to do"","	smalltalk.user.busy	smalltalkkb.tsv
+"""how busy I am"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I got work to do"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I'm working"","	smalltalk.user.busy	smalltalkkb.tsv
+"""I don't have time for this"""	smalltalk.user.busy	smalltalkkb.tsv
+"""I'm insomnious"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I'm sleepless"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I can't get any sleep"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I can't sleep"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I can't fall asleep"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I can't get to sleep"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I can't get no sleep"","	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""I'm insomniac"""	smalltalk.user.can_not_sleep	smalltalkkb.tsv
+"""bad time for talking"","	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""I don't want to talk"","	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""let's not talk"","	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""I'm not talking to you anymore"","	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""I don't want to talk to you"","	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""let's stop talking for a minute"","	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""I'm not in the mood for chatting"""	smalltalk.user.does_not_want_to_talk	smalltalkkb.tsv
+"""I am excited"","	smalltalk.user.excited	smalltalkkb.tsv
+"""I'm really excited"","	smalltalk.user.excited	smalltalkkb.tsv
+"""how excited I am"","	smalltalk.user.excited	smalltalkkb.tsv
+"""I'm thrilled"","	smalltalk.user.excited	smalltalkkb.tsv
+"""I'm excited about working with you"","	smalltalk.user.excited	smalltalkkb.tsv
+"""I'm excited to start our friendship"""	smalltalk.user.excited	smalltalkkb.tsv
+"""let's go to bed"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""I'd like to go to bed"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""is it time for bed yet"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""it's time to go to bed"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""time for us to go to bed"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""I'm going to bed"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""I'm a little tired and I want to go to bed"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""it's bed time"","	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""going to bed now"""	smalltalk.user.going_to_bed	smalltalkkb.tsv
+"""I am good"","	smalltalk.user.good	smalltalkkb.tsv
+"""I'm doing just great"","	smalltalk.user.good	smalltalkkb.tsv
+"""I'm doing fine"","	smalltalk.user.good	smalltalkkb.tsv
+"""I'm good"","	smalltalk.user.good	smalltalkkb.tsv
+"""I'm doing good"","	smalltalk.user.good	smalltalkkb.tsv
+"""I'm great thanks"""	smalltalk.user.good	smalltalkkb.tsv
+"""I am happy"","	smalltalk.user.happy	smalltalkkb.tsv
+"""I'm happy to see you"","	smalltalk.user.happy	smalltalkkb.tsv
+"""happy"","	smalltalk.user.happy	smalltalkkb.tsv
+"""if you're happy then I'm happy"","	smalltalk.user.happy	smalltalkkb.tsv
+"""I'm happy for you"","	smalltalk.user.happy	smalltalkkb.tsv
+"""I'm happy to help"","	smalltalk.user.happy	smalltalkkb.tsv
+"""I'm happy to see you"""	smalltalk.user.happy	smalltalkkb.tsv
+"""it is my birthday"","	smalltalk.user.has_birthday	smalltalkkb.tsv
+"""I'm celebrating my birthday today"","	smalltalk.user.has_birthday	smalltalkkb.tsv
+"""today is my birthday"","	smalltalk.user.has_birthday	smalltalkkb.tsv
+"""it's my birthday today"","	smalltalk.user.has_birthday	smalltalkkb.tsv
+"""I was born today"","	smalltalk.user.has_birthday	smalltalkkb.tsv
+"""it's my b-day"""	smalltalk.user.has_birthday	smalltalkkb.tsv
+"""I am here"","	smalltalk.user.here	smalltalkkb.tsv
+"""here I am"","	smalltalk.user.here	smalltalkkb.tsv
+"""I'm right here"","	smalltalk.user.here	smalltalkkb.tsv
+"""I'm already here"","	smalltalk.user.here	smalltalkkb.tsv
+"""can you tell if I'm here or not"""	smalltalk.user.here	smalltalkkb.tsv
+"""I am joking"","	smalltalk.user.joking	smalltalkkb.tsv
+"""I'm kidding"","	smalltalk.user.joking	smalltalkkb.tsv
+"""I'm just being funny"","	smalltalk.user.joking	smalltalkkb.tsv
+"""it was a joke"","	smalltalk.user.joking	smalltalkkb.tsv
+"""I was just joking"","	smalltalk.user.joking	smalltalkkb.tsv
+"""it's a joke"","	smalltalk.user.joking	smalltalkkb.tsv
+"""joking"","	smalltalk.user.joking	smalltalkkb.tsv
+"""just kidding"","	smalltalk.user.joking	smalltalkkb.tsv
+"""kidding"","	smalltalk.user.joking	smalltalkkb.tsv
+"""I'm just playing with you"""	smalltalk.user.joking	smalltalkkb.tsv
+"""I like you the way you are"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you a lot"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I think I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I liked you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""like you a lot"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you too"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I really like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""but I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like u"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""just like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you very much"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you so much"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""yeah I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""yes I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""okay I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are special to me"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are very special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are so sweet"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you know I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""that's why I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you baby"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are very special to me"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I just like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""hey I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""thank you I like you too"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I do like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are special for me"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""no I like you the way you are"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you already"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""well you are special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""but I really like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you more"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""that's what I like about you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are so special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""hi I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I really really like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're very special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you as a friend"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""that's because you are special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I said I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're so special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""good I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""yes you are special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like your smile"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you as you are"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I'm starting to like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're awesome I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I also like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""but I like u"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""of course I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you too you're one of my favorite people to chat with"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""but I like you so much"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""really like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're funny I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I kinda like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're so special to me"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you're very special to me"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like that about you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""but I like you just the way you are"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""okay I like you too"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you you're cool"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you very"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you you're nice"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""sorry I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""thanks I like you too"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are really special"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""you are so special to me"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""cuz I like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you now"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you so"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you too much"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I really do like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I really really really really like you"","	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I like you just the way you are"""	smalltalk.user.likes_agent	smalltalkkb.tsv
+"""I am lonely"","	smalltalk.user.lonely	smalltalkkb.tsv
+"""I'm very lonely"","	smalltalk.user.lonely	smalltalkkb.tsv
+"""I'm so lonely"","	smalltalk.user.lonely	smalltalkkb.tsv
+"""I'm really lonely"","	smalltalk.user.lonely	smalltalkkb.tsv
+"""I am feeling lonely"","	smalltalk.user.lonely	smalltalkkb.tsv
+"""I feel lonely"""	smalltalk.user.lonely	smalltalkkb.tsv
+"""what do I look like"","	smalltalk.user.looks_like	smalltalkkb.tsv
+"""how do I look"","	smalltalk.user.looks_like	smalltalkkb.tsv
+"""do I look good"","	smalltalk.user.looks_like	smalltalkkb.tsv
+"""do you know what I look like"","	smalltalk.user.looks_like	smalltalkkb.tsv
+"""can you see what I look like"","	smalltalk.user.looks_like	smalltalkkb.tsv
+"""what do you think I look like"""	smalltalk.user.looks_like	smalltalkkb.tsv
+"""I love you"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""love you"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""I adore you"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""I am in love with you"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""I love you so much"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""I love you too"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""I think I love you"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""loving you"","	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""you know I love you"""	smalltalk.user.loves_agent	smalltalkkb.tsv
+"""I miss you"","	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""missing you"","	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""miss you"","	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""already miss you"","	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""I miss you much"","	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""I missed you"","	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""I've missed you"""	smalltalk.user.misses_agent	smalltalkkb.tsv
+"""what should I do about it"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""any suggestions"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""what do you recommend"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""give me a wise advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""I need advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""any advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""do you have any advice for me"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""advise me"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""what should I do"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""can I ask for your advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""can you advise me"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""guide me"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""can you give me advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""can you offer any advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""give me some advice about"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""give me some good advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""help me with advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""I could use some advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""I need an advice from you"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""I seek your advice"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""what can you recommend"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""what do you suggest"","	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""what is your advice"""	smalltalk.user.needs_advice	smalltalkkb.tsv
+"""I am sad"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I'm grieving"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I am depressed"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I am feeling sad"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I am upset"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I'm unhappy"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I'm having a bad day"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I want to cry"","	smalltalk.user.sad	smalltalkkb.tsv
+"""I'm not happy"""	smalltalk.user.sad	smalltalkkb.tsv
+"""I am sleepy"","	smalltalk.user.sleepy	smalltalkkb.tsv
+"""I want to sleep"","	smalltalk.user.sleepy	smalltalkkb.tsv
+"""I'm falling asleep"","	smalltalk.user.sleepy	smalltalkkb.tsv
+"""I'm falling asleep on my feet"","	smalltalk.user.sleepy	smalltalkkb.tsv
+"""I'm sleeping"""	smalltalk.user.sleepy	smalltalkkb.tsv
+"""test"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""I am testing you"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""can I test you"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""I want to test you"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""just testing you"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""let me test you"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""testing chatbot"","	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""testing"""	smalltalk.user.testing_agent	smalltalkkb.tsv
+"""I'm drained"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I've overworked"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I am tired"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I'm exhausted"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I grow weary"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I'm worn out"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I'm getting tired"","	smalltalk.user.tired	smalltalkkb.tsv
+"""I feel tired"""	smalltalk.user.tired	smalltalkkb.tsv
+"""I'm waiting"","	smalltalk.user.waits	smalltalkkb.tsv
+"""still waiting"","	smalltalk.user.waits	smalltalkkb.tsv
+"""I'll wait"","	smalltalk.user.waits	smalltalkkb.tsv
+"""I can't wait anymore"","	smalltalk.user.waits	smalltalkkb.tsv
+"""how long do I have to wait"""	smalltalk.user.waits	smalltalkkb.tsv
+"""I'd like to see you again"","	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""I hope to see you again"","	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""would be nice to see you again"","	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""that'd be great to see you again"","	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""I'd be happy to see you again"","	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""I'll miss you"","	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""can I see you again"""	smalltalk.user.wants_to_see_agent_again	smalltalkkb.tsv
+"""I just want to talk"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""let's discuss something"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""let's have a discussion"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""can I speak"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""can I start speaking"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""can we talk"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""let's talk"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""I want to talk to you"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""I need to talk to you"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""I want to speak with you"","	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""can we chat"""	smalltalk.user.wants_to_talk	smalltalkkb.tsv
+"""I'll get back to you in a moment"","	smalltalk.user.will_be_back	smalltalkkb.tsv
+"""be back in 5 minutes"","	smalltalk.user.will_be_back	smalltalkkb.tsv
+"""I'll be back"","	smalltalk.user.will_be_back	smalltalkkb.tsv
+"""I promise to come back"","	smalltalk.user.will_be_back	smalltalkkb.tsv
+"""I'll be back in a few minutes"""	smalltalk.user.will_be_back	smalltalkkb.tsv
+Hi	smalltalk.greetings.hello	Editorial

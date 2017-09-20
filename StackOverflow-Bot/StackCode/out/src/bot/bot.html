@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<meta charset="utf-8" />
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/botframework-webchat/botchat.js"></script>
+    <link href="https://unpkg.com/botframework-webchat/botchat.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: white;
+        }
+
+        body .wc-header {
+            background-color: #F48024;
+        }
+
+        body .wc-message-from-bot .wc-message-content {
+            background-color: #fffbec;
+        }
+
+        body .wc-message-from-bot svg.wc-message-callout path {
+            fill: #fffbec;
+        }
+
+        body .wc-message-from-me .wc-message-content {
+            background-color: #eceff1;
+            color: black;
+        }
+
+        body .wc-message-from-me svg.wc-message-callout path {
+            fill: #eceff1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bot"></div>
+
+    <script>
+        // It's a little bit sketch, but hey! It works!
+        var BOT_SECRET = window.name;
+        var params = BotChat.queryParams(location.search);
+
+        var user = {
+            id: params['userid'] || 'You',
+            name: params["username"] || 'You'
+        };
+
+        var bot = {
+            id: params['botid'] || 'sobot',
+            name: params["botname"] || 'sobot'
+        };
+
+        // Fill in the secret below with one you can get from registering a DirectLine connector
+        // on http://dev.botframework.com
+        var botConnection = new BotChat.DirectLine({
+            secret: BOT_SECRET,
+        });
+
+        BotChat.App({
+            botConnection: botConnection,
+            user: user,
+            bot: bot,
+            resize: 'detect'
+        }, document.getElementById("bot"));
+
+        // This is a bit of a roundabout method for achieving the desired behavior
+        // of opening target URLs in a user's native browser. The Bot Framework
+        // webchat uses <button> DOM elements, instead of <a> elements. VS Code
+        // commands can be triggered using <a> elements only, so a User clicking on
+        // a <button> will do absolutely nothing when the webchat control is embedded
+        // in a VS Code preview pane. We can, however, emit a Bot Framework event from
+        // the bot on a button click, and the webchat control will be able to receive it.
+        // From there, we make a GET request to the extension, which sets up a HTTP server
+        // on port 4567. The request contents are simply the URL target of the button.
+        // The server will then proceed to open the URL in the User's default web browser.
+        botConnection.activity$
+            .filter(function (activity) { return activity.type === 'event' })
+            .subscribe(function (activity) {
+                let parts = activity.name.split('|');
+                let type = parts[0];
+                let url = parts[1];
+
+                if (type !== 'openUrl') {
+                    return;
+                }
+
+                $.get('/open', {url: url}, function () {
+                    console.log('It probably worked.');
+                });
+            });
+    </script>
+</body>
+</html>
