@@ -1,0 +1,421 @@
+{
+  "luis_schema_version": "2.1.0",
+  "versionId": "0.1",
+  "name": "Notes",
+  "desc": "",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "None"
+    },
+    {
+      "name": "Note.Create",
+      "inherits": {
+        "domain_name": "Note",
+        "model_name": "Create"
+      }
+    },
+    {
+      "name": "Note.Delete",
+      "inherits": {
+        "domain_name": "Note",
+        "model_name": "Delete"
+      }
+    },
+    {
+      "name": "Note.ReadAloud",
+      "inherits": {
+        "domain_name": "Note",
+        "model_name": "ReadAloud"
+      }
+    }
+  ],
+  "entities": [
+    {
+      "name": "Note.Text",
+      "inherits": {
+        "domain_name": "Note",
+        "model_name": "Text"
+      }
+    },
+    {
+      "name": "Note.Title",
+      "inherits": {
+        "domain_name": "Note",
+        "model_name": "Title"
+      }
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "bing_entities": [],
+  "actions": [],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "help",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "drive me home",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "add mark to guest list",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 4,
+          "endPos": 7
+        },
+        {
+          "entity": "Note.Title",
+          "startPos": 12,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "add Fred George to onenote",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 4,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "Add oatmeal to shopping list .",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 4,
+          "endPos": 10
+        },
+        {
+          "entity": "Note.Title",
+          "startPos": 15,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "send lighter fluid to onenote",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 5,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "add friends to party list in memos",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 4,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "add tasks to wunderlist",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 4,
+          "endPos": 8
+        }
+      ]
+    },
+    {
+      "text": "clear my save notes",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 9,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "\"I want to create a note of title \"\" Shopping list \"\"\"",
+      "intent": "Note.Create",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 34,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "To buy list",
+      "intent": "Note.Create",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 3,
+          "endPos": 5
+        }
+      ]
+    },
+    {
+      "text": "Save the current note",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "type in notepad",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "create My Favorites note",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "waffles recipe is my new note to be created",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "A new note of name Business Solutions",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "A new note please",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "can you set a note up to mom",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "create note with notepad",
+      "intent": "Note.Create",
+      "entities": []
+    },
+    {
+      "text": "Delete the note of name Guest list",
+      "intent": "Note.Delete",
+      "entities": []
+    },
+    {
+      "text": "delete poetry notes",
+      "intent": "Note.Delete",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 7,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "DELETE LIBRARY LIST",
+      "intent": "Note.Delete",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 7,
+          "endPos": 13
+        }
+      ]
+    },
+    {
+      "text": "Delete note: Summer Reading List.",
+      "intent": "Note.Delete",
+      "entities": []
+    },
+    {
+      "text": "dismiss Fred's notes",
+      "intent": "Note.Delete",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 8,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "Remove Daddy's BD note",
+      "intent": "Note.Delete",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 7,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "delete my ideas list",
+      "intent": "Note.Delete",
+      "entities": []
+    },
+    {
+      "text": "Delete Insurance note please",
+      "intent": "Note.Delete",
+      "entities": []
+    },
+    {
+      "text": "delete latest note",
+      "intent": "Note.Delete",
+      "entities": []
+    },
+    {
+      "text": "Recall note 3 delete",
+      "intent": "Note.Delete",
+      "entities": []
+    },
+    {
+      "text": "Can you read the grocery list note please",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 17,
+          "endPos": 23
+        }
+      ]
+    },
+    {
+      "text": "Repeat the last word again",
+      "intent": "Note.ReadAloud",
+      "entities": []
+    },
+    {
+      "text": "Read meeting notes to me",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 5,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "recall most recent groccery list",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 19,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "Please read Trip notes",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 12,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "I want you to read this note loudly",
+      "intent": "Note.ReadAloud",
+      "entities": []
+    },
+    {
+      "text": "Read my grocery list",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 8,
+          "endPos": 14
+        }
+      ]
+    },
+    {
+      "text": "\"read note \"\" grocery list \"\"\"",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 11,
+          "endPos": 11
+        }
+      ]
+    },
+    {
+      "text": "speak trip note for me please",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Title",
+          "startPos": 6,
+          "endPos": 9
+        }
+      ]
+    },
+    {
+      "text": "read the note appointments please",
+      "intent": "Note.ReadAloud",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 14,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "Create for me a note about Car Oil",
+      "intent": "Note.Create",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 27,
+          "endPos": 33
+        }
+      ]
+    },
+    {
+      "text": "Stop reading the note",
+      "intent": "None",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 0,
+          "endPos": 15
+        }
+      ]
+    },
+    {
+      "text": "Delete the note number two",
+      "intent": "Note.Delete",
+      "entities": [
+        {
+          "entity": "Note.Text",
+          "startPos": 16,
+          "endPos": 25
+        }
+      ]
+    }
+  ]
+}
