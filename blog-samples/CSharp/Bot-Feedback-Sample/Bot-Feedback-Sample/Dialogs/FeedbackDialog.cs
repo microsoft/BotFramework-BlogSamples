@@ -20,17 +20,6 @@ namespace Bot_Feedback_Sample
             userQuestion = question;
         }
 
-        public Dictionary<string, string> GetFeedbackProperties()
-        {
-            var properties = new Dictionary<string, string>
-            {
-                {"Question", userQuestion },
-                {"URL", qnaURL }
-            };
-
-            return properties;
-        }
-
         public async Task StartAsync(IDialogContext context)
         {
             var feedback = ((Activity)context.Activity).CreateReply("Did you find what you need?");
