@@ -4,11 +4,15 @@ This bot sample using the .NET SDK is to demonstrate two things:
 
 1. How to connect a bot to a QnA service using the [Bot Builder Cognitive Services](https://www.nuget.org/packages/Microsoft.Bot.Builder.CognitiveServices/) NuGet package, open source on Github [here](https://github.com/Microsoft/BotBuilder-CognitiveServices). 
 
-2. How to implement overrides to the default QnAMakerDialog implementation such that a developer can 'intercept' the response activity from the QnA service and customize the reply to be posted back to a user. 
+2. How to implement overrides to the default QnAMakerDialog implementation such that a developer can 'intercept' the response activity from the QnA service and customize the reply to be posted back to a user. In this sample bot, we format the response from the QnA service into [rich card attachments](https://docs.microsoft.com/en-us/bot-framework/dotnet/bot-builder-dotnet-add-rich-card-attachments).
+
+![Qna Rich Card response][pic1]
 
 ## QnA Maker overview
 
 [Click here for the QnA Maker portal](https://qnamaker.ai/)
+
+![QnA Portal][pic2]
 
 One of the basic requirements in writing your own Bot service is to seed it with questions and answers. In many cases, the questions and answers already exist in content like FAQ URLs/documents, etc.
 
@@ -24,6 +28,5 @@ With optimized machine learning logic and the ability to integrate industry-lead
 - [BotBuilder-CognitiveServices](https://www.nuget.org/packages/Microsoft.Bot.Builder.CognitiveServices/) NuGet package 
 - [Bot Framework Emulator](https://docs.microsoft.com/en-us/bot-framework/debug-bots-emulator)
 
-## TODO
-- 08/25/17: refactor sample to clean up alternate card formatting (currently commented out) 
-- Add images to README
+[pic1]: ../../images/qna-rich-cards.png
+[pic2]: ../../images/qna-portal.png
