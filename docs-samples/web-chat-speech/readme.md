@@ -55,6 +55,7 @@ Open `index.html` by pointing your browser at `http://localhost:8000/index.html?
   | botid | Optional. ID of the bot. |
   | botname | Optional. Name of the bot. |
 
+<<<<<<< HEAD
 ### Use speech to interact with your bot
 Web Chat should display in the browser window. Users interact with the voice interface by using the microphone in the Web Chat control.
 
@@ -65,6 +66,19 @@ If the user types instead of speaking a response, Web Chat turns off the speech 
 > Google Chrome supports the browser speech recognizer. However, Chrome may block the microphone in the following cases:
 > * If the URL of the page that contains Web Chat begins with `http://` instead of `https://`.
 > * If the URL is a local file using the `file://` protocol instead of `http://localhost:8000`.
+=======
+## Choose a speech recognition option
+
+  You have a few options to choose from for speech recognition. Find and uncomment the definition of `speechOptions` in the code that corresponds to the option you want to choose. 
+  
+  | Option | Description |
+  |-----------|-------------|
+  | No speech | The Web Chat control can be used with speech disabled. |
+  | Native browser speech| Browser-provided components handle speech synthesis and generation. Not all browsers support this option. |
+  | Cognitive Services speech recognition using an API key | You provide an API key to make calls to the speech recognition and speech synthesis services. This option has cross-browser support.|
+  | Cognitive Services speech recognition using a token| Generate a token to avoid exposing your API key. |
+  | Custom ISpeechRecognizer and ISpeechSynthesizer| Use this option if you're creating your own speech recognition and synthesis components. |
+>>>>>>> sample for enabling speech in the web chat control
 
 ## Additional resources
 
