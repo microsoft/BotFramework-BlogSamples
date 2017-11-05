@@ -56,6 +56,7 @@ Open `index.html` by pointing your browser at `http://localhost:8000/index.html?
   | botname | Optional. Name of the bot. |
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### Use speech to interact with your bot
 Web Chat should display in the browser window. Users interact with the voice interface by using the microphone in the Web Chat control.
 
@@ -79,6 +80,18 @@ If the user types instead of speaking a response, Web Chat turns off the speech 
   | Cognitive Services speech recognition using a token| Generate a token to avoid exposing your API key. |
   | Custom ISpeechRecognizer and ISpeechSynthesizer| Use this option if you're creating your own speech recognition and synthesis components. |
 >>>>>>> sample for enabling speech in the web chat control
+=======
+### Use speech to interact with your bot
+Web Chat should display in the browser window. Users interact with the voice interface by using the microphone in the Web Chat control.
+
+![Web chat speech screenshot](./webchat-sample-speech.png)
+
+If the user types instead of speaking a response, Web Chat turns off the speech functionality and the bot gives only a textual response instead of speaking out loud. To re-enable the spoken response, the user can use the microphone to respond to the bot the next time. If the microphone is accepting input, it appears dark or filled-in. If it's grayed out, the user clicks on it to enable it.
+> **NOTE:** 
+> Google Chrome supports the browser speech recognizer. However, Chrome may block the microphone in the following cases:
+> * If the URL of the page that contains Web Chat begins with `http://` instead of `https://`.
+> * If the URL is a local file using the `file://` protocol instead of `http://localhost:8000`.
+>>>>>>> Update readme.md
 
 ## Additional resources
 
