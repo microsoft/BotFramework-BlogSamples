@@ -178,7 +178,7 @@ Run `npm install`
 A few options…
 
 * Option 1: Clone the package using git, then open it in code. Go to the Debug tab and run it in an extension host window.
-* Option 2: Clone the package using git, run `code --install-extension stocode-0.1.1.vsix` in the directory. See the VS Code [docs](https://code.visualstudio.com/docs/editor/extension-gallery#_install-from-a-vsix) for more details.
+* Option 2: Clone the package using git, run `code --install-extension StackCode-0.1.1.vsix` in the directory. See the VS Code [docs](https://code.visualstudio.com/docs/editor/extension-gallery#_install-from-a-vsix) for more details.
 
 ### Activating (running) the extension
 
