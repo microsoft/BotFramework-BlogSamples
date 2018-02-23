@@ -1,8 +1,8 @@
 # MockChannel
-When doing load tests as described in [Load testing a Bot](https://blog.botframework.com/2017/06/19/Load-Testing-A-Bot/) you need 
-a service to pass as the ServiceUrl paramter.  This service implements the Bot Framework channel API for the bot.
+When creating load tests as described in [Load testing a Bot](https://blog.botframework.com/2017/06/19/Load-Testing-A-Bot/) you need 
+a service to pass as the activity.ServiceUrl.
 
-To do the load test, you need a mock service which implements this callback.  This is a sample implementation of such a mock service.
+This is a sample implementation of that callback service.
 
 To use:
 * build and deploy (say http://yourmockservice.azurewebsites.net)
