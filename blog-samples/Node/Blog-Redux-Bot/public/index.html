@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bot Chat</title>
+
+    <link href="https://unpkg.com/botframework-webchat/botchat.css" rel="stylesheet" />
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      #container {
+        display: flex;
+        height: 100%;
+      }
+
+      #container > div.state {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin-left: 1em;
+      }
+
+      #container > div.state > pre {
+        flex: 1;
+        margin: 0;
+        overflow: auto;
+      }
+
+      #container > #botChat {
+        box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+        display: flex;
+        flex-basis: 460px;
+        flex-shrink: 0;
+        width: 460px;
+      }
+
+      #container > #botChat .wc-app {
+        flex: 1;
+      }
+
+      #container > #botChat .wc-chatview-panel {
+        height: 100%;
+        position: relative;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="botChat"></div>
+      <div class="state">
+        <h1>Redux server store</h1>
+        <pre id="store">Nothing to see here</pre>
+        <ul id="actions"></ul>
+      </div>
+    </div>
+    <script src="https://unpkg.com/botframework-webchat/botchat.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+
+      window['botchatDebug'] = params.get('debug') && params.get('debug') === 'true';
+
+      const botConnection = new BotChat.DirectLine({
+        domain: params.get('domain'),
+        secret: params.get('s'),
+        token: params.get('t'),
+        webSocket: params.get('webSocket') && params.get('webSocket') === 'true' // defaults to true
+      });
+
+      BotChat.App({
+        bot: {
+          id: params.get('botid') || 'botid',
+          name: params.get('botname') || 'botname'
+        },
+        botConnection: botConnection,
+        showUploadButton: true,
+        user: {
+          id: params.get('userid') || 'userid',
+          name: params.get('username') || 'username'
+        }
+      }, document.getElementById('botChat'));
+
+      botConnection.activity$
+        .filter(activity => activity.type === 'event' && activity.name === 'store')
+        .subscribe(activity => {
+          document.querySelector('pre#store').innerText = JSON.stringify(activity.value, null, 2);
+        });
+
+      botConnection.activity$
+        .filter(activity => activity.type === 'event' && activity.name === 'action')
+        .subscribe(activity => {
+          const li = document.createElement('li');
+          const pre = document.createElement('pre');
+
+          pre.innerText = JSON.stringify(activity.value).substr(0, 150);
+          li.appendChild(pre);
+          document.querySelector('ul#actions').appendChild(li);
+        });
+
+      setInterval(() => {
+        document.querySelector('.wc-shellinput').focus();
+      }, 300);
+    </script>
+  </body>
+</html>
