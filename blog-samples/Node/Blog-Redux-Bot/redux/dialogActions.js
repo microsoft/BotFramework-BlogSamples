@@ -2,6 +2,7 @@ const PROMPT_TEXT = 'DIALOG/PROMPT_TEXT';
 const RECEIVE_MESSAGE = 'DIALOG/RECEIVE_MESSAGE';
 const SEND_EVENT = 'DIALOG/SEND_EVENT';
 const SEND_MESSAGE = 'DIALOG/SEND_MESSAGE';
+const END_CONVERSATION = 'DIALOG/END_CONVERSATION';
 
 function promptText(text) {
   return { type: PROMPT_TEXT, payload: { text } };
@@ -28,14 +29,23 @@ function sendMessage(text, attachments) {
   };
 }
 
+function endConversation(text, attachments, result){
+  return {
+    type: END_CONVERSATION,
+    payload: { attachments, result, text }
+  };
+}
+
 module.exports = {
   PROMPT_TEXT,
   RECEIVE_MESSAGE,
   SEND_EVENT,
   SEND_MESSAGE,
+  END_CONVERSATION,
 
   promptText,
   receiveMessage,
   sendEvent,
-  sendMessage
+  sendMessage,
+  endConversation
 };

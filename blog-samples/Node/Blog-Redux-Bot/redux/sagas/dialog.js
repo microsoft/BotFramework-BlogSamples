@@ -7,6 +7,11 @@ module.exports = function* (session) {
     builder.Prompts.text(session, action.payload.text);
   });
 
+  yield takeEvery(DialogActions.END_CONVERSATION, function* (action){
+    
+    session.endConversation('Bye!');
+  });
+
   yield takeEvery(DialogActions.SEND_EVENT, function* (action) {
     const { name, value } = action.payload;
 

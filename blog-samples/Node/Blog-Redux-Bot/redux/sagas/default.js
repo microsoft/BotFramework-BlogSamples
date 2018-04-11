@@ -1,13 +1,14 @@
 const { put, select, takeEvery } = require('redux-saga/effects');
 const { reset, setCity, setUsername } = require('../conversationActions');
-const { promptText, RECEIVE_MESSAGE, sendMessage } = require('../dialogActions');
+const { promptText, RECEIVE_MESSAGE, sendMessage, endConversation } = require('../dialogActions');
 
 module.exports = function* (session) {
   yield takeEvery(RECEIVE_MESSAGE, function* (action) {
     const { text } = action.payload;
     const changeCityMatch = /^change city to (.*)/i.exec(text);
     const currentCityMatch = /^current city/i.exec(text);
-    const resetMatch = /^reset/i.exec(text)
+    const resetMatch = /^reset/i.exec(text);
+    const endConversationMatch = /^end conversation/i.exec(text);
     let { city, username } = yield select();
 
     if (!city) {
@@ -28,7 +29,10 @@ module.exports = function* (session) {
       yield put(sendMessage(`Hey ${ username }, I\'m currently configured to search for things in ${ city }.`));
     } else if (resetMatch) {
       yield put(reset());
-      yield put(sendMessage('Ups... I\'m suffering from a memory loss...'));
+      yield put(sendMessage('Oops... I\'m suffering from a memory loss...'));
+    } else if (endConversationMatch){
+      yield put(endConversation());
+      yield put(sendMessage('Ending Conversation...'));
     } else {
       const { city, username } = yield select();
       const messageText = action.payload.text.trim();
