@@ -1,0 +1,1 @@
+This is some rough code for exporting an Azure Bot Service bot's bot state data.   This version just dumps it to the console. 
