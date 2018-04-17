@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotStateExport", "BotStateExport\BotStateExport.csproj", "{DA593586-7A94-43D4-8EF1-0474EFF6D2E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA593586-7A94-43D4-8EF1-0474EFF6D2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA593586-7A94-43D4-8EF1-0474EFF6D2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA593586-7A94-43D4-8EF1-0474EFF6D2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA593586-7A94-43D4-8EF1-0474EFF6D2E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F9065FE-E24D-4377-AD1D-631E08ED7E57}
+	EndGlobalSection
+EndGlobal
