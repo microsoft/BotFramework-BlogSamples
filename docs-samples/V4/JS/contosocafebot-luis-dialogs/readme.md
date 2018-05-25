@@ -211,14 +211,8 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
     // Resolve entities returned from LUIS, and save these to state
     if (typedresult.entities)
     {
-        console.log(`Entities found.`);
         let datetime = typedresult.entities.datetime;
-
         if (datetime) {
-            console.log(`datetime entity found of type ${datetime[0].type}.`);
-            datetime[0].timex.forEach( (value, index) => {
-                console.log(`Timex[${index}]=${value}`);
-            })
             // Use the first date or time found in the utterance
             var timexValue;
             if (datetime[0].timex) {
@@ -238,12 +232,10 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
                     console.log(`Type ${datetime[0].type} is not yet supported. Provide both the date and the time.`);
                 }
             }                                                
-
-
         }
         let partysize = typedresult.entities.partySize;
         if (partysize) {
-            console.log(`partysize entity detected.${partysize}`);
+            console.log(`partysize entity defined.${partysize}`);
             // use first partySize entity that was found in utterance
             dc.activeDialog.state.partySize = partysize[0];
         }
