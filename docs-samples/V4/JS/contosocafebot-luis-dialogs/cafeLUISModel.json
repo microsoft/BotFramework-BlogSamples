@@ -1,0 +1,186 @@
+{
+  "intents": [
+    {
+      "name": "Book Table"
+    },
+    {
+      "name": "Greeting"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "Who are you intent"
+    }
+  ],
+  "entities": [
+    {
+      "name": "partySize",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [
+    {
+      "name": "cafeLocation",
+      "subLists": [
+        {
+          "canonicalForm": "seattle",
+          "list": [
+            "seattle",
+            "seatac",
+            "SEA",
+            "seattle tacoma",
+            "space needle"
+          ]
+        },
+        {
+          "canonicalForm": "redmond",
+          "list": [
+            "microsoft",
+            "east side",
+            "redmond",
+            "bellevue"
+          ]
+        },
+        {
+          "canonicalForm": "portland",
+          "list": [
+            "portland"
+          ]
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "regex_entities": [],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "book a table",
+      "intent": "Book Table",
+      "entities": []
+    },
+    {
+      "text": "can you get me a table",
+      "intent": "Book Table",
+      "entities": []
+    },
+    {
+      "text": "book a table for 2 in seattle",
+      "intent": "Book Table",
+      "entities": []
+    },
+    {
+      "text": "can you get me a table for tomorrow?",
+      "intent": "Book Table",
+      "entities": []
+    },
+    {
+      "text": "please get me a table for 3",
+      "intent": "Book Table",
+      "entities": [
+        {
+          "entity": "partySize",
+          "startPos": 26,
+          "endPos": 26
+        }
+      ]
+    },
+    {
+      "text": "book a table for 2 in seattle for 3pm",
+      "intent": "Book Table",
+      "entities": [
+        {
+          "entity": "partySize",
+          "startPos": 17,
+          "endPos": 17
+        }
+      ]
+    },
+    {
+      "text": "reserve a table at 5pm",
+      "intent": "Book Table",
+      "entities": []
+    },
+    {
+      "text": "table for 5 guests",
+      "intent": "Book Table",
+      "entities": [
+        {
+          "entity": "partySize",
+          "startPos": 10,
+          "endPos": 10
+        }
+      ]
+    },
+    {
+      "text": "Hello",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "Hi",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "Hello bot",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hiya",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "hi bot",
+      "intent": "Greeting",
+      "entities": []
+    },
+    {
+      "text": "Who is your ceo?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "Who are you?",
+      "intent": "Who are you intent",
+      "entities": []
+    },
+    {
+      "text": "What is your name?",
+      "intent": "Who are you intent",
+      "entities": []
+    },
+    {
+      "text": "how should I address you?",
+      "intent": "Who are you intent",
+      "entities": []
+    },
+    {
+      "text": "What's your name?",
+      "intent": "Who are you intent",
+      "entities": []
+    }
+  ],
+  "patterns": [],
+  "patternAnyEntities": [],
+  "prebuiltEntities": [
+    {
+      "name": "datetimeV2",
+      "roles": []
+    },
+    {
+      "name": "number",
+      "roles": []
+    }
+  ],
+  "luis_schema_version": "3.0.0",
+  "versionId": "0.1",
+  "name": "cafeLUISModel",
+  "desc": "",
+  "culture": "en-us"
+}
