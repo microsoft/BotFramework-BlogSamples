@@ -261,7 +261,7 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
 }
 ```
 
-## Entity types
+### Entity types
 The code in `SaveEntities` checked `CafeLUISModel` type's `entities` property, which was defined in **CafeLUISModel.ts**.
 
 ```typescript
@@ -316,6 +316,18 @@ DateTimeSpec {
 }  
 ```
 
+## Run the sample
 
+1. If you don't have the TypeScript compiler installed, install it using this command:
 
+`npm install --global typescript`
 
+2. From the root directory, build the sample using `tsc`. This will generate `luisbot.js`.
+
+3. Run `luisbot.js` in the `lib` directory.
+
+4. Use the [Bot Framework Emulator](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator) to run the sample.
+
+5. In the emulator, say `reserve a table` to start the reservation dialog.
+
+![run the bot](graphics/run-bot.png)

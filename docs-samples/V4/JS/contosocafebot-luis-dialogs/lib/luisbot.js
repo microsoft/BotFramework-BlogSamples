@@ -12,10 +12,11 @@ const botbuilder_1 = require("botbuilder");
 const botbuilder_dialogs_1 = require("botbuilder-dialogs");
 const botbuilder_ai_1 = require("botbuilder-ai");
 const restify = require("restify");
-const Recognizers = require("@microsoft/recognizers-text-date-time");
-// This App ID is for the cafebot public LUIS app
-const appId = "edaadd9b-b632-4733-a25c-5b67271035dd";
-const subscriptionKey = "be30825b782843dcbbe520ac5338f567";
+// Replace this appId with the ID of the app you create from cafeLUISModel.json
+const appId = "YOUR-LUIS-APP-ID";
+// Replace this with your authoring key
+const subscriptionKey = "YOUR-LUIS-SUBSCRIPTION-KEY";
+
 // Default is westus
 const serviceEndpoint = 'https://westus.api.cognitive.microsoft.com';
 const luisRec = new botbuilder_ai_1.LuisRecognizer({
@@ -68,16 +69,15 @@ server.post('/api/messages', (req, res) => {
                     let topIntent = botbuilder_ai_1.LuisRecognizer.topIntent(res);
                     switch (topIntent) {
                         case Intents.Book_Table: {
-                            yield context.sendActivity("Top intent is Book_Table ");
                             yield dc.begin('reserveTable', typedresult);
                             break;
                         }
                         case Intents.Greeting: {
-                            yield context.sendActivity("Top intent is Greeting");
+                            yield context.sendActivity("Hello!");
                             break;
                         }
                         case Intents.Who_are_you_intent: {
-                            yield context.sendActivity("Top intent is Who_are_you_intent");
+                            yield context.sendActivity("I'm the Contoso Cafe bot.");
                             break;
                         }
                         default: {
@@ -168,11 +168,10 @@ function SaveEntities(dc, typedresult) {
     return __awaiter(this, void 0, void 0, function* () {
         // Resolve entities returned from LUIS, and save these to state
         if (typedresult.entities) {
-            console.log(`typedresult.entities exists.`);
+            console.log(`Entities found.`);
             let datetime = typedresult.entities.datetime;
-            //console.log(datetime.toString());
             if (datetime) {
-                console.log(`datetime entity defined of type ${datetime[0].type}.`);
+                console.log(`datetime entity found of type ${datetime[0].type}.`);
                 datetime[0].timex.forEach((value, index) => {
                     console.log(`Timex[${index}]=${value}`);
                 });
@@ -184,33 +183,20 @@ function SaveEntities(dc, typedresult) {
                     // http://www.timeml.org/publications/timeMLdocs/timeml_1.2.1.html#timex3                                
                     // More information on the library which does the recognition can be found here: 
                     // https://github.com/Microsoft/Recognizers-Text
-                    // try to see if recognizers library can parse a timex
-                    const results = Recognizers.recognizeDateTime(timexValue, dc.context.activity.locale);
-                    const values = results.length > 0 && results[0].resolution ? results[0].resolution.values : undefined;
-                    var dtValue;
-                    var dtResult;
-                    if (values) {
-                        dtResult = values[0];
-                        dtValue = values[0].value;
-                    }
                     if (datetime[0].type === "datetime") {
-                        if (dtValue && dtResult.type === "datetime") {
-                            dc.activeDialog.state.dateTime = dtValue;
-                        }
-                        else {
-                            // use original timex format if recognizers couldn't parse a datetime
-                            dc.activeDialog.state.dateTime = timexValue;
-                        }
+                        // in this sample, a datetime detected by LUIS is saved in timex format.
+                        dc.activeDialog.state.dateTime = timexValue;
+                        // If you want to additionally parse timex, 
+                        // use @microsoft/recognizers-text-data-types-timex-expression 
                     }
                     else {
-                        // TODO: also handle existence of state.date and state.time
                         console.log(`Type ${datetime[0].type} is not yet supported. Provide both the date and the time.`);
                     }
                 }
             }
             let partysize = typedresult.entities.partySize;
             if (partysize) {
-                console.log(`partysize entity defined.${partysize}`);
+                console.log(`partysize entity detected.${partysize}`);
                 // use first partySize entity that was found in utterance
                 dc.activeDialog.state.partySize = partysize[0];
             }
