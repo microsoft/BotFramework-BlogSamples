@@ -227,6 +227,7 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
                 // http://www.timeml.org/publications/timeMLdocs/timeml_1.2.1.html#timex3                                
                 // More information on the library which does the recognition can be found here: 
                 // https://github.com/Microsoft/Recognizers-Text
+
                 if (datetime[0].type === "datetime") {
                     // in this sample, a datetime detected by LUIS is saved in timex format.
                     dc.activeDialog.state.dateTime = timexValue;
