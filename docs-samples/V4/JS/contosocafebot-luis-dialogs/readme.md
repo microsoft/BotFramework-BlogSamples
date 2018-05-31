@@ -211,8 +211,14 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
     // Resolve entities returned from LUIS, and save these to state
     if (typedresult.entities)
     {
+        console.log(`Entities found.`);
         let datetime = typedresult.entities.datetime;
+
         if (datetime) {
+            console.log(`datetime entity found of type ${datetime[0].type}.`);
+            datetime[0].timex.forEach( (value, index) => {
+                console.log(`Timex[${index}]=${value}`);
+            })
             // Use the first date or time found in the utterance
             var timexValue;
             if (datetime[0].timex) {
@@ -221,32 +227,22 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
                 // http://www.timeml.org/publications/timeMLdocs/timeml_1.2.1.html#timex3                                
                 // More information on the library which does the recognition can be found here: 
                 // https://github.com/Microsoft/Recognizers-Text
-                // try to see if recognizers library can parse a timex
-                const results = Recognizers.recognizeDateTime(timexValue, dc.context.activity.locale);
-                const values = 
-                    results.length > 0 && results[0].resolution ? results[0].resolution.values : undefined;
-                var dtValue;
-                var dtResult;
-                if (values) {
-                    dtResult = values[0]
-                    dtValue = values[0].value;
-                }
                 if (datetime[0].type === "datetime") {
-                    if (dtValue && dtResult.type === "datetime") {
-                        dc.activeDialog.state.dateTime = dtValue;
-                    } else {
-                        // use original timex format if recognizers couldn't parse a datetime
-                        dc.activeDialog.state.dateTime = timexValue;
-                    }
+                    // in this sample, a datetime detected by LUIS is saved in timex format.
+                    dc.activeDialog.state.dateTime = timexValue;
+                    // If you want to additionally parse timex, 
+                    // use @microsoft/recognizers-text-data-types-timex-expression 
                 } 
                 else  {
                     console.log(`Type ${datetime[0].type} is not yet supported. Provide both the date and the time.`);
                 }
             }                                                
+
+
         }
         let partysize = typedresult.entities.partySize;
         if (partysize) {
-            console.log(`partysize entity defined.${partysize}`);
+            console.log(`partysize entity detected.${partysize}`);
             // use first partySize entity that was found in utterance
             dc.activeDialog.state.partySize = partysize[0];
         }
