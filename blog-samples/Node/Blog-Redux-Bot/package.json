@@ -13,11 +13,11 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "botbuilder": "^3.14.0",
+    "botbuilder": "^3.15.0",
     "dotenv": "^5.0.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
-    "restify": "^6.3.4"
+    "restify": "^6.4.0"
   },
   "devDependencies": {
     "jest": "^22.4.3"
