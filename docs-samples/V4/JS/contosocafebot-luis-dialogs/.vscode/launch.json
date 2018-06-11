@@ -8,11 +8,11 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${file}",
+            "program": "${workspaceFolder}\\lib\\luisbot.js",
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ],
-            "envFile": "../.env"
+            "envFile": "${workspaceFolder}\\src\\.env"
         }
     ]
 }

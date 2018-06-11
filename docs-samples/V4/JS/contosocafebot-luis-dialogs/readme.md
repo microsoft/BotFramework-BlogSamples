@@ -61,7 +61,13 @@ npm install --global typescript
 
 To compile the sample, run `tsc` from the root directory.
 
+Install dependencies before you run the bot, by running `npm install` in the root directory of the sample:
 
+```
+npm install
+```
+
+## Using typed LUIS results
 
 You can get a `CafeLUISModel` result from the LUIS recognizer in bot code like this:
 
@@ -311,12 +317,18 @@ DateTimeSpec {
 
 `npm install --global typescript`
 
-2. From the root directory, build the sample using `tsc`. This will generate `luisbot.js`.
+2. Install dependencies before you run the bot, by running `npm install` in the root directory of the sample:
 
-3. Run `luisbot.js` in the `lib` directory.
+```
+npm install
+```
 
-4. Use the [Bot Framework Emulator](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator) to run the sample.
+3. From the root directory, build the sample using `tsc`. This will generate `luisbot.js`.
 
-5. In the emulator, say `reserve a table` to start the reservation dialog.
+4. Run `luisbot.js` in the `lib` directory.
+
+5. Use the [Bot Framework Emulator](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator) to run the sample.
+
+6. In the emulator, say `reserve a table` to start the reservation dialog.
 
 ![run the bot](graphics/run-bot.png)

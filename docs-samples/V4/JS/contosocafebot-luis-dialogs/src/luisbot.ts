@@ -4,12 +4,15 @@ import { LuisRecognizer, InstanceData, IntentData, DateTimeSpec } from 'botbuild
 import { CafeLUISModel, _Intents, _Entities, _Instance } from './CafeLUISModel';
 import * as restify from 'restify';
 
+const Resolver = require('@microsoft/recognizers-text-data-types-timex-expression').default.resolver;
+const Creator = require('@microsoft/recognizers-text-data-types-timex-expression').default.creator;
+const TimexProperty = require('@microsoft/recognizers-text-data-types-timex-expression').default.TimexProperty;
 
 // Replace this appId with the ID of the app you create from cafeLUISModel.json
-const appId = "YOUR-LUIS-APP-ID";
+const appId = process.env.LUIS_APP_ID; 
 // Replace this with your authoring key
-const subscriptionKey = "YOUR-LUIS-SUBSCRIPTION-KEY"; 
-
+const subscriptionKey = process.env.LUIS_SUBSCRIPTION_KEY;
+console.log(`process.env.LUIS_APP_ID=${process.env.LUIS_APP_ID}, process.env.LUIS_SUBSCRIPTION_KEY=${process.env.LUIS_SUBSCRIPTION_KEY}`);
 // Default is westus
 const serviceEndpoint = 'https://westus.api.cognitive.microsoft.com';
 
@@ -138,7 +141,7 @@ dialogs.add('reserveTable', [
             await next();     
         }
         else {
-            await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
+            await dc.prompt('dateTimePrompt', "Please provide a reservation date and time. We're open 4PM-8PM.");
         }
     },
     async function(dc, result, next){
@@ -187,28 +190,36 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
     // Resolve entities returned from LUIS, and save these to state
     if (typedresult.entities)
     {
-        console.log(`Entities found.`);
+
         let datetime = typedresult.entities.datetime;
 
         if (datetime) {
             console.log(`datetime entity found of type ${datetime[0].type}.`);
-            datetime[0].timex.forEach( (value, index) => {
-                console.log(`Timex[${index}]=${value}`);
-            })
-            // Use the first date or time found in the utterance
-            var timexValue;
+
+            // Use the first date or time found in the utterance            
             if (datetime[0].timex) {
-                timexValue = datetime[0].timex[0];
+                var timexValues = datetime[0].timex
+                // timexValues is the array of all resolutions of datetime[0]
+                // a datetime entity detected by LUIS is resolved to timex format.
                 // More information on timex can be found here: 
                 // http://www.timeml.org/publications/timeMLdocs/timeml_1.2.1.html#timex3                                
                 // More information on the library which does the recognition can be found here: 
                 // https://github.com/Microsoft/Recognizers-Text
 
                 if (datetime[0].type === "datetime") {
-                    // in this sample, a datetime detected by LUIS is saved in timex format.
-                    dc.activeDialog.state.dateTime = timexValue;
-                    // If you want to additionally parse timex, 
-                    // use @microsoft/recognizers-text-data-types-timex-expression 
+                    var resolution = Resolver.evaluate(
+                        // array of timex values to evaluate. There may be more than one: "today at 6" can be 6AM or 6PM.
+                        timexValues,                        
+                        // Creator.evening constrains this to times between 4pm and 8pm
+                        [Creator.evening]);
+                    if (resolution[0]) {
+                        // toNaturalLanguage takes the current date into account to create a friendly string
+                        dc.activeDialog.state.dateTime = resolution[0].toNaturalLanguage(new Date());
+                        // You can also use resolution.toString() to format the date/time.
+                    } else {
+                        // time didn't satisfy constraint.
+                        dc.activeDialog.state.dateTime = null;
+                    }
                 } 
                 else  {
                     console.log(`Type ${datetime[0].type} is not yet supported. Provide both the date and the time.`);
@@ -219,14 +230,14 @@ async function SaveEntities( dc: DialogContext<TurnContext>, typedresult) {
         }
         let partysize = typedresult.entities.partySize;
         if (partysize) {
-            console.log(`partysize entity detected.${partysize}`);
+            console.log(`partysize entity detected: ${partysize}`);
             // use first partySize entity that was found in utterance
             dc.activeDialog.state.partySize = partysize[0];
         }
         let cafelocation = typedresult.entities.cafeLocation;
 
         if (cafelocation) {
-            console.log(`location entity defined.${cafelocation}`);
+            console.log(`location entity detected: ${cafelocation}`);
             // use first cafeLocation entity that was found in utterance
             dc.activeDialog.state.cafeLocation = cafelocation[0][0];
         }
