@@ -16,6 +16,7 @@
     "botbuilder-ai": "^4.0.0-preview1.2",
     "botbuilder-core": "^4.0.0-preview1.2",
     "botbuilder-dialogs": "^4.0.0-preview1.2",
+    "node": "^10.4.0",
     "restify": "^6.4.0"
   }
 }
