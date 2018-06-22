@@ -1,0 +1,57 @@
+﻿{
+  "$schema": "https://microsoft.github.io/AdaptiveCards/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "size": "2",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Contoso Cafe",
+              "weight": "bolder",
+              "size": "extraLarge"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "size": "1",
+          "items": [
+            {
+              "type": "Image",
+              "url": "https://cdn.pixabay.com/photo/2015/06/05/10/35/coffee-798315_640.png",
+              "size": "auto"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "How can I help?"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Book a table",
+      "data": {
+        "intent": "bookTable",
+        "utterance": "book table"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Find cafe locations",
+      "data": {
+        "intent": "findCafe",
+        "utterance": "find locations"
+      }
+    }
+  ]
+}
