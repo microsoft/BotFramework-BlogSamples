@@ -1,0 +1,33 @@
+{
+    "name": "ContosoCafeBot",
+    "description": "",
+    "secretKey": "",
+    "services": [
+        {
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:5000/api/messages",
+            "id": "http://localhost:5000/api/messages",
+            "name": "ContosoCafeBot",
+            "type": "endpoint"
+        },
+        {
+            "id": "edaadd9b-b632-4733-a25c-5b67271035dd",
+            "type": "luis",
+            "name": "contosocafeluis",
+            "version": "0.1",
+            "appId": "edaadd9b-b632-4733-a25c-5b67271035dd",
+            "authoringKey": "be30825b782843dcbbe520ac5338f567",
+            "subscriptionKey": "be30825b782843dcbbe520ac5338f567"
+        },
+        {
+          "kbId": "dfa449da-1fb7-449e-b753-53af1b1f7b5b",
+          "name": "cafeQnAModel",
+          "type": "qna",
+          "subscriptionKey": "d30ebbcc44ef4f07bae1a0e31b69f709",
+          "id": "dfa449da-1fb7-449e-b753-53af1b1f7b5b",
+          "endpointKey": "0fa7f711-6a82-4155-9cf9-5c8168967df6",
+          "hostname": "https://contosocafeqnab8.azurewebsites.net"
+        }
+    ]
+}
