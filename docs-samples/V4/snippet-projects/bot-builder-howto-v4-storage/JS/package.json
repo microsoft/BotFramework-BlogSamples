@@ -1,0 +1,30 @@
+{
+  "name": "bot-builder-howto-v4-storage",
+  "version": "1.0.0",
+  "description": "Sample for using the Bot Builder SDK to write a log of user messages to file storage.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Microsoft/BotFramework-Samples.git"
+  },
+  "keywords": [
+    "file",
+    "storage",
+    "save",
+    "data",
+    "write"
+  ],
+  "author": "Microsoft",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^4.0.0-preview1.2",
+    "restify": "^6.3.4"
+  },
+  "bugs": {
+    "url": "https://github.com/Microsoft/BotFramework-Samples/issues"
+  },
+  "homepage": "https://github.com/Microsoft/BotFramework-Samples#readme"
+}

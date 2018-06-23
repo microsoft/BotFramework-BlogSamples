@@ -27,76 +27,99 @@ server.post('/api/messages', (req, res) => {
             const state = conversationState.get(context);
             const count = state.count === undefined ? state.count = 0 : ++state.count;
 
-            let utterance = context.activity.text;
-            let storeItems = await storage.read(["UtteranceLog"])
-            try {
-                // check result
-                var utteranceLog = storeItems["UtteranceLog"];
-                
-                if (typeof (utteranceLog) != 'undefined') {
-                    // log exists so we can write to it
-                    storeItems["UtteranceLog"].UtteranceList.push(utterance);
-                    
-                    await storage.write(storeItems)
-                    try {
-                        context.sendActivity('Successful write.');
-                    } catch (err) {
-                        context.sendActivity(`Srite failed of UtteranceLog: ${err}`);
-                    }
+            await logMessageText(storage, context);
 
-                } else {
-                    context.sendActivity(`need to create new utterance log`);
-                    storeItems["UtteranceLog"] = { UtteranceList: [`${utterance}`], "eTag": "*" }
-                    await storage.write(storeItems)
-                    try {
-                        context.sendActivity('Successful write.');
-                    } catch (err) {
-                        context.sendActivity(`Write failed: ${err}`);
-                    }
-                }
-            } catch (err) {
-                context.sendActivity(`Read rejected. ${err}`);
-            };
-
-                    
-        var myNote = {
-            name: "Shopping List",
-            contents: "eggs",
-            eTag: "*"
-        }
-
-        // Write a note
-        var changes = {};
-        changes["Note"] = myNote;
-        await storage.write(changes);
-
-        // Read in a note
-        var note = await storage.read(["Note"]);
-        try {
-            // Someone has updated the note. Need to update our local instance to match
-            if(myNote.eTag != note.eTag){
-                myNote = note;
+            if (context.activity.text.includes("create note")) {
+                await createSampleNote(storage, context);
+            } else if (context.activity.text.includes("update note")) {
+                await updateSampleNote(storage, context);
             }
 
-            // Add any updates to the note and write back out
-            myNote.contents += ", bread";   // Add to the note
-            changes["Note"] = note;
-            await storage.write(changes); // Write the changes back to storage
-            try {
-                context.sendActivity('Successful write.');
-            } catch (err) {
-                context.sendActivity(`Write failed: ${err}`);
-            }
-        }
-        catch (err) {
-            context.sendActivity(`Unable to read the Note: ${err}`);
-        }
-        
-        await context.sendActivity(`${count}: You said "${context.activity.text}"`);
+            await context.sendActivity(`${count}: You said "${context.activity.text}"`);
         } else {
             await context.sendActivity(`[${context.activity.type} event detected]`);
         }
     });
 });
 
+async function logMessageText(storage, context) {
+    let utterance = context.activity.text;
+    let storeItems = await storage.read(["UtteranceLog"])
+    try {
+        // check result
+        var utteranceLog = storeItems["UtteranceLog"];
 
+        if (typeof (utteranceLog) != 'undefined') {
+            // log exists so we can write to it
+            storeItems["UtteranceLog"].UtteranceList.push(utterance);
+
+            try {
+                await storage.write(storeItems)
+                context.sendActivity('Successful write to utterance log.');
+            } catch (err) {
+                context.sendActivity(`Write failed of UtteranceLog: ${err}`);
+            }
+
+        } else {
+            context.sendActivity(`need to create new utterance log`);
+            storeItems["UtteranceLog"] = { UtteranceList: [`${utterance}`], "eTag": "*" }
+
+            try {
+                await storage.write(storeItems)
+                context.sendActivity('Successful write to log.');
+            } catch (err) {
+                context.sendActivity(`Write failed: ${err}`);
+            }
+        }
+    } catch (err) {
+        context.sendActivity(`Read rejected. ${err}`);
+    };
+}
+
+// Helper function for writing a sample note to a data store
+async function createSampleNote(storage, context) {
+    var myNoteData = {
+        name: "Shopping List",
+        contents: "eggs",
+        // If any Note file is already stored, the eTag field
+        // must be set to "*" in order to allow writing without first reading the stored eTag
+        // otherwise you'll likely get an exception indicating an eTag conflict. 
+        eTag: "*"
+    }
+
+    // Write the note data to the "Note" key
+    var changes = {};
+    changes["Note"] = myNoteData;
+    // Creates a file named Note, if it doesn't already exist.
+    // specifying eTag= "*" will overwrite any existing contents.
+    // The act of writing to the file automatically updates the eTag property
+    // The first time you write to Note, the eTag is changed from *, and file contents will become:
+    //    {"name":"Shopping List","contents":"eggs","eTag":"1"}
+    try {
+        await storage.write(changes);
+        await context.sendActivity('Successful created a note.');
+    } catch (err) {
+        await context.sendActivity(`Could not create note: ${err}`);
+    }
+}
+
+
+async function updateSampleNote(storage, context) {
+    try {
+        var note = await storage.read(["Note"]);
+        console.log(`note.eTag=${note["Note"].eTag}\n note=${JSON.stringify(note)}`);
+        // update the note that we just read
+        note["Note"].contents += ", bread";
+        console.log(`Updated note=${JSON.stringify(note)}`);
+
+        try {
+            await storage.write(note); // Write the changes back to storage
+            await context.sendActivity('Successfully updated to note.');
+        } catch (err) {
+            console.log(`Write failed: ${err}`);
+        }
+    }
+    catch (err) {
+        await context.sendActivity(`Unable to read the Note: ${err}`);
+    }
+}
