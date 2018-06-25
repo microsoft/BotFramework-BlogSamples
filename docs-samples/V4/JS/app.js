@@ -1,7 +1,7 @@
 /*
- * Botbuilder v4 SDK samples project.
+ * Botbuilder v4 SDK - Getting Started sample bot.
  * 
- * This file contains the JS sample code of the EchoBot. 
+ * This is the JS sample code of the EchoBot. 
  * 
  * To run this bot:
  * 1) install these npm packages:
@@ -12,6 +12,12 @@
  * 3) Load the emulator and point it to: http://localhost:3978/api/messages
  * 4) Send the bot a message. The bot will echo back what you send with "#: You said ..."
  * 
+ * To run other sample bots from this project:
+ * 1) open the package.json file
+ * 2) change the value of the property "main" to the name of the sample bot you want to run. 
+ *    For example: "main": "dialogs.js" to run the dialogs sample bot.
+ * 3) Follow the steps above to run the bot. Make sure to install additional npm packages required by the bot.
+ *
  */ 
 
 // Packages are installed for you
