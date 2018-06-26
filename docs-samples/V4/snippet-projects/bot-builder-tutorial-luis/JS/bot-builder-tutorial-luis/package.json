@@ -2,6 +2,7 @@
     "name": "bot-builder-tutorial-luis",
     "dependencies": {
         "botbuilder": "^4.0.0-preview1.2",
+        "botbuilder-ai": "^4.0.0-preview1.2",
         "dotenv": "^2.0.0",
         "restify": "^4.3.0"
     },
