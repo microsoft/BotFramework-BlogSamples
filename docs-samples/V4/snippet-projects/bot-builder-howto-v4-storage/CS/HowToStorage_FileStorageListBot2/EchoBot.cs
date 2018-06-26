@@ -6,8 +6,15 @@ using Microsoft.Bot.Schema;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace how_to_storage
+namespace StoreListBot
 {
+    public class Note : IStoreItem
+    {
+        public string Name { get; set; }
+        public string Contents { get; set; }
+        public string eTag { get; set; }
+    }
+
     // In the constructor initialize file storage
     public class EchoBot : IBot
     {
@@ -16,6 +23,7 @@ namespace how_to_storage
         public EchoBot()
         {
             _myStorage = new FileStorage(System.IO.Path.GetTempPath());
+            
         }
 
         // Add a class for storing a log of utterances (text of messages) as a list
@@ -48,6 +56,10 @@ namespace how_to_storage
                     restartList = true;
                 }
 
+                if (utterance.Equals("create note"))
+                {
+                    await CreateNote();
+                }
                 // Attempt to read the existing property bag
                 UtteranceLog logItems = null;
                 try
@@ -107,5 +119,20 @@ namespace how_to_storage
 
             return;
         }
+
+        public async Task CreateNote()
+        {
+            // create a note for the first time, with a non-null, non-* eTag.
+            var note = new Note { Name = "Shopping List", Contents = "eggs", eTag = "x" };
+
+            var changes = new KeyValuePair<string, object>[]
+            {
+                new KeyValuePair<string, object>("Note", note)
+            };
+            //await NoteStore.Write(changes);
+            await _myStorage.Write(changes);
+        }
     }
+
+
 }

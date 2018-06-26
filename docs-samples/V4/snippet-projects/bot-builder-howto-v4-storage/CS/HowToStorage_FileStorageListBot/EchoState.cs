@@ -1,4 +1,4 @@
-﻿namespace how_to_storage
+﻿namespace StoreListBot
 {
     /// <summary>
     /// Class for storing conversation state. 
