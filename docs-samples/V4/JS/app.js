@@ -15,7 +15,7 @@
  * To run other sample bots from this project:
  * 1) open the package.json file
  * 2) change the value of the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "dialogs.js" to run the dialogs sample bot.
+ *    For example: "main": "ask-questions/app.js" to run the dialogs sample bot.
  * 3) Follow the steps above to run the bot. Make sure to install additional npm packages required by the bot.
  *
  */ 
