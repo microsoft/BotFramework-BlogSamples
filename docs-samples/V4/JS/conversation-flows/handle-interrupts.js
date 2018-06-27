@@ -12,7 +12,7 @@
  * 
  * 2) From VSCode, open the package.json file and
  * Update the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "conversation-flows/app.js" to run the this sample bot.
+ *    For example: "main": "conversation-flows/handle-interrupts.js" to run the this sample bot.
  * 3) run the bot in debug mode. 
  * 4) Load the emulator and point it to: http://localhost:3978/api/messages
  * 5) Send the message "hi" or "reserve table" to engage with the bot.
