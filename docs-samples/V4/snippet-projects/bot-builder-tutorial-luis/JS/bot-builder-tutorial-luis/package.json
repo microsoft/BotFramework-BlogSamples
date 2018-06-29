@@ -1,8 +1,10 @@
 {
     "name": "bot-builder-tutorial-luis",
     "dependencies": {
+        "@microsoft/recognizers-text-data-types-timex-expression": "^1.0.1",
         "botbuilder": "^4.0.0-preview1.2",
         "botbuilder-ai": "^4.0.0-preview1.2",
+        "botbuilder-dialogs": "^4.0.0-preview1.2",
         "dotenv": "^2.0.0",
         "restify": "^4.3.0"
     },
