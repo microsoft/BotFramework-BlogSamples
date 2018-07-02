@@ -1,8 +1,14 @@
 const { BotFrameworkAdapter, BotStateSet, ConversationState, UserState, MemoryStorage } = require('botbuilder');
+const { LuisRecognizer } = require('botbuilder-ai');
 const { DialogSet, TextPrompt, ChoicePrompt, DatetimePrompt, NumberPrompt, ConfirmPrompt } = require("botbuilder-dialogs");
 const restify = require('restify');
 const { QnAMaker } = require('botbuilder-ai');
 require('dotenv').config()
+
+// We use these classes to validate datetime entities detected by LUIS
+const Resolver = require('@microsoft/recognizers-text-data-types-timex-expression').default.resolver;
+const Creator = require('@microsoft/recognizers-text-data-types-timex-expression').default.creator;
+const TimexProperty = require('@microsoft/recognizers-text-data-types-timex-expression').default.TimexProperty;
 
 // Create server
 let server = restify.createServer();
@@ -27,6 +33,19 @@ const qnaMaker = new QnAMaker(
         scoreThreshold: process.env.QNA_SCORE_THRESHOLD
     }
 );
+
+// Set up a LUIS recognizer
+// LUIS_APP_ID LUIS_SUBSCRIPTION_KEY in the .env file
+const appId = process.env.LUIS_APP_ID;
+const subscriptionKey = process.env.LUIS_SUBSCRIPTION_KEY;
+// Default is westus
+const serviceEndpoint = 'https://westus.api.cognitive.microsoft.com';
+
+const luisRec = new LuisRecognizer({
+    appId: appId,
+    subscriptionKey: subscriptionKey,
+    serviceEndpoint: serviceEndpoint
+});
 
 // Add state middleware
 const storage = new MemoryStorage();
@@ -72,71 +91,108 @@ server.post('/api/messages', (req, res) => {
 
             // If there were an active dialog, then it should have replied to the user.
             if (!context.responded) {
-                // Handle any "command-like" input from the user.
-                switch (text) {
-                    case "book table":
-                    case "book a table":
-                        // Stub for booking a table.
-                        await dc.begin("bookATable");
-                        break;
+                await luisRec.recognize(context).then(async (res) => {
+                    let topIntent = LuisRecognizer.topIntent(res);
+                    switch (topIntent) {
+                        case "Book_Table": {
+                            await context.sendActivity("Top intent is Book_Table ");
+                            await dc.begin('bookATable', res);
+                            break;
+                        }
 
-                    case "help":
-                        // Provide some guidance to the user.
-                        await context.sendActivity("Type `book a table` to make a reservation.");
-                        break;
-                }
+                        case "Greeting": {
+                            await context.sendActivity("Hello.");
+                            break;
+                        }
+
+                        // "None" and any other intents fall through to QnA
+                        case "None":
+                        default: {
+                            await context.sendActivity(`Reached default case. Top intent is ${topIntent}`);
+                            // Field any questions the user has asked.
+                            var answers = await qnaMaker.generateAnswer(text);
+
+                            if (answers == null) {
+                                await context.sendActivity("Call to the QnA Maker service failed.")
+                            }
+                            else if (answers && answers.length > 0) {
+                                // If the service produced one or more answers, send the first one.
+                                await context.sendActivity(answers[0].answer);
+                            }
+                            break;
+                        }
+                    }
+                }, (err) => {
+                    console.log(`Error calling recognize() ${err}`);
+                });
             }
 
-            if (!context.responded){
-                // Field any questions the user has asked.
-                var answers = await qnaMaker.generateAnswer(text);
-
-                if(answers == null) {
-                    await context.sendActivity("Call to the QnA Maker service failed.")
-                }
-                else if (answers && answers.length > 0) {
-                    // If the service produced one or more answers, send the first one.
-                    await context.sendActivity(answers[0].answer);
-                } 
-            }
-
-            if(!context.responded){
-                // Provide a default response for anything we don't understand.
+            if (!context.responded) {
+                // Provide a default response if the bot hasn't responded yet.
+                // This could happen if QnA couldn't find a response in the QnA fallback case
                 await context.sendActivity("I'm sorry; I do not understand.");
                 await context.sendActivity("Type `book a table` to make a reservation.");
             }
         }
     });
-
 });
 
+// Create an empty dialog set
 const dialogs = new DialogSet();
 
+// Add a bookATable dialog to the set of dialogs
 dialogs.add('bookATable', [
-    async function (dc, args) {
+    async function (dc, args, next) {
+
+        var luisresult = args;
+        // Call a helper function to save the entities in the LUIS result
+        // to dialog state
+        await SaveEntities(dc, luisresult);
 
         // Begin booking a table
-
-        // Query for location
-        const locations = ["Bellevue", "Redmond", "Renton", "Seattle"];
-        await dc.prompt('choicePrompt', 'Please select one of our locations.', locations, { retryPrompt: 'Please select only these locations.' });
+        if (dc.activeDialog.state.cafeLocation) {
+            await next();
+        } else {
+            // Query for location
+            const locations = ["Bellevue", "Redmond", "Renton", "Seattle"];
+            await dc.prompt('choicePrompt', 'Please select one of our locations.', locations, { retryPrompt: 'Please select only these locations.' });
+        }
     },
-    async function (dc, result) {
-        //  Update state with the location 
-        dc.activeDialog.state.location = result.value;
+    async function (dc, result, next) {
+        // If we don't already have location saved from the LUIS entities,
+        // update state with the location in the prompt result
+        if (!dc.activeDialog.state.cafeLocation) {
+            dc.activeDialog.state.cafeLocation = result.value;
+        }
 
-        await dc.prompt('dateTimePrompt', "When will the reservation be for?", { retryPrompt: 'Please enter a date and time for the reservation.' });
+        if (dc.activeDialog.state.dateTime) {
+            await next();
+        } else {
+            await dc.prompt('dateTimePrompt', "When will the reservation be for?", { retryPrompt: 'Please enter a date and time for the reservation.' });
+        }
     },
-    async function (dc, result) {
-        //  Update state with the date and time
-        dc.activeDialog.state.dateTime = result[0].value;
+    async function (dc, result, next) {
+        if (!dc.activeDialog.state.dateTime) {
+            //  Update state with the date and time.
+            // The prompt validator had some logic to return only dates in a valid time and date range.
+            // Since the date has already been validated, we just take the first one 
+            // from the list of date resolutions that the dateTime promt returns.
+            dc.activeDialog.state.dateTime = result[0].value;
+        }
 
-        // Ask for the reservation name next
-        await dc.prompt('numberPrompt', "How many guests?", { retryPrompt: "Please enter the number of people that the reservation is for." });
+        // If we don't have party size, ask for it next
+        if (!dc.activeDialog.state.partySize) {
+            // Ask for the number of guests next        
+            await dc.prompt('numberPrompt', "How many guests?", { retryPrompt: "Please enter the number of people that the reservation is for." });
+        } else {
+            await next();
+        }
     },
-    async function (dc, result) {
+    async function (dc, result, next) {
         // Update state with the number of guests
-        dc.activeDialog.state.guests = result;
+        if (!dc.activeDialog.state.partySize) {
+            dc.activeDialog.state.partySize = result;
+        }
 
         // Query for a name for the resevation.
         await dc.prompt('textPrompt', "What name should I book the table under?", { retryPrompt: "Please enter a name for the reservation." })
@@ -145,9 +201,10 @@ dialogs.add('bookATable', [
         // Update state with the name for the reservation.
         dc.activeDialog.state.name = result;
 
+        // TODO: rename partySize to guests
         await dc.prompt('confirmPrompt', `Ok. Should I go ahead and book a table
-        for ${dc.activeDialog.state.guests} 
-        at ${dc.activeDialog.state.location}
+        for ${dc.activeDialog.state.partySize}
+        at ${dc.activeDialog.state.cafeLocation}
         for ${dc.activeDialog.state.dateTime}
         for ${dc.activeDialog.state.name}?`, {
                 retryPrompt: `I'm sorry, should I make the reservation for you?
@@ -157,11 +214,20 @@ dialogs.add('bookATable', [
         var confirmed = result;
 
         if (confirmed) {
+            // Copy the dialog state to the conversation state
+            var state = convoState.get(dc.context);
+            state = dc.activeDialog.state;
+
             // Send a confirmation message
             await dc.context.sendActivities([
                 { type: 'typing' },
                 { type: 'delay', value: 2000 },
-                { type: 'message', text: 'Your table is booked. Reference number: #K89HG38SZ' }
+                {
+                    type: 'message', text: `Your table is booked. Reservation details:             
+                Date/Time: ${state.dateTime} 
+                Party size: ${state.partySize} 
+                Reservation name: ${state.name}`
+                }
             ]);
             await dc.end();
         } else {
@@ -212,7 +278,7 @@ dialogs.add('confirmPrompt', new ConfirmPrompt)
 dialogs.add('numberPrompt', new NumberPrompt(async (context, value) => {
     try {
         if (isNaN(value)) {
-            throw new Error('Party size too small.')
+            throw new Error('Party size invalid.')
         }
         if (value < 1) {
             throw new Error('Party size too small.');
@@ -228,3 +294,59 @@ dialogs.add('numberPrompt', new NumberPrompt(async (context, value) => {
         return undefined;
     }
 }));
+
+// Helper function that saves any entities found in the LUIS result
+// to the dialog state
+async function SaveEntities(dc, luisresult) {
+    // Resolve entities returned from LUIS, and save these to state
+    if (luisresult.entities) {
+
+        let datetime = luisresult.entities.datetime;
+
+        if (datetime) {
+            console.log(`datetime entity found of type ${datetime[0].type}.`);
+
+            // Use the first date or time found in the utterance            
+            if (datetime[0].timex) {
+                var timexValues = datetime[0].timex
+                // timexValues is the array of all resolutions of datetime[0]
+                // a datetime entity detected by LUIS is resolved to timex format.
+                // More information on timex can be found here: 
+                // http://www.timeml.org/publications/timeMLdocs/timeml_1.2.1.html#timex3                                
+                // More information on the library which does the recognition can be found here: 
+                // https://github.com/Microsoft/Recognizers-Text
+                if (datetime[0].type === "datetime") {
+                    var resolution = Resolver.evaluate(
+                        // array of timex values to evaluate. There may be more than one: "today at 6" can be 6AM or 6PM.
+                        timexValues,
+                        // Creator.evening constrains this to times between 4pm and 8pm
+                        [Creator.evening, Creator.nextWeeksFromToday(2)]);
+                    if (resolution[0]) {
+                        // toNaturalLanguage takes the current date into account to create a friendly string
+                        dc.activeDialog.state.dateTime = resolution[0].toNaturalLanguage(new Date());
+                        // You can also use resolution.toString() to format the date/time.
+                    } else {
+                        // time didn't satisfy constraint.
+                        dc.activeDialog.state.dateTime = null;
+                    }
+                }
+                else {
+                    console.log(`Type ${datetime[0].type} is not yet supported. Provide both the date and the time.`);
+                }
+            }
+        }
+        let partysize = luisresult.entities.partySize;
+        if (partysize) {
+            console.log(`partysize entity detected: ${partysize}`);
+            // use first partySize entity that was found in utterance
+            dc.activeDialog.state.partySize = partysize[0];
+        }
+        let cafelocation = luisresult.entities.cafeLocation;
+
+        if (cafelocation) {
+            console.log(`location entity detected: ${cafelocation}`);
+            // use first cafeLocation entity that was found in utterance
+            dc.activeDialog.state.cafeLocation = cafelocation[0][0];
+        }
+    }
+}
