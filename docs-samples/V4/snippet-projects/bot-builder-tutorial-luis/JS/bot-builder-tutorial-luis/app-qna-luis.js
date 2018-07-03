@@ -100,6 +100,11 @@ server.post('/api/messages', (req, res) => {
                             break;
                         }
 
+                        case "Help": {
+                            await context.sendActivity("I can help you make a reservation. For example, you can type `book a table` to get started.");
+                            break;
+                        }
+                        
                         case "Greeting": {
                             await context.sendActivity("Hello.");
                             break;
@@ -108,12 +113,12 @@ server.post('/api/messages', (req, res) => {
                         // "None" and any other intents fall through to QnA
                         case "None":
                         default: {
-                            await context.sendActivity(`Reached default case. Top intent is ${topIntent}`);
+                            await console.log(`Reached default case. Top intent is ${topIntent}`);
                             // Field any questions the user has asked.
                             var answers = await qnaMaker.generateAnswer(text);
 
                             if (answers == null) {
-                                await context.sendActivity("Call to the QnA Maker service failed.")
+                                await console.log("Call to the QnA Maker service failed.")
                             }
                             else if (answers && answers.length > 0) {
                                 // If the service produced one or more answers, send the first one.
