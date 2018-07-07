@@ -23,7 +23,8 @@ var bot = new builder.UniversalBot(connector);
 
 var recognizer = new builder_cognitiveservices.QnAMakerRecognizer({
     knowledgeBaseId: 'Your-Qna-KnowledgeBase-ID', // process.env.QnAKnowledgebaseId, 
-    subscriptionKey: 'Your-Qna-KnowledgeBase-Password'}); //process.env.QnASubscriptionKey});
+    authKey: 'Your-Qna-KnowledgeBase-Password', //process.env.QnAAuthKey}),
+    endpointHostName: 'Your-Qna-KnowledgeBase-HostName'}); //process.env.QnAEndpointHostName});
 
 var basicQnAMakerDialog = new builder_cognitiveservices.QnAMakerDialog({
 recognizers: [recognizer],
