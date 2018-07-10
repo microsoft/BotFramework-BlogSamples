@@ -1,0 +1,27 @@
+{
+  "name": "js-samples",
+  "version": "1.0.0",
+  "description": "Botbuilder v4 SDK JS samples project",
+  "main": "./using-prompts/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "botbuilder",
+    "sdk",
+    "sdk",
+    "sample",
+    "code",
+    "js",
+    "sample",
+    "js",
+    "bot"
+  ],
+  "author": "v-ducvo",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^4.0.0-preview1.2",
+    "botbuilder-dialogs": "^4.0.0-preview1.2",
+    "restify": "^7.2.1"
+  }
+}
