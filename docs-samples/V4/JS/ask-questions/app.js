@@ -1,5 +1,5 @@
 /*
- * Botbuilder v4 SDK - Ask user questions. - TEST
+ * Botbuilder v4 SDK - Ask user questions.
  * 
  * This bot demonstrates how to ask user questions using Prompts and Waterfall model in a dialog.
  * 
