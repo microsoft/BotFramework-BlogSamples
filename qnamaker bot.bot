@@ -1,0 +1,15 @@
+{
+    "name": "qnamaker bot",
+    "description": "",
+    "secretKey": "",
+    "services": [
+        {
+            "appId": "",
+            "id": "6ecc0a40-8943-11e8-9375-33046beeca38",
+            "type": "endpoint",
+            "appPassword": "",
+            "endpoint": "http://localhost:3978/api/messages",
+            "name": "http://localhost:3978/api/messages"
+        }
+    ]
+}
