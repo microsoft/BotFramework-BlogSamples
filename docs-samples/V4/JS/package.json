@@ -21,6 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "botbuilder": "^4.0.0-preview1.2",
+    "botbuilder-azure": "^4.0.0-preview1.2",
     "botbuilder-dialogs": "^4.0.0-preview1.2",
     "restify": "^7.2.1"
   }
