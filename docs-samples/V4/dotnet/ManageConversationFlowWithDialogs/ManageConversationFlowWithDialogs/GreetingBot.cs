@@ -20,13 +20,13 @@ namespace ManageConversationFlowWithDialogs
                 var dc = GreetingDialog.Instance.CreateContext(context, conversationState.DialogState);
 
                 // Continue any active dialog.
-                await dc.Continue();
+                await dc.Continue().ConfigureAwait(false);
 
                 // If no dialog is active, the bot will not have responded yet.
                 if (!context.Responded)
                 {
                     // Start the greeting dialog.
-                    await dc.Begin(GreetingDialog.Main);
+                    await dc.Begin(GreetingDialog.Main).ConfigureAwait(false);
                 }
             }
         }

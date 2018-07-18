@@ -33,11 +33,11 @@ namespace ManageConversationFlowWithDialogs
                     var y =(double)args[Input.Second];
                     var sum = x + y;
 
-                    await dc.Context.SendActivity($"{x} + {y} = {sum}");
+                    await dc.Context.SendActivity($"{x} + {y} = {sum}").ConfigureAwait(false);
 
                     dc.ActiveDialog.State[State.Value] = sum;
 
-                    await dc.End();
+                    await dc.End().ConfigureAwait(false);
                 }
             });
         }

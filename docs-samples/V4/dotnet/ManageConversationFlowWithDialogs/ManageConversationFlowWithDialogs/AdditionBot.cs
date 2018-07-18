@@ -24,7 +24,7 @@ namespace ManageConversationFlowWithDialogs
                 var dc = AdditionDialog.Instance.CreateContext(context, conversationState.DialogState);
 
                 // Continue any active dialog.
-                await dc.Continue();
+                await dc.Continue().ConfigureAwait(false);
 
                 // If no dialog is active, the bot will not have responded yet.
                 if (!context.Responded)
@@ -33,16 +33,17 @@ namespace ManageConversationFlowWithDialogs
                     // like "2 + 3" or "1.25 + 3.28" and extract the numbers to add.
                     if (TryParseAddingTwoNumbers(context.Activity.Text, out double first, out double second))
                     {
-                        await dc.Begin(AdditionDialog.Main, new Dictionary<string, object>
+                        var args = new Dictionary<string, object>
                         {
                             [AdditionDialog.Input.First] = first,
                             [AdditionDialog.Input.Second] = second
-                        });
+                        };
+                        await dc.Begin(AdditionDialog.Main, args).ConfigureAwait(false);
                     }
                     else
                     {
                         // Echo back to the user whatever they typed.
-                        await context.SendActivity($"You said '{context.Activity.Text}'");
+                        await context.SendActivity($"You said '{context.Activity.Text}'").ConfigureAwait(false);
                     }
                 }
             }
