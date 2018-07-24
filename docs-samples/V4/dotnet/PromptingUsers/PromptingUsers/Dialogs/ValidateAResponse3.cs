@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DateTimeResult = Microsoft.Bot.Builder.Prompts.DateTimeResult;
-using Int32Result = Microsoft.Bot.Builder.Prompts.NumberResult<int>;
 using PromptStatus = Microsoft.Bot.Builder.Prompts.PromptStatus;
 
 namespace ValidateAPromptResponse3
@@ -21,9 +20,6 @@ namespace ValidateAPromptResponse3
         /// <summary>Defines the IDs of the prompts in the set.</summary>
         public struct Inputs
         {
-            /// <summary>The ID of the party size prompt.</summary>
-            public const string Size = "parytySize";
-
             /// <summary>The ID of the reservation time prompt.</summary>
             public const string Time = "reservationTime";
         }
@@ -31,23 +27,11 @@ namespace ValidateAPromptResponse3
         /// <summary>Defines the prompts and steps of the dialog.</summary>
         public MyDialog()
         {
-            Add(Inputs.Size, new NumberPrompt<int>(Culture.English, PartySizeValidator));
             Add(Inputs.Time, new DateTimePrompt(Culture.English, TimeValidator));
             Add(Name, new WaterfallStep[]
             {
-                async (dc, args, next) =>
-                {
-                    // Prompt for the party size.
-                    await dc.Prompt(Inputs.Size, "How many people are in your party?", new PromptOptions()
-                    {
-                        RetryPromptString = "Please specify party size between 6 and 20."
-                    }).ConfigureAwait(false);
-                },
                 async(dc, args, next) =>
                 {
-                    var size = (int)args["Value"];
-                    await dc.Context.SendActivity($"Okay, {size} people!").ConfigureAwait(false);
-
                     // Prompt for a reservation time.
                     await dc.Prompt(Inputs.Time, "When is the reservation for?", new PromptOptions()
                     {
@@ -64,18 +48,6 @@ namespace ValidateAPromptResponse3
             });
         }
 
-        /// <summary>Validates input for the partySize prompt.</summary>
-        /// <param name="context">The context object for the current turn of the bot.</param>
-        /// <param name="result">The recognition result from the prompt.</param>
-        /// <returns>An updated recognition result.</returns>
-        private static async Task PartySizeValidator(ITurnContext context, Int32Result result)
-        {
-            if (result.Value < 6 || result.Value > 20)
-            {
-                result.Status = PromptStatus.OutOfRange;
-            }
-        }
-
         /// <summary>Validates input for the reservationTime prompt.</summary>
         /// <param name="context">The context object for the current turn of the bot.</param>
         /// <param name="result">The recognition result from the prompt.</param>
@@ -88,6 +60,7 @@ namespace ValidateAPromptResponse3
                 result.Status = PromptStatus.NotRecognized;
             }
 
+            // Find any recognized time that is not in the past.
             var now = DateTime.Now;
             DateTime time = default(DateTime);
             var resolution = result.Resolution.FirstOrDefault(
@@ -95,11 +68,13 @@ namespace ValidateAPromptResponse3
 
             if (resolution != null)
             {
+                // If found, keep only that result.
                 result.Resolution.Clear();
                 result.Resolution.Add(resolution);
             }
             else
             {
+                // Otherwise, flag the input as out of range.
                 await context.SendActivity("Please enter a time in the future, such as \"tomorrow at 9am\"").ConfigureAwait(false);
                 result.Status = PromptStatus.OutOfRange;
             }

@@ -35,7 +35,7 @@ namespace ReusablePrompts2
                 {
                     var user = (string)args["Text"];
 
-                    // Ask them where they are from.
+                    // Ask them where they work.
                     await dc.Prompt(Inputs.Work, $"Hi {user}! Where do you work?").ConfigureAwait(false);
                 },
                 async(dc, args, next) =>
