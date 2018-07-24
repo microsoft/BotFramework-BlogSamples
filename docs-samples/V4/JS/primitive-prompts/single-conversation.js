@@ -120,6 +120,7 @@ async function gatherUserProfile(context, convo){
 
         // Done
         topicStates.topicTitle = undefined; // Reset conversation flag
+        topicStates.prompt = undefined;     // Reset the prompt flag
         await context.sendActivity("Thank you. Your profile is complete.");
     }
 
