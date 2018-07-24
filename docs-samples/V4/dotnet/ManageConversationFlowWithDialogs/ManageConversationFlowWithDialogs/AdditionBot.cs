@@ -2,9 +2,7 @@
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Core.Extensions;
 using Microsoft.Bot.Schema;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -12,39 +10,35 @@ namespace ManageConversationFlowWithDialogs
 {
     public class AdditionBot : IBot
     {
+        private static AdditionDialog AddTwoNumbers { get; } = new AdditionDialog();
+
         public async Task OnTurn(ITurnContext context)
         {
             // Handle any message activity from the user.
             if (context.Activity.Type is ActivityTypes.Message)
             {
-                // Get the conversation state from the turn context
+                // Get the conversation state from the turn context.
                 var conversationState = context.GetConversationState<ConversationData>();
 
                 // Generate a dialog context for the addition dialog.
-                var dc = AdditionDialog.Instance.CreateContext(context, conversationState.DialogState);
+                var dc = AddTwoNumbers.CreateContext(context, conversationState.DialogState);
 
-                // Continue any active dialog.
-                await dc.Continue().ConfigureAwait(false);
-
-                // If no dialog is active, the bot will not have responded yet.
-                if (!context.Responded)
+                // Call a helper function that identifies if the user says something
+                // like "2 + 3" or "1.25 + 3.28" and extract the numbers to add.
+                if (TryParseAddingTwoNumbers(context.Activity.Text, out double first, out double second))
                 {
-                    // Call a helper function that identifies if the user says something 
-                    // like "2 + 3" or "1.25 + 3.28" and extract the numbers to add.
-                    if (TryParseAddingTwoNumbers(context.Activity.Text, out double first, out double second))
+                    // Start the dialog, passing in the numbers to add.
+                    var args = new Dictionary<string, object>
                     {
-                        var args = new Dictionary<string, object>
-                        {
-                            [AdditionDialog.Input.First] = first,
-                            [AdditionDialog.Input.Second] = second
-                        };
-                        await dc.Begin(AdditionDialog.Main, args).ConfigureAwait(false);
-                    }
-                    else
-                    {
-                        // Echo back to the user whatever they typed.
-                        await context.SendActivity($"You said '{context.Activity.Text}'").ConfigureAwait(false);
-                    }
+                        [AdditionDialog.Inputs.First] = first,
+                        [AdditionDialog.Inputs.Second] = second
+                    };
+                    await dc.Begin(AdditionDialog.Main, args).ConfigureAwait(false);
+                }
+                else
+                {
+                    // Echo back to the user whatever they typed.
+                    await context.SendActivity($"You said '{context.Activity.Text}'").ConfigureAwait(false);
                 }
             }
         }
@@ -53,7 +47,7 @@ namespace ManageConversationFlowWithDialogs
         // where number may have optionally have a decimal point.: 1 + 1, 123.99 + 45, 0.4+7. 
         // For the sake of simplicity it doesn't handle negative numbers or numbers like 1,000 that contain a comma.
         // If you need more robust number recognition, try System.Recognizers.Text
-        public bool TryParseAddingTwoNumbers(string message, out double first, out double second)
+        public static bool TryParseAddingTwoNumbers(string message, out double first, out double second)
         {
             // captures a number with optional -/+ and optional decimal portion
             const string NUMBER_REGEXP = "([-+]?(?:[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+))";

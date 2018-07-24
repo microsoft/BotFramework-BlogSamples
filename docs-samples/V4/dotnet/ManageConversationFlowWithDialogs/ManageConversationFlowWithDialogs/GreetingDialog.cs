@@ -4,27 +4,29 @@ using System.Collections.Generic;
 
 namespace ManageConversationFlowWithDialogs
 {
+    /// <summary>Defines a simple dialog for greeting a user.</summary>
     public class GreetingDialog : DialogSet
     {
+        /// <summary>The ID of the main dialog in the set.</summary>
         public const string Main = "greetingDialog";
 
-        private struct Prompts
+        /// <summary>Defines the IDs of the prompts in the set.</summary>
+        private struct Inputs
         {
             public const string Text = "text";
         }
 
+        /// <summary>Defines IDs for output from the dialog.</summary>
         private struct State
         {
             public const string Name = "name";
             public const string Work = "work";
         }
 
-        public static GreetingDialog Instance = new Lazy<GreetingDialog>(() => new GreetingDialog()).Value;
-
-        private GreetingDialog()
+        public GreetingDialog()
         {
             // Include a text prompt.
-            Add(Prompts.Text, new TextPrompt());
+            Add(Inputs.Text, new TextPrompt());
 
             // Define the dialog logic for greeting the user.
             Add(Main, new WaterfallStep[]
@@ -34,7 +36,7 @@ namespace ManageConversationFlowWithDialogs
                     dc.ActiveDialog.State = new Dictionary<string,object>();
 
                     // Ask for their name.
-                    await dc.Prompt(Prompts.Text, "What is your name?").ConfigureAwait(false);
+                    await dc.Prompt(Inputs.Text, "What is your name?").ConfigureAwait(false);
                 },
                 async (dc, args, next) =>
                 {
@@ -43,10 +45,10 @@ namespace ManageConversationFlowWithDialogs
                     dc.ActiveDialog.State[State.Name] = name;
 
                     // Acknowledge their input.
-                    await dc.Context.SendActivity($"Pleased to meet you, {name}.").ConfigureAwait(false);
+                    await dc.Context.SendActivity($"Hi, {name}!").ConfigureAwait(false);
 
                     // Ask where they work.
-                    await dc.Prompt(Prompts.Text, "Where do you work?").ConfigureAwait(false);
+                    await dc.Prompt(Inputs.Text, "Where do you work?").ConfigureAwait(false);
                 },
                 async (dc, args, next) =>
                 {
@@ -55,10 +57,11 @@ namespace ManageConversationFlowWithDialogs
                     dc.ActiveDialog.State[State.Work] = work;
 
                     // Acknowledge their input.
-                    await dc.Context.SendActivity($"{work} is a cool place.").ConfigureAwait(false);
+                    await dc.Context.SendActivity($"{work} is a fun place.").ConfigureAwait(false);
 
                     // End the dialog.
                     await dc.End().ConfigureAwait(false);
+                    await dc.Replace(Main).ConfigureAwait(false);
                 }
             });
         }

@@ -3,7 +3,7 @@
 namespace ManageConversationFlowWithDialogs
 {
     /// <summary>
-    /// Class for storing conversation state. 
+    /// Class for storing conversation state.
     /// </summary>
     public class ConversationData
     {

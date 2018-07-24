@@ -8,6 +8,8 @@ namespace ManageConversationFlowWithDialogs
 {
     public class GreetingBot : IBot
     {
+        private static GreetingDialog Greeting { get; } = new GreetingDialog();
+
         public async Task OnTurn(ITurnContext context)
         {
             // Handle any message activity from the user.
@@ -17,7 +19,7 @@ namespace ManageConversationFlowWithDialogs
                 var conversationState = context.GetConversationState<ConversationData>();
 
                 // Generate a dialog context for the greeting dialog.
-                var dc = GreetingDialog.Instance.CreateContext(context, conversationState.DialogState);
+                var dc = Greeting.CreateContext(context, conversationState.DialogState);
 
                 // Continue any active dialog.
                 await dc.Continue().ConfigureAwait(false);
