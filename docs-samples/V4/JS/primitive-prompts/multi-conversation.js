@@ -186,7 +186,7 @@ async function reserveTable(context, convo){
     }
     else if(topicStates.prompt == "dateTime"){
         var dateTime = await Recognizers.recognizeDateTime(context.activity.text, Recognizers.Culture.English);
-        if(await valideDateTime(context, dateTime[0].resolution.values)){
+        if(await validateDateTime(context, dateTime[0].resolution.values)){
             // Save user's response
             convo.reservationInfo.dateTime = dateTime[0].resolution.values[0].value;
 
@@ -196,7 +196,7 @@ async function reserveTable(context, convo){
         }
         else {
             // Ask again
-            await context.sendActivity("Please provide a reservation date and time.");
+            await context.sendActivity("Please provide a reservation date and time (e.g.: tomorrow at 3pm).");
         }
     }
     else if(topicStates.prompt == "partySize"){
@@ -233,7 +233,7 @@ async function reserveTable(context, convo){
 
 // valideDateTime
 // Check for a valid date/time in the future
-async function valideDateTime(context, values){
+async function validateDateTime(context, values){
     try {
         if (values.length < 0) { throw new Error('Missing time') }
         if (values[0].type !== 'datetime') { throw new Error('Unsupported type') }
