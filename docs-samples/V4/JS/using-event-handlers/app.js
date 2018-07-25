@@ -1,7 +1,8 @@
 /*
  * Botbuilder v4 SDK - Using Event Handlers
  * 
- * This bot demonstrates how to use the sendActivity event handler
+ * This bot demonstrates how to use event handlers. Event handlers are functions we can add to future activity events within a turn.
+ * SendActivity, UpdateActivity, and DeleteActivity are useful when you need to do something on every future activity of that type for the current context object.
  * 
  * To run this bot:
  * 1) install these npm packages:

@@ -1,7 +1,11 @@
 /*
  * Botbuilder v4 SDK - Add input hints
  * 
- * This bot demonstrates how to add input hints.
+ * This bot demonstrates how to add input hints. Input hints can close/open the microphone as well as disable/enable 
+ * the input box if specified. The MessageFactory library is used as a set of utility functions to assit with the formatting 
+ * of message types. 
+ * 
+ * This sample can be found here in the docs: https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-add-input-hints?view=azure-bot-service-4.0&tabs=cs
  * 
  * To run this bot:
  * 1) install these npm packages:

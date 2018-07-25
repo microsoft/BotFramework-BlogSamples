@@ -1,7 +1,9 @@
 /*
  * Botbuilder v4 SDK - Add suggested actions
  * 
- * This bot shows buttons the user can press to provide input.
+ * This bot shows buttons the user can press to provide input. These SuggestedActions buttons will disappear 
+ * after the user clicked on any of the buttons. The text value of the button will be sent as a message to 
+ * the bot representing the user's choice. The bot can take action based this choice.
  * 
  * To run this bot:
  * 1) install these npm packages:
@@ -32,6 +34,8 @@ const adapter = new BotFrameworkAdapter({
     appPassword: process.env.MICROSOFT_APP_PASSWORD 
 });
 
+// Flags
+var asked_question = false;
 
 // Listen for incoming requests 
 server.post('/api/messages', (req, res) => {
@@ -39,10 +43,16 @@ server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         if (context.activity.type === 'message') {
 
-            //  Initialize the message object.
-            const basicMessage = MessageFactory.suggestedActions(['red', 'green', 'blue'], 'Choose a color');
+            if(asked_question === false){
+                // Set the flag to true
+                asked_question = true;
 
-            await context.sendActivity(basicMessage);
-        }
+                //  Initialize the message object.
+                const basicMessage = MessageFactory.suggestedActions(['red', 'green', 'blue'], 'Choose a color');
+                await context.sendActivity(basicMessage);
+            } else {
+                await context.sendActivity(`You picked the color ${context.activity.text}`);
+            };
+        };
     });
 });

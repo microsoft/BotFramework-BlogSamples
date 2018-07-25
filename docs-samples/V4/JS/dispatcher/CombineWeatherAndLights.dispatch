@@ -1,0 +1,33 @@
+{
+  "authoringRegion": "northus",
+  "hierarchical": true,
+  "services": [
+    {
+      "appId": "f698134d-b8a9-45c3-87b8-0064165b4b66",
+      "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+      "version": "0.1",
+      "type": "luis",
+      "name": "homeautomation",
+      "id": "f698134d-b8a9-45c3-87b8-0064165b4b66"
+    },
+    {
+      "appId": "5815e389-0dbf-4b3e-a0f7-00eb9e2f4d19",
+      "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+      "version": "0.1",
+      "type": "luis",
+      "name": "weather",
+      "id": "5815e389-0dbf-4b3e-a0f7-00eb9e2f4d19"
+    },
+    {
+      "kbId": "ed954b2b-d3d4-439e-8d09-dd900e1ea1cd",
+      "subscriptionKey": "cf5d25e4-e1f0-4e63-96a2-67cb8212b086",
+      "type": "qna",
+      "name": "faq",
+      "id": "ed954b2b-d3d4-439e-8d09-dd900e1ea1cd"
+    }
+  ],
+  "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+  "version": "Dispatch",
+  "type": "dispatch",
+  "name": "CombineWeatherAndLights"
+}
