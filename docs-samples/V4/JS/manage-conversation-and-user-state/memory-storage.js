@@ -1,5 +1,8 @@
 /*
- * Botbuilder v4 SDK - Add suggested actions
+ * Botbuilder v4 SDK - Memory Storage
+ * 
+ * Memory storage is for testing purposes only and is not intended for production use. 
+ * Be sure to set storage to a database like AzureTable storage before publishing your bot.
  * 
  * This bot demonstrates how to manage a conversation state and user state with MemoryStorage.
  * 
@@ -49,23 +52,23 @@ server.post('/api/messages', (req, res) => {
         const user = userState.get(context);
 
         if (isMessage) {
-            if(!user.name && !convo.haveAskedNameFlag){
+            if(!user.name && !convo.prompt){
                 // Ask for the name.
                 await context.sendActivity("What is your name?")
                 // Set flag to show we've asked for the name. We save this out so the
                 // context object for the next turn of the conversation can check haveAskedNameFlag
-                convo.haveAskedNameFlag = true;
-            } else if(convo.haveAskedNameFlag){
+                convo.prompt = "haveAskedNameFlag";
+            } else if(convo.prompt == "haveAskedNameFlag"){
                 // Save the name.
                 user.name = context.activity.text;
-                convo.haveAskedNameFlag = false; // Reset flag
-
+                // Ask the user for their number
                 await context.sendActivity(`Hello, ${user.name}. What's your telephone number?`);
-                convo.haveAskedNumberFlag = true; // Set flag
-            } else if(convo.haveAskedNumberFlag){
+                // Set flag
+                convo.prompt = "haveAskedNumberFlag";
+            } else if(convo.prompt == "haveAskedNumberFlag"){
                 // save the phone number
                 user.telephonenumber = context.activity.text;
-                convo.haveAskedNumberFlag = false; // Reset flag
+                convo.prompt = undefined; // Reset flag
                 await context.sendActivity(`Got it. I'll call you later.`);
             }
         }

@@ -60,15 +60,16 @@ server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async(context) => {
         if (context.activity.type === 'message') {
             var utterance = context.activity.text;
+            const convo = conversationState.get(context);
             
             // Check topic flags in conversation state 
-            if (conversationState.weatherTopicStarted) 
+            if (convo.weatherTopicStarted) 
             {
                 // Assume the user's message is a reply to the bot's prompt for a location
                 await context.sendActivity(`The weather in ${utterance} is sunny.`);
                 // This conversation flow is now finished. Set flag to false,
                 // so that on the next turn the user can ask for another weather forecast.
-                conversationState.WeatherTopicStarted = false;
+                convo.WeatherTopicStarted = false;
             }
             // To add more steps to the other topics
             // you could check the topic flags here
@@ -82,15 +83,15 @@ server.post('/api/messages', (req, res) => {
                         await context.sendActivity("<null case>")
                         break;
                     case 'Cancel':
-                        conversationState.cancelTopicStarted = true;
+                        convo.cancelTopicStarted = true;
                         await context.sendActivity("<cancelling the process>")
                         break;
                     case 'Help':
-                        conversationState.helpTopicStarted = true;
+                        convo.helpTopicStarted = true;
                         await context.sendActivity("<here's some help>");
                         break;
                     case 'Weather':
-                        conversationState.weatherTopicStarted = true;
+                        convo.weatherTopicStarted = true;
                         await context.sendActivity("Looks like you want a weather forecast. What city do you want the forecast for?");
                         break;
                     default:

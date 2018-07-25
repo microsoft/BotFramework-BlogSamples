@@ -1,7 +1,8 @@
 /*
  * Botbuilder v4 SDK - Send messages
  * 
- * This bot demonstrates how to send a simple text message.
+ * This bot demonstrates how to send a simple text message with context.sendActivity()
+ * If you would like to add inputHints and enable speech, use MessageFactory.text() instead. 
  * 
  * To run this bot:
  * 1) install these npm packages:

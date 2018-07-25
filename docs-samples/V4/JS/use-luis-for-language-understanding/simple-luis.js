@@ -72,7 +72,7 @@ server.post('/api/messages', (req, res) => {
                     await context.sendActivity("Failed to get results from LUIS.")
                     break;
                 default:
-                    // Received an intent we didn't expect, so send its name and score.
+                    // Received an intent we didn't expect, so send the topIntent.
                     await context.sendActivity(`The top intent was ${topIntent}`);
             }
         }

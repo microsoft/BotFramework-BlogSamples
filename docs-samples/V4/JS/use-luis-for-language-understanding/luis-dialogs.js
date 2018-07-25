@@ -2,6 +2,8 @@
  * Botbuilder v4 SDK - Using LUIS for language understanding
  * 
  * This bot demonstrates how to use LUIS with dialogs to trigger multi-turn conversation flow
+ * This example bot works with a LUIS app that detects intents used to trigger either a home automation
+ * dialog or a weather dialog.
  * 
  * To run this bot:
  * 1) install these npm packages:
