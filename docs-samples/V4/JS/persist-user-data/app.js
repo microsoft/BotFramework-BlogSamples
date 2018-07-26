@@ -57,7 +57,9 @@ server.post('/api/messages', (req, res) => {
         if (isMessage) {
             // Check for valid intents
             if(context.activity.text.match(/hi/ig)){
-                await dc.begin('greetings');
+                // TESTING DIALOG RETURN value...this is NOT working.
+                var userName = await dc.begin('greetings');
+                console.log("User name is: " + userName);
             }
             else if(context.activity.text.match(/reserve table/ig)){
                 await dc.begin('reserveTable');
@@ -65,8 +67,11 @@ server.post('/api/messages', (req, res) => {
         }
 
         if(!context.responded){
+            // TESTING DIALOG RETURN value...this is NOT working.
+            //
             // Continue executing the "current" dialog, if any.
-            await dc.continue();
+            var userName = await dc.continue();
+            console.log("User name2 is: " + userName);
 
             if(!context.responded && isMessage){
                 // Default message
@@ -86,7 +91,7 @@ dialogs.add('greetings',[
     async function(dc, results){
         var userName = results;
         await dc.context.sendActivity(`Hello ${userName}!`);
-        await dc.end(); // Ends the dialog
+        await dc.end(userName); // Ends the dialog
     }
 ]);
 
