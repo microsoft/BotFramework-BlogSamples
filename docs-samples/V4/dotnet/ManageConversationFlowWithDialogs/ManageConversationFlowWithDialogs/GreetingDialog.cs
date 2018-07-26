@@ -60,7 +60,8 @@ namespace ManageConversationFlowWithDialogs
                     await dc.Context.SendActivity($"{work} is a fun place.").ConfigureAwait(false);
 
                     // End the dialog.
-                    await dc.End().ConfigureAwait(false);
+                    //await dc.End().ConfigureAwait(false);
+                    // Start over from the beginning.
                     await dc.Replace(Main).ConfigureAwait(false);
                 }
             });
