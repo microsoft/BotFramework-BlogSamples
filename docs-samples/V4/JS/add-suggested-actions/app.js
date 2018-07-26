@@ -37,7 +37,6 @@ const adapter = new BotFrameworkAdapter({
 // Flags
 var asked_question = false;
 
-
 // Listen for incoming requests 
 server.post('/api/messages', (req, res) => {
     // Route received request to adapter for processing
