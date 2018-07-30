@@ -61,7 +61,15 @@ server.post('/api/messages', (req, res) => {
             {    
                 await dc.begin('addTwoNumbers', numbers);
             }
+            else {
+                // Just echo back the user's message if they're not adding numbers
+                return context.sendActivity(`Turn ${count}: You said "${context.activity.text}"`); 
+            }     
         }
+        else {
+            return context.sendActivity(`[${context.activity.type} event detected]`);
+        }
+        
         if (!context.responded) {
             await dc.continue();
             // if the dialog didn't send a response
