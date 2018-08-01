@@ -107,10 +107,6 @@ dialogs.add('mainMenu', [
         else if(result.value.match(/reserve a table/ig)){
             await dc.begin('reserveTable');
         }
-        else {
-            // Repeat the menu
-            await dc.replace('mainMenu');
-        }
     },
     async function(dc, result){
         // Start over
