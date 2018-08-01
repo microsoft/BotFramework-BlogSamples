@@ -44,12 +44,6 @@ const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
 
-// Define flags to manage the conversation flow and prompt states
-topicStates = {
-    "topicTitle": undefined, // Current conversation topic in progress
-    "prompt": undefined      // Current prompt state in progress - indicate what question is being asked.
-}
-
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
@@ -57,18 +51,22 @@ server.post('/api/messages', (req, res) => {
         // State will store all of your information 
         const convo = conversationState.get(context);
 
-        // Defile a topicStates object if it doesn't exist in the convoState.
-        if(!convo.topicStates){
-            convo.topicStates = topicStates;
-        }
-
         // Defined flags to manage the conversation flow and prompt states
         // convo.topicTitle - Current conversation topic in progress
         // convo.prompt - Current prompt state in progress - indicate what question is being asked.
         
         if (isMessage) {
+            // Defile a topicStates object if it doesn't exist in the convoState.
+            if(!convo.topicStates){
+                convo.topicStates = {
+                    "topicTitle": undefined, // Current conversation topic in progress
+                    "prompt": undefined      // Current prompt state in progress - indicate what question is being asked.
+                };
+            }
+            
             // If user profile is not defined then define it.
             if(!convo.userProfile){
+                
                 await context.sendActivity(`Welcome new user, please fill out your profile information.`);
                 convo.topicStates.topicTitle = "profileTopic"; // Start the userProfile topic
                 convo.userProfile = { // Define the user's profile object
