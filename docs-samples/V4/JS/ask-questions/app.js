@@ -19,7 +19,7 @@
  */ 
 
 // Packages are installed for you
-const { BotFrameworkAdapter, MemoryStorage, ConversationState } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
 const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt } = require('botbuilder-dialogs');
 
@@ -36,8 +36,9 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Add conversation state middleware
-const conversationState = new ConversationState(new MemoryStorage());
-adapter.use(conversationState);
+const storage = new MemoryStorage(); // Volatile memory
+const conversationState = new ConversationState(storage);
+adapter.use(new BotStateSet(conversationState));
 
 const dialogs = new DialogSet();
 
@@ -46,8 +47,8 @@ server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
-        const convo = conversationState.get(context);
-        const dc = dialogs.createContext(context, convo);
+        const convoState = conversationState.get(context);
+        const dc = dialogs.createContext(context, convoState);
 
         if (isMessage) {
             // Check for valid intents
@@ -58,7 +59,6 @@ server.post('/api/messages', (req, res) => {
                 await dc.begin('reserveTable');
             }
         }
-
 
         if(!context.responded){
             // Continue executing the "current" dialog, if any.
@@ -88,35 +88,43 @@ dialogs.add('greetings',[
 
 // Reserve a table:
 // Help the user to reserve a table
-var reservationInfo = {};
 
 dialogs.add('reserveTable', [
     async function(dc, args, next){
         await dc.context.sendActivity("Welcome to the reservation service.");
 
-        reservationInfo = {}; // Clears any previous data
+        // Get state object
+        convoState = conversationState.get(dc.context);
+        convoState.reservationInfo = {}; // Initialize an empty object
+
         await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
     },
     async function(dc, result){
-        reservationInfo.dateTime = result[0].value;
+        // Get state object
+        convoState = conversationState.get(dc.context);
+        convoState.reservationInfo.dateTime = result[0].value;
 
         // Ask for next info
         await dc.prompt('partySizePrompt', "How many people are in your party?");
     },
     async function(dc, result){
-        reservationInfo.partySize = result;
+        // Get state object
+        convoState = conversationState.get(dc.context);
+        convoState.reservationInfo.partySize = result;
 
         // Ask for next info
         await dc.prompt('textPrompt', "Whose name will this be under?");
     },
     async function(dc, result){
-        reservationInfo.reserveName = result;
+        // Get state object
+        convoState = conversationState.get(dc.context);
+        convoState.reservationInfo.reserveName = result;
         
         // Reservation confirmation
         var msg = `Reservation confirmed. Reservation details: 
-            <br/>Date/Time: ${reservationInfo.dateTime} 
-            <br/>Party size: ${reservationInfo.partySize} 
-            <br/>Reservation name: ${reservationInfo.reserveName}`;
+            <br/>Date/Time: ${convoState.reservationInfo.dateTime} 
+            <br/>Party size: ${convoState.reservationInfo.partySize} 
+            <br/>Reservation name: ${convoState.reservationInfo.reserveName}`;
         await dc.context.sendActivity(msg);
         await dc.end();
     }

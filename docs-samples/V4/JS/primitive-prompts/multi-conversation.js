@@ -32,7 +32,7 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, FileStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
 const restify = require('restify');
 var Recognizers = require('@microsoft/recognizers-text-suite');
 
@@ -49,21 +49,10 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Storage
-const storage = new FileStorage("c:/temp"); // Go to this directory to verify the persisted data
+const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
-
-// Define flags to manage the conversation flow and prompt states
-const mainMenu = ["Reserve table", "Order Dinner"];
-var topicStates = {
-    "topicTitle": undefined, // Current conversation topic in progress
-    "prompt": undefined,     // Current prompt state in progress - indicate what question is being asked.
-    "resetStates": function() {
-        topicStates.topicTitle = undefined;
-        topicStates.prompt = undefined;
-    }
-}
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
@@ -71,12 +60,21 @@ server.post('/api/messages', (req, res) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
         const convo = conversationState.get(context);
-        
+                
         if (isMessage) {
+
+            // Defile a topicStates object if it doesn't exist in the convo state.
+            if(!convo.topicStates){
+                convo.topicStates = { // Define a default state object. Once done, reset back to undefined.
+                    "topicTitle": undefined,
+                    "prompt": undefined
+                }
+            }
+
             // If user profile is not defined then define it.
             if(!convo.userProfile){
                 await context.sendActivity(`Welcome new user, please fill out your profile information.`);
-                topicStates.topicTitle = "profileTopic"; // Start the userProfile topic
+                convo.topicStates.topicTitle = "profileTopic"; // Start the userProfile topic
                 convo.userProfile = { // Define the user's profile object
                     "userName": undefined,
                     "age": undefined,
@@ -85,14 +83,14 @@ server.post('/api/messages', (req, res) => {
             }
 
             // Start or continue a conversation if we are in one
-            if(topicStates.topicTitle == "profileTopic"){
+            if(convo.topicStates.topicTitle == "profileTopic"){
                 // Continue profileTopic conversation
                 await gatherUserProfile(context, convo);
             }
-            else if(topicStates.topicTitle == "reserveTable"){
+            else if(convo.topicStates.topicTitle == "reserveTable"){
                 await reserveTable(context, convo);
             }
-            else if(topicStates.topicTitle == "orderDinner"){
+            else if(convo.topicStates.topicTitle == "orderDinner"){
                 await orderDinner(context, convo);
             }
 
@@ -102,7 +100,7 @@ server.post('/api/messages', (req, res) => {
                     await context.sendActivity(`Hi ${convo.userProfile.userName}.`);
                 }
                 else if(context.activity.text.match(/reserve table/ig)){
-                    topicStates.topicTitle = "reserveTable";
+                    convo.topicStates.topicTitle = "reserveTable";
                     convo.reservationInfo = {}; // Define the storage bag
 
                     
@@ -110,9 +108,14 @@ server.post('/api/messages', (req, res) => {
                     await reserveTable(context, convo);
                 }
                 else if(context.activity.text.match(/order dinner/ig)){
-                    topicStates.topicTitle = "orderDinner";
-                    topicStates.prompt = "orderPrompt";
-                    orderCart.clear();
+                    convo.topicStates.topicTitle = "orderDinner";
+                    convo.topicStates.prompt = "orderPrompt";
+
+                    // Initialize a new cart
+                    convo.orderCart = {
+                        orders: [],
+                        total: 0
+                    };
 
                     await context.sendActivity(`Welcome to the Dinner Ordering service.`);
                     await orderDinner(context, convo);
@@ -124,7 +127,7 @@ server.post('/api/messages', (req, res) => {
             }
             
             // If we are not in a conversation then show the main menu
-            if(!topicStates.topicTitle){
+            if(!convo.topicStates){
                 // Default menu
                 await showMenu(context);
             }
@@ -137,38 +140,38 @@ server.post('/api/messages', (req, res) => {
 // Define the conversation flows
 
 async function showMenu(context){
-    await context.sendActivity(MessageFactory.suggestedActions(mainMenu, "How may we serve you today?"));
+    await context.sendActivity(MessageFactory.suggestedActions(["Reserve table", "Order Dinner"], "How may we serve you today?"));
 }
 
 // User profile
 // Ask the user for their profile information
 async function gatherUserProfile(context, convo){
-    if(!convo.userProfile.userName && !topicStates.prompt){
-        topicStates.prompt = "askName";
+    if(!convo.userProfile.userName && !convo.topicStates.prompt){
+        convo.topicStates.prompt = "askName";
         await context.sendActivity("What is your name?");
     }
-    else if(topicStates.prompt == "askName"){
+    else if(convo.topicStates.prompt == "askName"){
         // Save the user's response
         convo.userProfile.userName = context.activity.text; 
 
         // Ask next question
-        topicStates.prompt = "askAge";
+        convo.topicStates.prompt = "askAge";
         await context.sendActivity("How old are you?");
     }
-    else if(topicStates.prompt == "askAge"){
+    else if(convo.topicStates.prompt == "askAge"){
         // Save user's response
         convo.userProfile.age = context.activity.text;
 
         // Ask next question
-        topicStates.prompt = "room";
+        convo.topicStates.prompt = "room";
         await context.sendActivity("What room are you staying in?");
     }
-    else if(topicStates.prompt == "room"){
+    else if(convo.topicStates.prompt == "room"){
         // Save user's response
         convo.userProfile.room = context.activity.text;
 
         // Done
-        topicStates.resetStates(); // Reset topic flags
+        convo.topicStates = undefined; // Reset object
         
         await context.sendActivity("Thank you. Your profile is complete.");
     }
@@ -180,18 +183,18 @@ async function gatherUserProfile(context, convo){
 
 async function reserveTable(context, convo){
 
-    if(!convo.reservationInfo.dateTime && !topicStates.prompt){
-        topicStates.prompt = "dateTime";
+    if(!convo.reservationInfo.dateTime && !convo.topicStates.prompt){
+        convo.topicStates.prompt = "dateTime";
         await context.sendActivity("Please provide a reservation date and time.");
     }
-    else if(topicStates.prompt == "dateTime"){
+    else if(convo.topicStates.prompt == "dateTime"){
         var dateTime = await Recognizers.recognizeDateTime(context.activity.text, Recognizers.Culture.English);
         if(await validateDateTime(context, dateTime[0].resolution.values)){
             // Save user's response
             convo.reservationInfo.dateTime = dateTime[0].resolution.values[0].value;
 
             // Ask next question
-            topicStates.prompt = "partySize";
+            convo.topicStates.prompt = "partySize";
             await context.sendActivity("How many people are in your party?");
         }
         else {
@@ -199,13 +202,13 @@ async function reserveTable(context, convo){
             await context.sendActivity("Please provide a reservation date and time (e.g.: tomorrow at 3pm).");
         }
     }
-    else if(topicStates.prompt == "partySize"){
+    else if(convo.topicStates.prompt == "partySize"){
         if(await validatePartySize(context, context.activity.text)){
             // Save user's response
             convo.reservationInfo.partySize = context.activity.text;
             
             // Ask next question
-            topicStates.prompt = "reserveName";
+            convo.topicStates.prompt = "reserveName";
             await context.sendActivity("Who's name will this be under?");
         }
         else {
@@ -214,12 +217,12 @@ async function reserveTable(context, convo){
         }
 
     }
-    else if(topicStates.prompt == "reserveName"){
+    else if(convo.topicStates.prompt == "reserveName"){
         // Save user's response
         convo.reservationInfo.reserveName = context.activity.text;
 
         // Done
-        topicStates.resetStates();
+        convo.topicStates = undefined;  // Reset object
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 
@@ -287,16 +290,6 @@ var dinnerMenu = {
 
 }
 
-// The order cart
-var orderCart = {
-    orders: [],
-    total: 0,
-    clear: function() {
-        this.orders = [];
-        this.total = 0;
-    }
-};
-
 // This module allows user to add multiple items to a cart.
 // It also supports actions: Process order and Cancel
 async function orderDinner(context, convo){
@@ -304,10 +297,11 @@ async function orderDinner(context, convo){
 
     // Check for action
     if(choice.match(/process order/ig)){
-        if(orderCart.orders.length > 0) {
+        if(convo.orderCart.orders.length > 0) {
             // Process the order
             // ...
-            topicStates.resetStates();
+            convo.orderCart = undefined;        // Reset cart
+            convo.topicStates = undefined;      // Reset object
             await context.sendActivity("Processing your order.");
         }
         else {
@@ -318,14 +312,14 @@ async function orderDinner(context, convo){
         return;
     }
     else if(choice.match(/cancel/ig)){
-        orderCart.clear();
-        topicStates.resetStates();
+        convo.orderCart = undefined;        // Reset cart
+        convo.topicStates = undefined;      // Reset to object
         await context.sendActivity(`Your order has been canceled`);
         return;
     }
     
     // Add item to cart
-    else if(topicStates.prompt == "addItem"){
+    else if(convo.topicStates.prompt == "addItem"){
         var item = dinnerMenu[choice];
 
         // Only proceed if user chooses an item from the menu
@@ -334,19 +328,19 @@ async function orderDinner(context, convo){
         }
         else {
             // Add the item to cart
-            orderCart.orders.push(item);
-            orderCart.total += item.Price;
+            convo.orderCart.orders.push(item);
+            convo.orderCart.total += item.Price;
 
-            await context.sendActivity(`Added to cart: ${choice}. <br/>Current total: $${orderCart.total}`);
+            await context.sendActivity(`Added to cart: ${choice}. <br/>Current total: $${convo.orderCart.total}`);
         }
     }
 
     // Show the order menu
-    await askForOrder(context);
+    await askForOrder(context, convo);
 }
 
 // Prompt for order
-async function askForOrder(context){
-    topicStates.prompt = "addItem";
+async function askForOrder(context, convo){
+    convo.topicStates.prompt = "addItem";
     await context.sendActivity(MessageFactory.suggestedActions(dinnerMenu.choices, "What would you like?"));
 }

@@ -22,7 +22,7 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, FileStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
 const restify = require('restify');
 var Recognizers = require('@microsoft/recognizers-text-suite');
 
@@ -39,7 +39,7 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Storage
-const storage = new FileStorage("c:/temp"); // Go to this directory to verify the persisted data
+const storage = new MemoryStorage(); // Volatilve memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
@@ -57,6 +57,11 @@ server.post('/api/messages', (req, res) => {
         // State will store all of your information 
         const convo = conversationState.get(context);
 
+        // Defile a topicStates object if it doesn't exist in the convoState.
+        if(!convo.topicStates){
+            convo.topicStates = topicStates;
+        }
+
         // Defined flags to manage the conversation flow and prompt states
         // convo.topicTitle - Current conversation topic in progress
         // convo.prompt - Current prompt state in progress - indicate what question is being asked.
@@ -65,7 +70,7 @@ server.post('/api/messages', (req, res) => {
             // If user profile is not defined then define it.
             if(!convo.userProfile){
                 await context.sendActivity(`Welcome new user, please fill out your profile information.`);
-                topicStates.topicTitle = "profileTopic"; // Start the userProfile topic
+                convo.topicStates.topicTitle = "profileTopic"; // Start the userProfile topic
                 convo.userProfile = { // Define the user's profile object
                     "userName": undefined,
                     "age": undefined,
@@ -74,8 +79,7 @@ server.post('/api/messages', (req, res) => {
             }
 
             // Start or continue a conversation if we are in one
-            if(topicStates.topicTitle == "profileTopic"){
-                // Continue profileTopic conversation
+            if(convo.topicStates.topicTitle == "profileTopic"){
                 await gatherUserProfile(context, convo);
             }
 
@@ -94,33 +98,33 @@ server.post('/api/messages', (req, res) => {
 
 // Ask the user for their profile information
 async function gatherUserProfile(context, convo){
-    if(!convo.userProfile.userName && !topicStates.prompt){
-        topicStates.prompt = "askName";
+    if(!convo.userProfile.userName && !convo.topicStates.prompt){
+        convo.topicStates.prompt = "askName";
         await context.sendActivity("What is your name?");
     }
-    else if(topicStates.prompt == "askName"){
+    else if(convo.topicStates.prompt == "askName"){
         // Save the user's response
         convo.userProfile.userName = context.activity.text; 
 
         // Ask next question
-        topicStates.prompt = "askAge";
+        convo.topicStates.prompt = "askAge";
         await context.sendActivity("How old are you?");
     }
-    else if(topicStates.prompt == "askAge"){
+    else if(convo.topicStates.prompt == "askAge"){
         // Save user's response
         convo.userProfile.age = context.activity.text;
 
         // Ask next question
-        topicStates.prompt = "workPlace";
+        convo.topicStates.prompt = "workPlace";
         await context.sendActivity("Where do you work?");
     }
-    else if(topicStates.prompt == "workPlace"){
+    else if(convo.topicStates.prompt == "workPlace"){
         // Save user's response
         convo.userProfile.workPlace = context.activity.text;
 
         // Done
-        topicStates.topicTitle = undefined; // Reset conversation flag
-        topicStates.prompt = undefined;     // Reset the prompt flag
+        convo.topicStates.topicTitle = undefined; // Reset conversation flag
+        convo.topicStates.prompt = undefined;     // Reset the prompt flag
         await context.sendActivity("Thank you. Your profile is complete.");
     }
 

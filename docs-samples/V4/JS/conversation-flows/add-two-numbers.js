@@ -20,7 +20,7 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, FileStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
 const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
 
@@ -37,7 +37,7 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Storage
-const storage = new FileStorage("c:/temp"); // Go to this directory to verify the persisted data
+const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
@@ -50,8 +50,8 @@ server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = context.activity.type === 'message';
         // State will store all of your information 
-        const convo = conversationState.get(context);
-        const dc = dialogs.createContext(context, convo);
+        const convoState = conversationState.get(context);
+        const dc = dialogs.createContext(context, convoState);
 
         if (isMessage) {
             // MatchesAdd2Numbers checks if the message matches a regular expression
@@ -63,6 +63,7 @@ server.post('/api/messages', (req, res) => {
             }
             else {
                 // Just echo back the user's message if they're not adding numbers
+                const count = (convoState.count === undefined ? convoState.count = 0 : ++convoState.count);
                 return context.sendActivity(`Turn ${count}: You said "${context.activity.text}"`); 
             }     
         }

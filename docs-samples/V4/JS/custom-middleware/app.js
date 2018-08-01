@@ -100,10 +100,10 @@ server.post('/api/messages', (req, res) => {
         if (context.activity.type === 'message') {
         
             // Get the conversation state
-            const state = conversationState.get(context);
+            const convoState = conversationState.get(context);
             
             // If state.count is undefined set it to 0, otherwise increment it by 1
-            const count = state.count === undefined ? state.count = 0 : ++state.count;
+            const count = convoState.count === undefined ? convoState.count = 0 : ++convoState.count;
             
             // Echo back to the user whatever they typed.
             return context.sendActivity(`${count}: You said "${context.activity.text}"`);

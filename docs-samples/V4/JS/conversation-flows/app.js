@@ -19,7 +19,7 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, FileStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
 const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
 
@@ -36,7 +36,7 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Storage
-const storage = new FileStorage("c:/temp"); // Go to this directory to verify the persisted data
+const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
@@ -121,7 +121,7 @@ dialogs.add('mainMenu', [
 // Order dinner:
 // Help user order dinner from a menu
 
-var dinnerMenu = {
+const dinnerMenu = {
     choices: ["Potato Salad - $5.99", "Tuna Sandwich - $6.89", "Clam Chowder - $4.50", 
         "Process order", "Cancel"],
     "Potato Salad - $5.99": {
@@ -136,25 +136,20 @@ var dinnerMenu = {
         Description: "Clam Chowder",
         Price: 4.50
     }
-
 }
-
-// The order cart
-var orderCart = {
-    orders: [],
-    total: 0,
-    clear: function(dc) {
-        this.orders = [];
-        this.total = 0;
-        dc.context.activity.conversation.orderCart = null;
-    }
-};
 
 dialogs.add('orderDinner', [
     async function (dc){
-        await dc.context.sendActivity("Welcome to our Dinner order service.");
-        orderCart.clear(dc); // Clears the cart.
 
+        // Initialize a new cart
+        convoState = conversationState.get(dc.context);
+        convoState.orderCart = {
+            orders: [],
+            total: 0
+        };
+
+        await dc.context.sendActivity("Welcome to our Dinner order service.");
+        
         await dc.begin('orderPrompt'); // Prompt for orders
     },
     async function (dc, result) {
@@ -177,10 +172,14 @@ dialogs.add('orderPrompt', [
         await dc.prompt('choicePrompt', "What would you like?", dinnerMenu.choices);
     },
     async function(dc, choice){
+        // Get state object
+        convoState = conversationState.get(dc.context);
+
         if(choice.value.match(/process order/ig)){
-            if(orderCart.orders.length > 0) {
+            if(convoState.orderCart.orders.length > 0) {
                 // Process the order
                 // ...
+                convoState.orderCart = undefined; // Reset cart
                 await dc.context.sendActivity("Processing your order.");
                 await dc.end();
             }
@@ -191,7 +190,7 @@ dialogs.add('orderPrompt', [
             }
         }
         else if(choice.value.match(/cancel/ig)){
-            orderCart.clear(dc);
+            convoState.orderCart = undefined; // Reset cart
             await dc.context.sendActivity("Your order has been canceled.");
             await dc.end(choice.value);
         }
@@ -207,10 +206,10 @@ dialogs.add('orderPrompt', [
             }
             else {
                 // Add the item to cart
-                orderCart.orders.push(item);
-                orderCart.total += item.Price;
+                convoState.orderCart.orders.push(item);
+                convoState.orderCart.total += item.Price;
 
-                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${orderCart.total}`);
+                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${convoState.orderCart.total}`);
 
                 // Ask again
                 await dc.replace('orderPrompt');
@@ -221,7 +220,6 @@ dialogs.add('orderPrompt', [
 
 // Reserve a table:
 // Help the user to reserve a table
-var reservationInfo = {};
 
 dialogs.add('reserveTable', [
     async function(dc, args, next){
@@ -246,8 +244,8 @@ dialogs.add('reserveTable', [
         dc.activeDialog.state.reservationInfo.reserveName = result;
         
         // Persist data
-        var convo = conversationState.get(dc.context);
-        convo.reservationInfo = dc.activeDialog.state.reservationInfo;
+        var convoState = conversationState.get(dc.context);
+        convoState.reservationInfo = dc.activeDialog.state.reservationInfo;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 

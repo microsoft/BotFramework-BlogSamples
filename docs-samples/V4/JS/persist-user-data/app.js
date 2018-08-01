@@ -22,7 +22,7 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, FileStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
 const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt } = require('botbuilder-dialogs');
 
@@ -39,7 +39,7 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Storage
-const storage = new FileStorage("c:/temp"); // Go to this directory to verify the persisted data
+const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
@@ -57,9 +57,7 @@ server.post('/api/messages', (req, res) => {
         if (isMessage) {
             // Check for valid intents
             if(context.activity.text.match(/hi/ig)){
-                // TESTING DIALOG RETURN value...this is NOT working.
-                var userName = await dc.begin('greetings');
-                console.log("User name is: " + userName);
+                await dc.begin('greetings');
             }
             else if(context.activity.text.match(/reserve table/ig)){
                 await dc.begin('reserveTable');
@@ -67,11 +65,8 @@ server.post('/api/messages', (req, res) => {
         }
 
         if(!context.responded){
-            // TESTING DIALOG RETURN value...this is NOT working.
-            //
             // Continue executing the "current" dialog, if any.
             var userName = await dc.continue();
-            console.log("User name2 is: " + userName);
 
             if(!context.responded && isMessage){
                 // Default message
@@ -97,7 +92,6 @@ dialogs.add('greetings',[
 
 // Reserve a table:
 // Help the user to reserve a table
-var reservationInfo = {};
 
 dialogs.add('reserveTable', [
     async function(dc, args, next){

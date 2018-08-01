@@ -23,7 +23,7 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, FileStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
 const restify = require('restify');
 var Recognizers = require('@microsoft/recognizers-text-suite');
 
@@ -41,7 +41,7 @@ const adapter = new BotFrameworkAdapter({
 
 // Storage
 // [NOTE: This bot does not persist data]
-const storage = new FileStorage("c:/temp"); // Go to this directory to verify the persisted data
+const storage = new MemoryStorage(); // Volatile storage
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
