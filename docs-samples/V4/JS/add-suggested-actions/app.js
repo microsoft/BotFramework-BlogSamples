@@ -19,7 +19,7 @@
  *
  */ 
 
-const { BotFrameworkAdapter, MessageFactory } = require('botbuilder');
+const { BotFrameworkAdapter, MessageFactory, MemoryStorage, UserState, BotStateSet, ConversationState } = require('botbuilder');
 const restify = require('restify');
 
 // Create server
@@ -37,20 +37,39 @@ const adapter = new BotFrameworkAdapter({
 // Flags
 var asked_question = false;
 
+// Storage
+const storage = new MemoryStorage(); // Volatile memory
+const conversationState = new ConversationState(storage);
+adapter.use(new BotStateSet(conversationState));
+
 // Listen for incoming requests 
 server.post('/api/messages', (req, res) => {
     // Route received request to adapter for processing
     adapter.processActivity(req, res, async (context) => {
-        if (context.activity.type === 'message') {
 
-            if(asked_question === false){
+        const isMessage = (context.activity.type === 'message');
+        // State will store all of your information 
+        const convo = conversationState.get(context);
+
+        if (isMessage) {
+
+            //Define topicStates object if it doesn't exist in convo state.
+            if(!convo.topicStates){
+                // Define a default state object. Once done, reset back to undefined.
+                convo.topicStates = {
+                    "askedQuestion": false
+                }
+            }
+
+            if(!convo.topicStates.askedQuestion){
                 // Set the flag to true
-                asked_question = true;
+                convo.topicStates.askedQuestion = true;
 
                 //  Initialize the message object.
                 const basicMessage = MessageFactory.suggestedActions(['red', 'green', 'blue'], 'Choose a color');
                 await context.sendActivity(basicMessage);
             } else {
+                convo.topicStates.askedQuestion = false;
                 await context.sendActivity(`You picked the color ${context.activity.text}`);
             };
         };

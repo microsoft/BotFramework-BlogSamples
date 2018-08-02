@@ -58,18 +58,28 @@ adapter.use(conversationState);
 server.post('/api/messages', (req, res) => {
     // Route received activity to adapter for processing
     adapter.processActivity(req, res, async(context) => {
-        if (context.activity.type === 'message') {
+        const isMessage = (context.activity.type === 'message');
+        // State will store all of your information 
+        const convo = conversationState.get(context);
+
+        if (isMessage) {
             var utterance = context.activity.text;
-            const convo = conversationState.get(context);
+
+            // Define a topicStates object if it doesn't exist in the convo state.
+            if(!convo.topicStates){
+                convo.topicStates = { // Define a default state object. Once done, reset back to undefined.
+                    "topicTitle": undefined
+                }
+            }
             
             // Check topic flags in conversation state 
-            if (convo.weatherTopicStarted) 
+            if (convo.topicStates.topicTitle == 'weatherTopicStarted') 
             {
                 // Assume the user's message is a reply to the bot's prompt for a location
                 await context.sendActivity(`The weather in ${utterance} is sunny.`);
-                // This conversation flow is now finished. Set flag to false,
+                // This conversation flow is now finished. Set flag to undefined,
                 // so that on the next turn the user can ask for another weather forecast.
-                convo.WeatherTopicStarted = false;
+                convo.topicStates.topicTitle = undefined;
             }
             // To add more steps to the other topics
             // you could check the topic flags here
@@ -83,15 +93,15 @@ server.post('/api/messages', (req, res) => {
                         await context.sendActivity("<null case>")
                         break;
                     case 'Cancel':
-                        convo.cancelTopicStarted = true;
+                        convo.topicStates.topicTitle = "cancelTopicStarted";
                         await context.sendActivity("<cancelling the process>")
                         break;
                     case 'Help':
-                        convo.helpTopicStarted = true;
+                        convo.topicStates.topicTitle = "helpTopicStarted";
                         await context.sendActivity("<here's some help>");
                         break;
                     case 'Weather':
-                        convo.weatherTopicStarted = true;
+                        convo.topicStates.topicTitle = "weatherTopicStarted";
                         await context.sendActivity("Looks like you want a weather forecast. What city do you want the forecast for?");
                         break;
                     default:

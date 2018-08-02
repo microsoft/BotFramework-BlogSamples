@@ -63,7 +63,7 @@ server.post('/api/messages', (req, res) => {
                 
         if (isMessage) {
 
-            // Defile a topicStates object if it doesn't exist in the convo state.
+            // Define a topicStates object if it doesn't exist in the convo state.
             if(!convo.topicStates){
                 convo.topicStates = { // Define a default state object. Once done, reset back to undefined.
                     "topicTitle": undefined,

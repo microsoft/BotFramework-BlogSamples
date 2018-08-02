@@ -57,25 +57,43 @@ server.post('/api/messages', (req, res) => {
         const user = userState.get(context);
 
         if (isMessage) {
-            if(!user.name && !convo.prompt){
-                // Ask for the name.
-                await context.sendActivity("What is your name?")
-                // Set flag to show we've asked for the name. We save this out so the
-                // context object for the next turn of the conversation can check haveAskedNameFlag
-                convo.prompt = "haveAskedNameFlag";
-            } else if(convo.prompt == "haveAskedNameFlag"){
-                // Save the name.
-                user.name = context.activity.text;
-                // Ask the user for their number
-                await context.sendActivity(`Hello, ${user.name}. What's your telephone number?`);
-                // Set flag
-                convo.prompt = "haveAskedNumberFlag";
-            } else if(convo.prompt == "haveAskedNumberFlag"){
-                // save the phone number
-                user.telephonenumber = context.activity.text;
-                convo.prompt = undefined; // Reset flag
-                await context.sendActivity(`Got it. I'll call you later.`);
-            }
+
+            // Defile a topicStates object if it doesn't exist in the convo state.
+            if(!convo.topicStates){
+               convo.topicStates = { // Define a default state object. Once done, reset back to undefined.
+                   "prompt": undefined
+               }
+           }
+
+           // If user profile is not defined then define it.
+           if(!user.userProfile){
+               // await context.sendActivity("What is your name?");
+               convo.topicStates.prompt = "askName"; // Start the userProfile topic
+               user.userProfile = { // Define the user's profile object
+                   "userName": undefined,
+                   "telephoneNumber": undefined
+               }; 
+           }
+
+           if(convo.topicStates.prompt == "askName"){
+               // Ask for the name.
+               await context.sendActivity("What is your name?")
+               // Set flag to show we've asked for the name. We save this out so the
+               // context object for the next turn of the conversation can check haveAskedNameFlag
+               convo.topicStates.prompt = "askNumber";
+           } else if(convo.topicStates.prompt == "askNumber"){
+               // Save the name.
+               user.userProfile.userName = context.activity.text;
+               // Ask the user for their number
+               await context.sendActivity(`Hello, ${user.userProfile.userName}. What's your telephone number?`);
+               // Set flag
+               convo.topicStates.prompt = "confirmation";
+           } else if(convo.topicStates.prompt == "confirmation"){
+               // save the phone number
+               user.userProfile.telephoneNumber = context.activity.text;
+               convo.topicStates = undefined; // Reset flag
+               await context.sendActivity(`Got it. I'll call you later.`);
+           }
         }
 
         // ...
