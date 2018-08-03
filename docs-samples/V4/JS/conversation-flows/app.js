@@ -136,17 +136,9 @@ const dinnerMenu = {
 
 dialogs.add('orderDinner', [
     async function (dc){
-
-        // Initialize a new cart
-        convoState = conversationState.get(dc.context);
-        convoState.orderCart = {
-            orders: [],
-            total: 0
-        };
-
         await dc.context.sendActivity("Welcome to our Dinner order service.");
         
-        await dc.begin('orderPrompt'); // Prompt for orders
+        await dc.begin('orderPrompt', dc.activeDialog.state.orderCart); // Prompt for orders
     },
     async function (dc, result) {
         if(result == "Cancel"){
@@ -164,18 +156,30 @@ dialogs.add('orderDinner', [
 
 // Helper dialog to repeatedly prompt user for orders
 dialogs.add('orderPrompt', [
-    async function(dc){
+    async function(dc, orderCart){
+        // Define a new cart of one does not exists
+        if(!orderCart){
+            // Initialize a new cart
+            // convoState = conversationState.get(dc.context);
+            dc.activeDialog.state.orderCart = {
+                orders: [],
+                total: 0
+            };
+        }
+        else {
+            dc.activeDialog.state.orderCart = orderCart;
+        }
         await dc.prompt('choicePrompt', "What would you like?", dinnerMenu.choices);
     },
     async function(dc, choice){
         // Get state object
-        convoState = conversationState.get(dc.context);
+        // convoState = conversationState.get(dc.context);
 
         if(choice.value.match(/process order/ig)){
-            if(convoState.orderCart.orders.length > 0) {
+            if(dc.activeDialog.state.orderCart.orders.length > 0) {
                 // Process the order
                 // ...
-                convoState.orderCart = undefined; // Reset cart
+                dc.activeDialog.state.orderCart = undefined; // Reset cart
                 await dc.context.sendActivity("Processing your order.");
                 await dc.end();
             }
@@ -186,7 +190,7 @@ dialogs.add('orderPrompt', [
             }
         }
         else if(choice.value.match(/cancel/ig)){
-            convoState.orderCart = undefined; // Reset cart
+            //dc.activeDialog.state.orderCart = undefined; // Reset cart
             await dc.context.sendActivity("Your order has been canceled.");
             await dc.end(choice.value);
         }
@@ -202,13 +206,13 @@ dialogs.add('orderPrompt', [
             }
             else {
                 // Add the item to cart
-                convoState.orderCart.orders.push(item);
-                convoState.orderCart.total += item.Price;
+                dc.activeDialog.state.orderCart.orders.push(item);
+                dc.activeDialog.state.orderCart.total += item.Price;
 
-                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${convoState.orderCart.total}`);
+                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${dc.activeDialog.state.orderCart.total}`);
 
                 // Ask again
-                await dc.replace('orderPrompt');
+                await dc.replace('orderPrompt', dc.activeDialog.state.orderCart);
             }
         }
     }
