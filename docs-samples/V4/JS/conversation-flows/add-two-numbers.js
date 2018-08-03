@@ -54,9 +54,9 @@ server.post('/api/messages', (req, res) => {
         const dc = dialogs.createContext(context, convoState);
 
         if (isMessage) {
-            // MatchesAdd2Numbers checks if the message matches a regular expression
+            // TryParseAddingTwoNumbers checks if the message matches a regular expression
             // and if it does, returns an array of the numbers to add
-            var numbers = await MatchesAdd2Numbers(context.activity.text); 
+            var numbers = await TryParseAddingTwoNumbers(context.activity.text); 
             if (numbers != null && numbers.length >=2 )
             {    
                 await dc.begin('addTwoNumbers', numbers);
@@ -92,7 +92,7 @@ dialogs.add('addTwoNumbers', [async function (dc, numbers){
 }]
 );
 
-async function MatchesAdd2Numbers(message) {
+async function TryParseAddingTwoNumbers(message) {
     const ADD_NUMBERS_REGEXP = /([-+]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+))(?:\s*)\+(?:\s*)([-+]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+))/i;
     let matched = ADD_NUMBERS_REGEXP.exec(message);
     if (!matched) {
