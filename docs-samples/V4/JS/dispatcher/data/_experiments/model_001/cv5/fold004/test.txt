@@ -1,0 +1,39 @@
+Label	Weight	Text
+l_homeautomation	2.142857	turn off venice lamp
+l_homeautomation	2.142857	shut down my work computer
+l_homeautomation	2.142857	turn on external speaker
+l_homeautomation	2.142857	set lights bright
+l_homeautomation	2.142857	turn dimmer off
+l_homeautomation	2.142857	lock the doors for me please
+l_homeautomation	2.142857	breezeway on please
+l_homeautomation	2.142857	turn off venice lamp
+l_homeautomation	2.142857	shut down my work computer
+l_homeautomation	2.142857	turn on external speaker
+l_homeautomation	2.142857	set lights bright
+l_homeautomation	2.142857	turn dimmer off
+l_homeautomation	2.142857	lock the doors for me please
+l_homeautomation	2.142857	breezeway on please
+l_weather	2.5	get for me the weather conditions in sonoma county
+l_weather	2.5	soliciting today ' s weather
+l_weather	2.5	current weather ?
+l_weather	2.5	get florence temperature in september
+l_weather	2.5	what will the weather be tomorrow in accord new york ?
+l_weather	2.5	get the weather at saint george utah
+l_weather	2.5	get for me the weather conditions in sonoma county
+l_weather	2.5	soliciting today ' s weather
+l_weather	2.5	current weather ?
+l_weather	2.5	get florence temperature in september
+l_weather	2.5	what will the weather be tomorrow in accord new york ?
+l_weather	2.5	get the weather at saint george utah
+q_faq	2.5	My smart light app stopped responding.
+q_faq	2.5	Question
+q_faq	2.5	Who should I contact for customer service?
+q_faq	2.5	My smart light app stopped responding.
+q_faq	2.5	Question
+q_faq	2.5	Who should I contact for customer service?
+q_faq	2.5	My smart light app stopped responding.
+q_faq	2.5	Question
+q_faq	2.5	Who should I contact for customer service?
+q_faq	2.5	My smart light app stopped responding.
+q_faq	2.5	Question
+q_faq	2.5	Who should I contact for customer service?

@@ -1,0 +1,39 @@
+Label	Weight	Text
+l_homeautomation	2.142857	illuminate please
+l_homeautomation	2.142857	turn thermostat on 70 .
+l_homeautomation	2.142857	set lights out bedroom
+l_homeautomation	2.142857	turn off living room light
+l_homeautomation	2.142857	start master bedroom light .
+l_homeautomation	2.142857	turn off foyer lights
+l_homeautomation	2.142857	play dvd
+l_homeautomation	2.142857	illuminate please
+l_homeautomation	2.142857	turn thermostat on 70 .
+l_homeautomation	2.142857	set lights out bedroom
+l_homeautomation	2.142857	turn off living room light
+l_homeautomation	2.142857	start master bedroom light .
+l_homeautomation	2.142857	turn off foyer lights
+l_homeautomation	2.142857	play dvd
+l_weather	2.5	what is the weather in redmond ?
+l_weather	2.5	\" tell me perth weather , sclimate & temperature at australia \
+l_weather	2.5	what is the rain volume in sonoma county ?
+l_weather	2.5	temperature of delhi in celsius please
+l_weather	2.5	do fl residents usually need ice scrapers
+l_weather	2.5	will it rain this weekend
+l_weather	2.5	what is the weather in redmond ?
+l_weather	2.5	\" tell me perth weather , sclimate & temperature at australia \
+l_weather	2.5	what is the rain volume in sonoma county ?
+l_weather	2.5	temperature of delhi in celsius please
+l_weather	2.5	do fl residents usually need ice scrapers
+l_weather	2.5	will it rain this weekend
+q_faq	2.5	Why does the light not work?
+q_faq	2.5	Hi
+q_faq	2.5	What type of light bulb do I need?
+q_faq	2.5	Why does the light not work?
+q_faq	2.5	Hi
+q_faq	2.5	What type of light bulb do I need?
+q_faq	2.5	Why does the light not work?
+q_faq	2.5	Hi
+q_faq	2.5	What type of light bulb do I need?
+q_faq	2.5	Why does the light not work?
+q_faq	2.5	Hi
+q_faq	2.5	What type of light bulb do I need?

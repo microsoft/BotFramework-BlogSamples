@@ -1,0 +1,97 @@
+{
+  "qnaDocuments": [
+    {
+      "id": 1,
+      "answer": "Answer",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "Question"
+      ],
+      "metadata": []
+    },
+    {
+      "id": 2,
+      "answer": "Check the connection to the wall outlet to make sure it's plugged in properly.",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "My Contoso smart light won't turn on.",
+        "Light won't turn on."
+      ],
+      "metadata": []
+    },
+    {
+      "id": 3,
+      "answer": "Restart the app. If the problem persists, contact support.",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "My smart light app stopped responding."
+      ],
+      "metadata": []
+    },
+    {
+      "id": 4,
+      "answer": "Email us at service@contoso.com",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "How do I contact support?",
+        "I need help."
+      ],
+      "metadata": []
+    },
+    {
+      "id": 5,
+      "answer": "When you upgrade, you need to disable Bluetooth, then re-enable it. After re-enable, re-pair your light with the app.",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "I upgraded the app and it doesn't work anymore.",
+        "Light doesn't work after upgrade."
+      ],
+      "metadata": []
+    },
+    {
+      "id": 6,
+      "answer": "Please direct all customer service questions to (202) 555-0164  \\n",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "Who should I contact for customer service?"
+      ],
+      "metadata": []
+    },
+    {
+      "id": 7,
+      "answer": "The simplest way to troubleshoot your smart light is to turn it off and on.  \\n",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "Why does the light not work?"
+      ],
+      "metadata": []
+    },
+    {
+      "id": 8,
+      "answer": "The battery will last approximately 10 - 12 weeks with regular use.   \\n",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "How long does the light's battery last for?"
+      ],
+      "metadata": []
+    },
+    {
+      "id": 9,
+      "answer": "A 26-Watt compact fluorescent light bulb that features both energy savings and long-life performance.",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "What type of light bulb do I need?"
+      ],
+      "metadata": []
+    },
+    {
+      "id": 10,
+      "answer": "Hello",
+      "source": "b1f71217-955e-4690-8bd4-3522c428e59b-qnaKB-smartlighting.tsv",
+      "questions": [
+        "Hi"
+      ],
+      "metadata": []
+    }
+  ]
+}

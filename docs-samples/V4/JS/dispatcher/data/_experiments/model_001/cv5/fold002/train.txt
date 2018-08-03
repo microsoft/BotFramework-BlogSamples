@@ -1,0 +1,63 @@
+Label	Weight	Text
+l_homeautomation	1	make some coffee
+l_homeautomation	1	snap switch fan fifty percent
+l_homeautomation	1	fish pond off please
+l_homeautomation	1	living room lamps off please
+l_homeautomation	1	turn off ac please
+l_homeautomation	1	fish pond on please
+l_homeautomation	1	theater on please
+l_homeautomation	1	change temperature to seventy two degrees
+l_homeautomation	1	turn on the furnace room lights
+l_homeautomation	1	turn on my bedroom lights .
+l_homeautomation	1	set lights concentrate
+l_homeautomation	1	silence the phone
+l_homeautomation	1	turn on thermostat please
+l_homeautomation	1	turn the fan to high
+l_homeautomation	1	decrease temperature for me please
+l_homeautomation	1	turn on the internet in my bedroom please
+l_homeautomation	1	make camera 1 off please
+l_homeautomation	1	turn off staircase
+l_homeautomation	1	dim kitchen lights to 25 .
+l_homeautomation	1	turn on bathroom heater
+l_homeautomation	1	coffee bar on please
+l_homeautomation	1	turn off venice lamp
+l_homeautomation	1	shut down my work computer
+l_homeautomation	1	turn on external speaker
+l_homeautomation	1	set lights bright
+l_homeautomation	1	turn dimmer off
+l_homeautomation	1	lock the doors for me please
+l_homeautomation	1	breezeway on please
+l_homeautomation	1	living room lamp on please
+l_homeautomation	1	lower your volume
+l_weather	1.363636	show average rainfall for boise
+l_weather	1.363636	get the forcast for me
+l_weather	1.363636	what ' s the weather like in minneapolis
+l_weather	1.363636	will it be raining in ranchi
+l_weather	1.363636	what is the weather today at 10 day durham ?
+l_weather	1.363636	i want to know the temperature at death valley
+l_weather	1.363636	get the daily temperature greenwood indiana
+l_weather	1.363636	show me the forecast at alabama
+l_weather	1.363636	forecast in celcius
+l_weather	1.363636	how much rain does chambersburg get a year
+l_weather	1.363636	what to wear in march in california
+l_weather	1.363636	what ' s the weather going to be like in hawaii ?
+l_weather	1.363636	was last year about this time as wet as it is now in the south ?
+l_weather	1.363636	provide me by toronto weather please
+l_weather	1.363636	\" i need to know the temperature at bangor , sme \
+l_weather	1.363636	will it snow today
+l_weather	1.363636	get for me the weather conditions in sonoma county
+l_weather	1.363636	soliciting today ' s weather
+l_weather	1.363636	current weather ?
+l_weather	1.363636	get florence temperature in september
+l_weather	1.363636	what will the weather be tomorrow in accord new york ?
+l_weather	1.363636	get the weather at saint george utah
+q_faq	3	I need help.
+q_faq	3	How do I contact support?
+q_faq	3	I upgraded the app and it doesn't work anymore.
+q_faq	3	Light won't turn on.
+q_faq	3	Light doesn't work after upgrade.
+q_faq	3	My Contoso smart light won't turn on.
+q_faq	3	How long does the light's battery last for?
+q_faq	3	My smart light app stopped responding.
+q_faq	3	Question
+q_faq	3	Who should I contact for customer service?
