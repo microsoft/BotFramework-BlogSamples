@@ -1,11 +1,11 @@
-﻿using Microsoft.Bot;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Core.Extensions;
-using Microsoft.Bot.Schema;
-using System.Threading.Tasks;
-
-namespace ManageConversationFlowWithDialogs
+﻿namespace ManageConversationFlowWithDialogs
 {
+    using Microsoft.Bot;
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Core.Extensions;
+    using Microsoft.Bot.Schema;
+    using System.Threading.Tasks;
+
     public class GreetingBot : IBot
     {
         private static GreetingDialog Greeting { get; } = new GreetingDialog();
@@ -22,15 +22,15 @@ namespace ManageConversationFlowWithDialogs
                 var dc = Greeting.CreateContext(context, conversationState.DialogState);
 
                 // Continue any active dialog.
-                await dc.Continue().ConfigureAwait(false);
+                await dc.Continue();
 
                 // If no dialog is active, the bot will not have responded yet.
                 if (!context.Responded)
                 {
                     // Start the greeting dialog.
-                    await dc.Begin(GreetingDialog.Main).ConfigureAwait(false);
+                    await dc.Begin(GreetingDialog.Main);
                 }
             }
         }
-    }    
+    }
 }

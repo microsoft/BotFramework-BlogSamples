@@ -1,13 +1,13 @@
-﻿using Microsoft.Bot;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Core.Extensions;
-using Microsoft.Bot.Schema;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace ManageConversationFlowWithDialogs
+﻿namespace ManageConversationFlowWithDialogs
 {
+    using Microsoft.Bot;
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Core.Extensions;
+    using Microsoft.Bot.Schema;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+
     public class AdditionBot : IBot
     {
         private static AdditionDialog AddTwoNumbers { get; } = new AdditionDialog();
@@ -33,18 +33,18 @@ namespace ManageConversationFlowWithDialogs
                         [AdditionDialog.Inputs.First] = first,
                         [AdditionDialog.Inputs.Second] = second
                     };
-                    await dc.Begin(AdditionDialog.Main, args).ConfigureAwait(false);
+                    await dc.Begin(AdditionDialog.Main, args);
                 }
                 else
                 {
                     // Echo back to the user whatever they typed.
-                    await context.SendActivity($"You said '{context.Activity.Text}'").ConfigureAwait(false);
+                    await context.SendActivity($"You said '{context.Activity.Text}'");
                 }
             }
         }
 
-        // Recognizes if the message is a request to add 2 numbers, in the form: number + number, 
-        // where number may have optionally have a decimal point.: 1 + 1, 123.99 + 45, 0.4+7. 
+        // Recognizes if the message is a request to add 2 numbers, in the form: number + number,
+        // where number may have optionally have a decimal point.: 1 + 1, 123.99 + 45, 0.4+7.
         // For the sake of simplicity it doesn't handle negative numbers or numbers like 1,000 that contain a comma.
         // If you need more robust number recognition, try System.Recognizers.Text
         public static bool TryParseAddingTwoNumbers(string message, out double first, out double second)

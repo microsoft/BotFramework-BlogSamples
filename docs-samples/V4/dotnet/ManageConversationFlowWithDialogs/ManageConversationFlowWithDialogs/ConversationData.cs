@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace ManageConversationFlowWithDialogs
+﻿namespace ManageConversationFlowWithDialogs
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Class for storing conversation state.
     /// </summary>

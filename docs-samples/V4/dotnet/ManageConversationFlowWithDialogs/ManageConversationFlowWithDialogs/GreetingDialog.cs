@@ -1,9 +1,8 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
-using System;
-using System.Collections.Generic;
-
-namespace ManageConversationFlowWithDialogs
+﻿namespace ManageConversationFlowWithDialogs
 {
+    using Microsoft.Bot.Builder.Dialogs;
+    using System.Collections.Generic;
+
     /// <summary>Defines a simple dialog for greeting a user.</summary>
     public class GreetingDialog : DialogSet
     {
@@ -17,7 +16,7 @@ namespace ManageConversationFlowWithDialogs
         }
 
         /// <summary>Defines IDs for output from the dialog.</summary>
-        private struct State
+        private struct Outputs
         {
             public const string Name = "name";
             public const string Work = "work";
@@ -36,33 +35,33 @@ namespace ManageConversationFlowWithDialogs
                     dc.ActiveDialog.State = new Dictionary<string,object>();
 
                     // Ask for their name.
-                    await dc.Prompt(Inputs.Text, "What is your name?").ConfigureAwait(false);
+                    await dc.Prompt(Inputs.Text, "What is your name?");
                 },
                 async (dc, args, next) =>
                 {
                     // Get the prompt result and save it to state.
                     var name = args["Text"] as string;
-                    dc.ActiveDialog.State[State.Name] = name;
+                    dc.ActiveDialog.State[Outputs.Name] = name;
 
                     // Acknowledge their input.
-                    await dc.Context.SendActivity($"Hi, {name}!").ConfigureAwait(false);
+                    await dc.Context.SendActivity($"Hi, {name}!");
 
                     // Ask where they work.
-                    await dc.Prompt(Inputs.Text, "Where do you work?").ConfigureAwait(false);
+                    await dc.Prompt(Inputs.Text, "Where do you work?");
                 },
                 async (dc, args, next) =>
                 {
                     // Get the prompt result and save it to state.
                     var work = args["Text"] as string;
-                    dc.ActiveDialog.State[State.Work] = work;
+                    dc.ActiveDialog.State[Outputs.Work] = work;
 
                     // Acknowledge their input.
-                    await dc.Context.SendActivity($"{work} is a fun place.").ConfigureAwait(false);
+                    await dc.Context.SendActivity($"{work} is a fun place.");
 
                     // End the dialog.
-                    //await dc.End().ConfigureAwait(false);
+                    //await dc.End();
                     // Start over from the beginning.
-                    await dc.Replace(Main).ConfigureAwait(false);
+                    await dc.Replace(Main);
                 }
             });
         }

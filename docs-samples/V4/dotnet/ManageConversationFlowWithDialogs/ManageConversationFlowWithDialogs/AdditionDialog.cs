@@ -1,15 +1,14 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
-using System;
-
-namespace ManageConversationFlowWithDialogs
+﻿namespace ManageConversationFlowWithDialogs
 {
+    using Microsoft.Bot.Builder.Dialogs;
+
     /// <summary>Defines a simple dialog for adding two numbers together.</summary>
     public class AdditionDialog : DialogSet
     {
         /// <summary>The ID of the main dialog in the set.</summary>
-        public const string Main = "additionDialog";
+        public const string Main = "addTwoNumbers";
 
-        /// <summary>Defines the IDs of the prompts in the set.</summary>
+        /// <summary>Defines the IDs of the input arguments.</summary>
         public struct Inputs
         {
             public const string First = "first";
@@ -17,7 +16,7 @@ namespace ManageConversationFlowWithDialogs
         }
 
         /// <summary>Defines IDs for output from the dialog.</summary>
-        public struct State
+        public struct Outputs
         {
             public const string Value = "value";
         }
@@ -35,13 +34,13 @@ namespace ManageConversationFlowWithDialogs
                     var sum = x + y;
 
                     // Display the result to the user.
-                    await dc.Context.SendActivity($"{x} + {y} = {sum}").ConfigureAwait(false);
+                    await dc.Context.SendActivity($"{x} + {y} = {sum}");
 
                     // Update the dialog state with the result.
-                    dc.ActiveDialog.State[State.Value] = sum;
+                    dc.ActiveDialog.State[Outputs.Value] = sum;
 
                     // End the dialog.
-                    await dc.End().ConfigureAwait(false);
+                    await dc.End();
                 }
             });
         }
