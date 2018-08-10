@@ -52,8 +52,8 @@ server.post('/api/messages', (req, res) => {
         const convo = conversationState.get(context);
 
         // Defined flags to manage the conversation flow and prompt states
-        // convo.topicTitle - Current conversation topic in progress
-        // convo.prompt - Current prompt state in progress - indicate what question is being asked.
+        // convo.topicStates.topicTitle - Current conversation topic in progress
+        // convo.topicStates.prompt - Current prompt state in progress - indicate what question is being asked.
         
         if (isMessage) {
             // Defile a topicStates object if it doesn't exist in the convoState.
