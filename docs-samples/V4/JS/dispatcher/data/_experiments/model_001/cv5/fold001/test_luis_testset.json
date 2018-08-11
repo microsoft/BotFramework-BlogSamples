@@ -1,0 +1,82 @@
+[
+  {
+    "text": "turn on the furnace room lights",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "change temperature to seventy two degrees",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "what ' s the weather going to be like in hawaii ?",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "get the daily temperature greenwood indiana",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "set lights concentrate",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "what to wear in march in california",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "show me the forecast at alabama",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "Light won't turn on.",
+    "intent": "q_faq",
+    "entities": []
+  },
+  {
+    "text": "turn the fan to high",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "turn on thermostat please",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "My Contoso smart light won't turn on.",
+    "intent": "q_faq",
+    "entities": []
+  },
+  {
+    "text": "Light doesn't work after upgrade.",
+    "intent": "q_faq",
+    "entities": []
+  },
+  {
+    "text": "silence the phone",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "how much rain does chambersburg get a year",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "turn on my bedroom lights .",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "forecast in celcius",
+    "intent": "l_weather",
+    "entities": []
+  }
+]

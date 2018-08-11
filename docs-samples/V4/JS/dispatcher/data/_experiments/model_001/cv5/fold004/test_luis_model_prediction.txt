@@ -1,0 +1,38 @@
+0	l_homeautomation	1	turn off venice lamp	turn off venice lamp	l_homeautomation	0.930750549	0.930750549	0.0189097133	0.01396159	0.00275181141	l_homeautomation	l_weather	q_faq	None
+1	l_homeautomation	1	shut down my work computer	shut down my work computer	l_homeautomation	0.2629481	0.2629481	0.119510956	0.09645115	0.003204579	l_homeautomation	l_weather	q_faq	None
+2	l_homeautomation	1	turn on external speaker	turn on external speaker	l_homeautomation	0.845221162	0.845221162	0.02588215	0.025468355	0.00288311043	l_homeautomation	l_weather	q_faq	None
+3	l_homeautomation	1	set lights bright	set lights bright	l_homeautomation	0.9520075	0.9520075	0.0171995033	0.0112163192	0.003377703	l_homeautomation	l_weather	q_faq	None
+4	l_homeautomation	1	turn dimmer off	turn dimmer off	l_homeautomation	0.952849	0.952849	0.0128064025	0.0112801986	0.00321655837	l_homeautomation	q_faq	l_weather	None
+5	l_homeautomation	1	lock the doors for me please
+6	l_homeautomation	1	breezeway on please	breezeway on please	l_homeautomation	0.949593663	0.949593663	0.0200452022	0.004419347	0.00198968966	l_homeautomation	None	q_faq	l_weather
+7	l_homeautomation	1	turn off venice lamp	turn off venice lamp	l_homeautomation	0.930750549	0.930750549	0.0189097133	0.01396159	0.00275181141	l_homeautomation	l_weather	q_faq	None
+8	l_homeautomation	1	shut down my work computer	shut down my work computer	l_homeautomation	0.2629481	0.2629481	0.119510956	0.09645115	0.003204579	l_homeautomation	l_weather	q_faq	None
+9	l_homeautomation	1	turn on external speaker	turn on external speaker	l_homeautomation	0.845221162	0.845221162	0.02588215	0.025468355	0.00288311043	l_homeautomation	l_weather	q_faq	None
+10	l_homeautomation	1	set lights bright	set lights bright	l_homeautomation	0.9520075	0.9520075	0.0171995033	0.0112163192	0.003377703	l_homeautomation	l_weather	q_faq	None
+11	l_homeautomation	1	turn dimmer off
+12	l_homeautomation	1	lock the doors for me please	lock the doors for me please	l_homeautomation	0.472641021	0.472641021	0.289838076	0.01689011	0.002245795	l_homeautomation	l_weather	q_faq	None
+13	l_homeautomation	1	breezeway on please	breezeway on please	l_homeautomation	0.949593663	0.949593663	0.0200452022	0.004419347	0.00198968966	l_homeautomation	None	q_faq	l_weather
+14	l_weather	1	get for me the weather conditions in sonoma county	get for me the weather conditions in sonoma county	l_weather	0.972919762	0.972919762	0.01614447	0.0136328973	0.001964036	l_weather	l_homeautomation	q_faq	None
+15	l_weather	1	soliciting today ' s weather	soliciting today ' s weather	l_weather	0.488146663	0.488146663	0.147760138	0.0283967778	0.00304534868	l_weather	l_homeautomation	q_faq	None
+16	l_weather	1	current weather ?	current weather ?	l_homeautomation	0.297323316	0.297323316	0.180748791	0.0397022665	0.003672117	l_homeautomation	l_weather	q_faq	None
+17	l_weather	1	get florence temperature in september
+18	l_weather	1	what will the weather be tomorrow in accord new york ?	what will the weather be tomorrow in accord new york ?	l_weather	0.97681427	0.97681427	0.0289539285	0.00733973831	0.00170370424	l_weather	q_faq	l_homeautomation	None
+19	l_weather	1	get the weather at saint george utah	get the weather at saint george utah	l_weather	0.857072949	0.857072949	0.0588489771	0.0169404	0.00242891558	l_weather	l_homeautomation	q_faq	None
+20	l_weather	1	get for me the weather conditions in sonoma county	get for me the weather conditions in sonoma county	l_weather	0.972919762	0.972919762	0.01614447	0.0136328973	0.001964036	l_weather	l_homeautomation	q_faq	None
+21	l_weather	1	soliciting today ' s weather	soliciting today ' s weather	l_weather	0.488146663	0.488146663	0.147760138	0.0283967778	0.00304534868	l_weather	l_homeautomation	q_faq	None
+22	l_weather	1	current weather ?	current weather ?	l_homeautomation	0.297323316	0.297323316	0.180748791	0.0397022665	0.003672117	l_homeautomation	l_weather	q_faq	None
+23	l_weather	1	get florence temperature in september	get florence temperature in september	l_weather	0.6707905	0.6707905	0.17527698	0.01320889	0.002865041	l_weather	l_homeautomation	q_faq	None
+24	l_weather	1	what will the weather be tomorrow in accord new york ?	what will the weather be tomorrow in accord new york ?	l_weather	0.97681427	0.97681427	0.0289539285	0.00733973831	0.00170370424	l_weather	q_faq	l_homeautomation	None
+25	l_weather	1	get the weather at saint george utah	get the weather at saint george utah	l_weather	0.857072949	0.857072949	0.0588489771	0.0169404	0.00242891558	l_weather	l_homeautomation	q_faq	None
+26	q_faq	1	My smart light app stopped responding.
+27	q_faq	1	Question	Question	l_homeautomation	0.9391365	0.9391365	0.0185014512	0.00741025433	0.00676769	l_homeautomation	q_faq	l_weather	None
+28	q_faq	1	Who should I contact for customer service?	Who should I contact for customer service?	l_weather	0.361927837	0.361927837	0.250887722	0.04602817	0.0022955907	l_weather	q_faq	l_homeautomation	None
+29	q_faq	1	My smart light app stopped responding.	My smart light app stopped responding.	q_faq	0.468253285	0.468253285	0.0912125558	0.06866197	0.00234467885	q_faq	l_homeautomation	l_weather	None
+30	q_faq	1	Question	Question	l_homeautomation	0.9391365	0.9391365	0.0185014512	0.00741025433	0.00676769	l_homeautomation	q_faq	l_weather	None
+31	q_faq	1	Who should I contact for customer service?	Who should I contact for customer service?	l_weather	0.361927837	0.361927837	0.250887722	0.04602817	0.0022955907	l_weather	q_faq	l_homeautomation	None
+32	q_faq	1	My smart light app stopped responding.
+33	q_faq	1	Question	Question	l_homeautomation	0.9391365	0.9391365	0.0185014512	0.00741025433	0.00676769	l_homeautomation	q_faq	l_weather	None
+34	q_faq	1	Who should I contact for customer service?	Who should I contact for customer service?	l_weather	0.361927837	0.361927837	0.250887722	0.04602817	0.0022955907	l_weather	q_faq	l_homeautomation	None
+35	q_faq	1	My smart light app stopped responding.	My smart light app stopped responding.	q_faq	0.468253285	0.468253285	0.0912125558	0.06866197	0.00234467885	q_faq	l_homeautomation	l_weather	None
+36	q_faq	1	Question	Question	l_homeautomation	0.9391365	0.9391365	0.0185014512	0.00741025433	0.00676769	l_homeautomation	q_faq	l_weather	None
+37	q_faq	1	Who should I contact for customer service?	Who should I contact for customer service?	l_weather	0.361927837	0.361927837	0.250887722	0.04602817	0.0022955907	l_weather	q_faq	l_homeautomation	None

@@ -1,5 +1,6 @@
 {
   "authoringRegion": "westus",
+  "subscriptionRegion": "westus",
   "hierarchical": true,
   "services": [
     {
@@ -28,6 +29,7 @@
   ],
   "appId": "611363ce-c9ca-4195-b217-8b1bc0a0af05",
   "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+  "subscriptionKey": "f2eba92fcc6a4957a77134ebc9b437fc",
   "version": "Dispatch",
   "type": "dispatch",
   "name": "CombineWeatherAndLights",

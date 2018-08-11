@@ -1,0 +1,82 @@
+[
+  {
+    "text": "current weather ?",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "get florence temperature in september",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "set lights bright",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "Who should I contact for customer service?",
+    "intent": "q_faq",
+    "entities": []
+  },
+  {
+    "text": "turn off venice lamp",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "Question",
+    "intent": "q_faq",
+    "entities": []
+  },
+  {
+    "text": "get for me the weather conditions in sonoma county",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "shut down my work computer",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "turn dimmer off",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "My smart light app stopped responding.",
+    "intent": "q_faq",
+    "entities": []
+  },
+  {
+    "text": "lock the doors for me please",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "turn on external speaker",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "what will the weather be tomorrow in accord new york ?",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "breezeway on please",
+    "intent": "l_homeautomation",
+    "entities": []
+  },
+  {
+    "text": "soliciting today ' s weather",
+    "intent": "l_weather",
+    "entities": []
+  },
+  {
+    "text": "get the weather at saint george utah",
+    "intent": "l_weather",
+    "entities": []
+  }
+]

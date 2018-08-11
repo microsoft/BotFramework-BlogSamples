@@ -1,0 +1,38 @@
+0	l_homeautomation	1	make some coffee	make some coffee	l_homeautomation	0.794807434	0.794807434	0.0410426743	0.0283021517	0.0038122735	l_homeautomation	l_weather	q_faq	None
+1	l_homeautomation	1	snap switch fan fifty percent	snap switch fan fifty percent	l_homeautomation	0.470767081	0.470767081	0.183165088	0.030474145	0.00311055826	l_homeautomation	l_weather	q_faq	None
+2	l_homeautomation	1	fish pond off please	fish pond off please	l_homeautomation	0.891555846	0.891555846	0.0593463071	0.0109869838	0.00250917184	l_homeautomation	l_weather	q_faq	None
+3	l_homeautomation	1	living room lamps off please	living room lamps off please	l_homeautomation	0.951997042	0.951997042	0.0591085553	0.00323287444	0.0021746417	l_homeautomation	l_weather	q_faq	None
+4	l_homeautomation	1	turn off ac please	turn off ac please	l_homeautomation	0.9886784	0.9886784	0.009798944	0.00568476366	0.001833996	l_homeautomation	l_weather	q_faq	None
+5	l_homeautomation	1	fish pond on please	fish pond on please	l_homeautomation	0.8299109	0.8299109	0.0555848852	0.02160858	0.00236409856	l_homeautomation	l_weather	q_faq	None
+6	l_homeautomation	1	theater on please	theater on please	l_homeautomation	0.9516479	0.9516479	0.017732244	0.0175548065	0.00223420374	l_homeautomation	l_weather	q_faq	None
+7	l_homeautomation	1	make some coffee	make some coffee	l_homeautomation	0.794807434	0.794807434	0.0410426743	0.0283021517	0.0038122735	l_homeautomation	l_weather	q_faq	None
+8	l_homeautomation	1	snap switch fan fifty percent	snap switch fan fifty percent	l_homeautomation	0.470767081	0.470767081	0.183165088	0.030474145	0.00311055826	l_homeautomation	l_weather	q_faq	None
+9	l_homeautomation	1	fish pond off please	fish pond off please	l_homeautomation	0.891555846	0.891555846	0.0593463071	0.0109869838	0.00250917184	l_homeautomation	l_weather	q_faq	None
+10	l_homeautomation	1	living room lamps off please
+11	l_homeautomation	1	turn off ac please	turn off ac please	l_homeautomation	0.9886784	0.9886784	0.009798944	0.00568476366	0.001833996	l_homeautomation	l_weather	q_faq	None
+12	l_homeautomation	1	fish pond on please	fish pond on please	l_homeautomation	0.8299109	0.8299109	0.0555848852	0.02160858	0.00236409856	l_homeautomation	l_weather	q_faq	None
+13	l_homeautomation	1	theater on please	theater on please	l_homeautomation	0.9516479	0.9516479	0.017732244	0.0175548065	0.00223420374	l_homeautomation	l_weather	q_faq	None
+14	l_weather	1	show average rainfall for boise	show average rainfall for boise	l_homeautomation	0.337786824	0.337786824	0.195896342	0.045296412	0.00311978278	l_homeautomation	l_weather	q_faq	None
+15	l_weather	1	get the forcast for me	get the forcast for me	l_weather	0.310645431	0.310645431	0.277048767	0.03513682	0.00282304734	l_weather	l_homeautomation	q_faq	None
+16	l_weather	1	what ' s the weather like in minneapolis
+17	l_weather	1	will it be raining in ranchi	will it be raining in ranchi	l_weather	0.755981	0.755981	0.09142444	0.0190706458	0.00263645733	l_weather	l_homeautomation	q_faq	None
+18	l_weather	1	what is the weather today at 10 day durham ?	what is the weather today at 10 day durham ?	l_weather	0.9669587	0.9669587	0.0224542338	0.013349	0.00177355506	l_weather	q_faq	l_homeautomation	None
+19	l_weather	1	i want to know the temperature at death valley	i want to know the temperature at death valley	l_weather	0.8225255	0.8225255	0.081660904	0.0191840418	0.00198279927	l_weather	l_homeautomation	q_faq	None
+20	l_weather	1	show average rainfall for boise	show average rainfall for boise	l_homeautomation	0.337786824	0.337786824	0.195896342	0.045296412	0.00311978278	l_homeautomation	l_weather	q_faq	None
+21	l_weather	1	get the forcast for me	get the forcast for me	l_weather	0.310645431	0.310645431	0.277048767	0.03513682	0.00282304734	l_weather	l_homeautomation	q_faq	None
+22	l_weather	1	what ' s the weather like in minneapolis
+23	l_weather	1	will it be raining in ranchi	will it be raining in ranchi	l_weather	0.755981	0.755981	0.09142444	0.0190706458	0.00263645733	l_weather	l_homeautomation	q_faq	None
+24	l_weather	1	what is the weather today at 10 day durham ?	what is the weather today at 10 day durham ?	l_weather	0.9669587	0.9669587	0.0224542338	0.013349	0.00177355506	l_weather	q_faq	l_homeautomation	None
+25	l_weather	1	i want to know the temperature at death valley	i want to know the temperature at death valley	l_weather	0.8225255	0.8225255	0.081660904	0.0191840418	0.00198279927	l_weather	l_homeautomation	q_faq	None
+26	q_faq	1	I need help.	I need help.	l_homeautomation	0.31708315	0.31708315	0.12683174	0.08856803	0.0031789965	l_homeautomation	q_faq	l_weather	None
+27	q_faq	1	How do I contact support?	How do I contact support?	q_faq	0.2681746	0.2681746	0.213069811	0.08033245	0.00257117744	q_faq	l_weather	l_homeautomation	None
+28	q_faq	1	I upgraded the app and it doesn't work anymore.
+29	q_faq	1	I need help.	I need help.	l_homeautomation	0.31708315	0.31708315	0.12683174	0.08856803	0.0031789965	l_homeautomation	q_faq	l_weather	None
+30	q_faq	1	How do I contact support?	How do I contact support?	q_faq	0.2681746	0.2681746	0.213069811	0.08033245	0.00257117744	q_faq	l_weather	l_homeautomation	None
+31	q_faq	1	I upgraded the app and it doesn't work anymore.	I upgraded the app and it doesn't work anymore.	l_weather	0.5586984	0.5586984	0.244895712	0.0244952347	0.00174894428	l_weather	q_faq	l_homeautomation	None
+32	q_faq	1	I need help.	I need help.	l_homeautomation	0.31708315	0.31708315	0.12683174	0.08856803	0.0031789965	l_homeautomation	q_faq	l_weather	None
+33	q_faq	1	How do I contact support?	How do I contact support?	q_faq	0.2681746	0.2681746	0.213069811	0.08033245	0.00257117744	q_faq	l_weather	l_homeautomation	None
+34	q_faq	1	I upgraded the app and it doesn't work anymore.
+35	q_faq	1	I need help.	I need help.	l_homeautomation	0.31708315	0.31708315	0.12683174	0.08856803	0.0031789965	l_homeautomation	q_faq	l_weather	None
+36	q_faq	1	How do I contact support?	How do I contact support?	q_faq	0.2681746	0.2681746	0.213069811	0.08033245	0.00257117744	q_faq	l_weather	l_homeautomation	None
+37	q_faq	1	I upgraded the app and it doesn't work anymore.
