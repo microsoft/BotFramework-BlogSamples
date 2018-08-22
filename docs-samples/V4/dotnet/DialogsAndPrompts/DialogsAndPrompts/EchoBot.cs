@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 
 namespace ReferenceBot
@@ -14,12 +15,14 @@ namespace ReferenceBot
         /// </summary>
         private StateAccessors Accessors { get; }
 
-        private MyDialogSet MyDialogs { get; }
+        private DialogSet MyDialogs { get; }
 
-        public EchoBot(StateAccessors accessors)
+        private string DialogName { get; } = MyDialogSet.Name;
+
+        public EchoBot(StateAccessors accessors, DialogSet dialogs)
         {
             Accessors = accessors ?? throw new ArgumentNullException(nameof(accessors));
-            MyDialogs = new MyDialogSet(Accessors.DialogStateAccessor);
+            MyDialogs = dialogs ?? throw new ArgumentNullException(nameof(dialogs));
         }
 
         /// <summary>

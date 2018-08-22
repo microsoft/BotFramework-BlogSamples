@@ -67,6 +67,15 @@ namespace ReferenceBot
                     DialogStateAccessor = convState.CreateProperty<DialogState>(StateAccessors.DialogStateKey),
                 };
             });
+
+            services.AddSingleton(sp =>
+            {
+                var accessors = sp.GetRequiredService<StateAccessors>()
+                    ?? throw new InvalidOperationException(
+                        "State property accessors must be convifugred before adding the dialog.");
+
+                return new MyDialogSet(accessors.DialogStateAccessor);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,6 +13,14 @@ namespace ReferenceBot
         /// <summary>The ID of the main dialog in the set.</summary>
         public const string Name = "mainDialog";
 
+        public struct Snippet
+        {
+            public const string PromptTheUser = "promptTheUser";
+            public const string ReusablePromptsA = "reusablePromptsA";
+            public const string ReusablePromptsB = "reusablePromptsB";
+            public const string SpecifyPromptOptions = "specifyPromptOptions";
+        }
+
         /// <summary>Defines the IDs of the prompts in the set.</summary>
         public struct Inputs
         {
