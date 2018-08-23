@@ -17,25 +17,12 @@ namespace ReferenceBot
 
         private DialogSet MyDialogs { get; }
 
-        private string DialogName { get; } = MyDialogSet.Name;
-
         public EchoBot(StateAccessors accessors, DialogSet dialogs)
         {
             Accessors = accessors ?? throw new ArgumentNullException(nameof(accessors));
             MyDialogs = dialogs ?? throw new ArgumentNullException(nameof(dialogs));
         }
 
-        /// <summary>
-        /// Every Conversation turn for our EchoBot will call this method. In here
-        /// the bot checks the Activty type to verify it's a message, bumps the 
-        /// turn conversation 'Turn' count, and then echoes the users typing
-        /// back to them. 
-        /// </summary>
-        /// <param name="turnContext">Turn scoped context containing all the data needed
-        /// for processing this conversation turn.</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects
-        /// or threads to receive notice of cancellation.</param>
-        /// <returns>A task that represents the work queued to execute.</returns>
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken)
         {
             var dialogContext = await MyDialogs.CreateContextAsync(turnContext);
