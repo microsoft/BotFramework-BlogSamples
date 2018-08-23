@@ -34,7 +34,7 @@ namespace basicOperations
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddBot<Bot101>(options =>
+            services.AddBot<MetaBot>(options =>
             {
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
                 options.OnTurnError = async (context, exception) =>

@@ -13,7 +13,7 @@ using Microsoft.Bot.Builder.Dialogs.Choices;
 
 namespace basicOperations
 {
-    public class Bot101 : IBot
+    public class MetaBot : IBot
     {
         /// <summary>Contains the names of the dialogs and prompts.</summary>
         private struct Input
@@ -229,7 +229,7 @@ namespace basicOperations
 
         /// <summary>Creates a new instance of the bot.</summary>
         /// <param name="accessor">The state property accessors for the bot.</param>
-        public Bot101(StateAccessors accessor)
+        public MetaBot(StateAccessors accessor)
         {
             Accessor = accessor ?? throw new ArgumentNullException(nameof(accessor));
             SelectionDialog = new DialogSet(Accessor.SelectionDialogState);
