@@ -22,7 +22,7 @@
 // Required packages for this bot
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
+const { DialogSet, WaterfallDialog } = require('botbuilder-dialogs');
 
 // Create server
 let server = restify.createServer();
@@ -42,7 +42,7 @@ const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
 
-const dialogs = new DialogSet();
+const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
@@ -51,7 +51,7 @@ server.post('/api/messages', (req, res) => {
         const isMessage = context.activity.type === 'message';
         // State will store all of your information 
         const convoState = conversationState.get(context);
-        const dc = dialogs.createContext(context, convoState);
+        const dc = await dialogs.createContext(context);
 
         if (isMessage) {
             // TryParseAddingTwoNumbers checks if the message matches a regular expression
@@ -59,25 +59,18 @@ server.post('/api/messages', (req, res) => {
             var numbers = await TryParseAddingTwoNumbers(context.activity.text); 
             if (numbers != null && numbers.length >=2 )
             {    
-                await dc.begin('addTwoNumbers', numbers);
+                var sum = await dc.begin('addTwoNumbers', numbers); // A sum is returned
+                // do something with sum if desired
+                console.log("sum is: " + sum.result);
             }
             else {
-                // Just echo back the user's message if they're not adding numbers
-                const count = (convoState.count === undefined ? convoState.count = 0 : ++convoState.count);
-                return context.sendActivity(`Turn ${count}: You said "${context.activity.text}"`); 
+                await dc.context.sendActivity(`Hi! I'm the add 2 numbers bot. Say something like "What's 2+3?"`);
             }     
         }
         else {
-            return context.sendActivity(`[${context.activity.type} event detected]`);
+            await context.sendActivity(`[${context.activity.type} event detected]`);
         }
         
-        if (!context.responded) {
-            await dc.continue();
-            // if the dialog didn't send a response
-            if (!context.responded && isMessage) {
-                await dc.context.sendActivity(`Hi! I'm the add 2 numbers bot. Say something like "What's 2+3?"`);
-            }
-        }
     });
 });
 
@@ -85,12 +78,12 @@ server.post('/api/messages', (req, res) => {
 // This sample shows a single step waterfall in a processing an addition equation.
 
 // Show the sum of two numbers.
-dialogs.add('addTwoNumbers', [async function (dc, numbers){
-    var sum = Number.parseFloat(numbers[0]) + Number.parseFloat(numbers[1]);
-    await dc.context.sendActivity(`${numbers[0]} + ${numbers[1]} = ${sum}`);
-    await dc.end();
+dialogs.add(new WaterfallDialog('addTwoNumbers', [async function (dc, step){
+    var sum = Number.parseFloat(step.options[0]) + Number.parseFloat(step.options[1]);
+    await dc.context.sendActivity(`${step.options[0]} + ${step.options[1]} = ${sum}`);
+    return await dc.end(sum); // return the sum
 }]
-);
+));
 
 async function TryParseAddingTwoNumbers(message) {
     const ADD_NUMBERS_REGEXP = /([-+]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+))(?:\s*)\+(?:\s*)([-+]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+))/i;

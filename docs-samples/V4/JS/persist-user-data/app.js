@@ -24,7 +24,7 @@
 // Required packages for this bot
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt } = require('botbuilder-dialogs');
+const { DialogSet, WaterfallDialog, TextPrompt, DateTimePrompt, NumberPrompt } = require('botbuilder-dialogs');
 
 // Create server
 let server = restify.createServer();
@@ -44,33 +44,33 @@ const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
 
-const dialogs = new DialogSet();
+const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
-        const convo = conversationState.get(context);
-        const dc = dialogs.createContext(context, convo);
+        const convoState = conversationState.get(context);
+        const dc = await dialogs.createContext(context);
 
         if (isMessage) {
             // Check for valid intents
-            if(context.activity.text.match(/hi/ig)){
-                await dc.begin('greetings');
+            if(context.activity.text.match(/hello/ig)){
+                return await dc.begin('greetings');
             }
             else if(context.activity.text.match(/reserve table/ig)){
-                await dc.begin('reserveTable');
+                return await dc.begin('reserveTable');
             }
         }
 
         if(!context.responded){
             // Continue executing the "current" dialog, if any.
-            var userName = await dc.continue();
+            var myVal = await dc.continue();
 
             if(!context.responded && isMessage){
                 // Default message
-                await context.sendActivity("Hi! I'm a simple bot. Please say 'Hi' or 'reserve table'.");
+                await context.sendActivity("Hi! I'm a simple bot. Please say 'Hello' or 'reserve table'.");
             }
         }
     });
@@ -79,60 +79,65 @@ server.post('/api/messages', (req, res) => {
 
 // Greet user:
 // Ask for the user name and then greet them by name.
-dialogs.add('greetings',[
-    async function (dc){
-        await dc.prompt('textPrompt', 'What is your name?');
+// step:
+// - values
+// - result
+// - options
+// - next
+dialogs.add(new WaterfallDialog('greetings', [
+    async function (dc, step){
+        step.values.userName = undefined;
+        return await dc.prompt('textPrompt', 'Hi! What is your name?');
     },
-    async function(dc, results){
-        var userName = results;
-        await dc.context.sendActivity(`Hello ${userName}!`);
-        await dc.end(userName); // Ends the dialog
+    async function(dc, step){
+        step.values.userName = step.result;
+        await dc.context.sendActivity(`Hi ${step.values.userName}!`);
+        return await dc.end(userName);
     }
-]);
+]));
 
 // Reserve a table:
 // Help the user to reserve a table
 
-dialogs.add('reserveTable', [
-    async function(dc, args, next){
+dialogs.add(new WaterfallDialog('reserveTable', [
+    async function(dc, step){
         await dc.context.sendActivity("Welcome to the reservation service.");
 
-        dc.activeDialog.state.reservationInfo = {}; // Clears any previous data
-        await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
+        step.values.reservationInfo = {}; // Clears any previous data
+        return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
     },
-    async function(dc, result){
-        dc.activeDialog.state.reservationInfo.dateTime = result[0].value;
+    async function(dc, step){
+        step.values.reservationInfo.dateTime = step.result[0].value;
 
         // Ask for next info
-        await dc.prompt('partySizePrompt', "How many people are in your party?");
+        return await dc.prompt('partySizePrompt', "How many people are in your party?");
     },
-    async function(dc, result){
-        dc.activeDialog.state.reservationInfo.partySize = result;
+    async function(dc, step){
+        step.values.reservationInfo.partySize = step.result;
 
         // Ask for next info
-        await dc.prompt('textPrompt', "Who's name will this be under?");
+        return await dc.prompt('textPrompt', "Who's name will this be under?");
     },
-    async function(dc, result){
-        dc.activeDialog.state.reservationInfo.reserveName = result;
+    async function(dc, step){
+        step.values.reservationInfo.reserveName = step.result;
         
         // Persist data
         var convo = conversationState.get(dc.context);
-        convo.reservationInfo = dc.activeDialog.state.reservationInfo;
+        convo.reservationInfo = step.values.reservationInfo;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 
-            <br/>Date/Time: ${dc.activeDialog.state.reservationInfo.dateTime} 
-            <br/>Party size: ${dc.activeDialog.state.reservationInfo.partySize} 
-            <br/>Reservation name: ${dc.activeDialog.state.reservationInfo.reserveName}`;
+            <br/>Date/Time: ${step.values.reservationInfo.dateTime} 
+            <br/>Party size: ${step.values.reservationInfo.partySize} 
+            <br/>Reservation name: ${step.values.reservationInfo.reserveName}`;
             
         await dc.context.sendActivity(msg);
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 // Define prompts
 // Generic prompts
-dialogs.add('textPrompt', new TextPrompt());
-dialogs.add('dateTimePrompt', new DatetimePrompt());
-dialogs.add('partySizePrompt', new NumberPrompt());
-
+dialogs.add(new TextPrompt('textPrompt'));
+dialogs.add(new DateTimePrompt('dateTimePrompt'));
+dialogs.add(new NumberPrompt('partySizePrompt'));

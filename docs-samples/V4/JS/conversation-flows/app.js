@@ -21,7 +21,7 @@
 // Required packages for this bot
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
+const { DialogSet, WaterfallDialog, TextPrompt, DateTimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
 
 // Create server
 let server = restify.createServer();
@@ -41,7 +41,7 @@ const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
 
-const dialogs = new DialogSet();
+const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
@@ -49,7 +49,7 @@ server.post('/api/messages', (req, res) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
         const convo = conversationState.get(context);
-        const dc = dialogs.createContext(context, convo);
+        const dc = await dialogs.createContext(context);
 
         if (isMessage) {
             // Check for valid intents
@@ -63,7 +63,7 @@ server.post('/api/messages', (req, res) => {
 
         if(!context.responded){
             // Continue executing the "current" dialog, if any.
-            await dc.continue();
+            var results = await dc.continue();
 
             if(!context.responded && isMessage){
                 // Default message
@@ -77,42 +77,43 @@ server.post('/api/messages', (req, res) => {
 // Greet user:
 // Ask for the user name and then greet them by name.
 // Ask them where they work.
-dialogs.add('greetings',[
-    async function (dc){
-        await dc.prompt('textPrompt', 'What is your name?');
+dialogs.add(new WaterfallDialog('greetings', [
+    async function (dc, step){
+        return await dc.prompt('textPrompt', 'Hi! What is your name?');
     },
-    async function(dc, results){
-        var userName = results;
+    async function(dc, step){
+        var userName = step.result;
         await dc.context.sendActivity(`Hi ${userName}!`);
-        await dc.prompt('textPrompt', 'Where do you work?');
+        return await dc.prompt('textPrompt', 'Where do you work?');
     },
-    async function(dc, results){
-        var workPlace = results;
+    async function(dc, step){
+        var workPlace = step.result;
         await dc.context.sendActivity(`${workPlace} is a fun place.`);
-        await dc.end(); // Ends the dialog
+        return await dc.end(); // Ends the dialog
     }
-]);
+]));
 
 
 // Display a menu and ask user to choose a menu item. Direct user to the item selected.
-dialogs.add('mainMenu', [
-    async function(dc){
+dialogs.add(new WaterfallDialog('mainMenu', [
+    async function(dc, step){
         await dc.context.sendActivity("Welcome to Contoso Hotel and Resort.");
-        await dc.prompt('choicePrompt', "How may we serve you today?", ['Order Dinner', 'Reserve a table']);
+        return await dc.prompt('choicePrompt', "How may we serve you today?", ['Order Dinner', 'Reserve a table']);
     },
-    async function(dc, result){
-        if(result.value.match(/order dinner/ig)){
-            await dc.begin('orderDinner');
+    async function(dc, step){
+        if(step.result.value.match(/order dinner/ig)){
+            return await dc.begin('orderDinner');
         }
-        else if(result.value.match(/reserve a table/ig)){
-            await dc.begin('reserveTable');
+        else if(step.result.value.match(/reserve a table/ig)){
+            return await dc.begin('reserveTable');
         }
     },
-    async function(dc, result){
+    async function(dc, step){
         // Start over
-        await dc.endAll().begin('mainMenu');
+        await dc.cancelAll();
+        return await dc.begin('mainMenu');
     }
-]);
+]));
 
 // Order dinner:
 // Help user order dinner from a menu
@@ -134,65 +135,68 @@ const dinnerMenu = {
     }
 }
 
-dialogs.add('orderDinner', [
-    async function (dc){
+// Order dinner:
+// Help user order dinner from a menu
+dialogs.add(new WaterfallDialog('orderDinner', [
+    async function (dc, step){
         await dc.context.sendActivity("Welcome to our Dinner order service.");
         
-        await dc.begin('orderPrompt', dc.activeDialog.state.orderCart); // Prompt for orders
+        return await dc.begin('orderPrompt', step.values.orderCart); // Prompt for orders
     },
-    async function (dc, result) {
-        if(result == "Cancel"){
-            await dc.end();
+    async function (dc, step) {
+        if(step.result == "Cancel"){
+            return await dc.end();
         }
         else { 
-            await dc.prompt('numberPrompt', "What is your room number?");
+            return await dc.prompt('numberPrompt', "What is your room number?");
         }
     },
-    async function(dc, result){
-        await dc.context.sendActivity(`Thank you. Your order will be delivered to room ${result} within 45 minutes.`);
-        await dc.end();
+    async function(dc, step){
+        await dc.context.sendActivity(`Thank you. Your order will be delivered to room ${step.result} within 45 minutes.`);
+        return await dc.end();
     }
-]);
+]));
 
 // Helper dialog to repeatedly prompt user for orders
-dialogs.add('orderPrompt', [
-    async function(dc, orderCart){
-        // Define a new cart of one does not exists
+dialogs.add(new WaterfallDialog('orderPrompt', [
+    async function(dc, step){
+        var orderCart = (step.options.orders ? step.options : step.result);
+        // Define a new cart if one does not exists
         if(!orderCart){
             // Initialize a new cart
             // convoState = conversationState.get(dc.context);
-            dc.activeDialog.state.orderCart = {
+            step.values.orderCart = {
                 orders: [],
                 total: 0
             };
         }
         else {
-            dc.activeDialog.state.orderCart = orderCart;
+            step.values.orderCart = orderCart;
         }
-        await dc.prompt('choicePrompt', "What would you like?", dinnerMenu.choices);
+        return await dc.prompt('choicePrompt', "What would you like?", dinnerMenu.choices);
     },
-    async function(dc, choice){
+    async function(dc, step){
         // Get state object
         // convoState = conversationState.get(dc.context);
-
+        var choice = step.result;
         if(choice.value.match(/process order/ig)){
-            if(dc.activeDialog.state.orderCart.orders.length > 0) {
+            if(step.values.orderCart.orders.length > 0) {
                 // Process the order
                 // ...
-                dc.activeDialog.state.orderCart = undefined; // Reset cart
+                step.values.orderCart = undefined; // Reset cart
                 await dc.context.sendActivity("Processing your order.");
-                await dc.end();
+                return await dc.end();
             }
             else {
                 await dc.context.sendActivity("Your cart was empty. Please add at least one item to the cart.");
                 // Ask again
-                await dc.replace('orderPrompt');
+                return await dc.replace('orderPrompt');
             }
         }
         else if(choice.value.match(/cancel/ig)){
             //dc.activeDialog.state.orderCart = undefined; // Reset cart
             await dc.context.sendActivity("Your order has been canceled.");
-            await dc.end(choice.value);
+            return await dc.end(choice.value);
         }
         else {
             var item = dinnerMenu[choice.value];
@@ -202,66 +206,90 @@ dialogs.add('orderPrompt', [
                 await dc.context.sendActivity("Sorry, that is not a valid item. Please pick one from the menu.");
                 
                 // Ask again
-                await dc.replace('orderPrompt');
+                return await dc.replace('orderPrompt');
             }
             else {
                 // Add the item to cart
-                dc.activeDialog.state.orderCart.orders.push(item);
-                dc.activeDialog.state.orderCart.total += item.Price;
+                step.values.orderCart.orders.push(item);
+                step.values.orderCart.total += item.Price;
 
-                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${dc.activeDialog.state.orderCart.total}`);
+                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${step.values.orderCart.total}`);
 
                 // Ask again
-                await dc.replace('orderPrompt', dc.activeDialog.state.orderCart);
+                return await dc.replace('orderPrompt', step.values.orderCart);
             }
         }
     }
-]);
+]));
 
 // Reserve a table:
 // Help the user to reserve a table
 
-dialogs.add('reserveTable', [
-    async function(dc, args, next){
+dialogs.add(new WaterfallDialog('reserveTable', [
+    async function(dc, step){
         await dc.context.sendActivity("Welcome to the reservation service.");
 
-        dc.activeDialog.state.reservationInfo = {}; // Clears any previous data
-        await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
+        step.values.reservationInfo = {}; // Clears any previous data
+        return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
     },
-    async function(dc, result){
-        dc.activeDialog.state.reservationInfo.dateTime = result[0].value;
+    async function(dc, step){
+        step.values.reservationInfo.dateTime = step.result[0].value;
 
         // Ask for next info
-        await dc.prompt('partySizePrompt', "How many people are in your party?");
+        return await dc.prompt('partySizePrompt', "How many people are in your party?");
     },
-    async function(dc, result){
-        dc.activeDialog.state.reservationInfo.partySize = result;
+    async function(dc, step){
+        step.values.reservationInfo.partySize = step.result;
 
         // Ask for next info
-        await dc.prompt('textPrompt', "Who's name will this be under?");
+        return await dc.prompt('textPrompt', "Who's name will this be under?");
     },
-    async function(dc, result){
-        dc.activeDialog.state.reservationInfo.reserveName = result;
+    async function(dc, step){
+        step.values.reservationInfo.reserveName = step.result;
         
         // Persist data
         var convoState = conversationState.get(dc.context);
-        convoState.reservationInfo = dc.activeDialog.state.reservationInfo;
+        convoState.reservationInfo = step.values.reservationInfo;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 
-            <br/>Date/Time: ${dc.activeDialog.state.reservationInfo.dateTime} 
-            <br/>Party size: ${dc.activeDialog.state.reservationInfo.partySize} 
-            <br/>Reservation name: ${dc.activeDialog.state.reservationInfo.reserveName}`;
+            <br/>Date/Time: ${step.values.reservationInfo.dateTime} 
+            <br/>Party size: ${step.values.reservationInfo.partySize} 
+            <br/>Reservation name: ${step.values.reservationInfo.reserveName}`;
             
         await dc.context.sendActivity(msg);
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 // Define prompts
 // Generic prompts
-dialogs.add('textPrompt', new TextPrompt());
-dialogs.add('dateTimePrompt', new DatetimePrompt());
-dialogs.add('numberPrompt', new NumberPrompt());
-dialogs.add('choicePrompt', new ChoicePrompt());
-dialogs.add('partySizePrompt', new NumberPrompt());
+dialogs.add(new TextPrompt('textPrompt'));
+dialogs.add(new DateTimePrompt('dateTimePrompt'));
+dialogs.add(new NumberPrompt('numberPrompt'));
+dialogs.add(new ChoicePrompt('choicePrompt'));
+dialogs.add(new NumberPrompt('partySizePrompt', partySizeValidator));
+
+async function partySizeValidator(context, promptValidatorContext){
+    var msg = null;
+    if(promptValidatorContext.recognized.value < 5) {
+        msg = `Party size too small.`;
+    }
+    else if(promptValidatorContext.recognized.value > 50){
+        msg = `Party size too big.`;
+    }
+
+    // If error, send message and repompt message
+    //  - if a message is sent, you must also include reprompt message
+    //    otherwise, it will attempt to send from the prompt or the retry message (if one is defined)
+    // Else, end prompt so that waterfall can move to next step
+    
+    if(msg){ // fail
+        msg += " Please enter a number between 5 and 50."
+        await context.sendActivity(msg);
+    }
+    else{ // pass
+        promptValidatorContext.end(promptValidatorContext.recognized.value);
+    }
+    
+}
