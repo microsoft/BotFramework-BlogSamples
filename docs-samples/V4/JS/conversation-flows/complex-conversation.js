@@ -1,7 +1,7 @@
 /*
- * Botbuilder v4 SDK - Conversation Flows.
+ * Botbuilder v4 SDK - Complex Conversation Flows.
  * 
- * This bot demonstrates how to use dialogs, waterfall, and prompts to manage conversation flows.
+ * This bot demonstrates how to use dialogs, waterfall, and prompts to manage complex conversation flows with loops.
  * 
  * To run this bot:
  * 1) install these npm packages:
@@ -9,12 +9,10 @@
  * npm install --save botbuilder@preview
  * npm install --save botbuilder-dialogs@preview
  * 
- * 2) From VSCode, open the package.json file and
- * Update the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "conversation-flows/app.js" to run the this sample bot.
- * 3) run the bot in debug mode. 
+ * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
+ * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
  * 4) Load the emulator and point it to: http://localhost:3978/api/messages
- * 5) Send the message "hi" or "reserve table" to engage with the bot.
+ * 5) Send the message "hi" to engage with the bot.
  *
  */ 
 
@@ -39,6 +37,8 @@ const adapter = new BotFrameworkAdapter({
 const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
+const reservationInfoState = conversationState.createProperty("reserverationInfo");
+const userInfoAccessor = conversationState.createProperty('userInfo');
 adapter.use(new BotStateSet(conversationState, userState));
 
 const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
@@ -48,16 +48,17 @@ server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
-        const convo = conversationState.get(context);
+        // const convo = conversationState.get(context);
         const dc = await dialogs.createContext(context);
-
+        
         if (isMessage) {
+
             // Check for valid intents
             if(context.activity.text.match(/hello/ig)){
-                await dc.begin('greetings');
+                return await dc.begin('greetings');
             }
             else if(context.activity.text.match(/menu/ig)){
-                await dc.begin('mainMenu');
+                return await dc.begin('mainMenu');
             }
         }
 
@@ -79,20 +80,27 @@ server.post('/api/messages', (req, res) => {
 // Ask them where they work.
 dialogs.add(new WaterfallDialog('greetings', [
     async function (dc, step){
+        step.values.userInfo = {}; // New object
         return await dc.prompt('textPrompt', 'Hi! What is your name?');
     },
     async function(dc, step){
         var userName = step.result;
+        step.values.userInfo.userName = userName;
         await dc.context.sendActivity(`Hi ${userName}!`);
         return await dc.prompt('textPrompt', 'Where do you work?');
     },
     async function(dc, step){
         var workPlace = step.result;
+        step.values.userInfo.workPlace = workPlace;
         await dc.context.sendActivity(`${workPlace} is a fun place.`);
+
+        // Persist user data
+        const userData = await userInfoAccessor.get(dc.context, {});
+        userData.userInfo = step.values.userInfo;
+
         return await dc.end(); // Ends the dialog
     }
 ]));
-
 
 // Display a menu and ask user to choose a menu item. Direct user to the item selected.
 dialogs.add(new WaterfallDialog('mainMenu', [
@@ -160,7 +168,7 @@ dialogs.add(new WaterfallDialog('orderDinner', [
 // Helper dialog to repeatedly prompt user for orders
 dialogs.add(new WaterfallDialog('orderPrompt', [
     async function(dc, step){
-        var orderCart = (step.options.orders ? step.options : step.result);
+        var orderCart = (step.options.orders ? step.options : step.result); // If no data is passed in, step.result is undefined
         // Define a new cart if one does not exists
         if(!orderCart){
             // Initialize a new cart
@@ -216,7 +224,7 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
                 await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${step.values.orderCart.total}`);
 
                 // Ask again
-                return await dc.replace('orderPrompt', step.values.orderCart);
+                return await dc.replace('orderPrompt', step.values.orderCart); // passing data into the replacing dialog
             }
         }
     }
@@ -228,6 +236,8 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
 dialogs.add(new WaterfallDialog('reserveTable', [
     async function(dc, step){
         await dc.context.sendActivity("Welcome to the reservation service.");
+
+        myStateData = await reservationInfoState.get(dc.context, "myStateData2");
 
         step.values.reservationInfo = {}; // Clears any previous data
         return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
@@ -248,8 +258,8 @@ dialogs.add(new WaterfallDialog('reserveTable', [
         step.values.reservationInfo.reserveName = step.result;
         
         // Persist data
-        var convoState = conversationState.get(dc.context);
-        convoState.reservationInfo = step.values.reservationInfo;
+        const reservationState = await reservationInfoState.get(dc.context, {});
+        reservationState.reservationInfo = step.values.reservationInfo;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 

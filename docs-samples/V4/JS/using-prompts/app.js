@@ -10,10 +10,8 @@
  * npm install --save botbuilder@preview
  * npm install --save botbuilder-dialogs@preview
  * 
- * 2) From VSCode, open the package.json file and
- * Update the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "using-prompts/app.js" to run the this sample bot.
- * 3) run the bot in debug mode. 
+ * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
+ * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
  * 4) Load the emulator and point it to: http://localhost:3978/api/messages
  * 5) Send the message "hi" to engage with the bot.
  *

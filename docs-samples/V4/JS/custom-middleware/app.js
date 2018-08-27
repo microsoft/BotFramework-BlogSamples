@@ -12,11 +12,10 @@
  * 3) Load the emulator and point it to: http://localhost:3978/api/messages
  * 4) Send the bot a message. The bot will echo back what you send with "#: You said ..."
  * 
- * To run other sample bots from this project:
- * 1) open the package.json file
- * 2) change the value of the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "custom-middleware/app.js" to run the dialogs sample bot.
- * 3) Follow the steps above to run the bot. Make sure to install additional npm packages required by the bot.
+ * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
+ * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
+ * 4) Load the emulator and point it to: http://localhost:3978/api/messages
+ * 5) Send the message "hi" to engage with the bot.
  *
  */ 
 

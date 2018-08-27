@@ -8,10 +8,11 @@
  * npm install --save restify
  * npm install --save botbuilder@preview
  * 
- * 2) From VSCode, run the bot in debug mode. 
- * 3) Load the emulator and point it to: http://localhost:3978/api/messages
- * 4) Send the bot a message. The bot will echo back what you send with "#: You said ..."
- * 
+ * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
+ * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
+ * 4) Load the emulator and point it to: http://localhost:3978/api/messages
+ * 5) Send the message "hi" to engage with the bot.
+* 
  */ 
 
 // Packages are installed for you

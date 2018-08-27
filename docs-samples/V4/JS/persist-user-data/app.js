@@ -12,12 +12,10 @@
  * npm install --save botbuilder@preview
  * npm install --save botbuilder-dialogs@preview
  * 
- * 2) From VSCode, open the package.json file and
- * Update the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "persist-user-data/app.js" to run the this sample bot.
- * 3) run the bot in debug mode. 
+ * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
+ * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
  * 4) Load the emulator and point it to: http://localhost:3978/api/messages
- * 5) Send the message "hi" or "reserve table" to engage with the bot.
+ * 5) Send the message "hi" to engage with the bot.
  *
  */ 
 
@@ -41,10 +39,12 @@ const adapter = new BotFrameworkAdapter({
 // Storage
 const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
+const reservationInfoState = conversationState.createProperty('reservationInfo');
+const dialogState = conversationState.createProperty('dialogState');
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
 
-const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
+const dialogs = new DialogSet(dialogState); // Must provide a state object
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
@@ -55,6 +55,16 @@ server.post('/api/messages', (req, res) => {
         const dc = await dialogs.createContext(context);
 
         if (isMessage) {
+
+            
+            var reserveState = await reservationInfoState.get(context, {}); 
+            // reserveState is undefined if there is nothing defined in this databag
+            // reserveState is defined and contains after first call to reservationInfoState.set(value)
+            if(reserveState){
+                // If reserveState is defined, all of its properties and objects are available to read, update, or delete
+                reserveState.partySize = 10;
+                reserveState.reserveName = "Dan";
+            }
             // Check for valid intents
             if(context.activity.text.match(/hello/ig)){
                 return await dc.begin('greetings');
@@ -92,7 +102,14 @@ dialogs.add(new WaterfallDialog('greetings', [
     async function(dc, step){
         step.values.userName = step.result;
         await dc.context.sendActivity(`Hi ${step.values.userName}!`);
-        return await dc.end(userName);
+        // await reservationInfoState.set(dc.context, step.values.userName);
+        
+
+        reservationInfoState.guest = {
+            "guestName": step.values.userName,
+            "date": "8/1/2018"
+        }
+        return await dc.end(step.values.userName);
     }
 ]));
 
@@ -122,8 +139,12 @@ dialogs.add(new WaterfallDialog('reserveTable', [
         step.values.reservationInfo.reserveName = step.result;
         
         // Persist data
-        var convo = conversationState.get(dc.context);
-        convo.reservationInfo = step.values.reservationInfo;
+        // var convo = conversationState.get(dc.context);
+        // convo.reservationInfo = step.values.reservationInfo;
+        //await reservationInfoState.set(dc.context, step.values.reservationInfo);
+        const reservationState = await reservationInfoState.get(dc.context, {});
+        
+        reservationState.reservationInfo = step.values.reservationInfo;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 

@@ -12,11 +12,10 @@
  * 3) Load the emulator and point it to: http://localhost:3978/api/messages
  * 4) Send the bot a message. The bot will echo back what you send with "#: You said ..."
  * 
- * To run other sample bots from this project:
- * 1) open the package.json file
- * 2) change the value of the property "main" to the name of the sample bot you want to run. 
- *    For example: "main": "ask-questions/app.js" to run the dialogs sample bot.
- * 3) Follow the steps above to run the bot. Make sure to install additional npm packages required by the bot.
+ * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
+ * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
+ * 4) Load the emulator and point it to: http://localhost:3978/api/messages
+ * 5) Send the message "hi" to engage with the bot.
  *
  */ 
 
@@ -49,25 +48,25 @@ adapter.use(conversationState);
 
 // The corresponding LUIS application JSON is `dispatchSample.json`
 const dispatcher = new LuisRecognizer({
-    appId: '0b18ab4f-5c3d-4724-8b0b-191015b48ea9',
-    subscriptionKey: 'f2eba92fcc6a4957a77134ebc9b437fc',
-    serviceEndpoint: 'https://westus.api.cognitive.microsoft.com/',
+    applicationId: '0b18ab4f-5c3d-4724-8b0b-191015b48ea9',      // LUIS application ID
+    endpointKey: 'f2eba92fcc6a4957a77134ebc9b437fc',            // LUIS subscription key
+    azureRegion: 'https://westus.api.cognitive.microsoft.com/', // LUIS endpoint
     verbose: true
 });
 
 // The corresponding LUIS application JSON is `homeautomation.json`
 const homeAutomation = new LuisRecognizer({
-    appId: '5815e389-0dbf-4b3e-a0f7-00eb9e2f4d19',
-    subscriptionKey: 'f2eba92fcc6a4957a77134ebc9b437fc',
-    serviceEndpoint: 'https://westus.api.cognitive.microsoft.com/',
+    applicationId: '5815e389-0dbf-4b3e-a0f7-00eb9e2f4d19',
+    endpointKey: 'f2eba92fcc6a4957a77134ebc9b437fc',
+    azureRegion: 'https://westus.api.cognitive.microsoft.com/',
     verbose: true
 });
 
 // The corresponding LUIS application JSON is `weather.json`
 const weather = new LuisRecognizer({
-    appId: 'f698134d-b8a9-45c3-87b8-0064165b4b66',
-    subscriptionKey: 'f2eba92fcc6a4957a77134ebc9b437fc',
-    serviceEndpoint: 'https://westus.api.cognitive.microsoft.com/',
+    applicationId: 'f698134d-b8a9-45c3-87b8-0064165b4b66',
+    endpointKey: 'f2eba92fcc6a4957a77134ebc9b437fc',
+    azureRegion: 'https://westus.api.cognitive.microsoft.com/',
     verbose: true
 });
 
@@ -83,7 +82,7 @@ const faq = new QnAMaker(
 );
 
 // register some dialogs for usage with the LUIS apps that are being dispatched to
-const dialogs = new DialogSet();
+const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 
 function findEntities(entityName, entityResults) {
     let entities = []
@@ -175,7 +174,7 @@ server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         if (context.activity.type === 'message') {
             const state = conversationState.get(context);
-            const dc = dialogs.createContext(context, state);
+            const dc = await dialogs.createContext(context);
 
             // Retrieve the LUIS results from our dispatcher LUIS application
             const luisResults = dispatcher.get(context);
