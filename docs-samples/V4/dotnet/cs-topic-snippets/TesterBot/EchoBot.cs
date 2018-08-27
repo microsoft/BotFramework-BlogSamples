@@ -11,7 +11,7 @@ namespace TesterBot
     {
         private IStatePropertyAccessor<EchoState> TesterProperties { get; }
 
-        public EchoBot(BotState state, string name = null)
+        public EchoBot(ConversationState state, string name = null)
         {
             TesterProperties = state.CreateProperty<EchoState>($"{name ?? nameof(EchoBot)}.{nameof(TesterProperties)}");
         }

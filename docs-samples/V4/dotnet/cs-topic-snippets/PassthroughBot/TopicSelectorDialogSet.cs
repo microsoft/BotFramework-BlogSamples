@@ -122,13 +122,16 @@ namespace ContainerLib
         /// <summary>List of all topics (and snippets) available via this bot.</summary>
         private List<TopicDescriptor> Topics { get; }
 
+        private ConversationState ConvState { get; }
+
         private IActivity ChooseTopic => (_chooseTopic != null) ? _chooseTopic
                     : _chooseTopic = MessageFactory.SuggestedActions(Topics.Select(t => t.Name), "Choose a topic:");
         private IActivity _chooseTopic;
 
         public TopicSelectorDialogSet(
             IStatePropertyAccessor<DialogState> dialogState,
-            List<TopicDescriptor> topics)
+            List<TopicDescriptor> topics,
+            ConversationState convState)
             : base(dialogState)
         {
             Topics = topics ?? throw new ArgumentNullException(nameof(topics));
@@ -225,10 +228,35 @@ namespace ContainerLib
                     }
                     else if (step.Result is string section)
                     {
+                        Type botType = topic.Sections[section];
+                        System.Reflection.ConstructorInfo[] ctors = botType.GetConstructors();
+                        IBot bot = null;
+                        foreach(System.Reflection.ConstructorInfo ctor in ctors)
+                        {
+                            System.Reflection.ParameterInfo[] paramInfo = ctor.GetParameters();
+                            var parameters = new object[paramInfo.Length];
+                            for (int i = 0; i < paramInfo.Length; i++)
+                            {
+                                parameters[i] = paramInfo[i].DefaultValue;
+                            }
+                            if (paramInfo.Length is 0
+                                || paramInfo[0].IsOptional)
+                            {
+                                bot = ctor.Invoke(parameters) as IBot;
+                                break;
+                            }
+                            else if ((paramInfo.Length is 1 || paramInfo[1].IsOptional)
+                                && paramInfo[0].ParameterType == typeof(ConversationState))
+                            {
+                                parameters[0] = convState;
+                                bot = ctor.Invoke(parameters) as IBot;
+                                break;
+                            }
+                        }
                         RunSnippetOptions options = new RunSnippetOptions
                         {
                             Section = section,
-                            Bot = topic.Sections[section] as IBot,
+                            Bot = bot ?? throw new InvalidOperationException($"Could not construct a {botType} bot for section {section}."),
                         };
 
                         await dc.Context.TraceActivityAsync($"Starting the run snippet dialog for topic **{topic.Name}**," +

@@ -1,4 +1,7 @@
-﻿using System;
+﻿//#define Addition
+#define Greeting
+
+using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,10 +14,8 @@ using Microsoft.Bot.Builder.TraceExtensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using ContainerLib;
-using System.Collections.Generic;
 
-namespace TesterBot
+namespace DialogTopics
 {
     public class Startup
     {
@@ -36,53 +37,63 @@ namespace TesterBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Register the meta-bot, along with its state.
-            services.AddBot<TopicSelectorBot>(options =>
+#if Addition
+            services.AddBot<AdditionBot>(options =>
             {
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
                 options.OnTurnError = async (context, exception) =>
                 {
-                    await context.TraceActivityAsync("EchoBot Exception", exception);
+                    await context.TraceActivityAsync("Bot Exception", exception);
                     await context.SendActivityAsync("Sorry, it looks like something went wrong!");
                 };
 
-                var dataStore = new MemoryStorage();
-                var convState = new ConversationState(dataStore);
-                var metaState = new MetaState(dataStore, "meta");
-                var state = new BotStateSet(convState, metaState);
-                options.Middleware.Add(state);
+                IStorage dataStore = new MemoryStorage();
+                options.Middleware.Add(new ConversationState(dataStore));
             });
 
-            // Register the meta-bot dialog state property accessor.
+            // Create and register the dialog state accessor.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var metaState = stateSet.BotStates.OfType<MetaState>().First();
-                return metaState.CreateProperty<DialogState>("Meta.DialogState");
+                var convState = options.Middleware.OfType<ConversationState>().FirstOrDefault();
+                return convState.CreateProperty<DialogState>($"DialogSet.DialogStateAccessor");
             });
 
-            // Register the meta-bot dialog.
+            // Create and register the addition dialog set.
             services.AddSingleton(sp =>
             {
-                var dialogState = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
-                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var convState = stateSet.BotStates.First(x => x.GetType().Equals(typeof(ConversationState))) as ConversationState;
-                var topics = new List<TopicDescriptor>
+                var accessor = sp.GetRequiredService <IStatePropertyAccessor<DialogState>>();
+                return new AdditionDialogSet(accessor);
+            });
+#elif Greeting
+            services.AddBot<GreetingBot>(options =>
+            {
+                options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
+                options.OnTurnError = async (context, exception) =>
                 {
-                    new TopicDescriptor
-                    {
-                        Name = "EchoBot",
-                        File = "None",
-                        Sections = new Dictionary<string, Type>
-                        {
-                            ["First"] = typeof(EchoBot),
-                        },
-                    }
+                    await context.TraceActivityAsync("Bot Exception", exception);
+                    await context.SendActivityAsync("Sorry, it looks like something went wrong!");
                 };
-                return new TopicSelectorDialogSet(dialogState, topics, convState);
+
+                IStorage dataStore = new MemoryStorage();
+                options.Middleware.Add(new ConversationState(dataStore));
             });
+
+            // Create and register the dialog state accessor.
+            services.AddSingleton(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                var convState = options.Middleware.OfType<ConversationState>().FirstOrDefault();
+                return convState.CreateProperty<DialogState>($"DialogSet.DialogStateAccessor");
+            });
+
+            // Create and register the addition dialog set.
+            services.AddSingleton(sp =>
+            {
+                var accessor = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
+                return new GreetingDialogSet(accessor);
+            });
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
