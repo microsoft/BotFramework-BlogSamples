@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace ContainerLib
 {
-    public class ContainerBot : IBot
+    public class TopicSelectorBot : IBot
     {
-        private ContainerDialogSet ContainerDialog { get; }
+        private TopicSelectorDialogSet TopicSelection { get; }
 
-        public ContainerBot(ContainerDialogSet containerDialog)
+        public TopicSelectorBot(TopicSelectorDialogSet topicSelection)
         {
-            ContainerDialog = containerDialog ?? throw new ArgumentNullException(nameof(containerDialog));
+            TopicSelection = topicSelection ?? throw new ArgumentNullException(nameof(topicSelection));
         }
 
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var dc = await ContainerDialog.CreateContextAsync(turnContext);
+            var dc = await TopicSelection.CreateContextAsync(turnContext);
             switch (turnContext.Activity.Type)
             {
                 case ActivityTypes.ConversationUpdate:
                     var activity = turnContext.Activity.AsConversationUpdateActivity();
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
-                        await turnContext.SendActivityAsync($"Welcome to the {ContainerDialog.Name} bot!", cancellationToken: cancellationToken);
-                        await dc.BeginAsync(ContainerDialog.Default);
+                        await turnContext.SendActivityAsync($"Welcome to {TopicSelection.Name}!", cancellationToken: cancellationToken);
+                        await dc.BeginAsync(TopicSelection.Default);
                     }
 
                     break;
@@ -37,7 +37,7 @@ namespace ContainerLib
                     if (!turnContext.Responded)
                     {
                         await turnContext.SendActivityAsync("Let's start over!", cancellationToken: cancellationToken);
-                        await dc.BeginAsync(ContainerDialog.Default);
+                        await dc.BeginAsync(TopicSelection.Default);
                     }
 
                     break;

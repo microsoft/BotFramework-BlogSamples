@@ -1,12 +1,9 @@
 ﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ContainerLib
 {
-    public class ContainerDialogSet : DialogSet
+    public class ContainerDialogSet : DialogSet, IMetaDialogSet
     {
         public class StatePropertyAccessors
         {
@@ -18,15 +15,14 @@ namespace ContainerLib
             public const string Main = "mainDialog";
         }
 
-        public string Main => Inputs.Main;
+        public string Default => Inputs.Main;
+
+        public string Name => "a simple pass-through bot";
 
         private IBot TargetBot { get; }
 
-        public ContainerDialogSet(
-//            IStatePropertyAccessor<DialogState> dialogState,
-            StatePropertyAccessors accessors,
-            IBot targetBot)
-            : base(accessors.DialogState)
+        public ContainerDialogSet(IStatePropertyAccessor<DialogState> dialogState, IBot targetBot)
+            : base(dialogState)
         {
             TargetBot = targetBot;
 

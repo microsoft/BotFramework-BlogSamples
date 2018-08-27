@@ -35,6 +35,7 @@ namespace TesterBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register the meta-bot, along with its state.
             services.AddBot<ContainerBot>(options =>
             {
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
@@ -44,10 +45,14 @@ namespace TesterBot
                     await context.SendActivityAsync("Sorry, it looks like something went wrong!");
                 };
 
-                IStorage dataStore = new MemoryStorage();
+                var dataStore = new MemoryStorage();
+                var convState = new ConversationState(dataStore);
+                var userState = new UserState(dataStore);
+                var state = new BotStateSet(convState, userState);
                 options.Middleware.Add(new ConversationState(dataStore));
             });
 
+            // Register the meta-bot dialog state property accessor.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
@@ -55,26 +60,20 @@ namespace TesterBot
                 return state.CreateProperty<DialogState>("ContainerDialogState");
             });
 
+            // Register the target bot.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
                 var state = options.Middleware.OfType<BotState>().FirstOrDefault();
-                return state.CreateProperty<EchoState>("EchoState");
+                return new EchoBot(state);
             });
 
-            services.AddSingleton(sp =>
-            {
-                var echoState = sp.GetRequiredService<IStatePropertyAccessor<EchoState>>();
-                return new EchoBot(echoState);
-            });
-
+            // Register the meta-bot dialog.
             services.AddSingleton(sp =>
             {
                 var dialogState = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
                 var echoBot = sp.GetRequiredService<EchoBot>();
-                return new ContainerDialogSet(
-                    new ContainerDialogSet.StatePropertyAccessors { DialogState = dialogState },
-                    echoBot);
+                return new ContainerDialogSet(dialogState, echoBot);
             });
 
         }

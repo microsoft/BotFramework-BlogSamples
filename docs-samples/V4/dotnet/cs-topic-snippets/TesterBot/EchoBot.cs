@@ -11,9 +11,9 @@ namespace TesterBot
     {
         private IStatePropertyAccessor<EchoState> TesterProperties { get; }
 
-        public EchoBot(IStatePropertyAccessor<EchoState> properties)
+        public EchoBot(BotState state, string name = null)
         {
-            TesterProperties = properties;
+            TesterProperties = state.CreateProperty<EchoState>($"{name ?? nameof(EchoBot)}.{nameof(TesterProperties)}");
         }
 
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))

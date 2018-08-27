@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-    <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.0.0.38301" />
-    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.0.0.38301" />
+    <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.0.0.38375" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.0.0.38375" />
   </ItemGroup>
 
   <ItemGroup>
