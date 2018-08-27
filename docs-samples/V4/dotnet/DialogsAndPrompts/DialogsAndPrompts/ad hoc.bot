@@ -1,0 +1,15 @@
+{
+    "name": "ad hoc",
+    "description": "",
+    "secretKey": "",
+    "services": [
+        {
+            "id": "43000660-a71f-11e8-85c4-13182902ef75",
+            "name": "http://localhost:1205/api/messages",
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:1205/api/messages"
+        }
+    ]
+}

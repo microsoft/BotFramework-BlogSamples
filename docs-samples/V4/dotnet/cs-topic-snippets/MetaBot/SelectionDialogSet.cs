@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Bot;
-using Microsoft.Bot.Builder;
+﻿using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Bot.Builder.TraceExtensions;
 using Microsoft.Bot.Schema;
-using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Recognizers.Text;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using System.Diagnostics.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MetaBot
 {
-    public abstract class BaseMetaBot : IBot
+    public class SelectionDialogSet : DialogSet
     {
         /// <summary>Contains the names of the dialogs and prompts.</summary>
-        private struct Inputs
+        public struct Inputs
         {
             public const string ChooseTopic = "chooseTopic";
             public const string ChooseSection = "chooseSection";
@@ -39,7 +38,7 @@ namespace MetaBot
         private struct Responses
         {
             public static IActivity Welcome { get; }
-                = MessageFactory.Text($"Welcome to the Bot101 snippets collection.");
+                = MessageFactory.Text($"Welcome to the DialogsBot snippets collection.");
             public static IActivity Error { get; }
                 = MessageFactory.Text("I'm sorry, that's not a valid input at this stage.");
             public static IActivity Help { get; }
@@ -47,22 +46,17 @@ namespace MetaBot
         }
 
         /// <summary>List of all topics (and snippets) available via this bot.</summary>
-        protected abstract IReadOnlyList<Topic> Topics { get; }
+        private List<TopicDescriptor> Topics { get; }
 
-        protected IActivity ChooseTopic => (_chooseTopic != null) ? _chooseTopic
+        private IActivity ChooseTopic => (_chooseTopic != null) ? _chooseTopic
                     : _chooseTopic = MessageFactory.SuggestedActions(Topics.Select(t => t.Name), "Choose a topic:");
         private IActivity _chooseTopic;
-
-        private StateAccessors Accessor { get; }
-
-        /// <summary>A dialog set for navigating the topic-section-snippet structure.</summary>
-        private DialogSet SelectionDialog { get; }
 
         /// <summary>Returns either the command entered or the index of the topic selected.</summary>
         /// <param name="context">The turn context.</param>
         /// <param name="prompt">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private async Task TopicValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
+        private static async Task TopicValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
         {
             if (prompt.Recognized.Succeeded)
             {
@@ -85,7 +79,7 @@ namespace MetaBot
         /// <param name="context">The turn context.</param>
         /// <param name="prompt">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private async Task SectionValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
+        private static async Task SectionValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
         {
             if (prompt.Recognized.Succeeded)
             {
@@ -104,22 +98,17 @@ namespace MetaBot
             }
         }
 
-        /// <summary>Creates a new instance of the bot.</summary>
-        /// <param name="accessor">The state property accessors for the bot.</param>
-        protected BaseMetaBot(StateAccessors accessor)
+        public SelectionDialogSet(IStatePropertyAccessor<DialogState> stateAccessor, List<TopicDescriptor> topics)
+            : base(stateAccessor)
         {
-            Accessor = accessor ?? throw new ArgumentNullException(nameof(accessor));
-            SelectionDialog = CreateMetaDialog(accessor);
-        }
+            Debug.WriteLine($">>> SelectionDialogState..ctor >> topic count: {topics?.Count()}.");
+            Debug.WriteLineIf(topics is null, new StackTrace(true));
+            Topics = topics;
 
-        private DialogSet CreateMetaDialog(StateAccessors accessor)
-        {
-            var dialog = new DialogSet(accessor.SelectionDialogState);
-
-            dialog.Add(new ChoicePrompt(Inputs.Topic, TopicValidator, defaultLocale: Culture.English));
-            dialog.Add(new ChoicePrompt(Inputs.Section, SectionValidator, defaultLocale: Culture.English));
-            dialog.Add(new TextPrompt(Inputs.Run));
-            dialog.Add(new WaterfallDialog(Inputs.ChooseTopic, new WaterfallStep[]
+            Add(new ChoicePrompt(Inputs.Topic, TopicValidator, defaultLocale: Culture.English));
+            Add(new ChoicePrompt(Inputs.Section, SectionValidator, defaultLocale: Culture.English));
+            Add(new TextPrompt(Inputs.Run));
+            Add(new WaterfallDialog(Inputs.ChooseTopic, new WaterfallStep[]
             {
                 async (dc, step) =>
                 {
@@ -140,13 +129,13 @@ namespace MetaBot
                         }
 
                         // All other commands are no-ops, as we're already at the "top level".
-                        await dc.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
+                        await dc.Context.TraceActivityAsync("ChooseTopic, step 2: Repeating the choose topic dialog.");
                         return await dc.ReplaceAsync(Inputs.ChooseTopic);
                     }
                     else if (step.Result is int index)
                     {
-                        SectionOptions sectionOptions = new SectionOptions { Topic = Topics[index] };
-                        await dc.Context.TraceActivityAsync($"Selected topic **{sectionOptions.Topic.Name}**.");
+                        ChooseSectionOptions sectionOptions = new ChooseSectionOptions { Topic = Topics[index] };
+                        await dc.Context.TraceActivityAsync($"ChooseTopic, step 2 -- Selected topic **{sectionOptions.Topic.Name}**.");
                         return await dc.BeginAsync(Inputs.ChooseSection, sectionOptions);
                     }
 
@@ -156,19 +145,25 @@ namespace MetaBot
                 },
                 async (dc, step) =>
                 {
+                    Debug.WriteLine("Entering >> Dialog >> ChooseTopic, step 3.");
+
                     // We're resurfacing from the select-section dialog.
                     // This is the top level, so we don't really care how things bubbled back up.
                     await dc.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
                     return await dc.ReplaceAsync(Inputs.ChooseTopic);
                 },
             }));
-            dialog.Add(new WaterfallDialog(Inputs.ChooseSection, new WaterfallStep[]
+            Add(new WaterfallDialog(Inputs.ChooseSection, new WaterfallStep[]
             {
                 async (dc, step) =>
                 {
-                    Topic topic = (step.Options as SectionOptions)?.Topic
+                    TopicDescriptor topic = (step.Options as ChooseSectionOptions)?.Topic
                         ?? throw new ArgumentNullException("step.Options", "Step options must be provided when begining section selection.");
+
                     step.Values[Values.Topic] = topic;
+
+                    Debug.WriteLine($"Entering >> Dialog >> ChooseSection, step 1 (for topic {topic.Name}).");
+
                     return await dc.PromptAsync(Inputs.Section, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("Choose a section:"),
@@ -178,15 +173,17 @@ namespace MetaBot
                 },
                 async (dc, step) =>
                 {
-                    Topic topic = step.Values[Values.Topic] as Topic
+                    TopicDescriptor topic = step.Values[Values.Topic] as TopicDescriptor
                         ?? throw new InvalidOperationException("SelectionDialog, step 2 has no Topic value set.");
+
+                    Debug.WriteLine($"Entering >> Dialog >> ChooseSection, step 2 (for topic {topic.Name}).");
 
                     if (step.Result is Command command)
                     {
                         if (command.Equals(Command.Help))
                         {
                             await dc.Context.SendActivityAsync(Responses.Help);
-                            return await dc.ReplaceAsync(Inputs.ChooseSection, new SectionOptions { Topic = topic });
+                            return await dc.ReplaceAsync(Inputs.ChooseSection, new ChooseSectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Command.Back)
                             || command.Equals(Command.Reset))
@@ -198,7 +195,12 @@ namespace MetaBot
                     }
                     else if (step.Result is string section)
                     {
-                        SnippetOptions options = new SnippetOptions { Bot = topic.Sections[section] };
+                        RunSnippetOptions options = new RunSnippetOptions
+                        {
+                            Section = section,
+                            Bot = topic.Sections[section] as IBot,
+                        };
+
                         await dc.Context.TraceActivityAsync($"Starting the run snippet dialog for topic **{topic.Name}**," +
                             $" section **{section}** (`{options.Bot.GetType().Name}`).");
                         return await dc.BeginAsync(Inputs.RunSnippet, options);
@@ -208,12 +210,14 @@ namespace MetaBot
                     // shouldn't really get here.
                     return await dc.ReplaceAsync(
                         Inputs.ChooseSection,
-                        new SectionOptions { Topic = topic });
+                        new ChooseSectionOptions { Topic = topic });
                 },
                 async (dc, step) =>
                 {
-                    Topic topic = step.Values[Values.Topic] as Topic
+                    TopicDescriptor topic = step.Values[Values.Topic] as TopicDescriptor
                         ?? throw new InvalidOperationException("SelectionDialog, step 3 has no Topic value set.");
+
+                    Debug.WriteLine($"Entering >> Dialog >> ChooseSection, step 3 (for topic {topic.Name}).");
 
                     // We're resurfacing from the run-snippet dialog.
                     // Should only be via a back or reset command.
@@ -224,7 +228,7 @@ namespace MetaBot
                             // Repeat, using the same initial state, that is, for the same topic.
                             return await dc.ReplaceAsync(
                                 Inputs.ChooseSection,
-                                new SectionOptions { Topic = topic });
+                                new ChooseSectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Command.Reset))
                         {
@@ -248,17 +252,20 @@ namespace MetaBot
                     }
                 },
             }));
-            dialog.Add(new WaterfallDialog(Inputs.RunSnippet, new WaterfallStep[]
+            Add(new WaterfallDialog(Inputs.RunSnippet, new WaterfallStep[]
             {
                 async (dc, step) =>
                 {
-                    IBot bot = (step.Options as SnippetOptions).Bot;
+                    IBot bot = (step.Options as RunSnippetOptions).Bot;
                     step.Values[Values.Bot] = bot;
+
+                    Debug.WriteLine($"Entering >> Dialog >> RunSnippet, step 1 (for bot {bot.GetType().Name}).");
+
                     string text = dc.Context.Activity.AsMessageActivity().Text?.Trim();
                     if (Command.Help.Equals(text))
                     {
                         await dc.Context.SendActivityAsync(Responses.Help);
-                        return await dc.ReplaceAsync(Inputs.RunSnippet, new SnippetOptions { Bot = bot });
+                        return await dc.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
                     }
                     else if (Command.Back.Equals(text))
                     {
@@ -277,35 +284,12 @@ namespace MetaBot
                 async (dc, step) =>
                 {
                     IBot bot = step.Values[Values.Bot] as IBot;
-                    return await dc.ReplaceAsync(Inputs.RunSnippet, new SnippetOptions { Bot = bot });
+
+                    Debug.WriteLine($"Entering >> Dialog >> RunSnippet, step 2 (for bot {bot.GetType().Name}).");
+
+                    return await dc.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
                 },
             }));
-
-            return dialog;
-        }
-
-        public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            //TopicState state = await Accessor.TopicState.GetAsync(context);
-            DialogContext dc = await SelectionDialog.CreateContextAsync(turnContext);
-            switch (turnContext.Activity.Type)
-            {
-                case ActivityTypes.ConversationUpdate:
-
-                    IConversationUpdateActivity update = turnContext.Activity.AsConversationUpdateActivity();
-                    if (update.MembersAdded.Any(m => m.Id != update.Recipient.Id))
-                    {
-                        await dc.BeginAsync(Inputs.ChooseTopic);
-                    }
-
-                    break;
-
-                case ActivityTypes.Message:
-
-                    DialogTurnResult turnResult = await dc.ContinueAsync();
-
-                    break;
-            }
         }
     }
 }

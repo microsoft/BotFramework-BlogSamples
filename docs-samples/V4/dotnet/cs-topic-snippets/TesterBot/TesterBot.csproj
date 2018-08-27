@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MetaBot\MetaBot.csproj" />
+    <ProjectReference Include="..\PassthroughBot\ContainerLib.csproj" />
   </ItemGroup>
 
 </Project>

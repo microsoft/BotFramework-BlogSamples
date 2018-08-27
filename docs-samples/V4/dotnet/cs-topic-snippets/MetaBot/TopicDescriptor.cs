@@ -6,7 +6,7 @@ using System.Text;
 namespace MetaBot
 {
     /// <summary>Represents a topic on the docs site.</summary>
-    public class Topic
+    public class TopicDescriptor
     {
         public string Name { get; set; }
         public string File { get; set; }
