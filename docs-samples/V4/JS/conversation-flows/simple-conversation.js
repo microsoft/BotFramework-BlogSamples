@@ -46,6 +46,7 @@ const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = (context.activity.type === 'message');
+        //const convoState = await conversationState.get(context);
         const dc = await dialogs.createContext(context);
         
         if (isMessage) {
@@ -92,7 +93,7 @@ dialogs.add(new WaterfallDialog('greetings', [
 
         // Persist user data
         const userData = await userInfoAccessor.get(dc.context, {});
-        userData.userInfo = step.values.userInfo;
+        userData = step.values.userInfo;
 
         return await dc.end(); // Ends the dialog
     }
