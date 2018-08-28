@@ -20,7 +20,7 @@
 // Required packages for this bot
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet, TextPrompt, DatetimePrompt, NumberPrompt, ChoicePrompt, AttachmentPrompt, ConfirmPrompt, OAuthPrompt } = require('botbuilder-dialogs');
+const { DialogSet, WaterfallDialog, TextPrompt, DateTimePrompt, NumberPrompt, ChoicePrompt, AttachmentPrompt, ConfirmPrompt, OAuthPrompt } = require('botbuilder-dialogs');
 
 // Create server
 let server = restify.createServer();
@@ -41,20 +41,19 @@ const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
 adapter.use(new BotStateSet(conversationState, userState));
 
-const dialogs = new DialogSet();
+const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
-        const convo = conversationState.get(context);
-        const dc = dialogs.createContext(context, convo);
+        const dc = await dialogs.createContext(context);
 
         if (isMessage) {
             // Check for valid intents
-            if(context.activity.text && context.activity.text.match(/hi|prompts/ig)){
-                await dc.begin('listPrompts');
+            if(context.activity.text && context.activity.text.match(/hello|prompts/ig)){
+                return await dc.begin('listPrompts');
             }
         }
 
@@ -64,7 +63,7 @@ server.post('/api/messages', (req, res) => {
 
             if(!context.responded && isMessage){
                 // Default message
-                await context.sendActivity("Hi! I'm a simple bot. Please say 'Hi' or 'prompts' to get started.");
+                await context.sendActivity("Hi! I'm a simple Prompt bot. Please say 'Hello' or 'prompts' to get started.");
             }
         }
     });
@@ -76,52 +75,52 @@ server.post('/api/messages', (req, res) => {
 
 var choices = ['TextPrompt', 'NumberPrompt', 'ChoicePrompt', 'DatetimePrompt', 'ConfirmPrompt', 'AttachmentPrompt', 'OAuthPrompt']
 
-dialogs.add('listPrompts',[
-    async function (dc){
-        await dc.prompt('choicePrompt', 'Which prompt type would you like to try?', choices,
+dialogs.add(new WaterfallDialog('listPrompts',[
+    async function (dc, step){
+        return await dc.prompt('choicePrompt', 'Which prompt type would you like to try?', choices,
             { retryPrompt: 'Invalid choice. Please pick one from the list of choices.' });
     },
-    async function(dc, results){
-        switch(results.value){
+    async function(dc, step){
+        switch(step.result.value){
             case 'TextPrompt':
-                await dc.begin('askName');
+                return await dc.begin('askName');
             break;
             case 'NumberPrompt':
-                await dc.begin('askAge');
+                return await dc.begin('askAge');
             break;
             case 'ChoicePrompt':
-                await dc.begin('pickAColor');
+                return await dc.begin('pickAColor');
             break;
             case 'DatetimePrompt':
-                await dc.begin('setAppointment');
+                return await dc.begin('setAppointment');
             break;
             case 'ConfirmPrompt':
-                await dc.begin('cancelOrder');
+                return await dc.begin('cancelOrder');
             break;
             case 'AttachmentPrompt':
-                await dc.begin('uploadImage');
+                return await dc.begin('uploadImage');
             break;
             case 'OAuthPrompt':
-                await dc.begin('gitSignOn');
+                return await dc.begin('gitSignOn');
             break;
             default:
             break;
         }
     },
-    async function(dc, results){
-        dc.replace('listPrompts'); // Repeat the process
+    async function(dc, step){
+        return await dc.replace('listPrompts'); // Repeat the process
     }
-]);
+]));
 
 // Define prompts
 // Generic prompts
-dialogs.add('textPrompt', new TextPrompt());
-dialogs.add('datetimePrompt', new DatetimePrompt(datetimeValidation));
-dialogs.add('numberPrompt', new NumberPrompt(ageValidation));
-dialogs.add('choicePrompt', new ChoicePrompt());
-dialogs.add('attachmentPrompt', new AttachmentPrompt(imageValidation));
-dialogs.add('confirmPrompt', new ConfirmPrompt());
-dialogs.add('oauthPrompt', new OAuthPrompt({
+dialogs.add(new TextPrompt('textPrompt'));
+dialogs.add(new DateTimePrompt('datetimePrompt', datetimeValidator));
+dialogs.add(new NumberPrompt('numberPrompt', ageValidator));
+dialogs.add(new ChoicePrompt('choicePrompt'));
+dialogs.add(new AttachmentPrompt('attachmentPrompt', imageValidator));
+dialogs.add(new ConfirmPrompt('confirmPrompt'));
+dialogs.add(new OAuthPrompt('oauthPrompt', {
     connectionName: 'GitConnection',
     title: 'Login to GitHub',
     timeout: 300000 // User has 5 minutes to login before connection expires
@@ -131,159 +130,182 @@ dialogs.add('oauthPrompt', new OAuthPrompt({
 
 // TextPrompt
 // This dialog uses a textPrompt to ask the user for their name as a text string input then greet the user by name.
-dialogs.add('askName', [
-    async function(dc){
-        await dc.prompt('textPrompt', 'What is your name?');
+dialogs.add(new WaterfallDialog('askName', [
+    async function(dc, step){
+        return await dc.prompt('textPrompt', 'What is your name?');
     },
-    async function(dc, results){
-        var name = results;
+    async function(dc, step){
+        var name = step.result;
         await dc.context.sendActivity(`Hi ${name}!`);
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 
 // NumberPrompt
 // This dialog uses the numberPrompt to ask user for a numerical input. The NumberPrompt can parse text or numerical input.
 // If user enters text input, the NumberPrompt will convert it to a numerical value.
 // For example, if user enters "ten", the prompt will convert the input to the numerical "10".
-dialogs.add('askAge', [
-    async function(dc){
-        await dc.prompt('numberPrompt', "How old are you?");
+dialogs.add(new WaterfallDialog('askAge', [
+    async function(dc, step){
+        return await dc.prompt('numberPrompt', "How old are you?");
     },
-    async function(dc, results){
-        var age = results;
+    async function(dc, step){
+        var age = step.result;
         await dc.context.sendActivity(`You are ${age} years old.`);
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 // Age validation criteria
-async function ageValidation(context, value){
-    try {
-        if(value < 10) {
-            throw new Error(`Age too low.`);
-        }
-        else if(value > 100){
-            throw new Error(`Age too high.`);
-        }
-        return value; // Return the valid value
+async function ageValidator(context, promptValidatorContext){
+    var msg = null;
+    value = promptValidatorContext.recognized.value; // Get the user's input value
+    if(value < 10) {
+        msg = `Age too low.`;
     }
-    catch (err){
-        await context.sendActivity(`${err.message} Please specify an age between 10 - 100.`);
-        return undefined;
+    else if(value > 100){
+        msg = `Age too high.`;
     }
+
+    if(msg){ // fail
+        msg += " Please enter a number between 10 and 100."
+        await context.sendActivity(msg);
+    }
+    else{ // pass
+        return await promptValidatorContext.end(value); // end the prompt and past the value back
+    }
+    
 }
 
 // ChoicePrompt
 // This dialog uses the choicePrompt to ask user to pick from a list of choices.
-dialogs.add('pickAColor', [
-    async function(dc){
+dialogs.add(new WaterfallDialog('pickAColor', [
+    async function(dc, step){
         var colors = ['red', 'green', 'orange', 'yellow'];
-        await dc.prompt('choicePrompt', "What color would you like?", colors, 
+        return await dc.prompt('choicePrompt', "What color would you like?", colors, 
         {retryPrompt: 'Invalid color. Please choose a color from the list.'});
     },
-    async function(dc, results){
-        var colorChoice = results.value;
+    async function(dc, step){
+        var colorChoice = step.result.value;
         await dc.context.sendActivity(`${colorChoice} is a great color!`);
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 // DatetimePrompt
 // This dialog uses the datatimePrompt to ask the user for a date and time
-dialogs.add('setAppointment', [
-    async function(dc){
-        await dc.prompt('datetimePrompt', "When would you like to set the appointment for? Please specify a date and time (e.g.: tomorrow at 9am)");
+dialogs.add(new WaterfallDialog('setAppointment', [
+    async function(dc, step){
+        return await dc.prompt('datetimePrompt', "When would you like to set the appointment for? Please specify a date and time (e.g.: tomorrow at 9am)");
     },
-    async function(dc, results){
-        var datetime = results;
-        await dc.context.sendActivity(`Ok. Your appointment is set for ${datetime}.`);
-        await dc.end();
+    async function(dc, step){
+        var datetime = step.result;
+        await dc.context.sendActivity(`Ok. Your appointment is set for ${datetime[0].value}.`);
+        return await dc.end();
     }
-]);
+]));
 
 // datetime validation criteria
-async function datetimeValidation(context, values){
-    try {
-        if (!Array.isArray(values) || values.length < 0) { throw new Error('Missing time') }
-        if (values[0].type !== 'datetime') { throw new Error('Unsupported type') }
-        const value = new Date(values[0].value);
-        if (value.getTime() < new Date().getTime()) { throw new Error('In the past') }
-        return value; // Return the valid date time values
-    } catch (err) {
-        await context.sendActivity(`${err.message}. Answer with a time in the future like "tomorrow at 9am".`);
-        return undefined;
+async function datetimeValidator(context, promptValidatorContext){
+    var msg = "";
+    values = promptValidatorContext.recognized.value; // Get the user input's value
+    if (!Array.isArray(values) || values.length < 0) { 
+        msg += 'Missing time.\n ';
+    }
+    if (values[0].type !== 'datetime') { 
+        msg += 'Unsupported type.\n ';
+    }
+    
+    const value = new Date(values[0].value);
+    if (value.getTime() < new Date().getTime()) { 
+        msg += 'In the past.\n '
+    }
+    
+    if(msg){ // fail
+        msg += " Please enter a validate date and time (e.g.: tomorrow at 3pm)."
+        await context.sendActivity(msg);
+    }
+    else{ // pass
+        return await promptValidatorContext.end(values); // end the prompt and past the value back
     }
 }
 
 // ConfirmPrompt
 // This dialog uses the confirmPrompt to ask user to confirm their choices with a yes/no response.
 // The ConfirmPrompt will return a boolean representing the user's selection.
-dialogs.add('cancelOrder', [
-    async function(dc){
-        await dc.prompt('confirmPrompt', 'This is cancel your order. Are you sure?', 
+dialogs.add(new WaterfallDialog('cancelOrder', [
+    async function(dc, step){
+        return await dc.prompt('confirmPrompt', 'This is cancel your order. Are you sure?', 
         {retryPrompt: 'Please answer "yes" or "no".'});
     },
-    async function(dc, results){
-        var isConfirmed = results;
+    async function(dc, step){
+        var isConfirmed = step.result;
         if(isConfirmed){
             await dc.context.sendActivity(`Ok. Your order has been cancelled.`);
         }
         else {
             await dc.context.sendActivity(`No problem. We will continue with your ordering process.`);
         }
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 // AttachmentPrompt
 // This dialog uses the attachmentPrompt to ask user for a file attachment; usually, an image.
 // The user can send a single image or a list of images.
-dialogs.add('uploadImage', [
-    async function(dc){
-        await dc.prompt('attachmentPrompt', 'Please choose images to upload?');
+dialogs.add(new WaterfallDialog('uploadImage', [
+    async function(dc, step){
+        return await dc.prompt('attachmentPrompt', 'Please choose images to upload?');
     },
-    async function(dc, results){
-        var images = results;
+    async function(dc, step){
+        var images = step.result;
         await dc.context.sendActivity( MessageFactory.list(images, 'Image uploaded.') );
-        await dc.end();
+        return await dc.end();
     }
-]);
+]));
 
 // This validation only allow images to be attached.
-async function imageValidation(context, values){
+async function imageValidator(context, promptValidatorContext){
+    var values = promptValidatorContext.recognized.value;
+    var msg = "";
+
     if (values && values.length > 0) {
         for (let i = 0; i < values.length; i++) {
            if (!values[i].contentType.startsWith('image')) {
-              await context.sendActivity(`Only images are accepted. Please try again.`);
-              return undefined;
+              msg += `Only images are accepted. Please try again.`;
            }
         }
-     } else {
-        await context.sendActivity(`Please upload at least one image.`);
-     }
-     return values;
+    } else {
+        msg += `Please upload at least one image.`;
+    }
+
+    if(msg){ // fail
+        await context.sendActivity(msg);
+    }
+    else{ // pass
+        return await promptValidatorContext.end(values); // end the prompt and past the value back
+    }
 }
 
 
 // OAuthPrompt
 // This dialog uses the oauthPrompt to ask the user to sign in using the Bot Framework "Single Sign On (SSO)" service.
-dialogs.add('gitSignOn', [
-    async function(dc){
-        await dc.prompt('oauthPrompt');
+dialogs.add(new WaterfallDialog('gitSignOn', [
+    async function(dc, step){
+        return await dc.prompt('oauthPrompt');
     },
-    async function(dc, results){
-        var token = results;
+    async function(dc, step){
+        var token = step.result;
         if(token){
             // continue processing access token
         }
         else {
             await dc.context.sendActivity(`Sorry, we can't sign you in. Please try again later.`)
-            await dc.end();
+            return await dc.end();
         }
     }
-]);
+]));
 
 const gitConnection = {
     connectionName: 'GitConnection',
