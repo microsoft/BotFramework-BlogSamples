@@ -93,7 +93,7 @@ dialogs.add(new WaterfallDialog('greetings', [
 
         // Persist user data
         const userData = await userInfoAccessor.get(dc.context, {});
-        userData = step.values.userInfo;
+        userData.userInfo = step.values.userInfo;
 
         return await dc.end(); // Ends the dialog
     }

@@ -17,8 +17,8 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const { DialogSet, WaterfallDialog, TextPrompt, DateTimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
 
 // Create server
@@ -37,8 +37,8 @@ const adapter = new BotFrameworkAdapter({
 const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
-const reservationInfoState = conversationState.createProperty("reserverationInfo");
-const userInfoAccessor = conversationState.createProperty('userInfo');
+const reservationInfoAccessor = conversationState.createProperty("reserverationInfo");
+const userInfoAccessor = userState.createProperty('userInfo');
 adapter.use(new BotStateSet(conversationState, userState));
 
 const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
@@ -184,8 +184,6 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
         return await dc.prompt('choicePrompt', "What would you like?", dinnerMenu.choices);
     },
     async function(dc, step){
-        // Get state object
-        // convoState = conversationState.get(dc.context);
         var choice = step.result;
         if(choice.value.match(/process order/ig)){
             if(step.values.orderCart.orders.length > 0) {
@@ -214,7 +212,7 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
                 await dc.context.sendActivity("Sorry, that is not a valid item. Please pick one from the menu.");
                 
                 // Ask again
-                return await dc.replace('orderPrompt');
+                return await dc.replace('orderPrompt', step.values.orderCart);
             }
             else {
                 // Add the item to cart
@@ -237,9 +235,7 @@ dialogs.add(new WaterfallDialog('reserveTable', [
     async function(dc, step){
         await dc.context.sendActivity("Welcome to the reservation service.");
 
-        myStateData = await reservationInfoState.get(dc.context, "myStateData2");
-
-        step.values.reservationInfo = {}; // Clears any previous data
+        step.values.reservationInfo = {}; // Initialize object
         return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
     },
     async function(dc, step){
@@ -258,7 +254,7 @@ dialogs.add(new WaterfallDialog('reserveTable', [
         step.values.reservationInfo.reserveName = step.result;
         
         // Persist data
-        const reservationState = await reservationInfoState.get(dc.context, {});
+        const reservationState = await reservationInfoAccessor.get(dc.context, {});
         reservationState.reservationInfo = step.values.reservationInfo;
 
         // Confirm reservation

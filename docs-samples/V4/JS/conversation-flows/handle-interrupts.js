@@ -38,6 +38,8 @@ const adapter = new BotFrameworkAdapter({
 const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
+const reservationInfoAccessor = conversationState.createProperty("reserverationInfo");
+const userInfoAccessor = userState.createProperty('userInfo');
 adapter.use(new BotStateSet(conversationState, userState));
 
 const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
@@ -60,6 +62,7 @@ server.post('/api/messages', (req, res) => {
             }
         }
 
+        // Check to see if bot responded.
         if(!context.responded){
             // Continue executing the "current" dialog, if any.
             await dc.continue();
@@ -78,16 +81,24 @@ server.post('/api/messages', (req, res) => {
 // Ask them where they work.
 dialogs.add(new WaterfallDialog('greetings',[
     async function (dc, step){
-        return await dc.prompt('textPrompt', 'What is your name?');
+        step.values.userInfo = {}; // New object
+        return await dc.prompt('textPrompt', 'Hi! What is your name?');
     },
     async function(dc, step){
         var userName = step.result;
+        step.values.userInfo.userName = userName;
         await dc.context.sendActivity(`Hi ${userName}!`);
         return await dc.prompt('textPrompt', 'Where do you work?');
     },
     async function(dc, step){
         var workPlace = step.result;
+        step.values.userInfo.workPlace = workPlace;
         await dc.context.sendActivity(`${workPlace} is a fun place.`);
+
+        // Persist user data
+        const userData = await userInfoAccessor.get(dc.context, {});
+        userData.userInfo = step.values.userInfo;
+
         return await dc.end(); // Ends the dialog
     }
 ]));
@@ -141,13 +152,6 @@ const dinnerMenu = {
 
 dialogs.add(new WaterfallDialog('orderDinner', [
     async function (dc, step){
-        // Initialize a new cart
-        convoState = conversationState.get(dc.context);
-        convoState.orderCart = {
-            orders: [],
-            total: 0
-        };
-
         await dc.context.sendActivity("Welcome to our Dinner order service.");
         
         return await dc.begin('orderPrompt'); // Prompt for orders
@@ -169,18 +173,29 @@ dialogs.add(new WaterfallDialog('orderDinner', [
 // Helper dialog to repeatedly prompt user for orders
 dialogs.add(new WaterfallDialog('orderPrompt', [
     async function(dc, step){
+        var orderCart = (step.options.orders ? step.options : step.result); // If no data is passed in, step.result is undefined
+        // Define a new cart if one does not exists
+        if(!orderCart){
+            // Initialize a new cart
+            // convoState = conversationState.get(dc.context);
+            step.values.orderCart = {
+                orders: [],
+                total: 0
+            };
+        }
+        else {
+            step.values.orderCart = orderCart;
+        }
         return await dc.prompt('choicePrompt', "What would you like?", dinnerMenu.choices);
     },
     async function(dc, step){
-        // Get state object
-        convoState = conversationState.get(dc.context);
         var choice = step.result;
 
         if(choice.value.match(/process order/ig)){
-            if(convoState.orderCart.orders.length > 0) {
+            if(step.values.orderCart.orders.length > 0) {
                 // Process the order
                 // ...
-                convoState.orderCart = undefined; // Reset cart
+                step.values.orderCart = undefined; // Reset cart
                 await dc.context.sendActivity("Processing your order.");
                 return await dc.end();
             }
@@ -191,7 +206,7 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
             }
         }
         else if(choice.value.match(/cancel/ig)){
-            convoState.orderCart = undefined; // Reset cart
+            //dc.activeDialog.state.orderCart = undefined; // Reset cart
             await dc.context.sendActivity("Your order has been canceled.");
             return await dc.end(choice.value);
         }
@@ -200,16 +215,16 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
                 + "Tuna Sandwich: contains 700 calaries per serving. <br/>" 
                 + "Clam Chowder: contains 650 calaries per serving."
             await dc.context.sendActivity(msg);
-            
+
             // Ask again
-            return await dc.replace('orderPrompt');
+            return await dc.replace('orderPrompt', step.values.orderCart);
         }
         else if(choice.value.match(/help/ig)){
             var msg = `Help: <br/>To make an order, add as many items to your cart as you like then choose the "Process order" option to check out.`
             await dc.context.sendActivity(msg);
-            
+
             // Ask again
-            return await dc.replace('orderPrompt');
+            return await dc.replace('orderPrompt', step.values.orderCart);
         }
         else {
             var item = dinnerMenu[choice.value];
@@ -219,17 +234,17 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
                 await dc.context.sendActivity("Sorry, that is not a valid item. Please pick one from the menu.");
                 
                 // Ask again
-                return await dc.replace('orderPrompt');
+                return await dc.replace('orderPrompt', step.values.orderCart);
             }
             else {
                 // Add the item to cart
-                convoState.orderCart.orders.push(item);
-                convoState.orderCart.total += item.Price;
+                step.values.orderCart.orders.push(item);
+                step.values.orderCart.total += item.Price;
 
-                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${convoState.orderCart.total}`);
+                await dc.context.sendActivity(`Added to cart: ${choice.value}. <br/>Current total: $${step.values.orderCart.total}`);
 
                 // Ask again
-                return await dc.replace('orderPrompt');
+                return await dc.replace('orderPrompt', step.values.orderCart); // passing data into the replacing dialog
             }
         }
     }
@@ -242,7 +257,7 @@ dialogs.add(new WaterfallDialog('reserveTable', [
     async function(dc, step){
         await dc.context.sendActivity("Welcome to the reservation service.");
 
-        step.values.reservationInfo = {}; // Clears any previous data
+        step.values.reservationInfo = {}; // Initialize object
         return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
     },
     async function(dc, step){
@@ -261,8 +276,8 @@ dialogs.add(new WaterfallDialog('reserveTable', [
         step.values.reservationInfo.reserveName = step.result;
         
         // Persist data
-        var convoState = conversationState.get(dc.context);
-        convoState.reservationInfo = step.values.reservationInfo;
+        const reservationState = await reservationInfoAccessor.get(dc.context, {});
+        reservationState.reservationInfo = step.values.reservationInfo;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 
