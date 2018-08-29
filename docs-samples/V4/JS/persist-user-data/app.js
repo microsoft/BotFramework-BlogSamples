@@ -1,10 +1,10 @@
 /*
  * Botbuilder v4 SDK - Persist user data.
  * 
- * This bot demonstrates how to persist user input to a file as storage source. 
- * This bot will ask user for 'reserve table' information and persist the input to file.
- * The persisted file will be saved to 'c:/temp' directory.
- * The file name starts with "conversation!". This bot save data to the conversation data bag.
+ * This bot demonstrates how to persist user input to a volatile "in-memory" as storage source. 
+ * This bot will ask user for 'reserve table' information. The information collected are 
+ * stored temporarily in the dialog's `step.values.reserveInfo` object. Then, it is persisted
+ * to the conversation state at the end of the waterfall.
  * 
  * To run this bot:
  * 1) install these npm packages:
@@ -39,32 +39,24 @@ const adapter = new BotFrameworkAdapter({
 // Storage
 const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
-const reservationInfoState = conversationState.createProperty('reservationInfo');
-const dialogState = conversationState.createProperty('dialogState');
 const userState  = new UserState(storage);
+const reservationInfoAccessor = conversationState.createProperty('reservationInfo');
+const userInfoAccessor = userState.createProperty('userInfo');
+
 adapter.use(new BotStateSet(conversationState, userState));
 
-const dialogs = new DialogSet(dialogState); // Must provide a state object
+const dialogs = new DialogSet(conversationState.createProperty('dialogState')); // Must provide a state object
 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
         const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
-        const convoState = conversationState.get(context);
+        const convoState = await conversationState.get(context);
+        const userState = await userInfoAccessor.get(context);
         const dc = await dialogs.createContext(context);
 
         if (isMessage) {
-
-            
-            var reserveState = await reservationInfoState.get(context, {}); 
-            // reserveState is undefined if there is nothing defined in this databag
-            // reserveState is defined and contains after first call to reservationInfoState.set(value)
-            if(reserveState){
-                // If reserveState is defined, all of its properties and objects are available to read, update, or delete
-                reserveState.partySize = 10;
-                reserveState.reserveName = "Dan";
-            }
             // Check for valid intents
             if(context.activity.text.match(/hello/ig)){
                 return await dc.begin('greetings');
@@ -89,68 +81,55 @@ server.post('/api/messages', (req, res) => {
 
 // Greet user:
 // Ask for the user name and then greet them by name.
-// step:
-// - values
-// - result
-// - options
-// - next
 dialogs.add(new WaterfallDialog('greetings', [
     async function (dc, step){
-        step.values.userName = undefined;
         return await dc.prompt('textPrompt', 'Hi! What is your name?');
     },
     async function(dc, step){
         step.values.userName = step.result;
         await dc.context.sendActivity(`Hi ${step.values.userName}!`);
-        // await reservationInfoState.set(dc.context, step.values.userName);
         
+        // Persist user data to user state
+        const userState = await userInfoAccessor.get(dc.context, {});
+        userState.userInfo = step.values;
 
-        reservationInfoState.guest = {
-            "guestName": step.values.userName,
-            "date": "8/1/2018"
-        }
         return await dc.end(step.values.userName);
     }
 ]));
 
 // Reserve a table:
 // Help the user to reserve a table
-
+// Persist user input at the end of the waterfall
 dialogs.add(new WaterfallDialog('reserveTable', [
     async function(dc, step){
         await dc.context.sendActivity("Welcome to the reservation service.");
 
-        step.values.reservationInfo = {}; // Clears any previous data
         return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
     },
     async function(dc, step){
-        step.values.reservationInfo.dateTime = step.result[0].value;
+        step.values.dateTime = step.result[0].value;
 
         // Ask for next info
         return await dc.prompt('partySizePrompt', "How many people are in your party?");
     },
     async function(dc, step){
-        step.values.reservationInfo.partySize = step.result;
+        step.values.partySize = step.result;
 
         // Ask for next info
         return await dc.prompt('textPrompt', "Who's name will this be under?");
     },
     async function(dc, step){
-        step.values.reservationInfo.reserveName = step.result;
+        step.values.reserveName = step.result;
         
-        // Persist data
-        // var convo = conversationState.get(dc.context);
-        // convo.reservationInfo = step.values.reservationInfo;
-        //await reservationInfoState.set(dc.context, step.values.reservationInfo);
-        const reservationState = await reservationInfoState.get(dc.context, {});
-        
-        reservationState.reservationInfo = step.values.reservationInfo;
+        // Persist data to conversation state
+        const reservationState = await reservationInfoAccessor.get(dc.context, {});        
+        reservationState.reservationInfo = step.values;
 
         // Confirm reservation
         var msg = `Reservation confirmed. Reservation details: 
-            <br/>Date/Time: ${step.values.reservationInfo.dateTime} 
-            <br/>Party size: ${step.values.reservationInfo.partySize} 
-            <br/>Reservation name: ${step.values.reservationInfo.reserveName}`;
+            <br/>Date/Time: ${step.values.dateTime} 
+            <br/>Party size: ${step.values.partySize} 
+            <br/>Reservation name: ${step.values.reserveName}`;
             
         await dc.context.sendActivity(msg);
         return await dc.end();
