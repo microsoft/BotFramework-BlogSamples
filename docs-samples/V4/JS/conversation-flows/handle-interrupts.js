@@ -211,9 +211,9 @@ dialogs.add(new WaterfallDialog('orderPrompt', [
             return await dc.end(choice.value);
         }
         else if(choice.value.match(/more info/ig)){
-            var msg = "More info: <br/>Potato Salad: contains 330 calaries per serving. <br/>"
-                + "Tuna Sandwich: contains 700 calaries per serving. <br/>" 
-                + "Clam Chowder: contains 650 calaries per serving."
+            var msg = "More info: <br/>Potato Salad: contains 330 calories per serving. <br/>"
+                + "Tuna Sandwich: contains 700 calories per serving. <br/>" 
+                + "Clam Chowder: contains 650 calories per serving."
             await dc.context.sendActivity(msg);
 
             // Ask again
