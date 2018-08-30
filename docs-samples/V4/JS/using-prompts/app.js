@@ -120,7 +120,7 @@ dialogs.add(new NumberPrompt('numberPrompt', ageValidator));
 dialogs.add(new ChoicePrompt('choicePrompt'));
 dialogs.add(new AttachmentPrompt('attachmentPrompt', imageValidator));
 dialogs.add(new ConfirmPrompt('confirmPrompt'));
-dialogs.add(new OAuthPrompt('oauthPrompt', {
+dialogs.add(new OAuthPrompt('oauthPrompt', { // Sample: https://github.com/Microsoft/botbuilder-js/blob/master/samples/oauth-prompt-bot-es6/app.js
     connectionName: 'GitConnection',
     title: 'Login to GitHub',
     timeout: 300000 // User has 5 minutes to login before connection expires
