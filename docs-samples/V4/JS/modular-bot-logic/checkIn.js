@@ -5,39 +5,39 @@
  * 
  */
 
-const { DialogContainer, TextPrompt, NumberPrompt } = require('botbuilder-dialogs');
+const { ComponentDialog, WaterfallDialog, TextPrompt, NumberPrompt } = require('botbuilder-dialogs');
 
-class CheckIn extends DialogContainer {
-    constructor(userState) {
-        // Dialog ID of 'checkIn' will start when class is called in the parent
-        super('checkIn');
+class CheckInDialog extends ComponentDialog {
+    constructor(dialogId) {
+        super(dialogId);
+        this.initialDialogId = "checkIn"; // Indicate which dialog is the main dialog for this component
 
         // Defining the conversation flow using a waterfall model
-        this.dialogs.add('checkIn', [
-            async function (dc) {
-                // Create a new local guestInfo state object
-                dc.activeDialog.state.guestInfo = {};
-                await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?");
+        this.dialogs.add(new WaterfallDialog('checkIn', [
+            async function (dc, step) {
+                // Create a new local guestInfo databag
+                step.values.guestInfo = {};
+                return await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?");
             },
-            async function (dc, name){
+            async function (dc, step){
                 // Save the name 
-                dc.activeDialog.state.guestInfo.userName = name;
-                await dc.prompt('numberPrompt', `Hi ${name}. What room will you be staying in?`);
+                var name = step.result;
+                step.values.guestInfo.name = name;
+                return await dc.prompt('numberPrompt', `Hi ${name}. What room will you be staying in?`);
             },
-            async function (dc, room){
+            async function (dc, step){
                 // Save the room number
-                dc.activeDialog.state.guestInfo.room = room
-                await dc.context.sendActivity(`Great! Enjoy your stay!`);
+                var room = step.result;
+                step.values.guestInfo.room = room
+                await dc.context.sendActivity(`Great, room ${room} is ready for you. Enjoy your stay!`);
 
-                // Save dialog's state object to the parent's state object
-                const user = userState.get(dc.context);
-                user.guestInfo = dc.activeDialog.state.guestInfo;
-                await dc.end();
+                // End the dialog and return the guest info
+                return await dc.end(step.values);
             }
-        ]);
+        ]));
         // Defining the prompt used in this conversation flow
-        this.dialogs.add('textPrompt', new TextPrompt());
-        this.dialogs.add('numberPrompt', new NumberPrompt());
+        this.dialogs.add(new TextPrompt('textPrompt'));
+        this.dialogs.add(new NumberPrompt('numberPrompt'));
     }
 }
-exports.CheckIn = CheckIn;
+exports.CheckIn = CheckInDialog;

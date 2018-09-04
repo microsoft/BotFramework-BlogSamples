@@ -5,43 +5,36 @@
  * 
  */
 
-const { DialogContainer, ChoicePrompt } = require('botbuilder-dialogs');
+const { ComponentDialog, WaterfallDialog, ChoicePrompt } = require('botbuilder-dialogs');
 
-class ReserveTable extends DialogContainer {
-    constructor(userState) {
-        // Dialog ID of 'reserve_table' will start when class is called in the parent
-        super('reserve_table'); 
+class ReserveTableDialog extends ComponentDialog {
+    constructor(dialogId) {
+        super(dialogId); 
+        this.initialDialogId = "reserveTable"; // Indicate which dialog is the main dialog for this component
 
         // Defining the conversation flow using a waterfall model
-        this.dialogs.add('reserve_table', [
-            async function (dc, args) {
-                // Get the user state from context
-                const user = userState.get(dc.context);
+        this.dialogs.add(new WaterfallDialog('reserveTable', [
+            async function (dc, step) {
+                // Create a new local tableInfo databag
+                step.values.tableInfo = {};
 
-                // Create a new local reserveTable state object
-                dc.activeDialog.state.reserveTable = {};
-
-                const prompt = `Welcome ${user.guestInfo.userName}, which table would you like to reserve?`;
+                const prompt = `Which table would you like to reserve?`;
                 const choices = ['1', '2', '3', '4', '5', '6'];
-                await dc.prompt('choicePrompt', prompt, choices);
+                return await dc.prompt('choicePrompt', prompt, choices);
             },
-            async function(dc, choice){
+            async function(dc, step){
                 // Save the table number
-                dc.activeDialog.state.reserveTable.tableNumber = choice.value;
-                await dc.context.sendActivity(`Sounds great, we will reserve table number ${choice.value} for you.`);
+                var choice = step.result;
+                step.values.tableInfo.tableNumber = choice.value;
+                await dc.context.sendActivity(`Sounds great; we will reserve a table number ${choice.value} for you.`);
                 
-                // Get the user state from context
-                const user = userState.get(dc.context);
-                // Persist dialog's state object to the parent's state object
-                user.reserveTable = dc.activeDialog.state.reserveTable;
-
-                // End the dialog
-                await dc.end();
+                // End the dialog and return the table information
+               return  await dc.end(step.values);
             }
-        ]);
+        ]));
 
         // Defining the prompt used in this conversation flow
-        this.dialogs.add('choicePrompt', new ChoicePrompt());
+        this.dialogs.add(new ChoicePrompt('choicePrompt'));
     }
 }
-exports.ReserveTable = ReserveTable;
+exports.ReserveTable = ReserveTableDialog;

@@ -28,7 +28,7 @@
 // Required packages for this bot
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet } = require('botbuilder-dialogs');
+const { DialogSet, WaterfallDialog } = require('botbuilder-dialogs');
 
 // Create server
 let server = restify.createServer();
@@ -45,70 +45,96 @@ const adapter = new BotFrameworkAdapter({
 // Storage
 const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
-const userState  = new UserState(storage);
-adapter.use(new BotStateSet(conversationState, userState));
+const userInfoState = new UserState(storage);
+const userInfoAccessor = userInfoState.createProperty('userInfo');
+adapter.use(new BotStateSet(conversationState, userInfoState));
 
-const dialogs = new DialogSet();
+// Define a dialog set with state object set to the conversation state.
+const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
 
 // Listen for incoming requests 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
-        const isMessage = context.activity.type === 'message';
 
-        // State will store all of your information 
-        const convo = conversationState.get(context);
-        const user = userState.get(context); // userState will not be used in this example
+        const dc = await dialogs.createContext(context);
 
-        const dc = dialogs.createContext(context, convo);
-        // Continue the current dialog if one is currently active
-        await dc.continue(); 
+        switch(context.activity.type){
+            case "conversationUpdate":
+                // When a user starts a conversation with the bot, greet them and start
+                // the appropriate dialog in the set.
+                if(context.activity.membersAdded[0].id != context.activity.recipient.id){
+                    await dc.context.sendActivity("Welcome to our hotel!")
+                    return await dc.begin('checkInPrompt');
+                }
+                
+            break;
+            case "message":
+                // Continue the current dialog if one is currently active
+                var turnResult = await dc.continue(); 
+                var userInfo = await userInfoAccessor.get(dc.context, {});
 
-        // Default action
-        if (!context.responded && isMessage) {
+                if(turnResult.result && turnResult.result.guestInfo){
+                    userInfo.guestInfo = turnResult.result.guestInfo;
+                    return await dc.begin('mainMenu'); // Start the main menu
+                }
 
-            // Getting the user info from the state
-            const userinfo = userState.get(dc.context); 
-            // If guest info is undefined prompt the user to check in
-            if(!userinfo.guestInfo){
-                await dc.begin('checkInPrompt');
-            }else{
-                await dc.begin('mainMenu'); 
-            }           
+                // Default action
+                if (!context.responded) {
+                    // If guest info is undefined prompt the user to check in
+                    if(!userInfo.guestInfo){
+                        return await dc.begin('checkInPrompt');
+                    }else{
+                        return await dc.begin('mainMenu'); 
+                    }           
+                }
+            break;
         }
+        
     });
 });
 
-dialogs.add('mainMenu', [
-    async function (dc, args) {
+dialogs.add(new WaterfallDialog('mainMenu', [
+    async function (dc, step) {
+        var userInfo = await userInfoAccessor.get(dc.context);
+        var msg = `Hi ${userInfo.guestInfo.name}, how can I help you?`;
         const menu = ["Reserve Table", "Wake Up"];
-        await dc.context.sendActivity(MessageFactory.suggestedActions(menu));    
+        return await dc.context.sendActivity(MessageFactory.suggestedActions(menu, msg));    
     },
-    async function (dc, result){
+    async function (dc, step){        
         // Decide which module to start
-        switch(result){
+        switch(step.result){
             case "Reserve Table":
-                await dc.begin('reservePrompt');
+                return await dc.begin('reservePrompt');
                 break;
             case "Wake Up":
-                await dc.begin('wakeUpPrompt');
+                return await dc.begin('wakeUpPrompt');
                 break;
             default:
                 await dc.context.sendActivity("Sorry, i don't understand that command. Please choose an option from the list below.");
                 break;            
         }
     },
-    async function (dc, result){
-        await dc.replace('mainMenu'); // Show the menu again
+    async function (dc, step){
+        const userInfo = await userInfoAccessor.get(dc.context, {});
+
+        if(step.result.tableInfo){
+            userInfo.tableInfo = step.result.tableInfo;
+        }
+        else if(step.result.wakeUpInfo){
+            userInfo.wakeUpInfo = step.result.wakeUpInfo;
+        }
+
+        return await dc.replace('mainMenu'); // Show the menu again
     }
 
-]);
+]));
 
 // Importing the dialogs 
 const checkIn = require("./checkIn");
-dialogs.add('checkInPrompt', new checkIn.CheckIn(userState));
+dialogs.add(new checkIn.CheckIn('checkInPrompt'));
 
 const reserve_table = require("./reserveTable");
-dialogs.add('reservePrompt', new reserve_table.ReserveTable(userState));
+dialogs.add(new reserve_table.ReserveTable('reservePrompt'));
 
 const wake_up = require("./wakeUp");
-dialogs.add('wakeUpPrompt', new wake_up.WakeUp(userState));
+dialogs.add(new wake_up.WakeUp('wakeUpPrompt'));

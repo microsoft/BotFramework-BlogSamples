@@ -5,41 +5,31 @@
  * 
  */
 
-const { DialogContainer, DatetimePrompt } = require('botbuilder-dialogs');
+const { ComponentDialog, WaterfallDialog, DateTimePrompt } = require('botbuilder-dialogs');
 
-class WakeUp extends DialogContainer {
-    constructor(userState) {
-        // Dialog ID of 'wakeup' will start when class is called in the parent
-        super('wakeUp');
+class WakeUpDialog extends ComponentDialog {
+    constructor(dialogId) {
+        super(dialogId); 
+        this.initialDialogId = "wakeUp"; // Indicate which dialog is the main dialog for this component
 
-        this.dialogs.add('wakeUp', [
-            async function (dc, args) {
-                // Get the user state from context
-                const user = userState.get(dc.context); 
-
-                // Create a new local reserveTable state object
-                dc.activeDialog.state.wakeUp = {};  
+        this.dialogs.add(new WaterfallDialog('wakeUp', [
+            async function (dc, step) {
+                // Create a new local wakeUpInfo databag
+                step.values.wakeUpInfo = {};  
                              
-                await dc.prompt('datePrompt', `Hello, ${user.guestInfo.userName}. What time would you like your alarm to be set?`);
+                return await dc.prompt('datePrompt', `What time would you like your alarm set for?`);
             },
-            async function (dc, time){
-                // Get the user state from context
-                const user = userState.get(dc.context);
-
-                // Save the time
-                dc.activeDialog.state.wakeUp.time = time[0].value
-
-                await dc.context.sendActivity(`Your alarm is set to ${time[0].value} for room ${user.guestInfo.room}`);
+            async function (dc, step){
+                var time = step.result;
+                step.values.wakeUpInfo.time = time;
+                await dc.context.sendActivity(`Your alarm is set to ${time[0].value}`);
                 
-                // Save dialog's state object to the parent's state object
-                user.wakeUp = dc.activeDialog.state.wakeUp;
-
                 // End the dialog
-                await dc.end();
-            }]);
+                return await dc.end(step.values);
+            }]));
 
         // Defining the prompt used in this conversation flow
-        this.dialogs.add('datePrompt', new DatetimePrompt());
+        this.dialogs.add(new DateTimePrompt('datePrompt'));
     }
 }
-exports.WakeUp = WakeUp;
+exports.WakeUp = WakeUpDialog;
