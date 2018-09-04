@@ -60,8 +60,10 @@ server.post('/api/messages', (req, res) => {
             // Continue executing the "current" dialog, if any.
             var results = await dc.continue();
 
-            // Do something with `results` if desired
-            // ...
+            if(results.hasResult){
+                // Do something with `results.result`
+                // ...
+            }
 
             if(!context.responded && isMessage){
                 // Default message
