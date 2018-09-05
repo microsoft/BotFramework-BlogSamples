@@ -1,17 +1,17 @@
 ﻿namespace ProactiveMessaging
 {
-    using Microsoft.Bot.Schema;
     using System.Collections.Generic;
+    using Microsoft.Bot.Schema;
 
-    public class JobLog : Dictionary<long, JobLog.JobInfo>
+    public class JobLog : Dictionary<long, JobLog.JobData>
     {
-        /// <summary>
-        /// Class for storing job state. 
-        /// </summary>
-        public class JobInfo
+        /// <summary>Describes the state of a job.</summary>
+        public class JobData
         {
-            public long JobNumber { get; set; } = 0;
+            /// <summary>The time-stamp for the job.</summary>
+            public long TimeStamp { get; set; } = 0;
 
+            /// <summary>Indicates whether the job has completed.</summary>
             public bool Completed { get; set; } = false;
 
             /// <summary>

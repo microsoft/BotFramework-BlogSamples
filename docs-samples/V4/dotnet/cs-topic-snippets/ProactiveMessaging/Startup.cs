@@ -1,18 +1,14 @@
-using System;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.BotFramework;
-using Microsoft.Bot.Builder.Integration;
-using Microsoft.Bot.Builder.Integration.AspNet.Core;
-using Microsoft.Bot.Builder.TraceExtensions;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
 namespace ProactiveMessaging
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.BotFramework;
+    using Microsoft.Bot.Builder.Integration.AspNet.Core;
+    using Microsoft.Bot.Builder.TraceExtensions;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -38,7 +34,7 @@ namespace ProactiveMessaging
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
                 options.OnTurnError = async (context, exception) =>
                 {
-                    await context.TraceActivityAsync("EchoBot Exception", exception);
+                    await context.TraceActivityAsync("Exception in bot", exception);
                     await context.SendActivityAsync("Sorry, it looks like something went wrong!");
                 };
 

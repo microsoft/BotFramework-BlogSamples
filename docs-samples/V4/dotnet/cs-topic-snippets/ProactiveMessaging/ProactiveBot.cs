@@ -1,7 +1,6 @@
 ﻿namespace ProactiveMessaging
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -13,101 +12,185 @@
 
     public class ProactiveBot : IBot
     {
-        private IReadOnlyCollection<string> RunPhrases { get; }
-            = new List<string> { "run", "run job" };
+        /// <summary>The name of events that signal that a job has completed.</summary>
+        public const string JobCompleteEventName = "jobComplete";
 
-        private string BotId { get; }
+        /// <summary>The bot's app ID.</summary>
+        private string AppId { get; }
 
+        /// <summary>The state property accessor for the job log.</summary>
         private IStatePropertyAccessor<JobLog> JobLogAccessor { get; }
 
+        /// <summary>Creates a new instance of the <see cref="ProactiveBot"/> class.</summary>
+        /// <param name="configuration">The configuration properties for the app.</param>
+        /// <param name="options">The Bot Framework options for the bot.</param>
         public ProactiveBot(IConfiguration configuration, IOptions<BotFrameworkOptions> options)
         {
-            BotId = configuration["MicrosoftAppId"];
+            // Get the bot's app ID.
+            AppId = configuration["MicrosoftAppId"];
 
+            // Create the job log accessor off of job state middleware.
             JobState jobState = options.Value.Middleware.OfType<JobState>().FirstOrDefault();
             JobLogAccessor = jobState.CreateProperty<JobLog>("ProactiveBot.JobLog");
         }
 
+        /// <summary>Handles an incoming activity.</summary>
+        /// <param name="context">The context object for this turn.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (turnContext.Activity.Type is ActivityTypes.Message)
+            if (turnContext.Activity.Type != ActivityTypes.Message)
             {
+                // Handle non-message activities.
+                await OnSystemActivity(turnContext);
+            }
+            else
+            {
+                // Get the job log from the turn context.
                 JobLog jobLog = await JobLogAccessor.GetAsync(turnContext, () => new JobLog());
-                string text = turnContext.Activity.AsMessageActivity()?.Text?.Trim();
-                if (RunPhrases.Any(phrase => phrase.Equals(text, StringComparison.InvariantCultureIgnoreCase)))
-                {
-                    JobLog.JobInfo job = CreateJob(turnContext, jobLog);
-                    ConversationReference conversation = turnContext.Activity.GetConversationReference();
 
-                    await turnContext.SendActivityAsync(
-                        $"We're starting job {job.JobNumber} for you. We'll notify you when it's complete.");
-                }
-                else if (text.StartsWith("show", StringComparison.InvariantCultureIgnoreCase))
+                // Get the user's text input for the message.
+                var text = turnContext.Activity.Text.Trim().ToLowerInvariant();
+                switch (text)
                 {
-                    await turnContext.SendActivityAsync(
-                        "| Job number | Completed |<br>" +
-                        "| :--- | :--- |<br>" +
-                        $"{string.Join("<br>", jobLog.Values.Select(j => $"| {j.JobNumber} | {j.Completed} |"))}");
-                }
-                else
-                {
-                    string[] parts = text?.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    if (parts != null && parts.Length is 2
-                        && parts[0].Equals("done", StringComparison.InvariantCultureIgnoreCase)
-                        && long.TryParse(parts[1], out long jobNumber)
-                        && jobLog.TryGetValue(jobNumber, out JobLog.JobInfo jobInfo))
-                    {
-                        CompleteJobAsync(turnContext.Adapter, BotId, jobInfo);
-                    }
+                    case "run":
+                    case "run job":
+
+                        // Start a virtual job for the user.
+                        JobLog.JobData job = CreateJob(turnContext, jobLog);
+                        ConversationReference conversation = turnContext.Activity.GetConversationReference();
+
+                        await turnContext.SendActivityAsync(
+                            $"We're starting job {job.TimeStamp} for you. We'll notify you when it's complete.");
+
+                        break;
+
+                    case "show":
+                    case "show jobs":
+
+                        // Display information for all jobs in the log.
+                        if (jobLog.Count > 0)
+                        {
+                            await turnContext.SendActivityAsync(
+                                "| Job number &nbsp; | Conversation ID &nbsp; | Completed |<br>" +
+                                "| :--- | :---: | :---: |<br>" +
+                                string.Join("<br>", jobLog.Values.Select(j =>
+                                    $"| {j.TimeStamp} &nbsp; | {j.Conversation.Conversation.Id} &nbsp; | {j.Completed} |")));
+                        }
+                        else
+                        {
+                            await turnContext.SendActivityAsync("The job log is empty.");
+                        }
+
+                        break;
+
+                    default:
+
+                        // Check whether this is simulating a job completed event.
+                        string[] parts = text?.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        if (parts != null && parts.Length is 2
+                            && parts[0].Equals("done", StringComparison.InvariantCultureIgnoreCase)
+                            && long.TryParse(parts[1], out long jobNumber))
+                        {
+                            if (!jobLog.TryGetValue(jobNumber, out JobLog.JobData jobInfo))
+                            {
+                                await turnContext.SendActivityAsync($"The log does not contain a job {jobInfo.TimeStamp}.");
+                            }
+                            else if (jobInfo.Completed)
+                            {
+                                await turnContext.SendActivityAsync($"Job {jobInfo.TimeStamp} is already complete.");
+                            }
+                            else
+                            {
+                                await turnContext.SendActivityAsync($"Completing job {jobInfo.TimeStamp}.");
+
+                                CompleteJobAsync(turnContext.Adapter, AppId, jobInfo);
+                            }
+                        }
+
+                        break;
                 }
 
                 if (!turnContext.Responded)
                 {
                     await turnContext.SendActivityAsync(
                         "Type `run` or `run job` to start a new job.<br>" +
+                        "Type `show` or `show jobs` to display the job log.<br>" +
                         "Type `done <jobNumber>` to complete a job.");
                 }
             }
         }
 
-        private JobLog.JobInfo CreateJob(ITurnContext turnContext, JobLog jobLog)
+        /// <summary>Handles non-message activities.</summary>
+        /// <param name="turnContext">The context object for this turn.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        private async Task OnSystemActivity(ITurnContext turnContext)
         {
-            JobLog.JobInfo jobInfo = new JobLog.JobInfo
+            // On a job completed event, mark the job as complete and notify the user.
+            if (turnContext.Activity.Type is ActivityTypes.Event)
             {
-                JobNumber = DateTime.Now.ToBinary(),
+                var jobLog = await JobLogAccessor.GetAsync(turnContext, () => new JobLog());
+                var activity = turnContext.Activity.AsEventActivity();
+                if (activity.Name is JobCompleteEventName
+                    && activity.Value is long timestamp
+                    && jobLog.ContainsKey(timestamp)
+                    && !jobLog[timestamp].Completed)
+                {
+                    CompleteJobAsync(turnContext.Adapter, AppId, jobLog[timestamp]);
+                }
+            }
+        }
+
+        /// <summary>Creates and "starts" a new job.</summary>
+        /// <param name="turnContext">The context object for this turn.</param>
+        /// <param name="jobLog">A log of all the jobs.</param>
+        /// <returns>The information for the created job.</returns>
+        private JobLog.JobData CreateJob(ITurnContext turnContext, JobLog jobLog)
+        {
+            JobLog.JobData jobInfo = new JobLog.JobData
+            {
+                TimeStamp = DateTime.Now.ToBinary(),
                 Conversation = turnContext.Activity.GetConversationReference(),
             };
 
-            jobLog[jobInfo.JobNumber] = jobInfo;
+            jobLog[jobInfo.TimeStamp] = jobInfo;
 
             return jobInfo;
         }
 
+        /// <summary>Sends a proactive message to the user.</summary>
+        /// <param name="adapter">The adapter for the bot.</param>
+        /// <param name="botId">The bot's app ID.</param>
+        /// <param name="jobInfo">Information about the job to complete.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
         private async Task CompleteJobAsync(
             BotAdapter adapter,
             string botId,
-            JobLog.JobInfo jobInfo,
+            JobLog.JobData jobInfo,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            await adapter.ContinueConversationAsync(botId, jobInfo.Conversation, async (turnContext, token) =>
+            await adapter.ContinueConversationAsync(botId, jobInfo.Conversation, CreateCallback(jobInfo), cancellationToken);
+        }
+
+        /// <summary>Creates the turn logic to use for the proactive message.</summary>
+        /// <param name="jobInfo">Information about the job to complete.</param>
+        /// <returns>The turn logic to use for the proactive message.</returns>
+        private BotCallbackHandler CreateCallback(JobLog.JobData jobInfo)
+        {
+            return async (turnContext, token) =>
             {
                 // Get the job log from state, and retrieve the job.
                 JobLog jobLog = await JobLogAccessor.GetAsync(turnContext, () => new JobLog());
-                if (!jobLog.ContainsKey(jobInfo.JobNumber))
-                {
-                    await turnContext.SendActivityAsync($"The log does not contain a job {jobInfo.JobNumber}.");
-                }
-                else if (jobLog[jobInfo.JobNumber].Completed)
-                {
-                    await turnContext.SendActivityAsync($"Job {jobInfo.JobNumber} is already complete.");
-                }
 
                 // Perform bookkeeping.
-                jobLog[jobInfo.JobNumber].Completed = true;
+                jobLog[jobInfo.TimeStamp].Completed = true;
 
                 // Send the user a proactive confirmation message.
-                await turnContext.SendActivityAsync($"Job {jobInfo.JobNumber} is complete.");
-            }, cancellationToken);
+                await turnContext.SendActivityAsync($"Job {jobInfo.TimeStamp} is complete.");
+            };
         }
     }
 }

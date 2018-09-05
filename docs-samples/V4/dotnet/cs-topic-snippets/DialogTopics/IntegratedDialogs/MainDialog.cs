@@ -73,6 +73,7 @@
                         MessageFactory.SuggestedActions(
                             Commands.MenuOptions,
                             $"Hi {userProfile.Guest.Name}, how can I help you?"));
+
                     return Dialog.EndOfTurn;
                 },
                 async (dc, step, cancellationToken) =>

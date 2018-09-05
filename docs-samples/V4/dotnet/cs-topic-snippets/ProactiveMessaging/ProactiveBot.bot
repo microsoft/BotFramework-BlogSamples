@@ -3,13 +3,13 @@
     "description": "",
     "secretKey": "",
     "services": [
-      {
-        "id": "https://localhost:3978/api/messages",
-        "name": "https://localhost:3978/api/messages",
-        "type": "endpoint",
-        "appId": "9601facb-5b19-4c83-b38b-f40c6862784b",
-        "appPassword": "+%-JGqGum$vQddo>",
-        "endpoint": "https://localhost:3978/api/messages"
-      }
+        {
+            "id": "http://localhost:3978/api/messages",
+            "name": "http://localhost:3978/api/messages",
+            "type": "endpoint",
+            "appId": "9601facb-5b19-4c83-b38b-f40c6862784b",
+            "appPassword": "+%-JGqGum$vQddo>",
+            "endpoint": "http://localhost:3978/api/messages"
+        }
     ]
 }
