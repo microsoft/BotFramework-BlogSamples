@@ -60,7 +60,7 @@ server.post('/api/messages', (req, res) => {
             // Continue executing the "current" dialog, if any.
             var results = await dc.continue();
 
-            if(results.hasResult){
+            if(results.status == "complete"){
                 // Do something with `results.result`
                 // ...
             }
