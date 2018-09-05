@@ -37,7 +37,7 @@ namespace DialogTopics
                 {
                     Add(new WaterfallDialog(Main, new WaterfallStep[]
                     {
-                        async (dc, step) =>
+                        async (dc, step, cancellationToken) =>
                         {
                             // Get the input from the arguments to the dialog and add them.
                             var options = step.Options as Options;

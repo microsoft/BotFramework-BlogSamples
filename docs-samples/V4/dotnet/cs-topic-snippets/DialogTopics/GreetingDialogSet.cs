@@ -1,25 +1,34 @@
-﻿using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DialogTopics
+﻿namespace DialogTopics
 {
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Dialogs;
+
     public class GreetingDialogSet : DialogSet
     {
-        public struct Inputs
+        /// <summary>Contains the IDs for the prompts used in the dialog set.</summary>
+        private struct Inputs
         {
             public const string Text = "textPrompt";
         }
 
-        public struct Values
+        /// <summary>Contains the IDs for the values tracked within the dialog set.</summary>
+        private struct Values
         {
             public const string Name = "name";
             public const string WorkPlace = "work";
         }
 
+        /// <summary>Defines a class for the information returned by the main dialog.</summary>
+        public class Output
+        {
+            /// <summary>The user's name.</summary>
+            public string Name { get; set; }
+
+            /// <summary>The user's place of work.</summary>
+            public string WorkPlace { get; set; }
+        }
+
+        /// <summary>The name of the main dialog in the set.</summary>
         public const string Main = "main";
 
         public GreetingDialogSet(IStatePropertyAccessor<DialogState> dialogState) : base(dialogState)
@@ -30,7 +39,7 @@ namespace DialogTopics
             // Define the dialog logic for greeting the user.
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     // Ask for their name.
                     return await dc.PromptAsync(Inputs.Text, new PromptOptions
@@ -38,10 +47,10 @@ namespace DialogTopics
                         Prompt = MessageFactory.Text("What is your name?"),
                     });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     // Save the prompt result in dialog state.
-                    step.Values[Values.Name] = step.Result as string;
+                    step.Values[Values.Name] = step.Result;
 
                     // Acknowledge their input.
                     await dc.Context.SendActivityAsync($"Hi, {step.Result}!");
@@ -52,17 +61,21 @@ namespace DialogTopics
                         Prompt = MessageFactory.Text("Where do you work?"),
                     });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     // Save the prompt result in dialog state.
-                    step.Values[Values.WorkPlace] = step.Result as string;
+                    step.Values[Values.WorkPlace] = step.Result;
 
                     // Acknowledge their input.
                     await dc.Context.SendActivityAsync($"{step.Result} is a fun place.");
 
-                    // End the dialog.
-                    return await dc.EndAsync();
-                }
+                    // End the dialog and return the collected information.
+                    return await dc.EndAsync(new Output
+                    {
+                        Name = step.Values[Values.Name] as string,
+                        WorkPlace = step.Values[Values.WorkPlace] as string,
+                    });
+                },
             }));
         }
     }

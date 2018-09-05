@@ -1,36 +1,33 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Bot;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Schema;
-
-namespace DialogTopics
+﻿namespace DialogTopics
 {
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Schema;
+
     public class AdditionBot : IBot
     {
-        private IStatePropertyAccessor<DialogState> DialogStateAccessor { get; }
+        private AdditionDialogSet AdditionDialog { get; }
 
-        private AdditionDialogSet AdditionDialogs { get; }
-
-        public AdditionBot(IStatePropertyAccessor<DialogState> dialogStateAccessor, AdditionDialogSet dialogSet)
+        public AdditionBot(AdditionDialogSet dialogSet)
         {
-            DialogStateAccessor = dialogStateAccessor;
-            AdditionDialogs = dialogSet;
+            AdditionDialog = dialogSet;
         }
 
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Generate a dialog context for the addition dialog.
-            var dc = await AdditionDialogs.CreateContextAsync(turnContext);
+            Microsoft.Bot.Builder.Dialogs.DialogContext dc = await AdditionDialog.CreateContextAsync(turnContext);
 
             switch (turnContext.Activity.Type)
             {
+                // Handle conversation activity from the channel.
                 case ActivityTypes.ConversationUpdate:
 
-                    var activity = turnContext.Activity.AsConversationUpdateActivity();
+                    IConversationUpdateActivity activity = turnContext.Activity.AsConversationUpdateActivity();
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
                         await turnContext.SendActivityAsync($"Welcome to the addition dialog bot!");
@@ -38,27 +35,29 @@ namespace DialogTopics
 
                     break;
 
+                // Handle any message activity from the user.
                 case ActivityTypes.Message:
 
-                    // Handle any message activity from the user.
-                    if (turnContext.Activity.Type is ActivityTypes.Message)
+                    // Call a helper function that identifies if the user says something
+                    // like "2 + 3" or "1.25 + 3.28" and extract the numbers to add.
+                    if (TryParseAddingTwoNumbers(turnContext.Activity.Text, out double first, out double second))
                     {
-                        // Call a helper function that identifies if the user says something
-                        // like "2 + 3" or "1.25 + 3.28" and extract the numbers to add.
-                        if (TryParseAddingTwoNumbers(turnContext.Activity.Text, out double first, out double second))
+                        // Start the dialog, passing in the numbers to add.
+                        var turnResult = await dc.BeginAsync(AdditionDialogSet.Main, new AdditionDialogSet.Options
                         {
-                            // Start the dialog, passing in the numbers to add.
-                            await dc.BeginAsync(AdditionDialogSet.Main, new AdditionDialogSet.Options
-                            {
-                                First = first,
-                                Second = second,
-                            });
-                        }
-                        else
+                            First = first,
+                            Second = second,
+                        });
+                        if (turnResult.Status == DialogTurnStatus.Complete
+                            && turnResult.Result is double sum)
                         {
-                            // Echo back to the user whatever they typed.
-                            await turnContext.SendActivityAsync($"You said '{turnContext.Activity.Text}'");
+                            // Do something with the result.
                         }
+                    }
+                    else
+                    {
+                        // Echo back to the user whatever they typed.
+                        await turnContext.SendActivityAsync($"You said '{turnContext.Activity.Text}'");
                     }
 
                     break;
@@ -79,14 +78,14 @@ namespace DialogTopics
 
             const string ADD_TWO_NUMBERS_REGEXP = NUMBER_REGEXP + PLUSSIGN_REGEXP + NUMBER_REGEXP;
 
-            var regex = new Regex(ADD_TWO_NUMBERS_REGEXP);
-            var matches = regex.Matches(message);
+            Regex regex = new Regex(ADD_TWO_NUMBERS_REGEXP);
+            MatchCollection matches = regex.Matches(message);
 
             first = 0;
             second = 0;
             if (matches.Count > 0)
             {
-                var matched = matches[0];
+                Match matched = matches[0];
                 if (double.TryParse(matched.Groups[1].Value, out first)
                     && double.TryParse(matched.Groups[2].Value, out second))
                 {

@@ -1,11 +1,15 @@
 ﻿//#define Addition
-#define Greeting
+//#define Greeting
+//#define Hotel
+//#define Prompts
+#define IntegratedDialogs
 
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;
+using Microsoft.Bot.Builder.Azure;
 using Microsoft.Bot.Builder.BotFramework;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Integration;
@@ -87,11 +91,109 @@ namespace DialogTopics
                 return convState.CreateProperty<DialogState>($"DialogSet.DialogStateAccessor");
             });
 
-            // Create and register the addition dialog set.
+            // Create and register the greeting dialog set.
             services.AddSingleton(sp =>
             {
                 var accessor = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
                 return new GreetingDialogSet(accessor);
+            });
+#elif Hotel
+            services.AddBot<HotelDialogBot>(options =>
+            {
+                options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
+                options.OnTurnError = async (context, exception) =>
+                {
+                    await context.TraceActivityAsync("Bot Exception", exception);
+                    await context.SendActivityAsync("Sorry, it looks like something went wrong!");
+                };
+
+                IStorage dataStore = new MemoryStorage();
+                options.Middleware.Add(new ConversationState(dataStore));
+            });
+
+            // Create and register the dialog state accessor.
+            services.AddSingleton(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                var convState = options.Middleware.OfType<ConversationState>().FirstOrDefault();
+                return convState.CreateProperty<DialogState>($"DialogSet.DialogStateAccessor");
+            });
+
+            // Create and register the Hotel dialog set.
+            services.AddSingleton(sp =>
+            {
+                var accessor = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
+                return new HotelDialogSet(accessor);
+            });
+#elif Prompts
+            services.AddBot<PromptsDialogBot>(options =>
+            {
+                options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
+                options.OnTurnError = async (context, exception) =>
+                {
+                    await context.TraceActivityAsync("Bot Exception", exception);
+                    await context.SendActivityAsync("Sorry, it looks like something went wrong!");
+                };
+
+                IStorage dataStore = new MemoryStorage();
+                options.Middleware.Add(new ConversationState(dataStore));
+            });
+
+            // Create and register the dialog state accessor.
+            services.AddSingleton(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                var convState = options.Middleware.OfType<ConversationState>().FirstOrDefault();
+                return convState.CreateProperty<DialogState>("DialogSet.DialogStateAccessor");
+            });
+
+            // Create and register the prompts dialog set.
+            services.AddSingleton(sp =>
+            {
+                var accessor = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
+                return new PromptsDialogSet(accessor);
+            });
+#elif IntegratedDialogs
+            services.AddBot<IntegratedDialogs.HotelBot>(options =>
+            {
+                options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
+                options.OnTurnError = async (context, exception) =>
+                {
+                    await context.TraceActivityAsync("Bot Exception", exception);
+                    await context.SendActivityAsync("Sorry, it looks like something went wrong!");
+                };
+
+                // We're using both conversation and user state.
+                IStorage dataStore = new MemoryStorage();
+                var convState = new ConversationState(dataStore);
+                var userState = new UserState(dataStore);
+                options.Middleware.Add(new BotStateSet(convState, userState));
+            });
+
+            // Create and register the dialog state accessor off of conversation state.
+            services.AddSingleton(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
+                var convState = stateSet.BotStates.OfType<ConversationState>().FirstOrDefault();
+                return convState.CreateProperty<DialogState>("IntegratedDialogs.DialogState");
+            });
+
+            // Create and register the user profile state accessor off of user state.
+            services.AddSingleton(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
+                var userState = stateSet.BotStates.OfType<UserState>().FirstOrDefault();
+                return userState.CreateProperty<IntegratedDialogs.UserProfile>("IntegratedDialogs.UserProfile");
+            });
+
+            // Create and register the main dialog set.
+            services.AddSingleton(sp =>
+            {
+                var dialogState = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
+                var userProfileAccessor = sp.GetRequiredService<IStatePropertyAccessor<IntegratedDialogs.UserProfile>>();
+                return new IntegratedDialogs.MainDialog(dialogState, userProfileAccessor);
             });
 #endif
         }

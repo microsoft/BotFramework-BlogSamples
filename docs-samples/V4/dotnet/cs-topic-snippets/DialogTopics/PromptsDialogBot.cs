@@ -4,22 +4,21 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder;
-    using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Schema;
 
-    public class GreetingBot : IBot
+    public class PromptsDialogBot : IBot
     {
-        private GreetingDialogSet GreetingsDialogs { get; }
+        private PromptsDialogSet PromptsDialogs { get; }
 
-        public GreetingBot(GreetingDialogSet dialogSet)
+        public PromptsDialogBot(PromptsDialogSet dialogSet)
         {
-            GreetingsDialogs = dialogSet;
+            PromptsDialogs = dialogSet;
         }
 
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Generate a dialog context for the addition dialog.
-            Microsoft.Bot.Builder.Dialogs.DialogContext dc = await GreetingsDialogs.CreateContextAsync(turnContext);
+            Microsoft.Bot.Builder.Dialogs.DialogContext dc = await PromptsDialogs.CreateContextAsync(turnContext);
 
             switch (turnContext.Activity.Type)
             {
@@ -29,8 +28,8 @@
                     IConversationUpdateActivity activity = turnContext.Activity.AsConversationUpdateActivity();
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
-                        await turnContext.SendActivityAsync($"Welcome to the greeting dialog bot!");
-                        await dc.BeginAsync(GreetingDialogSet.Main);
+                        await turnContext.SendActivityAsync($"Welcome to the prompts dialog bot!");
+                        await dc.BeginAsync(PromptsDialogSet.Main);
                     }
 
                     break;
@@ -39,20 +38,12 @@
                 case ActivityTypes.Message:
 
                     // Continue any active dialog.
-                    var turnResult = await dc.ContinueAsync();
-                    if (turnResult.Status == DialogTurnStatus.Complete
-                        && turnResult.Result is GreetingDialogSet.Output userInfo)
-                    {
-                        // Do something with the result.
-                        await turnContext.SendActivityAsync(
-                            $"Name: {userInfo.Name}, workplace: {userInfo.WorkPlace}.");
-                    }
-
+                    Microsoft.Bot.Builder.Dialogs.DialogTurnResult turnResult = await dc.ContinueAsync();
                     if (!turnContext.Responded)
                     {
                         // Restart the dialog.
                         await turnContext.SendActivityAsync("Let's start again.");
-                        await dc.BeginAsync(GreetingDialogSet.Main);
+                        await dc.BeginAsync(PromptsDialogSet.Main);
                     }
 
                     break;

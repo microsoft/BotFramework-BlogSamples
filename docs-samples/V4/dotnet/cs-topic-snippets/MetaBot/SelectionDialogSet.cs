@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MetaBot
@@ -56,7 +57,10 @@ namespace MetaBot
         /// <param name="context">The turn context.</param>
         /// <param name="prompt">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private static async Task TopicValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
+        private static async Task TopicValidator(
+            ITurnContext context,
+            PromptValidatorContext<FoundChoice> prompt,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             if (prompt.Recognized.Succeeded)
             {
@@ -79,7 +83,10 @@ namespace MetaBot
         /// <param name="context">The turn context.</param>
         /// <param name="prompt">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private static async Task SectionValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
+        private static async Task SectionValidator(
+            ITurnContext context,
+            PromptValidatorContext<FoundChoice> prompt,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             if (prompt.Recognized.Succeeded)
             {
@@ -110,7 +117,7 @@ namespace MetaBot
             Add(new TextPrompt(Inputs.Run));
             Add(new WaterfallDialog(Inputs.ChooseTopic, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     return await dc.PromptAsync(Inputs.Topic, new PromptOptions
                     {
@@ -119,7 +126,7 @@ namespace MetaBot
                         Choices = ChoiceFactory.ToChoices(Topics.Select(t => t.Name).ToList()),
                     });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     if (step.Result is Command command)
                     {
@@ -143,7 +150,7 @@ namespace MetaBot
                     await dc.Context.TraceActivityAsync("ChooseTopic, step 2, graceful fail: Repeating the choose topic dialog.");
                     return await dc.ReplaceAsync(Inputs.ChooseTopic);
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     Debug.WriteLine("Entering >> Dialog >> ChooseTopic, step 3.");
 
@@ -155,7 +162,7 @@ namespace MetaBot
             }));
             Add(new WaterfallDialog(Inputs.ChooseSection, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     TopicDescriptor topic = (step.Options as ChooseSectionOptions)?.Topic
                         ?? throw new ArgumentNullException("step.Options", "Step options must be provided when begining section selection.");
@@ -171,7 +178,7 @@ namespace MetaBot
                         Choices = ChoiceFactory.ToChoices(topic.Sections.Keys.ToList()),
                     });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     TopicDescriptor topic = step.Values[Values.Topic] as TopicDescriptor
                         ?? throw new InvalidOperationException("SelectionDialog, step 2 has no Topic value set.");
@@ -212,7 +219,7 @@ namespace MetaBot
                         Inputs.ChooseSection,
                         new ChooseSectionOptions { Topic = topic });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     TopicDescriptor topic = step.Values[Values.Topic] as TopicDescriptor
                         ?? throw new InvalidOperationException("SelectionDialog, step 3 has no Topic value set.");
@@ -254,7 +261,7 @@ namespace MetaBot
             }));
             Add(new WaterfallDialog(Inputs.RunSnippet, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     IBot bot = (step.Options as RunSnippetOptions).Bot;
                     step.Values[Values.Bot] = bot;
@@ -281,7 +288,7 @@ namespace MetaBot
                         return Dialog.EndOfTurn;
                     }
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     IBot bot = step.Values[Values.Bot] as IBot;
 

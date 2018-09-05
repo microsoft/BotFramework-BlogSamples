@@ -28,12 +28,12 @@ namespace ContainerLib
 
             Add(new WaterfallDialog(Inputs.Main, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     await TargetBot.OnTurnAsync(dc.Context);
                     return Dialog.EndOfTurn;
                 },
-                                async (dc, step) =>
+                                async (dc, step, cancellationToken) =>
                 {
                     return await dc.ReplaceAsync(Inputs.Main);
                 },

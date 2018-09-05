@@ -185,7 +185,10 @@ namespace basicOperations
         /// <param name="context">The turn context.</param>
         /// <param name="prompt">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private async Task TopicValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
+        private async Task TopicValidator(
+            ITurnContext context,
+            PromptValidatorContext<FoundChoice> prompt,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             if (prompt.Recognized.Succeeded)
             {
@@ -208,7 +211,10 @@ namespace basicOperations
         /// <param name="context">The turn context.</param>
         /// <param name="prompt">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private async Task SectionValidator(ITurnContext context, PromptValidatorContext<FoundChoice> prompt)
+        private async Task SectionValidator(
+            ITurnContext context,
+            PromptValidatorContext<FoundChoice> prompt,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             if (prompt.Recognized.Succeeded)
             {
@@ -239,7 +245,7 @@ namespace basicOperations
             SelectionDialog.Add(new TextPrompt(Input.Run));
             SelectionDialog.Add(new WaterfallDialog(Input.ChooseTopic, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     return await dc.PromptAsync(Input.Topic, new PromptOptions
                     {
@@ -248,7 +254,7 @@ namespace basicOperations
                         Choices = ChoiceFactory.ToChoices(Snippets.Topics.Select(t => t.Name).ToList()),
                     });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     if (step.Result is Command command)
                     {
@@ -272,7 +278,7 @@ namespace basicOperations
                     await dc.Context.TraceActivityAsync("ChooseTopic, step 2, graceful fail: Repeating the choose topic dialog.");
                     return await dc.ReplaceAsync(Input.ChooseTopic);
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     // We're resurfacing from the select-section dialog.
                     // This is the top level, so we don't really care how things bubbled back up.
@@ -282,7 +288,7 @@ namespace basicOperations
             }));
             SelectionDialog.Add(new WaterfallDialog(Input.ChooseSection, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     Topic topic = (step.Options as SectionOptions)?.Topic
                         ?? throw new ArgumentNullException("step.Options", "Step options must be provided when begining section selection.");
@@ -294,7 +300,7 @@ namespace basicOperations
                         Choices = ChoiceFactory.ToChoices(topic.Sections.Keys.ToList()),
                     });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     Topic topic = step.Values[Value.Topic] as Topic
                         ?? throw new InvalidOperationException("SelectionDialog, step 2 has no Topic value set.");
@@ -328,7 +334,7 @@ namespace basicOperations
                         Input.ChooseSection,
                         new SectionOptions { Topic = topic });
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     Topic topic = step.Values[Value.Topic] as Topic
                         ?? throw new InvalidOperationException("SelectionDialog, step 3 has no Topic value set.");
@@ -366,7 +372,7 @@ namespace basicOperations
             }));
             SelectionDialog.Add(new WaterfallDialog(Input.RunSnippet, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     IBot bot = (step.Options as SnippetOptions).Bot;
                     step.Values[Value.Bot] = bot;
@@ -390,7 +396,7 @@ namespace basicOperations
                         return Dialog.EndOfTurn;
                     }
                 },
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
                     IBot bot = step.Values[Value.Bot] as IBot;
                     return await dc.ReplaceAsync(Input.RunSnippet, new SnippetOptions { Bot = bot });

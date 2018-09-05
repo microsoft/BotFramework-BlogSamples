@@ -6,6 +6,9 @@ namespace DialogTopics
     /// <summary>Defines a simple dialog for adding two numbers together.</summary>
     public class AdditionDialogSet : DialogSet
     {
+        /// <summary>The ID of the main dialog in the set.</summary>
+        public const string Main = "addTwoNumbers";
+
         /// <summary>
         /// Define the input arguments to the dialog.
         /// </summary>
@@ -15,25 +18,22 @@ namespace DialogTopics
             public double Second { get; set; }
         }
 
-        /// <summary>The ID of the main dialog in the set.</summary>
-        public const string Main = "additionDialog";
-
         public AdditionDialogSet(IStatePropertyAccessor<DialogState> dialogStateAccessor)
             : base(dialogStateAccessor)
         {
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
-                async (dc, step) =>
+                async (dc, step, cancellationToken) =>
                 {
-                    // Get the input from the arguments to the dialog and add them.
-                    var options = step.Options as Options;
-                    var sum = options.First + options.Second;
+                    // Get the input to the dialog and add them.
+                    Options options = step.Options as Options;
+                    double sum = options.First + options.Second;
 
                     // Display the result to the user.
                     await dc.Context.SendActivityAsync($"{options.First} + {options.Second} = {sum}");
 
-                    // End the dialog.
-                    return await dc.EndAsync();
+                    // End the dialog and return the sum.
+                    return await dc.EndAsync(sum);
                 }
             }));
         }
