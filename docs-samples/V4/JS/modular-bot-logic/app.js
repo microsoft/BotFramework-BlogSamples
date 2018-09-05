@@ -112,7 +112,7 @@ dialogs.add(new WaterfallDialog('mainMenu', [
                 break;
             default:
                 await dc.context.sendActivity("Sorry, i don't understand that command. Please choose an option from the list below.");
-                dc.replace('mainMenu');
+                return await dc.replace('mainMenu');
                 break;
         }
     },

@@ -17,14 +17,13 @@ class CheckInDialog extends ComponentDialog {
             async function (dc, step) {
                 // Create a new local guestInfo databag
                 step.values.guestInfo = {};
-                //return await dc.prompt('textPrompt', "Welcome to the 'Check In' service. <br/>What is your name?");
+                return await dc.prompt('textPrompt', "Welcome to the 'Check In' service. <br/>What is your name?");
                 
-                await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?");
-                return Dialog.EndOfTurn;
-
-                // This will error on next turn due to dialog being removed from stack
+                // This will error on next turn due to dialog being removed from stack...must return an EndOfTurn
                 //return await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?"); 
                 
+                // await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?");
+                // return Dialog.EndOfTurn;
             },
             async function (dc, step){
                 // Save the name 
