@@ -28,7 +28,7 @@
 // Required packages for this bot
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet, MessageFactory } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet, WaterfallDialog } = require('botbuilder-dialogs');
+const { Dialog, DialogSet, WaterfallDialog } = require('botbuilder-dialogs');
 
 // Create server
 let server = restify.createServer();
@@ -98,7 +98,8 @@ dialogs.add(new WaterfallDialog('mainMenu', [
         var userInfo = await userInfoAccessor.get(dc.context);
         var msg = `Hi ${userInfo.guestInfo.name}, how can I help you?`;
         const menu = ["Reserve Table", "Wake Up"];
-        return await dc.context.sendActivity(MessageFactory.suggestedActions(menu, msg));    
+        await dc.context.sendActivity(MessageFactory.suggestedActions(menu, msg));
+        return Dialog.EndOfTurn;
     },
     async function (dc, step){        
         // Decide which module to start
@@ -111,7 +112,8 @@ dialogs.add(new WaterfallDialog('mainMenu', [
                 break;
             default:
                 await dc.context.sendActivity("Sorry, i don't understand that command. Please choose an option from the list below.");
-                break;            
+                dc.replace('mainMenu');
+                break;
         }
     },
     async function (dc, step){

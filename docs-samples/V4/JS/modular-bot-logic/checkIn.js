@@ -4,8 +4,8 @@
  * This file is part of the "modular bot logic" samaple. It contains the logic for a hotel check in scenario.
  * 
  */
-
-const { ComponentDialog, WaterfallDialog, TextPrompt, NumberPrompt } = require('botbuilder-dialogs');
+const { MessageFactory } = require('botbuilder');
+const { Dialog, ComponentDialog, WaterfallDialog, TextPrompt, NumberPrompt } = require('botbuilder-dialogs');
 
 class CheckInDialog extends ComponentDialog {
     constructor(dialogId) {
@@ -17,7 +17,14 @@ class CheckInDialog extends ComponentDialog {
             async function (dc, step) {
                 // Create a new local guestInfo databag
                 step.values.guestInfo = {};
-                return await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?");
+                //return await dc.prompt('textPrompt', "Welcome to the 'Check In' service. <br/>What is your name?");
+                
+                await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?");
+                return Dialog.EndOfTurn;
+
+                // This will error on next turn due to dialog being removed from stack
+                //return await dc.context.sendActivity("Welcome to the 'Check In' service. <br/>What is your name?"); 
+                
             },
             async function (dc, step){
                 // Save the name 
