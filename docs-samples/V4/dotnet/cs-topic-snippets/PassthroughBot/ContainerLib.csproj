@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.0.0.38762" />
-    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.0.0.38762" />
+    <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.0.0.38905" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.0.0.38905" />
   </ItemGroup>
 
 </Project>

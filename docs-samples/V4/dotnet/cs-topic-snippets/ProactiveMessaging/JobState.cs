@@ -4,7 +4,7 @@
 
     /// <summary>Middleware for managing bot state for "bot jobs".</summary>
     /// <remarks>This is independent from both user and conversation state because
-    /// the process of running the jobs and notifying the user interacts with the 
+    /// the process of running the jobs and notifying the user interacts with the
     /// bot as a distinct user on a separate conversation.</remarks>
     public class JobState : BotState
     {

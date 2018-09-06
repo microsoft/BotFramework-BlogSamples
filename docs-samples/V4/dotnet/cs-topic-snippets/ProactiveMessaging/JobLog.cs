@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Microsoft.Bot.Schema;
 
+    /// <summary>Contains a dictionary of job data, indexed by job number.</summary>
     public class JobLog : Dictionary<long, JobLog.JobData>
     {
         /// <summary>Describes the state of a job.</summary>
