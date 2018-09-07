@@ -1,9 +1,11 @@
 ﻿namespace UserDataBot
 {
+    using System;
     using System.Linq;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Azure;
     using Microsoft.Bot.Builder.BotFramework;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Builder.Integration;
@@ -43,9 +45,16 @@
                     await context.SendActivityAsync("Sorry, it looks like something went wrong!");
                 };
 
-                // Add state middleware.
-                // For production code, change this to persistent storage, such as CosmosDbStorage.
-                IStorage storage = new MemoryStorage();
+                // Add state middleware, with persistent storage.
+                var CosmosSettings = Configuration.GetSection("CosmosDB");
+                IStorage storage = new CosmosDbStorage(
+                    new CosmosDbStorageOptions
+                    {
+                        AuthKey = CosmosSettings["AuthenticationKey"],
+                        CollectionId = CosmosSettings["CollectionID"],
+                        CosmosDBEndpoint = new Uri(CosmosSettings["EndpointUri"]),
+                        DatabaseId = CosmosSettings["DatabaseID"],
+                    });
                 var conversationState = new ConversationState(storage);
                 var userState = new UserState(storage);
                 options.Middleware.Add(new BotStateSet(conversationState, userState));
