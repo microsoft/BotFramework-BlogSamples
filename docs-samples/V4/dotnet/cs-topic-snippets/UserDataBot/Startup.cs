@@ -50,10 +50,10 @@
                 IStorage storage = new CosmosDbStorage(
                     new CosmosDbStorageOptions
                     {
-                        AuthKey = CosmosSettings["AuthenticationKey"],
+                        DatabaseId = CosmosSettings["DatabaseID"],
                         CollectionId = CosmosSettings["CollectionID"],
                         CosmosDBEndpoint = new Uri(CosmosSettings["EndpointUri"]),
-                        DatabaseId = CosmosSettings["DatabaseID"],
+                        AuthKey = CosmosSettings["AuthenticationKey"],
                     });
                 var conversationState = new ConversationState(storage);
                 var userState = new UserState(storage);

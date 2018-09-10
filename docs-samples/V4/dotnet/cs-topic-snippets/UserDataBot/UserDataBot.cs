@@ -45,7 +45,7 @@
             // Establish context for our dialog from the turn context.
             DialogContext dc = await GreetingsDialog.CreateContextAsync(turnContext);
 
-            // Handle coversation update, message, and delete user data activities.
+            // Handle conversation update, message, and delete user data activities.
             switch (turnContext.Activity.Type)
             {
                 case ActivityTypes.ConversationUpdate:
