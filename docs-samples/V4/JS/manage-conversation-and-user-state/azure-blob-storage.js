@@ -1,10 +1,9 @@
 /*
- * Botbuilder v4 SDK - Memory Storage
+ * Botbuilder v4 SDK - Azure Blob Storage
  * 
- * Memory storage is for testing purposes only and is not intended for production use. 
- * Be sure to set storage to a database like Azure CosmosDB or Blob Storage before publishing your bot.
+ * Connect your bot storage to Azure Blob Storage.
  * 
- * This bot demonstrates how to manage a conversation state and user state with MemoryStorage.
+ * This bot demonstrates how to manage a conversation state and user state with Azure Blob Storage as storage.
  * 
  * To run this bot:
  * 1) install these npm packages:
@@ -17,10 +16,11 @@
  * 4) Load the emulator and point it to: http://localhost:3978/api/messages
  * 5) Send the message "hi" to engage with the bot.
  *
- */ 
+ */
 
-const { BotFrameworkAdapter, ConversationState, BotStateSet, MemoryStorage } = require('botbuilder');
 const restify = require('restify');
+const { BotFrameworkAdapter, ConversationState, BotStateSet, MemoryStorage } = require('botbuilder');
+const { CosmosDbStorage, BlobStorage } = require('botbuilder-azure');
 
 // Create server.
 let server = restify.createServer();
@@ -35,9 +35,16 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Add memory storage.
-var storage = new MemoryStorage(); // Volatile memory
+// Add BlobStorage 
+const storage = new BlobStorage({
+    containerName: "cashblobstorage91018",
+    storageAccountOrConnectionString: "DefaultEndpointsProtocol=https;AccountName=cashblobstorage91018;AccountKey=E6346MZXAoIAbSB9B6xNwqwdYMtzgRLPIC8T+ZlpEc2VOTZvphRC3llxhOZCqX+++Genw8xAHIc3oXM5ADoYgw==;EndpointSuffix=core.windows.net"
+    // storageAccessKey: "E6346MZXAoIAbSB9B6xNwqwdYMtzgRLPIC8T+ZlpEc2VOTZvphRC3llxhOZCqX+++Genw8xAHIc3oXM5ADoYgw=="
+    //host?: string | Host
+});
 
 const conversationState = new ConversationState(storage);
+const convoStateAccessor = conversationState.createProperty('convoState');
 adapter.use(new BotStateSet(conversationState));
 
 // Listen for incoming activity .
@@ -45,10 +52,14 @@ server.post('/api/messages', (req, res) => {
     // Route received activity to adapter for processing.
     adapter.processActivity(req, res, async (context) => {
         if (context.activity.type === 'message') {
-            const state = conversationState.get(context);
-            const count = state.count === undefined ? state.count = 0 : ++state.count;
+            const convoState = await convoStateAccessor.get(context, {});
+            const count = convoState.count === undefined ? convoState.count = 0 : ++convoState.count;
 
             await logMessageText(storage, context);
+
+            // Demonstrating "optimistic concurancies" using ETag
+            await readNote(storage, context);
+            await writeNote(storage, context);
 
             await context.sendActivity(`${count}: You said "${context.activity.text}"`);
         } else {
@@ -84,8 +95,56 @@ async function logMessageText(storage, context) {
         } catch (err) {
             await context.sendActivity(`Write to UtteranceLog fail: ${err}`);
         }
-    
     } catch (err) {
         await context.sendActivity(`Read rejected. ${err}`);
     };
+}
+
+// These two functions will demonstrate how concurancy work with ETag
+// Writing a "note" to storage, then read it in at a later time, update it's "Contents" and 
+// write the note back to storage.
+async function writeNote(storage, context) {
+    var note = {
+        "Name": "Shopping list",
+        "Contents": "eggs",
+        "ETag": "001"
+    }
+
+    var changes = [];
+    changes.push(note); // Add note to the changes list
+
+    try {
+        // Write changes to storage
+        await storage.write(changes);
+        await context.sendActivity(`Write succeeded: write changes to storage.`)
+    }
+    catch(err) {
+        await context.sendActivity(`Write error: ${err}`);
+    }
+}
+
+async function readNote(storage, context){
+    try{
+        var storeItems = await storage.read(["note"]);
+        var note = storeItems["note"];
+
+        if(note){
+            note.Contents += ", bread";
+            var changes = [];
+            changes.push(note);
+
+            // Write note back out to storage
+            try {
+                // Write changes to storage
+                await storage.write(changes);
+                await context.sendActivity(`Write succeeded: write changes to storage.`)
+            }
+            catch(err) {
+                await context.sendActivity(`Write error: ${err}`);
+            }
+        }
+    }
+    catch(err){
+        await context.sendActivity(`Read error: ${err}`);
+    }
 }

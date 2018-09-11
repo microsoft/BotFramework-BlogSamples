@@ -1,10 +1,9 @@
 /*
- * Botbuilder v4 SDK - Memory Storage
+ * Botbuilder v4 SDK - Azure Cosmos DB
  * 
- * Memory storage is for testing purposes only and is not intended for production use. 
- * Be sure to set storage to a database like Azure CosmosDB or Blob Storage before publishing your bot.
+ * Connect your bot storage to Azure Cosmos DB.
  * 
- * This bot demonstrates how to manage a conversation state and user state with MemoryStorage.
+ * This bot demonstrates how to manage a conversation state and user state with Azure Cosmos DB as storage.
  * 
  * To run this bot:
  * 1) install these npm packages:
@@ -19,7 +18,9 @@
  *
  */ 
 
+
 const { BotFrameworkAdapter, ConversationState, BotStateSet, MemoryStorage } = require('botbuilder');
+const { CosmosDbStorage, BlobStorage } = require('botbuilder-azure');
 const restify = require('restify');
 
 // Create server.
@@ -35,7 +36,20 @@ const adapter = new BotFrameworkAdapter({
 });
 
 // Add memory storage.
-var storage = new MemoryStorage(); // Volatile memory
+// Add CosmosDB 
+const storage = new CosmosDbStorage({
+    serviceEndpoint: "https://lucascosmos.documents.azure.com:443/", 
+    authKey: "xCmY4dZqZACCVUoExxAbfa38MwPjShqbm2TTqNhzKnqlTCLSc8mTio1TeCbEu2dCCg8VmNAohRARuUMPmmrRPg==", 
+    databaseId: "Tasks",
+    collectionId: "Items"
+});
+
+// const storage = new CosmosDbStorage({
+//     serviceEndpoint: process.env.ACTUAL_SERVICE_ENDPOINT, 
+//     authKey: process.env.ACTUAL_AUTH_KEY, 
+//     databaseId: process.env.DATABASE,
+//     collectionId: process.env.COLLECTION
+// });
 
 const conversationState = new ConversationState(storage);
 adapter.use(new BotStateSet(conversationState));
@@ -49,6 +63,10 @@ server.post('/api/messages', (req, res) => {
             const count = state.count === undefined ? state.count = 0 : ++state.count;
 
             await logMessageText(storage, context);
+
+            // Demonstrating "optimistic concurancies" using ETag
+            readNote(storage, context);
+            writeNote(storage, context);
 
             await context.sendActivity(`${count}: You said "${context.activity.text}"`);
         } else {
@@ -84,8 +102,56 @@ async function logMessageText(storage, context) {
         } catch (err) {
             await context.sendActivity(`Write to UtteranceLog fail: ${err}`);
         }
-    
     } catch (err) {
         await context.sendActivity(`Read rejected. ${err}`);
     };
+}
+
+// These two functions will demonstrate how concurancy work with ETag
+// Writing a "note" to storage, then read it in at a later time, update it's "Contents" and 
+// write the note back to storage.
+async function writeNote(storage, context) {
+    var note = {
+        "Name": "Shopping list",
+        "Contents": "eggs",
+        "ETag": "001"
+    }
+
+    var changes = [];
+    changes.push(note); // Add note to the changes list
+
+    try {
+        // Write changes to storage
+        await storage.write(changes);
+        await context.sendActivity(`Write succeeded: write changes to storage.`)
+    }
+    catch(err) {
+        await context.sendActivity(`Write error: ${err}`);
+    }
+}
+
+async function readNote(storage, context){
+    try{
+        var storeItems = await storage.read(["note"]);
+        var note = storeItems["note"];
+
+        if(note){
+            note.Contents += ", bread";
+            var changes = [];
+            changes.push(note);
+
+            // Write note back out to storage
+            try {
+                // Write changes to storage
+                await storage.write(changes);
+                await context.sendActivity(`Write succeeded: write changes to storage.`)
+            }
+            catch(err) {
+                await context.sendActivity(`Write error: ${err}`);
+            }
+        }
+    }
+    catch(err){
+        await context.sendActivity(`Read error: ${err}`);
+    }
 }

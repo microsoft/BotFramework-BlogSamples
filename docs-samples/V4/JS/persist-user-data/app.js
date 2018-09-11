@@ -20,9 +20,10 @@
  */ 
 
 // Required packages for this bot
-const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const { DialogSet, WaterfallDialog, TextPrompt, DateTimePrompt, NumberPrompt } = require('botbuilder-dialogs');
+const { CosmosDbStorage } = require('botbuilder-azure');
 
 // Create server
 let server = restify.createServer();
@@ -38,10 +39,24 @@ const adapter = new BotFrameworkAdapter({
 
 // Storage
 const storage = new MemoryStorage(); // Volatile memory
+
+// const storage = new CosmosDbStorage({
+//     serviceEndpoint: "https://lucascosmos.documents.azure.com:443/", 
+//     authKey: "xCmY4dZqZACCVUoExxAbfa38MwPjShqbm2TTqNhzKnqlTCLSc8mTio1TeCbEu2dCCg8VmNAohRARuUMPmmrRPg==", 
+//     databaseId: "Tasks",
+//     collectionId: "Items"
+// });
+
+// const storage = new CosmosDbStorage({
+//     serviceEndpoint: process.env.ACTUAL_SERVICE_ENDPOINT, 
+//     authKey: process.env.ACTUAL_AUTH_KEY, 
+//     databaseId: process.env.DATABASE,
+//     collectionId: process.env.COLLECTION
+// });
+
 const conversationState = new ConversationState(storage);
 const userState  = new UserState(storage);
-const reservationInfoAccessor = conversationState.createProperty('reservationInfo');
-const userInfoAccessor = userState.createProperty('userInfo');
+const userDataAccessor = userState.createProperty('userData');
 
 adapter.use(new BotStateSet(conversationState, userState));
 
@@ -50,30 +65,47 @@ const dialogs = new DialogSet(conversationState.createProperty('dialogState')); 
 // Listen for incoming activity 
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
-        const isMessage = (context.activity.type === 'message');
+        //const isMessage = (context.activity.type === 'message');
         // State will store all of your information 
-        const convoState = await conversationState.get(context);
-        const userState = await userInfoAccessor.get(context);
         const dc = await dialogs.createContext(context);
+        const userData = await userDataAccessor.get(context, {});
 
-        if (isMessage) {
-            // Check for valid intents
-            if(context.activity.text.match(/hello/ig)){
-                return await dc.begin('greetings');
-            }
-            else if(context.activity.text.match(/reserve table/ig)){
-                return await dc.begin('reserveTable');
-            }
-        }
-
-        if(!context.responded){
-            // Continue executing the "current" dialog, if any.
-            var myVal = await dc.continue();
-
-            if(!context.responded && isMessage){
-                // Default message
-                await context.sendActivity("Hi! I'm a simple bot. Please say 'Hello' or 'reserve table'.");
-            }
+        switch(context.activity.type){
+            case "conversationUpdate":
+                if(context.activity.membersAdded[0].id != context.activity.recipient.id){
+                    if(!userData.name){
+                        // If we don't already have their name, start a dialog to collect it.
+                        await context.sendActivity("Welcome to the User Data bot.");
+                        return await dc.begin('greetings');
+                    }
+                    else {
+                        // Otherwise, greet them by name.
+                        await context.sendActivity(`Hi ${userData.name}! Welcome back to the User Data bot.`);
+                    }
+                }
+                break;
+            case "message":
+                var turnResult = await dc.continue();
+                if(turnResult.status == "complete"){
+                    // If it completes successfully and returns a valid name, save the name and greet the user.
+                    userData.name = turnResult.result;
+                    await context.sendActivity(`Pleased to meet you ${userData.name}.`);
+                }
+                // Else, if we don't have the user's name yet, ask for it.
+                else if(!userData.name){
+                    return await dc.begin('greetings');
+                }
+                // Else, echo the user's message text.
+                else {
+                    await context.sendActivity(`${userData.name} said, ${context.activity.text}.`);
+                }
+                break;
+            case "deleteUserData":
+                // Delete the user's data.
+                // Note: You can use the emuluator to send this activity.
+                userData.Name = null;
+                await context.sendActivity("I have deleted your user data.");
+                break;
         }
     });
 });
@@ -86,53 +118,15 @@ dialogs.add(new WaterfallDialog('greetings', [
         return await dc.prompt('textPrompt', 'Hi! What is your name?');
     },
     async function(dc, step){
-        step.values.userName = step.result;
-        await dc.context.sendActivity(`Hi ${step.values.userName}!`);
+        // step.values.userName = step.result;
+        // await dc.context.sendActivity(`Hi ${step.values.userName}!`);
         
-        // Persist user data to user state
-        const userState = await userInfoAccessor.get(dc.context, {});
-        userState.userInfo = step.values;
+        // // Persist user data to user state
+        // const userState = await userInfoAccessor.get(dc.context, {});
+        // userState.userInfo = step.values;
 
-        return await dc.end(step.values.userName);
-    }
-]));
-
-// Reserve a table:
-// Help the user to reserve a table
-// Persist user input at the end of the waterfall
-dialogs.add(new WaterfallDialog('reserveTable', [
-    async function(dc, step){
-        await dc.context.sendActivity("Welcome to the reservation service.");
-
-        return await dc.prompt('dateTimePrompt', "Please provide a reservation date and time.");
-    },
-    async function(dc, step){
-        step.values.dateTime = step.result[0].value;
-
-        // Ask for next info
-        return await dc.prompt('partySizePrompt', "How many people are in your party?");
-    },
-    async function(dc, step){
-        step.values.partySize = step.result;
-
-        // Ask for next info
-        return await dc.prompt('textPrompt', "Who's name will this be under?");
-    },
-    async function(dc, step){
-        step.values.reserveName = step.result;
-        
-        // Persist data to conversation state
-        const reservationState = await reservationInfoAccessor.get(dc.context, {});        
-        reservationState.reservationInfo = step.values;
-
-        // Confirm reservation
-        var msg = `Reservation confirmed. Reservation details: 
-            <br/>Date/Time: ${step.values.dateTime} 
-            <br/>Party size: ${step.values.partySize} 
-            <br/>Reservation name: ${step.values.reserveName}`;
-            
-        await dc.context.sendActivity(msg);
-        return await dc.end();
+        // Assume that they entered their name, and return the value.
+        return await dc.end(step.result);
     }
 ]));
 
