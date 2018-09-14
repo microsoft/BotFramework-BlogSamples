@@ -1,5 +1,5 @@
 /*
- * Botbuilder v4 SDK - Simple Conversation Flows.
+ * Botbuilder v4 SDK - Multiple Conversation Flows.
  * 
  * This bot demonstrates how to use dialogs, waterfall, and prompts to manage conversation flows.
  * 
@@ -18,7 +18,7 @@
 
 // Required packages for this bot
 const restify = require('restify');
-const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState} = require('botbuilder');
+const { BotFrameworkAdapter, AutoSaveStateMiddleware, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const { Dialog, DialogSet, WaterfallDialog, TextPrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
 
 // Create server
@@ -38,7 +38,7 @@ const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userInfoState = new UserState(storage);
 const userInfoAccessor = userInfoState.createProperty('userInfo');
-adapter.use(conversationState, userInfoState);
+adapter.use(new AutoSaveStateMiddleware(conversationState, userInfoState));
 
 // Define a dialog set with state object set to the conversation state.
 const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
@@ -51,21 +51,28 @@ server.post('/api/messages', (req, res) => {
         const dc = await dialogs.createContext(context);
         
         if (isMessage) {
-            // Handle user interrupts
-            if(context.activity.text.match(/help/ig)){
-                var msg = "To interact with the bot, send it any of these messages: 'check in', 'reserve table', or 'order dinner'.";
-                await context.sendActivity(msg);
-                return Dialog.EndOfTurn; // Ends the turn
+        //     // Handle user interrupts
+        //     if(context.activity.text.match(/help/ig)){
+        //         var msg = "To interact with the bot, send it any of these messages: 'check in', 'reserve table', or 'order dinner'.";
+        //         await context.sendActivity(msg);
+        //         return Dialog.EndOfTurn; // Ends the turn
+        //     }
+        //     else if(context.activity.text.match(/open hours/ig)){
+        //         var msg = "Hours of operations: M-F 5AM - 11PM. Sat 9AM - 10PM. Sunday closed."
+        //         await context.sendActivity(msg);
+        //         return Dialog.EndOfTurn;
+        //     }
+        
+            // Check for valid intents
+            if(context.activity.text.match(/check in/ig)){
+                return await dc.begin('checkIn');
             }
-            else if(context.activity.text.match(/open hours/ig)){
-                var msg = "Hours of operations: M-F 5AM - 11PM. Sat 9AM - 10PM. Sunday closed."
-                await context.sendActivity(msg);
-                return Dialog.EndOfTurn;
+            else if(context.activity.text.match(/reserve table/ig)){
+                return await dc.begin('reserveTable');
             }
-            
-            if(context.activity.text.match(/menu/ig)){
-                return await dc.begin('mainMenu');
-            }
+            else if(context.activity.text.match(/order dinner/ig)){
+                return await dc.begin('orderDinner');
+            }            
 
             if(!context.responded){
                 // Continue executing the "current" dialog, if any.
@@ -73,69 +80,30 @@ server.post('/api/messages', (req, res) => {
 
                 // The dialog is complete with data passed back.
                 if(results.status == "complete" && results.result){
-                    //
-                    // Because the 'mainMenu' dialog never returns or ends in this example, there is not data to persist.
-                    //
+                    // Do something with `results.result`
+                    const userInfo = await userInfoAccessor.get(step.context, {});
+
+                    // Persist data in appropriate bags
+                    if(results.result.guestInfo){
+                        userInfo.guestInfo = results.result.guestInfo;
+                    }
+                    else if(results.result.tableInfo){
+                        userInfo.tableInfo = results.result.tableInfo;
+                    }
+                    else if(results.result.orderCart){
+                        userInfo.orderCart = results.result.orderCart;
+                    }
                 }
 
                 if(!context.responded && isMessage){
                     // Default message
-                    await context.sendActivity("Hi! I'm a complex bot. Please say 'Menu'.");
+                    await context.sendActivity("Hi! I'm a simple bot. Please say 'check in', 'reserve table', or 'order dinner'.");
                 }
             }
         }
     });
 });
 
-
-
-// Main menu
-// The main menu will repeat itself at the end of the waterfall
-dialogs.add(new WaterfallDialog('mainMenu', [
-    async function(step){
-        await step.context.sendActivity("Welcome to Contoso Hotel.");
-        return await step.prompt('choicePrompt', "How may we serve you today?", ['Check in', 'Reserve table', 'Order Dinner']);
-    },
-    async function(step){
-        var choice = step.result;
-        // Check for valid intents
-        if(choice.value.match(/check in/ig)){
-            return await step.begin('checkIn');
-        }
-        else if(choice.value.match(/reserve table/ig)){
-            return await step.begin('reserveTable');
-        }
-        else if(choice.value.match(/order dinner/ig)){
-            return await step.begin('orderDinner');
-        }
-        else {
-            // Repeat the menu
-            return await step.replace('mainMenu');
-        }
-    },
-    async function(step){
-        // Do something with `results.result`
-        const userInfo = await userInfoAccessor.get(step.context, {});
-
-        // Persist user input, if any
-        if(step.result){
-            // Persist data in appropriate bags
-            if(step.result.guestInfo){
-                userInfo.guestInfo = step.result.guestInfo;
-            }
-            else if(step.result.tableInfo){
-                userInfo.tableInfo = step.result.tableInfo;
-            }
-            else if(step.result.orderCart){
-                userInfo.orderCart = step.result.orderCart;
-            }
-        }
-
-        // Start over
-        await step.cancelAll();           // Clears the stack
-        return await step.begin('mainMenu');    // Repeat the main menu
-    }
-]));
 
 // Check in user:
 dialogs.add(new WaterfallDialog('checkIn', [
@@ -172,7 +140,7 @@ dialogs.add(new WaterfallDialog('reserveTable', [
         const choices = ['1', '2', '3', '4', '5', '6'];
         return await step.prompt('choicePrompt', prompt, choices);
     },
-    async function (step) {
+    async function ( step) {
         // Create a new local tableInfo databag
         step.values.tableInfo.tableNumber = step.result.value;
 

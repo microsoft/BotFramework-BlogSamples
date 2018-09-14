@@ -47,7 +47,7 @@ const storage = new MemoryStorage(); // Volatile memory
 const conversationState = new ConversationState(storage);
 const userInfoState = new UserState(storage);
 const userInfoAccessor = userInfoState.createProperty('userInfo');
-adapter.use(new BotStateSet(conversationState, userInfoState));
+adapter.use(conversationState, userInfoState);
 
 // Define a dialog set with state object set to the conversation state.
 const dialogs = new DialogSet(conversationState.createProperty('dialogState'));

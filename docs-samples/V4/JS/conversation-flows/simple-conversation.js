@@ -1,106 +1,84 @@
-/*
- * Botbuilder v4 SDK - Simple Conversation Flows.
- * 
- * This bot demonstrates how to use dialogs, waterfall, and prompts to manage conversation flows.
- * 
- * To run this bot:
- * 1) install these npm packages:
- * npm install --save restify
- * npm install --save botbuilder@preview
- * npm install --save botbuilder-dialogs@preview
- * 
- * 2) From VSCode, open the package.json file and make sure that "main" is not set to any path (or is undefined) 
- * 3) Navigate to your bot app.js file and run the bot in debug mode (eg: click Debug/Start debuging)
- * 4) Load the emulator and point it to: http://localhost:3978/api/messages
- * 5) Send the message "hi" to engage with the bot.
- *
- */ 
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
-// Required packages for this bot
-const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState, BotStateSet } = require('botbuilder');
 const restify = require('restify');
-const { DialogSet, WaterfallDialog, TextPrompt, DateTimePrompt, NumberPrompt, ChoicePrompt } = require('botbuilder-dialogs');
+const path = require('path');
+const fs = require('fs');
+const ERROR = 1;
 
-// Create server
+// Import required bot services. See https://aka.ms/bot-services to learn more about the different part of a bot
+const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
+const { BotConfiguration } = require('botframework-config'); // TODO: Must install
+
+const MainDialog = require('./dialogs/mainDialog');
+
+// Read botFilePath and botFileSecret from .env file
+// Note: Ensure you have a .env file and include botFilePath and botFileSecret.
+const ENV_FILE = path.join(__dirname, '.env'); // Byte order mark or encoding bytes in env file or bot file
+
+console.log('ENV_FILE', ENV_FILE);
+const env = require('dotenv').config({path: ENV_FILE}); // TODO: Must install
+
+// Create HTTP server
 let server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
-    console.log(`${server.name} listening to ${server.url}`);
+    console.log(`\n${server.name} listening to ${server.url}`);
+    console.log(`\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator`);
+    console.log(`\nTo talk to your bot, open simple-prompt-bot.bot file in the Emulator`);
 });
 
-// Create adapter
-const adapter = new BotFrameworkAdapter({ 
-    appId: process.env.MICROSOFT_APP_ID, 
-    appPassword: process.env.MICROSOFT_APP_PASSWORD 
+// .bot file path: 
+const BOT_FILE = path.join(__dirname, (process.env.botFilePath || ''));
+
+console.log('reading config from ', BOT_FILE);
+// read bot configuration from .bot file. 
+let botConfig;
+try {
+    botConfig = BotConfiguration.loadSync(BOT_FILE, process.env.botFileSecret);
+} catch (err) {
+    console.log(`Error reading bot file. Please ensure you have valid botFilePath and botFileSecret set for your environment`);
+    console.log(err);
+    process.exit(ERROR);
+}
+
+// The Service.name as defined in .bot file 
+// See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration .
+const BOT_CONFIGURATION = 'http://localhost:3978/api/messages'; // TODO: Service.name, not bot name
+
+// Get bot endpoint configuration by service name
+const endpointConfig = botConfig.findServiceByNameOrId(BOT_CONFIGURATION);
+
+// Create adapter. See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration .
+const adapter = new BotFrameworkAdapter({
+    appId: endpointConfig.appId || process.env.microsoftAppID,
+    appPassword: endpointConfig.appPassword || process.env.microsoftAppPassword
 });
 
-// Storage
-const storage = new MemoryStorage(); // Volatile memory
-const conversationState = new ConversationState(storage);
-const userInfoAccessor = conversationState.createProperty('userInfo');
-adapter.use(new BotStateSet(conversationState));
+// Define state store for your bot. See https://aka.ms/about-bot-state to learn more about using MemoryStorage.
+// A bot requires a some sort of state storage system to persist the dialog and user state between messages.
+const memoryStorage = new MemoryStorage();
+// CAUTION: The Memory Storage used here is for local bot debugging only. When the bot
+// is restarted, anything stored in memory will be gone. 
+// For production bots use the Azure CosmosDB storage, or Azure Blob storage providers. 
+// const { CosmosDbStorage } = require('botbuilder-azure');
+// const STORAGE_CONFIGURATION = 'cosmosDB'; // this is the name of the CosmosDB configuration in your .bot file
+// const cosmosConfig = botConfig.findServiceByNameOrId(STORAGE_CONFIGURATION);
+// const cosmosStorage = new CosmosDbStorage({serviceEndpoint: cosmosConfig.connectionString, 
+//                                            authKey: ?, 
+//                                            databaseId: cosmosConfig.database, 
+//                                            collectionId: cosmosConfig.collection});
 
-// Define a dialog set with state object set to the conversation state.
-const dialogs = new DialogSet(conversationState.createProperty('dialogState'));
+// Create conversation state with in-memory storage provider. 
+const conversationState = new ConversationState(memoryStorage);
+const userState = new UserState(memoryStorage)
 
-// Listen for incoming activity 
+// Create the main dialog.
+const mainDlg = new MainDialog(conversationState, userState);
+
+// Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
     adapter.processActivity(req, res, async (context) => {
-        const isMessage = (context.activity.type === 'message');
-        //const convoState = await conversationState.get(context);
-        const dc = await dialogs.createContext(context);
-        
-        if (isMessage) {
-            // Check for valid intents
-            if(context.activity.text.match(/hello/ig)){
-                return await dc.begin('greetings');
-            }
-        }
-
-        if(!context.responded){
-            // Continue executing the "current" dialog, if any.
-            var results = await dc.continue();
-
-            if(results.status == "complete"){
-                // Do something with `results.result`
-                // ...
-            }
-
-            if(!context.responded && isMessage){
-                // Default message
-                await context.sendActivity("Hi! I'm a simple bot. Please say 'Hello'.");
-            }
-        }
+        // route to main dialog.
+        await mainDlg.onTurn(context);        
     });
 });
-
-
-// Greet user:
-// Ask for the user name and then greet them by name.
-// Ask them where they work.
-dialogs.add(new WaterfallDialog('greetings', [
-    async function (dc, step){
-        step.values.userInfo = {}; // New object
-        return await dc.prompt('textPrompt', 'Hi! What is your name?');
-    },
-    async function(dc, step){
-        var userName = step.result;
-        step.values.userInfo.userName = userName;
-        await dc.context.sendActivity(`Hi ${userName}!`);
-        return await dc.prompt('textPrompt', 'Where do you work?');
-    },
-    async function(dc, step){
-        var workPlace = step.result;
-        step.values.userInfo.workPlace = workPlace;
-        await dc.context.sendActivity(`${workPlace} is a fun place.`);
-
-        // Persist user data
-        const userData = await userInfoAccessor.get(dc.context, {});
-        userData.userInfo = step.values.userInfo;
-
-        return await dc.end(); // Ends the dialog
-    }
-]));
-
-// Define prompts
-// Generic prompts
-dialogs.add(new TextPrompt('textPrompt'));

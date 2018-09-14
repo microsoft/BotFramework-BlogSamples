@@ -1,15 +1,16 @@
 {
     "name": "js-samples",
     "description": "",
+    "version": "2.0",
     "secretKey": "",
     "services": [
         {
-            "appId": "",
-            "id": "d38b1100-78aa-11e8-92f0-17660970af48",
             "type": "endpoint",
+            "name": "http://localhost:3978/api/messages",
+            "id": "f6ae7bb0-b2cd-11e8-aea4-25faac1b3621",
+            "appId": "",
             "appPassword": "",
-            "endpoint": "http://localhost:3978/api/messages",
-            "name": "http://localhost:3978/api/messages"
+            "endpoint": "http://localhost:3978/api/messages"
         }
     ]
 }
