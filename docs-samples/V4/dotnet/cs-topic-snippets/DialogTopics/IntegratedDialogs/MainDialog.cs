@@ -62,44 +62,44 @@
             // Define the conversation flow using a waterfall model.
             Add(new WaterfallDialog(MainDialogId, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // The user profile should always be initialized before we enter this,
                     // so we don't need to provide a default value factory in this call.
-                    var userProfile = await UserProfileAccessor.GetAsync(dc.Context);
+                    var userProfile = await UserProfileAccessor.GetAsync(step.Context);
 
                     // Ask the user to enter a menu option, and end the turn.
-                    await dc.Context.SendActivityAsync(
+                    await step.Context.SendActivityAsync(
                         MessageFactory.SuggestedActions(
                             Commands.MenuOptions,
                             $"Hi {userProfile.Guest.Name}, how can I help you?"));
 
                     return Dialog.EndOfTurn;
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Decide which dialog to start, based on the user input.
                     string input = step.Result as string;
 
                     if (string.Equals(input, Commands.ReserveTable, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return await dc.BeginAsync(DialogIds.ReserveTable);
+                        return await step.BeginAsync(DialogIds.ReserveTable);
                     }
                     else if (string.Equals(input, Commands.WakeUp, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return await dc.BeginAsync(DialogIds.WakeUp);
+                        return await step.BeginAsync(DialogIds.WakeUp);
                     }
                     else
                     {
-                        await dc.Context.SendActivityAsync(
+                        await step.Context.SendActivityAsync(
                             "Sorry, I don't understand that command. Please choose an option from the list.");
                         return await step.NextAsync();
                     }
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Get the user profile from the turn context.
-                    var userProfile = await UserProfileAccessor.GetAsync(dc.Context);
+                    var userProfile = await UserProfileAccessor.GetAsync(step.Context);
 
                     // Update the profile based on the result of the previous step.
                     switch (step.Result)
@@ -114,7 +114,7 @@
                     }
 
                     // Show the main menu again.
-                    return await dc.ReplaceAsync(MainDialogId);
+                    return await step.ReplaceAsync(MainDialogId);
                 }
             }));
         }

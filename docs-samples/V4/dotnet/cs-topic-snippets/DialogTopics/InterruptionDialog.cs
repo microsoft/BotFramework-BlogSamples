@@ -24,7 +24,7 @@ namespace DialogTopics
                 /// <summary>
                 /// Define the input arguments to the dialog.
                 /// </summary>
-                public class Options : DialogOptions
+                public class Options
                 {
                     public double First { get; set; }
                     public double Second { get; set; }
@@ -37,17 +37,17 @@ namespace DialogTopics
                 {
                     Add(new WaterfallDialog(Main, new WaterfallStep[]
                     {
-                        async (dc, step, cancellationToken) =>
+                        async (step, cancellationToken) =>
                         {
                             // Get the input from the arguments to the dialog and add them.
                             var options = step.Options as Options;
                             var sum = options.First + options.Second;
 
                             // Display the result to the user.
-                            await dc.Context.SendActivityAsync($"{options.First} + {options.Second} = {sum}");
+                            await step.Context.SendActivityAsync($"{options.First} + {options.Second} = {sum}");
 
                             // End the dialog.
-                            return await dc.EndAsync();
+                            return await step.EndAsync();
                         }
                     }));
                 }

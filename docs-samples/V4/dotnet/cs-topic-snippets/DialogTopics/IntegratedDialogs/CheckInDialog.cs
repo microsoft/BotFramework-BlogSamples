@@ -51,40 +51,40 @@
             // Define the conversation flow using a waterfall model.
             AddDialog(new WaterfallDialog(Id, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Initialize guest information and prompt for the guest's name.
                     step.Values[Values.GuestInfo] = new GuestInfo();
-                    return await dc.PromptAsync(PromptIds.GuestName, new PromptOptions
+                    return await step.PromptAsync(PromptIds.GuestName, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What is your name?")
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Save the name and prompt for the room number.
                     string name = step.Result as string;
                     GuestInfo guestInfo = step.Values[Values.GuestInfo] as GuestInfo;
                     guestInfo.Name = name;
 
-                    return await dc.PromptAsync(PromptIds.RoomNumber, new PromptOptions
+                    return await step.PromptAsync(PromptIds.RoomNumber, new PromptOptions
                     {
                         Prompt = MessageFactory.Text(
                             $"Hi {name}. What room will you be staying in?")
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Save the room number and "sign off".
                     int room = (int)step.Result;
                     GuestInfo guestInfo = step.Values[Values.GuestInfo] as GuestInfo;
                     guestInfo.Room = room;
 
-                    await dc.Context.SendActivityAsync(
+                    await step.Context.SendActivityAsync(
                         $"Great, room {room} is ready for you.<br/>Enjoy your stay!");
 
                     // End the dialog, and return the guest info.
-                    return await dc.EndAsync(guestInfo);
+                    return await step.EndAsync(guestInfo);
                 }
             }));
         }

@@ -70,55 +70,55 @@ namespace ContainerLib
         /// <InheritDoc/>
         public string Name => "a topic-selection bot";
 
-        /// <summary>Returns either the command entered or the index of the topic selected.</summary>
-        /// <param name="context">The turn context.</param>
-        /// <param name="prompt">The validation context.</param>
-        /// <returns>A task representing the operation to perform.</returns>
-        private static async Task TopicValidator(
-            ITurnContext context,
-            PromptValidatorContext<FoundChoice> prompt,
-            CancellationToken cancellationToken = default(CancellationToken))
+        private async Task<bool> TopicValidator(
+            PromptValidatorContext<FoundChoice> promptContext,
+            CancellationToken cancellationToken)
         {
-            if (prompt.Recognized.Succeeded)
+            if (promptContext.Recognized.Succeeded)
             {
                 // Return the index of the selected topic.
-                prompt.End(prompt.Recognized.Value.Index);
+                //prompt.End(prompt.Recognized.Value.Index);
+                return true;
             }
             else
             {
-                string text = context.Activity.AsMessageActivity()?.Text?.Trim();
+                string text = promptContext.Context.Activity.AsMessageActivity()?.Text?.Trim();
                 Command command = Command.Commands.FirstOrDefault(c => c.Equals(text));
                 if (command != null)
                 {
                     // Return the command entered.
-                    prompt.End(command);
+                    //prompt.End(command);
+                    promptContext.State["command"] = command;
+                    return true;
                 }
+                return false;
             }
         }
 
         /// <summary>Returns either the command entered or the name of the section selected.</summary>
         /// <param name="context">The turn context.</param>
-        /// <param name="prompt">The validation context.</param>
+        /// <param name="promptContext">The validation context.</param>
         /// <returns>A task representing the operation to perform.</returns>
-        private static async Task SectionValidator(
-            ITurnContext context,
-            PromptValidatorContext<FoundChoice> prompt,
+        private static async Task<bool> SectionValidator(
+            PromptValidatorContext<FoundChoice> promptContext,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (prompt.Recognized.Succeeded)
+            if (promptContext.Recognized.Succeeded)
             {
                 // Return the name of the selected section.
-                prompt.End(prompt.Recognized.Value.Value);
+                return true;
             }
             else
             {
-                string text = context.Activity.AsMessageActivity()?.Text?.Trim();
+                string text = promptContext.Context.Activity.AsMessageActivity()?.Text?.Trim();
                 Command command = Command.Commands.FirstOrDefault(c => c.Equals(text));
                 if (command != null)
                 {
                     // Return the command entered.
-                    prompt.End(command);
+                    promptContext.State["command"] = command;
+                    return true;
                 }
+                return false;
             }
         }
 
@@ -145,53 +145,53 @@ namespace ContainerLib
 
             Add(new WaterfallDialog(Inputs.ChooseTopic, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
-                    return await dc.PromptAsync(Inputs.Topic, new PromptOptions
+                    return await step.PromptAsync(Inputs.Topic, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("Choose a topic:"),
                         RetryPrompt = MessageFactory.Text("Please choose one of these topics, or type `help`."),
                         Choices = ChoiceFactory.ToChoices(Topics.Select(t => t.Name).ToList()),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     if (step.Result is Command command)
                     {
                         if (command.Equals(Command.Help))
                         {
-                                await dc.Context.SendActivityAsync(Responses.Help);
+                                await step.Context.SendActivityAsync(Responses.Help);
                         }
 
                         // All other commands are no-ops, as we're already at the "top level".
-                        await dc.Context.TraceActivityAsync("ChooseTopic, step 2: Repeating the choose topic dialog.");
-                        return await dc.ReplaceAsync(Inputs.ChooseTopic);
+                        await step.Context.TraceActivityAsync("ChooseTopic, step 2: Repeating the choose topic dialog.");
+                        return await step.ReplaceAsync(Inputs.ChooseTopic);
                     }
                     else if (step.Result is int index)
                     {
                         ChooseSectionOptions sectionOptions = new ChooseSectionOptions { Topic = Topics[index] };
-                        await dc.Context.TraceActivityAsync($"ChooseTopic, step 2 -- Selected topic **{sectionOptions.Topic.Name}**.");
-                        return await dc.BeginAsync(Inputs.ChooseSection, sectionOptions);
+                        await step.Context.TraceActivityAsync($"ChooseTopic, step 2 -- Selected topic **{sectionOptions.Topic.Name}**.");
+                        return await step.BeginAsync(Inputs.ChooseSection, sectionOptions);
                     }
 
                     // else, we shouldn't get here, but fail gracefully.
-                    await dc.Context.TraceActivityAsync("ChooseTopic, step 2, graceful fail: Repeating the choose topic dialog.");
-                    return await dc.ReplaceAsync(Inputs.ChooseTopic);
+                    await step.Context.TraceActivityAsync("ChooseTopic, step 2, graceful fail: Repeating the choose topic dialog.");
+                    return await step.ReplaceAsync(Inputs.ChooseTopic);
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     Debug.WriteLine("Entering >> Dialog >> ChooseTopic, step 3.");
 
                     // We're resurfacing from the select-section dialog.
                     // This is the top level, so we don't really care how things bubbled back up.
-                    await dc.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
-                    return await dc.ReplaceAsync(Inputs.ChooseTopic);
+                    await step.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
+                    return await step.ReplaceAsync(Inputs.ChooseTopic);
                 },
             }));
 
             Add(new WaterfallDialog(Inputs.ChooseSection, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     TopicDescriptor topic = (step.Options as ChooseSectionOptions)?.Topic
                         ?? throw new ArgumentNullException("step.Options", "Step options must be provided when begining section selection.");
@@ -200,14 +200,14 @@ namespace ContainerLib
 
                     Debug.WriteLine($"Entering >> Dialog >> ChooseSection, step 1 (for topic {topic.Name}).");
 
-                    return await dc.PromptAsync(Inputs.Section, new PromptOptions
+                    return await step.PromptAsync(Inputs.Section, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("Choose a section:"),
                         RetryPrompt = MessageFactory.Text("Please choose one of these sections, or type `help`."),
                         Choices = ChoiceFactory.ToChoices(topic.Sections.Keys.ToList()),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     TopicDescriptor topic = step.Values[Values.Topic] as TopicDescriptor
                         ?? throw new InvalidOperationException("SelectionDialog, step 2 has no Topic value set.");
@@ -218,15 +218,15 @@ namespace ContainerLib
                     {
                         if (command.Equals(Command.Help))
                         {
-                            await dc.Context.SendActivityAsync(Responses.Help);
-                            return await dc.ReplaceAsync(Inputs.ChooseSection, new ChooseSectionOptions { Topic = topic });
+                            await step.Context.SendActivityAsync(Responses.Help);
+                            return await step.ReplaceAsync(Inputs.ChooseSection, new ChooseSectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Command.Back)
                             || command.Equals(Command.Reset))
                         {
                             // Return to the topic selection dialog.
-                            await dc.Context.TraceActivityAsync("Exiting the choose section dialog.");
-                            return await dc.EndAsync();
+                            await step.Context.TraceActivityAsync("Exiting the choose section dialog.");
+                            return await step.EndAsync();
                         }
                     }
                     else if (step.Result is string section)
@@ -262,18 +262,18 @@ namespace ContainerLib
                             Bot = bot ?? throw new InvalidOperationException($"Could not construct a {botType} bot for section {section}."),
                         };
 
-                        await dc.Context.TraceActivityAsync($"Starting the run snippet dialog for topic **{topic.Name}**," +
+                        await step.Context.TraceActivityAsync($"Starting the run snippet dialog for topic **{topic.Name}**," +
                             $" section **{section}** (`{options.Bot.GetType().Name}`).");
-                        return await dc.BeginAsync(Inputs.RunSnippet, options);
+                        return await step.BeginAsync(Inputs.RunSnippet, options);
                     }
 
                     // else repeat, using the same initial state, that is, for the same topic.
                     // shouldn't really get here.
-                    return await dc.ReplaceAsync(
+                    return await step.ReplaceAsync(
                         Inputs.ChooseSection,
                         new ChooseSectionOptions { Topic = topic });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     TopicDescriptor topic = step.Values[Values.Topic] as TopicDescriptor
                         ?? throw new InvalidOperationException("SelectionDialog, step 3 has no Topic value set.");
@@ -287,69 +287,69 @@ namespace ContainerLib
                         if (command.Equals(Command.Back))
                         {
                             // Repeat, using the same initial state, that is, for the same topic.
-                            return await dc.ReplaceAsync(
+                            return await step.ReplaceAsync(
                                 Inputs.ChooseSection,
                                 new ChooseSectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Command.Reset))
                         {
                             // Exit and signal that it because of the reset.
-                            return await dc.EndAsync(command);
+                            return await step.EndAsync(command);
                         }
                         else
                         {
                             // Shouldn't get here, but fail gracefully.
-                            await dc.Context.TraceActivityAsync(
+                            await step.Context.TraceActivityAsync(
                                 $"Hit SelectionDialog, step 3 with a {command.Name} command. Repeating the dialog over again.");
-                            return await dc.EndAsync();
+                            return await step.EndAsync();
                         }
                     }
                     else
                     {
                         // Shouldn't get here, but fail gracefully.
-                        await dc.Context.TraceActivityAsync(
+                        await step.Context.TraceActivityAsync(
                             $"Hit SelectionDialog, step 3 with a step.Result of {step.Result ?? "null"}. Repeating the dialog over again.");
-                        return await dc.EndAsync();
+                        return await step.EndAsync();
                     }
                 },
             }));
 
             Add(new WaterfallDialog(Inputs.RunSnippet, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     IBot bot = (step.Options as RunSnippetOptions).Bot;
                     step.Values[Values.Bot] = bot;
 
                     Debug.WriteLine($"Entering >> Dialog >> RunSnippet, step 1 (for bot {bot.GetType().Name}).");
 
-                    string text = dc.Context.Activity.AsMessageActivity().Text?.Trim();
+                    string text = step.Context.Activity.AsMessageActivity().Text?.Trim();
                     if (Command.Help.Equals(text))
                     {
-                        await dc.Context.SendActivityAsync(Responses.Help);
-                        return await dc.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
+                        await step.Context.SendActivityAsync(Responses.Help);
+                        return await step.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
                     }
                     else if (Command.Back.Equals(text))
                     {
-                        return await dc.EndAsync(Command.Back);
+                        return await step.EndAsync(Command.Back);
                     }
                     else if (Command.Reset.Equals(text))
                     {
-                        return await dc.EndAsync(Command.Reset);
+                        return await step.EndAsync(Command.Reset);
                     }
                     else
                     {
-                        await bot.OnTurnAsync(dc.Context);
+                        await bot.OnTurnAsync(step.Context);
                         return Dialog.EndOfTurn;
                     }
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     IBot bot = step.Values[Values.Bot] as IBot;
 
                     Debug.WriteLine($"Entering >> Dialog >> RunSnippet, step 2 (for bot {bot.GetType().Name}).");
 
-                    return await dc.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
+                    return await step.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
                 },
             }));
         }

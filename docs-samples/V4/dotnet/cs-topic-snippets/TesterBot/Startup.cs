@@ -47,18 +47,15 @@ namespace TesterBot
                 };
 
                 var dataStore = new MemoryStorage();
-                var convState = new ConversationState(dataStore);
-                var metaState = new MetaState(dataStore, "meta");
-                var state = new BotStateSet(convState, metaState);
-                options.Middleware.Add(state);
+                options.State.Add(new ConversationState(dataStore));
+                options.State.Add(new MetaState(dataStore, "meta"));
             });
 
             // Register the meta-bot dialog state property accessor.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var metaState = stateSet.BotStates.OfType<MetaState>().First();
+                var metaState = options.State.OfType<MetaState>().First();
                 return metaState.CreateProperty<DialogState>("Meta.DialogState");
             });
 
@@ -67,8 +64,7 @@ namespace TesterBot
             {
                 var dialogState = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var convState = stateSet.BotStates.First(x => x.GetType().Equals(typeof(ConversationState))) as ConversationState;
+                var convState = options.State.OfType<ConversationState>().First();
                 var topics = new List<TopicDescriptor>
                 {
                     new TopicDescriptor

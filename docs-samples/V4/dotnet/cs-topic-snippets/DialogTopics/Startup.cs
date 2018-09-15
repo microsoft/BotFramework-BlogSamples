@@ -165,17 +165,19 @@ namespace DialogTopics
 
                 // We're using both conversation and user state.
                 IStorage dataStore = new MemoryStorage();
+
                 var convState = new ConversationState(dataStore);
+                options.State.Add(convState);
+
                 var userState = new UserState(dataStore);
-                options.Middleware.Add(new BotStateSet(convState, userState));
+                options.State.Add(userState);
             });
 
             // Create and register the dialog state accessor off of conversation state.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var convState = stateSet.BotStates.OfType<ConversationState>().FirstOrDefault();
+                var convState = options.State.OfType<ConversationState>().FirstOrDefault();
                 return convState.CreateProperty<DialogState>("IntegratedDialogs.DialogState");
             });
 
@@ -183,8 +185,7 @@ namespace DialogTopics
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var userState = stateSet.BotStates.OfType<UserState>().FirstOrDefault();
+                var userState = options.State.OfType<UserState>().FirstOrDefault();
                 return userState.CreateProperty<IntegratedDialogs.UserProfile>("IntegratedDialogs.UserProfile");
             });
 

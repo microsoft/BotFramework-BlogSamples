@@ -40,19 +40,19 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and a cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the user's name.
-                    return await dc.PromptAsync(Inputs.Text, new PromptOptions
+                    return await step.PromptAsync(Inputs.Text, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What is your name?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var user = step.Result as string;
                     await dc.Context.SendActivityAsync($"Hi {user}!");
-                    return await dc.EndAsync();
+                    return await step.EndAsync();
                 },
             }));
         }
@@ -72,28 +72,28 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and a cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the user's name.
-                    return await dc.PromptAsync(Inputs.Text, new PromptOptions
+                    return await step.PromptAsync(Inputs.Text, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What is your name?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Ask them where they work.
                     var user = step.Result as string;
-                    return await dc.PromptAsync(Inputs.Text, new PromptOptions
+                    return await step.PromptAsync(Inputs.Text, new PromptOptions
                     {
                         Prompt = MessageFactory.Text($"Hi {user}! Where do you work?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var workPlace = step.Result as string;
                     await dc.Context.SendActivityAsync($"{workPlace} is a cool place!");
-                    return await dc.EndAsync();
+                    return await step.EndAsync();
                 },
             }));
         }
@@ -117,28 +117,28 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and a cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the user's name.
-                    return await dc.PromptAsync(Inputs.Name, new PromptOptions
+                    return await step.PromptAsync(Inputs.Name, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What is your name?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Ask them where they work.
                     var user = step.Result as string;
-                    return await dc.PromptAsync(Inputs.Work, new PromptOptions
+                    return await step.PromptAsync(Inputs.Work, new PromptOptions
                     {
                         Prompt = MessageFactory.Text($"Hi {user}! Where do you work?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var workPlace = step.Result as string;
                     await dc.Context.SendActivityAsync($"{workPlace} is a cool place!");
-                    return await dc.EndAsync();
+                    return await step.EndAsync();
                 },
             }));
         }
@@ -167,21 +167,21 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the party size.
-                    return await dc.PromptAsync(Inputs.Size, new PromptOptions()
+                    return await step.PromptAsync(Inputs.Size, new PromptOptions()
                     {
                         Prompt = MessageFactory.Text("How many people are in your party?"),
                         RetryPrompt = MessageFactory.Text("Please specify party size between 6 and 20."),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var size = (int)step.Result;
 
                     await dc.Context.SendActivityAsync($"Okay, {size} people!");
-                    return await dc.EndAsync();
+                    return await step.EndAsync();
                 },
             }));
         }
@@ -195,19 +195,15 @@ namespace DialogTopics
 
         /// <summary>Validates input for the partySize prompt.</summary>
         /// <param name="turnContext">The context object for the current turn of the bot.</param>
-        /// <param name="prompt">The validation context from the prompt.</param>
+        /// <param name="promptContext">The validation context from the prompt.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects
         /// or threads to receive notice of cancellation.</param>
         /// <returns>A task that represents the work queued to execute.</returns>
-        private static async Task PartySizeValidator(
-            ITurnContext turnContext,
-            PromptValidatorContext<int> prompt,
+        private static async Task<bool> PartySizeValidator(
+            PromptValidatorContext<int> promptContext,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (prompt.Recognized.Value >= 6 && prompt.Recognized.Value <= 20)
-            {
-                prompt.End(prompt.Recognized.Value);
-            }
+            return (promptContext.Recognized.Value >= 6 && promptContext.Recognized.Value <= 20);
         }
 
         /// <summary>Defines the prompts and steps of the dialog.</summary>
@@ -221,21 +217,21 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the party size.
-                    return await dc.PromptAsync(Inputs.Size, new PromptOptions()
+                    return await step.PromptAsync(Inputs.Size, new PromptOptions()
                     {
                         Prompt = MessageFactory.Text("How many people are in your party?"),
                         RetryPrompt = MessageFactory.Text("Please specify party size between 6 and 20."),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var size = (int)step.Result;
 
-                    await dc.Context.SendActivityAsync($"Okay, {size} people!");
-                    return await dc.EndAsync();
+                    await step.Context.SendActivityAsync($"Okay, {size} people!");
+                    return await step.EndAsync();
                 },
             }));
         }
@@ -287,21 +283,21 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the party size.
-                    return await dc.PromptAsync(Inputs.Time, new PromptOptions()
+                    return await step.PromptAsync(Inputs.Time, new PromptOptions()
                     {
                         Prompt = MessageFactory.Text("When would you like that?"),
                         RetryPrompt = MessageFactory.Text("Please specify a time in the future."),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var time = (DateTimeResolution)step.Result;
 
                     await dc.Context.SendActivityAsync($"Okay, {time.Value} it is!");
-                    return await dc.EndAsync();
+                    return await step.EndAsync();
                 },
             }));
         }
@@ -324,22 +320,22 @@ namespace DialogTopics
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
                 // Each step takes in a dialog context, step context, and cancellation token.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for a color. A choice prompt requires that you specify the available choices.
-                    return await dc.PromptAsync(Inputs.Color, new PromptOptions
+                    return await step.PromptAsync(Inputs.Color, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("Please choose a color?"),
                         RetryPrompt = MessageFactory.Text("Sorry, please choose one of these colors."),
                         Choices = ChoiceFactory.ToChoices(Colors),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     var color = (FoundChoice)step.Result;
 
                     await dc.Context.SendActivityAsync($"Okay, {color.Value} it is!");
-                    return await dc.EndAsync();
+                    return await step.EndAsync();
                 },
             }));
         }

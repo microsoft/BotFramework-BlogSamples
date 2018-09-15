@@ -50,25 +50,25 @@
             // Define the conversation flow using a waterfall model.
             AddDialog(new WaterfallDialog(Id, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the table number.
                     string[] choices = new string[] { "1", "2", "3", "4", "5", "6" };
-                    return await dc.PromptAsync("choicePrompt", new PromptOptions
+                    return await step.PromptAsync("choicePrompt", new PromptOptions
                     {
                         Prompt = MessageFactory.Text("Which table would you like to reserve?"),
                         Choices = choices.Select(s => new Choice { Value = s }).ToList()
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Get the table number and "sign off".
                     var choice = step.Result as FoundChoice;
-                    await dc.Context.SendActivityAsync(
+                    await step.Context.SendActivityAsync(
                         $"Sounds great; we will reserve table number {choice.Value} for you.");
 
                     // End the dialog, returning the table information.
-                    return await dc.EndAsync(new TableInfo { Number = choice.Value });
+                    return await step.EndAsync(new TableInfo { Number = choice.Value });
                 }
             }));
         }

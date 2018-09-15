@@ -50,23 +50,23 @@
             // Define the conversation flow using a waterfall model.
             AddDialog(new WaterfallDialog(Id, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Prompt for the alarm time.
-                    return await dc.PromptAsync(PromptIds.AlarmTime, new PromptOptions
+                    return await step.PromptAsync(PromptIds.AlarmTime, new PromptOptions
                     {
                         Prompt = MessageFactory.Text($"what time would you like your alarm set for?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Get the alarm time and "sign off".
                     var resolution = step.Result as IList<DateTimeResolution>;
                     var time = resolution.FirstOrDefault()?.Value;
-                    await dc.Context.SendActivityAsync($"Your alarm is set to {time}.");
+                    await step.Context.SendActivityAsync($"Your alarm is set to {time}.");
 
                     // End the dialog, returning the wake up alarm information.
-                    return await dc.EndAsync(new WakeUpInfo { Time = time });
+                    return await step.EndAsync(new WakeUpInfo { Time = time });
                 }
             }));
         }

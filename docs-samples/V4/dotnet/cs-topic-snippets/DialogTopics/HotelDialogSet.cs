@@ -123,7 +123,7 @@
         }
 
         /// <summary>Contains the guest's dinner order.</summary>
-        private class OrderCart : DialogOptions
+        private class OrderCart
         {
             public List<MenuChoice> Items { get; set; }
             public double Total { get; set; }
@@ -138,49 +138,49 @@
             // Add the main welcome dialog.
             this.Add(new WaterfallDialog(MainMenu, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Greet the guest and ask them to choose an option.
-                    await dc.Context.SendActivityAsync("Welcome to Contoso Hotel and Resort.");
-                    return await dc.PromptAsync(Inputs.Choice, new PromptOptions
+                    await step.Context.SendActivityAsync("Welcome to Contoso Hotel and Resort.");
+                    return await step.PromptAsync(Inputs.Choice, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("How may we serve you today?"),
                         RetryPrompt = Lists.WelcomeReprompt,
                         Choices = Lists.WelcomeChoices,
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Begin a child dialog associated with the chosen option.
                     var choice = step.Result as FoundChoice;
                     var dialogId = Lists.WelcomeOptions[choice.Index].DialogName;
 
-                    return await dc.BeginAsync(dialogId);
+                    return await step.BeginAsync(dialogId);
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Start this dialog over again.
-                    return await dc.ReplaceAsync(MainMenu);
+                    return await step.ReplaceAsync(MainMenu);
                 },
             }));
 
             // Add the order-dinner dialog.
             this.Add(new WaterfallDialog(Dialogs.OrderDinner, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
-                    await dc.Context.SendActivityAsync("Welcome to our Dinner order service.");
+                    await step.Context.SendActivityAsync("Welcome to our Dinner order service.");
 
                     // Start the food selection dialog.
-                    return await dc.BeginAsync(Dialogs.OrderPrompt);
+                    return await step.BeginAsync(Dialogs.OrderPrompt);
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     if (step.Result is OrderCart order && order?.Items != null && order.Items.Count > 0)
                     {
                         // If there are items in the order, record the order and ask for a room number.
                         step.Values[Outputs.OrderCart] = order.Items;
-                        return await dc.PromptAsync(Inputs.Number, new PromptOptions
+                        return await step.PromptAsync(Inputs.Number, new PromptOptions
                         {
                             Prompt = MessageFactory.Text("What is your room number?"),
                             RetryPrompt = MessageFactory.Text("Please enter your room number."),
@@ -189,25 +189,25 @@
                     else
                     {
                         // Otherwise, assume the order was cancelled by the guest and exit.
-                        return await dc.EndAsync();
+                        return await step.EndAsync();
                     }
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Get and save the guest's answer.
                     var roomNumber = step.Result as string;
                     step.Values[Outputs.RoomNumber] = roomNumber;
 
                     // Process the dinner order using the collected order cart and room number.
-                    await dc.Context.SendActivityAsync($"Thank you. Your order will be delivered to room {roomNumber} within 45 minutes.");
-                    return await dc.EndAsync();
+                    await step.Context.SendActivityAsync($"Thank you. Your order will be delivered to room {roomNumber} within 45 minutes.");
+                    return await step.EndAsync();
                 },
             }));
 
             // Add the food-selection dialog.
             this.Add(new WaterfallDialog(Dialogs.OrderPrompt, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     if (step.Options is OrderCart order && order?.Items != null)
                     {
@@ -228,14 +228,14 @@
                         };
                     }
 
-                    return await dc.PromptAsync(Inputs.Choice, new PromptOptions
+                    return await step.PromptAsync(Inputs.Choice, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What would you like?"),
                         RetryPrompt = Lists.MenuReprompt,
                         Choices = Lists.MenuChoices,
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Get the guest's choice.
                     var choice = step.Result as FoundChoice;
@@ -250,7 +250,7 @@
                         {
                             // If there are any items in the order, then exit this dialog,
                             // and return the list of selected food items.
-                            return await dc.EndAsync(new OrderCart
+                            return await step.EndAsync(new OrderCart
                             {
                                 Items = orderCart.Items.ToList(),
                                 Total = orderCart.Total,
@@ -260,17 +260,17 @@
                         {
                             // Otherwise, send an error message and restart from
                             // the beginning of this dialog.
-                            await dc.Context.SendActivityAsync(
+                            await step.Context.SendActivityAsync(
                                 "Your cart is empty. Please add at least one item to the cart.");
-                            return await dc.ReplaceAsync(Dialogs.OrderPrompt);
+                            return await step.ReplaceAsync(Dialogs.OrderPrompt);
                         }
                     }
                     else if (option.Name is MenuChoice.Cancel)
                     {
-                        await dc.Context.SendActivityAsync("Your order has been cancelled.");
+                        await step.Context.SendActivityAsync("Your order has been cancelled.");
 
                         // Exit this dialog, without returning a value.
-                        return await dc.EndAsync();
+                        return await step.EndAsync();
                     }
                     else
                     {
@@ -278,12 +278,12 @@
                         orderCart.Items.Add(option);
                         orderCart.Total += option.Price;
 
-                        await dc.Context.SendActivityAsync($"Added {option.Name} (${option.Price:0.00}) to your order." +
+                        await step.Context.SendActivityAsync($"Added {option.Name} (${option.Price:0.00}) to your order." +
                             Environment.NewLine + Environment.NewLine +
                             $"Your current total is ${orderCart.Total:0.00}.");
 
                         // Present the order options again, passing in the current order state.
-                        return await dc.ReplaceAsync(Dialogs.OrderPrompt, new OrderCart
+                        return await step.ReplaceAsync(Dialogs.OrderPrompt, new OrderCart
                         {
                             Items = orderCart.Items.ToList(),
                             Total = orderCart.Total,
@@ -296,10 +296,10 @@
             this.Add(new WaterfallDialog(Dialogs.ReserveTable, new WaterfallStep[]
             {
                 // Replace this waterfall with your reservation steps.
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
-                    await dc.Context.SendActivityAsync("Your table has been reserved.");
-                    return await dc.EndAsync();
+                    await step.Context.SendActivityAsync("Your table has been reserved.");
+                    return await step.EndAsync();
                 }
             }));
         }

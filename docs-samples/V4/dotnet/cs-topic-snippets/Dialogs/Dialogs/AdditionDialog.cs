@@ -20,7 +20,7 @@ namespace Dialogs
             public const string Second = "second";
         }
 
-        public class Options : DialogOptions
+        public class Options
         {
             public double First { get; set; }
             public double Second { get; set; }
@@ -31,17 +31,17 @@ namespace Dialogs
         {
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Get the input from the arguments to the dialog and add them.
                     Options options = step.Options as Options;
                     double sum = options.First + options.Second;
 
                     // Display the result to the user.
-                    await dc.Context.SendActivityAsync($"{options.First} + {options.Second} = {sum}");
+                    await step.Context.SendActivityAsync($"{options.First} + {options.Second} = {sum}");
 
                     // End the dialog.
-                    return await dc.EndAsync(sum);
+                    return await step.EndAsync(sum);
                 }
             }));
         }

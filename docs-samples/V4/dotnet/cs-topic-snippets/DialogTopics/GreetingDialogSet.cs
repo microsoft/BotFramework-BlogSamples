@@ -39,38 +39,38 @@
             // Define the dialog logic for greeting the user.
             Add(new WaterfallDialog(Main, new WaterfallStep[]
             {
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Ask for their name.
-                    return await dc.PromptAsync(Inputs.Text, new PromptOptions
+                    return await step.PromptAsync(Inputs.Text, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What is your name?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Save the prompt result in dialog state.
                     step.Values[Values.Name] = step.Result;
 
                     // Acknowledge their input.
-                    await dc.Context.SendActivityAsync($"Hi, {step.Result}!");
+                    await step.Context.SendActivityAsync($"Hi, {step.Result}!");
 
                     // Ask where they work.
-                    return await dc.PromptAsync(Inputs.Text, new PromptOptions
+                    return await step.PromptAsync(Inputs.Text, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("Where do you work?"),
                     });
                 },
-                async (dc, step, cancellationToken) =>
+                async (step, cancellationToken) =>
                 {
                     // Save the prompt result in dialog state.
                     step.Values[Values.WorkPlace] = step.Result;
 
                     // Acknowledge their input.
-                    await dc.Context.SendActivityAsync($"{step.Result} is a fun place.");
+                    await step.Context.SendActivityAsync($"{step.Result} is a fun place.");
 
                     // End the dialog and return the collected information.
-                    return await dc.EndAsync(new Output
+                    return await step.EndAsync(new Output
                     {
                         Name = step.Values[Values.Name] as string,
                         WorkPlace = step.Values[Values.WorkPlace] as string,

@@ -55,17 +55,15 @@
                         CosmosDBEndpoint = new Uri(CosmosSettings["EndpointUri"]),
                         AuthKey = CosmosSettings["AuthenticationKey"],
                     });
-                var conversationState = new ConversationState(storage);
-                var userState = new UserState(storage);
-                options.Middleware.Add(new BotStateSet(conversationState, userState));
+                options.State.Add(new ConversationState(storage));
+                options.State.Add(new UserState(storage));
             });
 
             // Register the dialog state accessor off of conversation state.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var stateSet = options.Middleware.OfType<BotStateSet>().FirstOrDefault();
-                var conversationState = stateSet.BotStates.OfType<ConversationState>().FirstOrDefault();
+                var conversationState = options.State.OfType<ConversationState>().FirstOrDefault();
                 return conversationState.CreateProperty<DialogState>("UserDataBot.DialogState");
             });
 
