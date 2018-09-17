@@ -6,7 +6,7 @@
     "services": [
         {
             "type": "endpoint",
-            "name": "http://localhost:3978/api/messages",
+            "name": "js-samples",
             "id": "f6ae7bb0-b2cd-11e8-aea4-25faac1b3621",
             "appId": "",
             "appPassword": "",

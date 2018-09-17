@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 const { ActivityTypes } = require('botbuilder');
-const { DialogSet, WaterfallDialog, TextPrompt, NumberPrompt } = require('botbuilder-dialogs');
+const { Dialog, DialogSet, WaterfallDialog, TextPrompt, NumberPrompt } = require('botbuilder-dialogs');
 
 class MainDialog {
     /**
@@ -63,6 +63,18 @@ class MainDialog {
         if (isMessage) {
             // Create dialog context
             const dc = await this.dialogs.createContext(turnContext);
+            
+            //Handle user interrupts
+            if(turnContext.activity.text.match(/help/ig)){
+                var msg = "Help: To interact with the bot, send it any of these messages: 'check in'.";
+                await turnContext.sendActivity(msg);
+                return Dialog.EndOfTurn; // Ends the turn
+            }
+            else if(turnContext.activity.text.match(/open hours/ig)){
+                var msg = "Hours of operation: M-F 5AM - 11PM. Sat 9AM - 10PM. Sunday closed."
+                await turnContext.sendActivity(msg);
+                return Dialog.EndOfTurn;
+            }
 
             // Check for valid intents
             if(turnContext.activity.text.match(/check in/ig)){
@@ -87,7 +99,7 @@ class MainDialog {
 
                 if(!turnContext.responded && isMessage){
                     // Default message
-                    await turnContext.sendActivity("Hi! I'm a simple bot. Please say 'check in'.");
+                    await turnContext.sendActivity("Hi! I'm a simple bot. Please say 'check in', 'help', or 'open hours'.");
                 }
             }
             

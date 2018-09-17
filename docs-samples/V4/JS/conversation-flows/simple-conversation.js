@@ -10,7 +10,7 @@ const ERROR = 1;
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
 const { BotConfiguration } = require('botframework-config'); // TODO: Must install
 
-const MainDialog = require('./dialogs/mainDialog');
+const MainDialog = require('./dialogs/mainDialog/handle-interrupts');
 
 // Read botFilePath and botFileSecret from .env file
 // Note: Ensure you have a .env file and include botFilePath and botFileSecret.
@@ -24,7 +24,7 @@ let server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log(`\n${server.name} listening to ${server.url}`);
     console.log(`\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator`);
-    console.log(`\nTo talk to your bot, open simple-prompt-bot.bot file in the Emulator`);
+    console.log(`\nTo talk to your bot, open echobot.bot file in the Emulator`);
 });
 
 // .bot file path: 
@@ -43,7 +43,7 @@ try {
 
 // The Service.name as defined in .bot file 
 // See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration .
-const BOT_CONFIGURATION = 'http://localhost:3978/api/messages'; // TODO: Service.name, not bot name
+const BOT_CONFIGURATION = 'js-samples'; // TODO: Service.name, not bot name
 
 // Get bot endpoint configuration by service name
 const endpointConfig = botConfig.findServiceByNameOrId(BOT_CONFIGURATION);
