@@ -38,7 +38,7 @@ const adapter = new BotFrameworkAdapter({
 // Add BlobStorage 
 const storage = new BlobStorage({
     containerName: "cashblobstorage91018",
-    storageAccountOrConnectionString: "DefaultEndpointsProtocol=https;AccountName=cashblobstorage91018;AccountKey=E6346MZXAoIAbSB9B6xNwqwdYMtzgRLPIC8T+ZlpEc2VOTZvphRC3llxhOZCqX+++Genw8xAHIc3oXM5ADoYgw==;EndpointSuffix=core.windows.net"
+    storageAccountOrConnectionString: ""
     // storageAccessKey: "E6346MZXAoIAbSB9B6xNwqwdYMtzgRLPIC8T+ZlpEc2VOTZvphRC3llxhOZCqX+++Genw8xAHIc3oXM5ADoYgw=="
     //host?: string | Host
 });
