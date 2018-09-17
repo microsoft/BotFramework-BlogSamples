@@ -267,25 +267,25 @@ namespace basicOperations
 
                         // All other commands are no-ops, as we're already at the "top level".
                         await step.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
-                        return await step.ReplaceAsync(Input.ChooseTopic);
+                        return await step.ReplaceDialogAsync(Input.ChooseTopic);
                     }
                     else if (step.Result is int index)
                     {
                         SectionOptions sectionOptions = new SectionOptions { Topic = Snippets.Topics[index] };
                         await step.Context.TraceActivityAsync($"Selected topic **{sectionOptions.Topic.Name}**.");
-                        return await step.BeginAsync(Input.ChooseSection, sectionOptions);
+                        return await step.BeginDialogAsync(Input.ChooseSection, sectionOptions);
                     }
 
                     // else, we shouldn't get here, but fail gracefully.
                     await step.Context.TraceActivityAsync("ChooseTopic, step 2, graceful fail: Repeating the choose topic dialog.");
-                    return await step.ReplaceAsync(Input.ChooseTopic);
+                    return await step.ReplaceDialogAsync(Input.ChooseTopic);
                 },
                 async (step, cancellationToken) =>
                 {
                     // We're resurfacing from the select-section dialog.
                     // This is the top level, so we don't really care how things bubbled back up.
                     await step.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
-                    return await step.ReplaceAsync(Input.ChooseTopic);
+                    return await step.ReplaceDialogAsync(Input.ChooseTopic);
                 },
             }));
             SelectionDialog.Add(new WaterfallDialog(Input.ChooseSection, new WaterfallStep[]
@@ -312,14 +312,14 @@ namespace basicOperations
                         if (command.Equals(Commands.Help))
                         {
                             await step.Context.SendActivityAsync(Response.Help);
-                            return await step.ReplaceAsync(Input.ChooseSection, new SectionOptions { Topic = topic });
+                            return await step.ReplaceDialogAsync(Input.ChooseSection, new SectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Commands.Back)
                             || command.Equals(Commands.Reset))
                         {
                             // Return to the topic selection dialog.
                             await step.Context.TraceActivityAsync("Exiting the choose section dialog.");
-                            return await step.EndAsync();
+                            return await step.EndDialogAsync();
                         }
                     }
                     else if (step.Result is string section)
@@ -327,12 +327,12 @@ namespace basicOperations
                         SnippetOptions options = new SnippetOptions { Bot = topic.Sections[section] };
                         await step.Context.TraceActivityAsync($"Starting the run snippet dialog for topic **{topic.Name}**," +
                             $" section **{section}** (`{options.Bot.GetType().Name}`).");
-                        return await step.BeginAsync(Input.RunSnippet, options);
+                        return await step.BeginDialogAsync(Input.RunSnippet, options);
                     }
 
                     // else repeat, using the same initial state, that is, for the same topic.
                     // shouldn't really get here.
-                    return await step.ReplaceAsync(
+                    return await step.ReplaceDialogAsync(
                         Input.ChooseSection,
                         new SectionOptions { Topic = topic });
                 },
@@ -348,27 +348,27 @@ namespace basicOperations
                         if (command.Equals(Commands.Back))
                         {
                             // Repeat, using the same initial state, that is, for the same topic.
-                            return await step.ReplaceAsync(
+                            return await step.ReplaceDialogAsync(
                                 Input.ChooseSection,
                                 new SectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Commands.Reset))
                         {
                             // Exit and signal that it because of the reset.
-                            return await step.EndAsync(command);
+                            return await step.EndDialogAsync(command);
                         }
                         else
                         {
                             // Shouldn't get here, but fail gracefully.
                             await step.Context.TraceActivityAsync($"Hit SelectionDialog, step 3 with a {command.Name} command. Repeating the dialog over again.");
-                            return await step.EndAsync();
+                            return await step.EndDialogAsync();
                         }
                     }
                     else
                     {
                         // Shouldn't get here, but fail gracefully.
                         await step.Context.TraceActivityAsync($"Hit SelectionDialog, step 3 with a step.Result of {step.Result ?? "null"}. Repeating the dialog over again.");
-                        return await step.EndAsync();
+                        return await step.EndDialogAsync();
                     }
                 },
             }));
@@ -382,15 +382,15 @@ namespace basicOperations
                     if (Commands.Help.Equals(text))
                     {
                         await step.Context.SendActivityAsync(Response.Help);
-                        return await step.ReplaceAsync(Input.RunSnippet, new SnippetOptions { Bot = bot });
+                        return await step.ReplaceDialogAsync(Input.RunSnippet, new SnippetOptions { Bot = bot });
                     }
                     else if (Commands.Back.Equals(text))
                     {
-                        return await step.EndAsync(Commands.Back);
+                        return await step.EndDialogAsync(Commands.Back);
                     }
                     else if (Commands.Reset.Equals(text))
                     {
-                        return await step.EndAsync(Commands.Reset);
+                        return await step.EndDialogAsync(Commands.Reset);
                     }
                     else
                     {
@@ -401,7 +401,7 @@ namespace basicOperations
                 async (step, cancellationToken) =>
                 {
                     IBot bot = step.Values[Value.Bot] as IBot;
-                    return await step.ReplaceAsync(Input.RunSnippet, new SnippetOptions { Bot = bot });
+                    return await step.ReplaceDialogAsync(Input.RunSnippet, new SnippetOptions { Bot = bot });
                 },
             }));
         }
@@ -417,14 +417,14 @@ namespace basicOperations
                     IConversationUpdateActivity update = context.Activity.AsConversationUpdateActivity();
                     if (update.MembersAdded.Any(m => m.Id != update.Recipient.Id))
                     {
-                        await dc.BeginAsync(Input.ChooseTopic);
+                        await dc.BeginDialogAsync(Input.ChooseTopic);
                     }
 
                     break;
 
                 case ActivityTypes.Message:
 
-                    DialogTurnResult turnResult = await dc.ContinueAsync();
+                    DialogTurnResult turnResult = await dc.ContinueDialogAsync();
 
                     break;
             }

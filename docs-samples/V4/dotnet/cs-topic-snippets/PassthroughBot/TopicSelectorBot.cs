@@ -26,18 +26,18 @@ namespace ContainerLib
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
                         await turnContext.SendActivityAsync($"Welcome to {TopicSelection.Name}!", cancellationToken: cancellationToken);
-                        await dc.BeginAsync(TopicSelection.Default);
+                        await dc.BeginDialogAsync(TopicSelection.Default);
                     }
 
                     break;
 
                 case ActivityTypes.Message:
 
-                    await dc.ContinueAsync();
+                    await dc.ContinueDialogAsync();
                     if (!turnContext.Responded)
                     {
                         await turnContext.SendActivityAsync("Let's start over!", cancellationToken: cancellationToken);
-                        await dc.BeginAsync(TopicSelection.Default);
+                        await dc.BeginDialogAsync(TopicSelection.Default);
                     }
 
                     break;

@@ -35,7 +35,7 @@ namespace ContainerLib
                 },
                                 async (step, cancellationToken) =>
                 {
-                    return await step.ReplaceAsync(Inputs.Main);
+                    return await step.ReplaceDialogAsync(Inputs.Main);
                 },
             }));
         }

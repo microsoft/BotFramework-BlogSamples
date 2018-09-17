@@ -29,7 +29,7 @@
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
                         await turnContext.SendActivityAsync($"Welcome to the prompts dialog bot!");
-                        await dc.BeginAsync(PromptsDialogSet.Main);
+                        await dc.BeginDialogAsync(PromptsDialogSet.Main);
                     }
 
                     break;
@@ -38,12 +38,12 @@
                 case ActivityTypes.Message:
 
                     // Continue any active dialog.
-                    Microsoft.Bot.Builder.Dialogs.DialogTurnResult turnResult = await dc.ContinueAsync();
+                    Microsoft.Bot.Builder.Dialogs.DialogTurnResult turnResult = await dc.ContinueDialogAsync();
                     if (!turnContext.Responded)
                     {
                         // Restart the dialog.
                         await turnContext.SendActivityAsync("Let's start again.");
-                        await dc.BeginAsync(PromptsDialogSet.Main);
+                        await dc.BeginDialogAsync(PromptsDialogSet.Main);
                     }
 
                     break;

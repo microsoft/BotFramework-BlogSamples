@@ -43,7 +43,7 @@
                     if (TryParseAddingTwoNumbers(turnContext.Activity.Text, out double first, out double second))
                     {
                         // Start the dialog, passing in the numbers to add.
-                        var turnResult = await dc.BeginAsync(AdditionDialogSet.Main, new AdditionDialogSet.Options
+                        var turnResult = await dc.BeginDialogAsync(AdditionDialogSet.Main, new AdditionDialogSet.Options
                         {
                             First = first,
                             Second = second,

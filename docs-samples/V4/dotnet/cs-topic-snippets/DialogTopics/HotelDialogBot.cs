@@ -32,7 +32,7 @@ namespace DialogTopics
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
                         await turnContext.SendActivityAsync($"Welcome to the Contoso Hotel dialog bot!");
-                        await dc.BeginAsync(HotelDialogSet.MainMenu);
+                        await dc.BeginDialogAsync(HotelDialogSet.MainMenu);
                     }
 
                     break;
@@ -41,11 +41,11 @@ namespace DialogTopics
                 case ActivityTypes.Message:
 
                     // Continue any active dialog.
-                    DialogTurnResult turnResult = await dc.ContinueAsync();
+                    DialogTurnResult turnResult = await dc.ContinueDialogAsync();
                     if (!turnContext.Responded)
                     {
                         // Not all channels send a conversationUpdate activity.
-                        await dc.BeginAsync(HotelDialogSet.MainMenu);
+                        await dc.BeginDialogAsync(HotelDialogSet.MainMenu);
                     }
 
                     break;

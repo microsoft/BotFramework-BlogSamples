@@ -139,18 +139,18 @@ namespace MetaBot
 
                         // All other commands are no-ops, as we're already at the "top level".
                         await step.Context.TraceActivityAsync("ChooseTopic, step 2: Repeating the choose topic dialog.");
-                        return await step.ReplaceAsync(Inputs.ChooseTopic);
+                        return await step.ReplaceDialogAsync(Inputs.ChooseTopic);
                     }
                     else if (step.Result is int index)
                     {
                         ChooseSectionOptions sectionOptions = new ChooseSectionOptions { Topic = Topics[index] };
                         await step.Context.TraceActivityAsync($"ChooseTopic, step 2 -- Selected topic **{sectionOptions.Topic.Name}**.");
-                        return await step.BeginAsync(Inputs.ChooseSection, sectionOptions);
+                        return await step.BeginDialogAsync(Inputs.ChooseSection, sectionOptions);
                     }
 
                     // else, we shouldn't get here, but fail gracefully.
                     await step.Context.TraceActivityAsync("ChooseTopic, step 2, graceful fail: Repeating the choose topic dialog.");
-                    return await step.ReplaceAsync(Inputs.ChooseTopic);
+                    return await step.ReplaceDialogAsync(Inputs.ChooseTopic);
                 },
                 async (step, cancellationToken) =>
                 {
@@ -159,7 +159,7 @@ namespace MetaBot
                     // We're resurfacing from the select-section dialog.
                     // This is the top level, so we don't really care how things bubbled back up.
                     await step.Context.TraceActivityAsync("ChooseTopic, step 3: Repeating the choose topic dialog.");
-                    return await step.ReplaceAsync(Inputs.ChooseTopic);
+                    return await step.ReplaceDialogAsync(Inputs.ChooseTopic);
                 },
             }));
             Add(new WaterfallDialog(Inputs.ChooseSection, new WaterfallStep[]
@@ -192,14 +192,14 @@ namespace MetaBot
                         if (command.Equals(Command.Help))
                         {
                             await step.Context.SendActivityAsync(Responses.Help);
-                            return await step.ReplaceAsync(Inputs.ChooseSection, new ChooseSectionOptions { Topic = topic });
+                            return await step.ReplaceDialogAsync(Inputs.ChooseSection, new ChooseSectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Command.Back)
                             || command.Equals(Command.Reset))
                         {
                             // Return to the topic selection dialog.
                             await step.Context.TraceActivityAsync("Exiting the choose section dialog.");
-                            return await step.EndAsync();
+                            return await step.EndDialogAsync();
                         }
                     }
                     else if (step.Result is string section)
@@ -212,12 +212,12 @@ namespace MetaBot
 
                         await step.Context.TraceActivityAsync($"Starting the run snippet dialog for topic **{topic.Name}**," +
                             $" section **{section}** (`{options.Bot.GetType().Name}`).");
-                        return await step.BeginAsync(Inputs.RunSnippet, options);
+                        return await step.BeginDialogAsync(Inputs.RunSnippet, options);
                     }
 
                     // else repeat, using the same initial state, that is, for the same topic.
                     // shouldn't really get here.
-                    return await step.ReplaceAsync(
+                    return await step.ReplaceDialogAsync(
                         Inputs.ChooseSection,
                         new ChooseSectionOptions { Topic = topic });
                 },
@@ -235,21 +235,21 @@ namespace MetaBot
                         if (command.Equals(Command.Back))
                         {
                             // Repeat, using the same initial state, that is, for the same topic.
-                            return await step.ReplaceAsync(
+                            return await step.ReplaceDialogAsync(
                                 Inputs.ChooseSection,
                                 new ChooseSectionOptions { Topic = topic });
                         }
                         else if (command.Equals(Command.Reset))
                         {
                             // Exit and signal that it because of the reset.
-                            return await step.EndAsync(command);
+                            return await step.EndDialogAsync(command);
                         }
                         else
                         {
                             // Shouldn't get here, but fail gracefully.
                             await step.Context.TraceActivityAsync(
                                 $"Hit SelectionDialog, step 3 with a {command.Name} command. Repeating the dialog over again.");
-                            return await step.EndAsync();
+                            return await step.EndDialogAsync();
                         }
                     }
                     else
@@ -257,7 +257,7 @@ namespace MetaBot
                         // Shouldn't get here, but fail gracefully.
                         await step.Context.TraceActivityAsync(
                             $"Hit SelectionDialog, step 3 with a step.Result of {step.Result ?? "null"}. Repeating the dialog over again.");
-                        return await step.EndAsync();
+                        return await step.EndDialogAsync();
                     }
                 },
             }));
@@ -274,15 +274,15 @@ namespace MetaBot
                     if (Command.Help.Equals(text))
                     {
                         await step.Context.SendActivityAsync(Responses.Help);
-                        return await step.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
+                        return await step.ReplaceDialogAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
                     }
                     else if (Command.Back.Equals(text))
                     {
-                        return await step.EndAsync(Command.Back);
+                        return await step.EndDialogAsync(Command.Back);
                     }
                     else if (Command.Reset.Equals(text))
                     {
-                        return await step.EndAsync(Command.Reset);
+                        return await step.EndDialogAsync(Command.Reset);
                     }
                     else
                     {
@@ -296,7 +296,7 @@ namespace MetaBot
 
                     Debug.WriteLine($"Entering >> Dialog >> RunSnippet, step 2 (for bot {bot.GetType().Name}).");
 
-                    return await step.ReplaceAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
+                    return await step.ReplaceDialogAsync(Inputs.RunSnippet, new RunSnippetOptions { Bot = bot });
                 },
             }));
         }

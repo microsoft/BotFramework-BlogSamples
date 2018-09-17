@@ -41,7 +41,7 @@ namespace Dialogs
                     await step.Context.SendActivityAsync($"{options.First} + {options.Second} = {sum}");
 
                     // End the dialog.
-                    return await step.EndAsync(sum);
+                    return await step.EndDialogAsync(sum);
                 }
             }));
         }

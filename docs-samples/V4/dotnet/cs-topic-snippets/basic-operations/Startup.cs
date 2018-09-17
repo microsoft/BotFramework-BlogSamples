@@ -44,7 +44,7 @@ namespace basicOperations
                 };
 
                 IStorage dataStore = new MemoryStorage();
-                options.Middleware.Add(new ConversationState(dataStore));
+                options.State.Add(new ConversationState(dataStore));
             });
 
             services.AddSingleton(sp =>
@@ -53,7 +53,7 @@ namespace basicOperations
                     ?? throw new InvalidOperationException(
                         "BotFrameworkOptions must be configured prior to setting up the state accessors.");
 
-                var state = options.Middleware.OfType<ConversationState>().FirstOrDefault()
+                var state = options.State.OfType<ConversationState>().FirstOrDefault()
                     ?? throw new InvalidOperationException(
                         "Conversation state must be defined and added before adding conversation-scoped state accessors.");
 

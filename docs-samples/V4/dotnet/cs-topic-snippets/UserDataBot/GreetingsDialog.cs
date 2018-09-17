@@ -34,7 +34,7 @@
                 async (step, cancellationToken) =>
                 {
                     // Assume that they entered their name, and return the value.
-                    return await step.EndAsync(step.Result);
+                    return await step.EndDialogAsync(step.Result);
                 },
             }));
         }

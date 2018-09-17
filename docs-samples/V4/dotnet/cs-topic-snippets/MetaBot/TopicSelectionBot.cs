@@ -39,14 +39,14 @@ namespace MetaBot
                     IConversationUpdateActivity update = turnContext.Activity.AsConversationUpdateActivity();
                     if (update.MembersAdded.Any(m => m.Id != update.Recipient.Id))
                     {
-                        await dc.BeginAsync(SelectionDialogSet.Inputs.ChooseTopic);
+                        await dc.BeginDialogAsync(SelectionDialogSet.Inputs.ChooseTopic);
                     }
 
                     break;
 
                 case ActivityTypes.Message:
 
-                    DialogTurnResult turnResult = await dc.ContinueAsync();
+                    DialogTurnResult turnResult = await dc.ContinueDialogAsync();
 
                     break;
             }

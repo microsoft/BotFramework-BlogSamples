@@ -155,12 +155,12 @@
                     var choice = step.Result as FoundChoice;
                     var dialogId = Lists.WelcomeOptions[choice.Index].DialogName;
 
-                    return await step.BeginAsync(dialogId);
+                    return await step.BeginDialogAsync(dialogId);
                 },
                 async (step, cancellationToken) =>
                 {
                     // Start this dialog over again.
-                    return await step.ReplaceAsync(MainMenu);
+                    return await step.ReplaceDialogAsync(MainMenu);
                 },
             }));
 
@@ -172,7 +172,7 @@
                     await step.Context.SendActivityAsync("Welcome to our Dinner order service.");
 
                     // Start the food selection dialog.
-                    return await step.BeginAsync(Dialogs.OrderPrompt);
+                    return await step.BeginDialogAsync(Dialogs.OrderPrompt);
                 },
                 async (step, cancellationToken) =>
                 {
@@ -189,7 +189,7 @@
                     else
                     {
                         // Otherwise, assume the order was cancelled by the guest and exit.
-                        return await step.EndAsync();
+                        return await step.EndDialogAsync();
                     }
                 },
                 async (step, cancellationToken) =>
@@ -200,7 +200,7 @@
 
                     // Process the dinner order using the collected order cart and room number.
                     await step.Context.SendActivityAsync($"Thank you. Your order will be delivered to room {roomNumber} within 45 minutes.");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
 
@@ -250,7 +250,7 @@
                         {
                             // If there are any items in the order, then exit this dialog,
                             // and return the list of selected food items.
-                            return await step.EndAsync(new OrderCart
+                            return await step.EndDialogAsync(new OrderCart
                             {
                                 Items = orderCart.Items.ToList(),
                                 Total = orderCart.Total,
@@ -262,7 +262,7 @@
                             // the beginning of this dialog.
                             await step.Context.SendActivityAsync(
                                 "Your cart is empty. Please add at least one item to the cart.");
-                            return await step.ReplaceAsync(Dialogs.OrderPrompt);
+                            return await step.ReplaceDialogAsync(Dialogs.OrderPrompt);
                         }
                     }
                     else if (option.Name is MenuChoice.Cancel)
@@ -270,7 +270,7 @@
                         await step.Context.SendActivityAsync("Your order has been cancelled.");
 
                         // Exit this dialog, without returning a value.
-                        return await step.EndAsync();
+                        return await step.EndDialogAsync();
                     }
                     else
                     {
@@ -283,7 +283,7 @@
                             $"Your current total is ${orderCart.Total:0.00}.");
 
                         // Present the order options again, passing in the current order state.
-                        return await step.ReplaceAsync(Dialogs.OrderPrompt, new OrderCart
+                        return await step.ReplaceDialogAsync(Dialogs.OrderPrompt, new OrderCart
                         {
                             Items = orderCart.Items.ToList(),
                             Total = orderCart.Total,
@@ -299,7 +299,7 @@
                 async (step, cancellationToken) =>
                 {
                     await step.Context.SendActivityAsync("Your table has been reserved.");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 }
             }));
         }

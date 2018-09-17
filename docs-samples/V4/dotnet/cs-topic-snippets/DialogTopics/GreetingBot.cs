@@ -30,7 +30,7 @@
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
                         await turnContext.SendActivityAsync($"Welcome to the greeting dialog bot!");
-                        await dc.BeginAsync(GreetingDialogSet.Main);
+                        await dc.BeginDialogAsync(GreetingDialogSet.Main);
                     }
 
                     break;
@@ -39,7 +39,7 @@
                 case ActivityTypes.Message:
 
                     // Continue any active dialog.
-                    var turnResult = await dc.ContinueAsync();
+                    var turnResult = await dc.ContinueDialogAsync();
                     if (turnResult.Status == DialogTurnStatus.Complete
                         && turnResult.Result is GreetingDialogSet.Output userInfo)
                     {
@@ -52,7 +52,7 @@
                     {
                         // Restart the dialog.
                         await turnContext.SendActivityAsync("Let's start again.");
-                        await dc.BeginAsync(GreetingDialogSet.Main);
+                        await dc.BeginDialogAsync(GreetingDialogSet.Main);
                     }
 
                     break;

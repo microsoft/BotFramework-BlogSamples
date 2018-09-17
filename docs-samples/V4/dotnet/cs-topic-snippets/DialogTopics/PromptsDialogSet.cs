@@ -52,7 +52,7 @@ namespace DialogTopics
                 {
                     var user = step.Result as string;
                     await dc.Context.SendActivityAsync($"Hi {user}!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }
@@ -93,7 +93,7 @@ namespace DialogTopics
                 {
                     var workPlace = step.Result as string;
                     await dc.Context.SendActivityAsync($"{workPlace} is a cool place!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }
@@ -138,7 +138,7 @@ namespace DialogTopics
                 {
                     var workPlace = step.Result as string;
                     await dc.Context.SendActivityAsync($"{workPlace} is a cool place!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }
@@ -181,7 +181,7 @@ namespace DialogTopics
                     var size = (int)step.Result;
 
                     await dc.Context.SendActivityAsync($"Okay, {size} people!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }
@@ -231,7 +231,7 @@ namespace DialogTopics
                     var size = (int)step.Result;
 
                     await step.Context.SendActivityAsync($"Okay, {size} people!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }
@@ -297,7 +297,7 @@ namespace DialogTopics
                     var time = (DateTimeResolution)step.Result;
 
                     await dc.Context.SendActivityAsync($"Okay, {time.Value} it is!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }
@@ -335,7 +335,7 @@ namespace DialogTopics
                     var color = (FoundChoice)step.Result;
 
                     await dc.Context.SendActivityAsync($"Okay, {color.Value} it is!");
-                    return await step.EndAsync();
+                    return await step.EndDialogAsync();
                 },
             }));
         }

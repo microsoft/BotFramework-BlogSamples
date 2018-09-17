@@ -66,7 +66,7 @@
                     await step.Context.SendActivityAsync($"Your alarm is set to {time}.");
 
                     // End the dialog, returning the wake up alarm information.
-                    return await step.EndAsync(new WakeUpInfo { Time = time });
+                    return await step.EndDialogAsync(new WakeUpInfo { Time = time });
                 }
             }));
         }

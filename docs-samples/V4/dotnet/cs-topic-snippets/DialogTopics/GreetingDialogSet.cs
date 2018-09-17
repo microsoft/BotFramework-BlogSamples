@@ -70,7 +70,7 @@
                     await step.Context.SendActivityAsync($"{step.Result} is a fun place.");
 
                     // End the dialog and return the collected information.
-                    return await step.EndAsync(new Output
+                    return await step.EndDialogAsync(new Output
                     {
                         Name = step.Values[Values.Name] as string,
                         WorkPlace = step.Values[Values.WorkPlace] as string,

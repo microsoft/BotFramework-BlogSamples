@@ -53,7 +53,7 @@ namespace Dialogs
                 // The Memory Storage used here is for local bot debugging only. When the bot
                 // is restarted, anything stored in memory will be gone. 
                 IStorage dataStore = new MemoryStorage();
-                options.Middleware.Add(new ConversationState(dataStore));
+                options.State.Add(new ConversationState(dataStore));
 
                 Debug.WriteLine($">>> options.Middleware.Count {options.Middleware.Count}.");
             });
@@ -64,7 +64,7 @@ namespace Dialogs
                 Debug.WriteLine($">>> Create a singleton state property accessor for the meta-bot.");
 
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var state = options.Middleware.OfType<BotState>().FirstOrDefault();
+                var state = options.State.OfType<BotState>().FirstOrDefault();
 
                 // Set the MetaBot's state property accessors.
                 return state.CreateProperty<DialogState>("metabotDialogState");
@@ -76,7 +76,7 @@ namespace Dialogs
                 Debug.WriteLine($">>> Create a singleton {nameof(OutterStateAccessors)}.");
 
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var state = options.Middleware.OfType<BotState>().FirstOrDefault();
+                var state = options.State.OfType<BotState>().FirstOrDefault();
 
                 return new OutterStateAccessors
                 {

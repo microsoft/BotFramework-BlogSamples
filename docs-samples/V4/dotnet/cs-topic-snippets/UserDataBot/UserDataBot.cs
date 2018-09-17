@@ -58,7 +58,7 @@
                         {
                             // If we don't already have their name, start a dialog to collect it.
                             await turnContext.SendActivityAsync("Welcome to the User Data bot.");
-                            await dc.BeginAsync(GreetingsDialog.MainDialog);
+                            await dc.BeginDialogAsync(GreetingsDialog.MainDialog);
                         }
                         else
                         {
@@ -74,7 +74,7 @@
                     // If there's a dialog running, continue it.
                     if (dc.ActiveDialog != null)
                     {
-                        var dialogTurnResult = await dc.ContinueAsync();
+                        var dialogTurnResult = await dc.ContinueDialogAsync();
                         if (dialogTurnResult.Status == DialogTurnStatus.Complete
                             && dialogTurnResult.Result is string name
                             && !string.IsNullOrWhiteSpace(name))
@@ -87,7 +87,7 @@
                     // Else, if we don't have the user's name yet, ask for it.
                     else if (userData.Name is null)
                     {
-                        await dc.BeginAsync(GreetingsDialog.MainDialog);
+                        await dc.BeginDialogAsync(GreetingsDialog.MainDialog);
                     }
                     // Else, echo the user's message text.
                     else

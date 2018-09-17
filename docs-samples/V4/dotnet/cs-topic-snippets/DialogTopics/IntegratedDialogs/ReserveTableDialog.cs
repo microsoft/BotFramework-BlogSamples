@@ -68,7 +68,7 @@
                         $"Sounds great; we will reserve table number {choice.Value} for you.");
 
                     // End the dialog, returning the table information.
-                    return await step.EndAsync(new TableInfo { Number = choice.Value });
+                    return await step.EndDialogAsync(new TableInfo { Number = choice.Value });
                 }
             }));
         }

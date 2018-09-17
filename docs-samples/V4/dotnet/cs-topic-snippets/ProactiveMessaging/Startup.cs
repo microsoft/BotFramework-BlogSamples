@@ -40,7 +40,7 @@ namespace ProactiveMessaging
 
                 IStorage dataStore = new MemoryStorage();
                 var botState = new JobState(dataStore);
-                options.Middleware.Add(botState);
+                options.State.Add(botState);
             });
         }
 

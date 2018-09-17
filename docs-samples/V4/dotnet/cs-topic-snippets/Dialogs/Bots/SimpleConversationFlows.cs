@@ -46,7 +46,7 @@ namespace Dialogs
                             [AdditionDialog.Inputs.First] = first,
                             [AdditionDialog.Inputs.Second] = second
                         };
-                        await dc.BeginAsync(AdditionDialog.Main, new AdditionDialog.Options
+                        await dc.BeginDialogAsync(AdditionDialog.Main, new AdditionDialog.Options
                         {
                             First = first,
                             Second = second,

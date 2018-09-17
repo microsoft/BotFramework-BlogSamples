@@ -30,7 +30,7 @@
             AppId = configuration["MicrosoftAppId"];
 
             // Create the job log accessor off of job state middleware.
-            JobState jobState = options.Value.Middleware.OfType<JobState>().FirstOrDefault();
+            JobState jobState = options.Value.State.OfType<JobState>().FirstOrDefault();
             JobLogAccessor = jobState.CreateProperty<JobLog>("ProactiveBot.JobLog");
         }
 

@@ -83,11 +83,11 @@
 
                     if (string.Equals(input, Commands.ReserveTable, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return await step.BeginAsync(DialogIds.ReserveTable);
+                        return await step.BeginDialogAsync(DialogIds.ReserveTable);
                     }
                     else if (string.Equals(input, Commands.WakeUp, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return await step.BeginAsync(DialogIds.WakeUp);
+                        return await step.BeginDialogAsync(DialogIds.WakeUp);
                     }
                     else
                     {
@@ -114,7 +114,7 @@
                     }
 
                     // Show the main menu again.
-                    return await step.ReplaceAsync(MainDialogId);
+                    return await step.ReplaceDialogAsync(MainDialogId);
                 }
             }));
         }

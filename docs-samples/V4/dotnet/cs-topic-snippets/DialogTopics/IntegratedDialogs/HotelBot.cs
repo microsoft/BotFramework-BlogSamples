@@ -72,7 +72,7 @@
                 case ActivityTypes.Message:
 
                     // Continue any current dialog.
-                    var turnResult = await dc.ContinueAsync();
+                    var turnResult = await dc.ContinueDialogAsync();
                     if (turnResult.Status == DialogTurnStatus.Complete
                         && turnResult.Result is CheckInDialog.GuestInfo info)
                     {
@@ -105,12 +105,12 @@
             // If we don't yet have the guest's info, start the check-in dialog.
             if (string.IsNullOrEmpty(userProfile?.Guest?.Name))
             {
-                await dc.BeginAsync(MainDialog.DialogIds.CheckIn, new PromptOptions());
+                await dc.BeginDialogAsync(MainDialog.DialogIds.CheckIn, new PromptOptions());
             }
             // Otherwise, start our bot's main dialog.
             else
             {
-                await dc.BeginAsync(MainDialog.MainDialogId, new PromptOptions());
+                await dc.BeginDialogAsync(MainDialog.MainDialogId, new PromptOptions());
             }
         }
     }

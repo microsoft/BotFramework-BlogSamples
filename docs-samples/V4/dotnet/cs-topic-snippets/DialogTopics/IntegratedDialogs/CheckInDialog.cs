@@ -84,7 +84,7 @@
                         $"Great, room {room} is ready for you.<br/>Enjoy your stay!");
 
                     // End the dialog, and return the guest info.
-                    return await step.EndAsync(guestInfo);
+                    return await step.EndDialogAsync(guestInfo);
                 }
             }));
         }
