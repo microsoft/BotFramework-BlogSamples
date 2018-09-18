@@ -1,7 +1,7 @@
 ﻿namespace PrimitivePrompts
 {
     /// <summary>
-    /// Conatins user state information for the user's profile.
+    /// Contains user state information for the user's profile.
     /// </summary>
     public class UserProfile
     {

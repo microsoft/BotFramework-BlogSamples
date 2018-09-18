@@ -50,10 +50,11 @@
                 //options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
 
                 // Catches any errors that occur during a conversation turn and logs them.
-                ILogger logger = _loggerFactory.CreateLogger<PrimitivePromptsBot>();
+                // ILogger logger = _loggerFactory.CreateLogger<PrimitivePromptsBot>();
                 options.OnTurnError = async (context, exception) =>
                 {
-                    logger.LogError($"Exception caught : {exception}");
+                    //logger.LogError($"Exception caught : {exception}");
+                    await context.TraceActivityAsync($"Exception caught : {exception}");
                     await context.SendActivityAsync("Sorry, it looks like something went wrong.");
                 };
 
@@ -78,7 +79,7 @@
                 // State accessors enable other components to read and write individual properties of state.
                 var accessors = new BotAccessors(conversationState, userState)
                 {
-                    DialogStateAccessor = conversationState.CreateProperty<DialogState>(BotAccessors.DialogStateName),
+                    TopicStateAccessor = conversationState.CreateProperty<TopicState>(BotAccessors.TopicStateName),
                     UserProfileAccessor = userState.CreateProperty<UserProfile>(BotAccessors.UserProfileName),
                 };
 

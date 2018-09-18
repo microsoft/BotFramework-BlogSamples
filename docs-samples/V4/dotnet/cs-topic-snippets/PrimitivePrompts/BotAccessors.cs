@@ -8,13 +8,17 @@ namespace PrimitivePrompts
     /// </summary>
     public class BotAccessors
     {
-        public const string DialogStateName = "PrimitivePrompts.DialogStateAccessor";
+        public const string TopicStateName = "PrimitivePrompts.TopicStateAccessor";
 
         public const string UserProfileName = "PrimitivePrompts.UserProfileAccessor";
 
-        public BotStateSet StateSet { get; }
+        //public BotStateSet StateSet { get; }
 
-        public IStatePropertyAccessor<DialogState> DialogStateAccessor { get; set; }
+        public ConversationState ConversationState { get; }
+
+        public UserState UserState { get; }
+
+        public IStatePropertyAccessor<TopicState> TopicStateAccessor { get; set; }
 
         public IStatePropertyAccessor<UserProfile> UserProfileAccessor { get; set; }
 
@@ -30,7 +34,10 @@ namespace PrimitivePrompts
                 throw new ArgumentNullException(nameof(userState));
             }
 
-            StateSet = new BotStateSet(conversationState, userState);
+            // StateSet = new BotStateSet(conversationState, userState);
+
+            this.ConversationState = conversationState;
+            this.UserState = userState;
         }
     }
 }

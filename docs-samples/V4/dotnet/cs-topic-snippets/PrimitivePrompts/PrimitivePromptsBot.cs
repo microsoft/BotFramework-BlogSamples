@@ -83,17 +83,23 @@
         {
             if (turnContext.Activity.Type is ActivityTypes.Message)
             {
-                // Use the state property accessors to get the dialog state and user profile.
-                DialogState dialogState = await Accessors.DialogStateAccessor.GetAsync(turnContext, () => new DialogState(), cancellationToken);
-                UserProfile userProfile = await Accessors.UserProfileAccessor.GetAsync(turnContext, () => new UserProfile(), cancellationToken);
+                // Use the state property accessors to get the topic state and user profile.
+                TopicState topicState = await Accessors.TopicStateAccessor.GetAsync(
+                    turnContext,
+                    () => new TopicState { Topic = ProfileTopic, Prompt = null },
+                    cancellationToken);
+                UserProfile userProfile = await Accessors.UserProfileAccessor.GetAsync(
+                    turnContext,
+                    () => new UserProfile(),
+                    cancellationToken);
 
                 // Check whether we need more information.
-                if (dialogState.Topic is ProfileTopic)
+                if (topicState.Topic is ProfileTopic)
                 {
                     // If we're expecting input, record it in the user's profile.
-                    if (dialogState.Prompt != null)
+                    if (topicState.Prompt != null)
                     {
-                        UserFieldInfo field = UserFields.First(f => f.Key.Equals(dialogState.Prompt));
+                        UserFieldInfo field = UserFields.First(f => f.Key.Equals(topicState.Prompt));
                         field.SetValue(userProfile, turnContext.Activity.Text.Trim());
                     }
 
@@ -113,14 +119,14 @@
                         // so that the response can be captured at the beginning of the next turn.
                         UserFieldInfo field = emptyFields.First();
                         await turnContext.SendActivityAsync(field.Prompt);
-                        dialogState.Prompt = field.Key;
+                        topicState.Prompt = field.Key;
                     }
                     else
                     {
                         // Our user profile is complete!
                         await turnContext.SendActivityAsync($"Thank you, {userProfile.UserName}. Your profile is complete.");
-                        dialogState.Prompt = null;
-                        dialogState.Topic = null;
+                        topicState.Prompt = null;
+                        topicState.Topic = null;
                     }
                 }
                 else if (turnContext.Activity.Text.Trim().Equals("hi", StringComparison.InvariantCultureIgnoreCase))
@@ -132,12 +138,13 @@
                     await turnContext.SendActivityAsync("Hi. I'm the Contoso cafe bot.");
                 }
 
-                // Use the state property accessors to update the dialog state and user profile.
-                await Accessors.DialogStateAccessor.SetAsync(turnContext, dialogState, cancellationToken);
+                // Use the state property accessors to update the topic state and user profile.
+                await Accessors.TopicStateAccessor.SetAsync(turnContext, topicState, cancellationToken);
                 await Accessors.UserProfileAccessor.SetAsync(turnContext, userProfile, cancellationToken);
 
                 // Save any state changes to storage.
-                await Accessors.StateSet.SaveAllChangesAsync(turnContext, false, cancellationToken);
+                await Accessors.ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
+                await Accessors.UserState.SaveChangesAsync(turnContext, false, cancellationToken);
             }
         }
     }
