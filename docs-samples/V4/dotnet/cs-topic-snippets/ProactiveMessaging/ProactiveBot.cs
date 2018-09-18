@@ -18,6 +18,8 @@
         /// <summary>The bot's app ID.</summary>
         private string AppId { get; }
 
+        private JobState _jobState;
+
         /// <summary>The state property accessor for the job log.</summary>
         private IStatePropertyAccessor<JobLog> JobLogAccessor { get; }
 
@@ -27,11 +29,11 @@
         public ProactiveBot(IConfiguration configuration, IOptions<BotFrameworkOptions> options)
         {
             // Get the bot's app ID.
-            AppId = configuration["MicrosoftAppId"];
+            AppId = configuration["MicrosoftAppId"] ?? "1";
 
             // Create the job log accessor off of job state middleware.
-            JobState jobState = options.Value.State.OfType<JobState>().FirstOrDefault();
-            JobLogAccessor = jobState.CreateProperty<JobLog>("ProactiveBot.JobLog");
+            _jobState = options.Value.State.OfType<JobState>().FirstOrDefault();
+            JobLogAccessor = _jobState.CreateProperty<JobLog>("ProactiveBot.JobLog");
         }
 
         /// <summary>Handles an incoming activity.</summary>
@@ -119,6 +121,9 @@
                         "Type `show` or `show jobs` to display the job log.<br>" +
                         "Type `done <jobNumber>` to complete a job.");
                 }
+
+                await JobLogAccessor.SetAsync(turnContext, jobLog, cancellationToken);
+                await _jobState.SaveChangesAsync(turnContext, false, cancellationToken);
             }
         }
 
@@ -190,6 +195,9 @@
 
                 // Send the user a proactive confirmation message.
                 await turnContext.SendActivityAsync($"Job {jobInfo.TimeStamp} is complete.");
+
+                await JobLogAccessor.SetAsync(turnContext, jobLog, token);
+                await _jobState.SaveChangesAsync(turnContext, false, token);
             };
         }
     }

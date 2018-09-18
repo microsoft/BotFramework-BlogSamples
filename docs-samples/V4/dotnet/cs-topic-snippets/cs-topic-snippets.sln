@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogTopics", "DialogTopic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProactiveMessaging", "ProactiveMessaging\ProactiveMessaging.csproj", "{3CE4DF5B-B16C-439A-85CC-0A62E80F6C35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDataBot", "UserDataBot\UserDataBot.csproj", "{8133BA5B-736E-4253-8853-595282D85DBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDataBot", "UserDataBot\UserDataBot.csproj", "{8133BA5B-736E-4253-8853-595282D85DBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimitivePrompts", "PrimitivePrompts\PrimitivePrompts.csproj", "{A0622CEF-C8F4-4E87-869A-050F1A8F5203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{8133BA5B-736E-4253-8853-595282D85DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8133BA5B-736E-4253-8853-595282D85DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8133BA5B-736E-4253-8853-595282D85DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0622CEF-C8F4-4E87-869A-050F1A8F5203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0622CEF-C8F4-4E87-869A-050F1A8F5203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0622CEF-C8F4-4E87-869A-050F1A8F5203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0622CEF-C8F4-4E87-869A-050F1A8F5203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{BFA3C963-0107-4E1A-8559-725D6C384CF9} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
 		{3CE4DF5B-B16C-439A-85CC-0A62E80F6C35} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
 		{8133BA5B-736E-4253-8853-595282D85DBF} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
+		{A0622CEF-C8F4-4E87-869A-050F1A8F5203} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {526596AC-2EE9-4491-B740-E8A548AB5005}

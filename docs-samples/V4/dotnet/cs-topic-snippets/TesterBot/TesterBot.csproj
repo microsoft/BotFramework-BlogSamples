@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.Bot.Builder.Azure" Version="4.0.0.39485" />
     <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.0.0.39485" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.0.0.39485" />
+    <PackageReference Include="Microsoft.Bot.Configuration" Version="4.0.0.39485" />
   </ItemGroup>
 
   <ItemGroup>

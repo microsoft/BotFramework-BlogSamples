@@ -1,12 +1,12 @@
 {
-    "name": "ProactiveBot",
+    "name": "PrimitivePromptsBot",
     "description": "",
     "secretKey": "",
     "services": [
         {
-            "id": "http://localhost:3978/api/messages",
-            "name": "http://localhost:3978/api/messages",
             "type": "endpoint",
+            "name": "http://localhost:3978/api/messages",
+            "id": "http://localhost:3978/api/messages",
             "appId": "",
             "appPassword": "",
             "endpoint": "http://localhost:3978/api/messages"
