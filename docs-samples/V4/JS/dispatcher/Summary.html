@@ -65,17 +65,17 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header ms-fontSize-l">
-                <span id="dispatchName">CombineWeatherAndLights</span>
-                <span><a href="https://www.luis.ai/applications/611363ce-c9ca-4195-b217-8b1bc0a0af05/versions/Dispatch/dashboard" target="_blank">LUIS Application ID: 611363ce-c9ca-4195-b217-8b1bc0a0af05</a></span>
+                <span id="dispatchName">nlp-with-dispatchDispatch</span>
+                <span><a href="https://www.luis.ai/applications/3b6c8e4b-bf61-400e-8f2e-7116c2742a63/versions/Dispatch/dashboard" target="_blank">LUIS Application ID: 3b6c8e4b-bf61-400e-8f2e-7116c2742a63</a></span>
             </div>
         </div>
     </nav>
     <br /><br /><br />
     <div class="container body-content">
         <span class="ms-fontSize-xl ms-fontWeight-semibold">Dispatch Summary</span>
-        <span style="float:right"><a href="https://www.luis.ai/applications/611363ce-c9ca-4195-b217-8b1bc0a0af05/versions/Dispatch/dashboard" target="_blank">View in LUIS portal</a></span>
+        <span style="float:right"><a href="https://www.luis.ai/applications/3b6c8e4b-bf61-400e-8f2e-7116c2742a63/versions/Dispatch/dashboard" target="_blank">View in LUIS portal</a></span>
         <div>
-            <p><p>Please check below for intent statistics and duplicate utterances.</p><p><strong>Suggestions for model improvement</strong>:</p><ul style = "list-style-type:square"><li>Consider adding more utterances to the intents <strong>q_faq, l_weather, l_homeautomation</strong>, as their utterance count is low.</li></ul></p>
+            <p><p>Please check below for intent statistics and duplicate utterances.</p><p><strong>Suggestions for model improvement</strong>:</p><ul style = "list-style-type:square"><li>Consider adding more utterances to the intents <strong>q_nlp-sample, l_weather.luis, l_homeautomation.luis</strong>, as their utterance count is low.</li></ul></p>
             <p>To improve dispatch, please update the source models and retrain the dispatch model by running the command "dispatch refresh".</p>
         </div>
         <br />
@@ -91,7 +91,7 @@
             <div class="tab-pane active" id="intentutterancestatistics" role="tabpanel" aria-labelledby="intentutterancestatistics-tab">
                 <p>Intents and utterances statistics</p>
                 <p>
-                    <table class="table"><tr><th>Intent</th><th>Utterance Count</th><th>Utterance Average Length</th><th>Utterance Maximum Length</th><th>Utterance Minimum Length</th><th>Utterance Length StdDev</th></tr><tr><td>l_homeautomation</td><td>37</td><td>23.054</td><td>41</td><td>8</td><td>6.757</td></tr><tr><td>l_weather</td><td>28</td><td>37.964</td><td>64</td><td>17</td><td>12.459</td></tr><tr><td>q_faq</td><td>13</td><td>28.385</td><td>47</td><td>2</td><td>14.222</td></tr></table>
+                    <table class="table"><tr><th>Intent</th><th>Utterance Count</th><th>Utterance Average Length</th><th>Utterance Maximum Length</th><th>Utterance Minimum Length</th><th>Utterance Length StdDev</th></tr><tr><td>l_homeautomation.luis</td><td>34</td><td>22.647</td><td>41</td><td>8</td><td>5.72</td></tr><tr><td>l_weather.luis</td><td>26</td><td>36.154</td><td>64</td><td>17</td><td>11.202</td></tr><tr><td>q_nlp-sample</td><td>10</td><td>12.1</td><td>23</td><td>2</td><td>6.008</td></tr><tr><td>None</td><td>4</td><td>29.5</td><td>41</td><td>17</td><td>10.344</td></tr></table>
                 </p>
             </div>
             <div class="tab-pane" id="duplicates" role="tabpanel" aria-labelledby="duplicates-tab">

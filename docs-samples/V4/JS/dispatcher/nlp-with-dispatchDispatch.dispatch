@@ -1,0 +1,38 @@
+{
+  "authoringRegion": "westus",
+  "hierarchical": true,
+  "services": [
+    {
+      "kbId": "290ba3f8-57d0-44b8-ae39-e3664abb0468",
+      "subscriptionKey": "6b1ab9be81da4bd1ab3939b37d9d10a0",
+      "endpointKey": "2397218d-e4d3-459d-87ea-e3bed984f5fb",
+      "type": "qna",
+      "name": "nlp-sample",
+      "id": "18"
+    },
+    {
+      "appId": "7550f03d-6b59-426d-a4be-511394cce84f",
+      "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+      "subscriptionKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+      "version": "0.1",
+      "type": "luis",
+      "name": "homeautomation.luis",
+      "id": "241"
+    },
+    {
+      "appId": "2cc3cb25-008e-4342-8172-d5d01e29cbd2",
+      "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+      "subscriptionKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+      "version": "0.1",
+      "type": "luis",
+      "name": "weather.luis",
+      "id": "15"
+    }
+  ],
+  "appId": "3b6c8e4b-bf61-400e-8f2e-7116c2742a63",
+  "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+  "version": "Dispatch",
+  "type": "dispatch",
+  "name": "nlp-with-dispatchDispatch",
+  "id": "3b6c8e4b-bf61-400e-8f2e-7116c2742a63"
+}

@@ -1,0 +1,61 @@
+{
+    "name": "nlp-with-dispatch",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "name": "nlp-with-dispatch",
+            "id": "f6ae7bb0-b2cd-11e8-aea4-25faac1b3621",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:3992/api/messages"
+        },
+        {
+            "type": "qna",
+            "name": "nlp-sample",
+            "kbId": "290ba3f8-57d0-44b8-ae39-e3664abb0468",
+            "subscriptionKey": "6b1ab9be81da4bd1ab3939b37d9d10a0",
+            "endpointKey": "2397218d-e4d3-459d-87ea-e3bed984f5fb",
+            "hostname": "https://cash-qna-dispatcher1.azurewebsites.net",
+            "id": "18"
+        },
+        {
+            "type": "luis",
+            "name": "homeautomation.luis",
+            "appId": "7550f03d-6b59-426d-a4be-511394cce84f",
+            "version": "0.1",
+            "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+            "subscriptionKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+            "region": "westus",
+            "id": "241"
+        },
+        {
+            "type": "luis",
+            "name": "weather.luis",
+            "appId": "2cc3cb25-008e-4342-8172-d5d01e29cbd2",
+            "version": "0.1",
+            "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+            "subscriptionKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+            "region": "westus",
+            "id": "15"
+        },
+        {
+            "type": "dispatch",
+            "name": "nlp-with-dispatchDispatch",
+            "appId": "3b6c8e4b-bf61-400e-8f2e-7116c2742a63",
+            "authoringKey": "f2eba92fcc6a4957a77134ebc9b437fc",
+            "subscriptionKey": "ccffbd0e33bb4c3b89ac6b123c4d1f31",
+            "region": "westus",
+            "version": "Dispatch",
+            "serviceIds": [
+                "18",
+                "241",
+                "15"
+            ],
+            "id": "69"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "secretKey": ""
+}
