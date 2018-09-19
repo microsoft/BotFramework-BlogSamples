@@ -14,6 +14,8 @@
         /// <summary>The ID of the top-level dialog.</summary>
         public const string MainDialogId = "mainMenu";
 
+        public const string HelpDialogId = "helpDialog";
+
         /// <summary>The ID of the choice prompt.</summary>
         public const string ChoicePromptId = "choicePrompt";
 

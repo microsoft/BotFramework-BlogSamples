@@ -21,26 +21,26 @@ namespace ComplexConversation
     /// <see cref="IStatePropertyAccessor{T}"/> object are created with a singleton lifetime.
     /// </summary>
     /// <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1"/>
-    public class ComplexConversationBot : IBot
+    public class HandleInterruptionsBot : IBot
     {
         private readonly BotAccessors _accessors;
         private readonly OrderDinnerDialogs _dialogs;
         private readonly ILogger _logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ComplexConversationBot"/> class.
+        /// Initializes a new instance of the <see cref="HandleInterruptionsBot"/> class.
         /// </summary>
         /// <param name="accessors">A class containing <see cref="IStatePropertyAccessor{T}"/> used to manage state.</param>
         /// <param name="loggerFactory">A <see cref="ILoggerFactory"/> that is hooked to the Azure App Service provider.</param>
         /// <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-2.1#windows-eventlog-provider"/>
-        public ComplexConversationBot(BotAccessors accessors, ILoggerFactory loggerFactory)
+        public HandleInterruptionsBot(BotAccessors accessors, ILoggerFactory loggerFactory)
         {
             if (loggerFactory == null)
             {
                 throw new System.ArgumentNullException(nameof(loggerFactory));
             }
 
-            _logger = loggerFactory.CreateLogger<ComplexConversationBot>();
+            _logger = loggerFactory.CreateLogger<HandleInterruptionsBot>();
             _logger.LogTrace("EchoBot turn start.");
             _accessors = accessors ?? throw new System.ArgumentNullException(nameof(accessors));
             _dialogs = new OrderDinnerDialogs(_accessors.DialogStateAccessor);
@@ -61,23 +61,44 @@ namespace ComplexConversation
         /// <seealso cref="IMiddleware"/>
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var dc = await _dialogs.CreateContextAsync(turnContext, cancellationToken);
+            Microsoft.Bot.Builder.Dialogs.DialogContext dc = await _dialogs.CreateContextAsync(turnContext, cancellationToken);
 
             switch (turnContext.Activity.Type)
             {
                 case ActivityTypes.Message:
 
-                    await dc.ContinueDialogAsync(cancellationToken);
-                    if (!turnContext.Responded)
+                    // Check for top-level interruptions.
+                    string utterance = turnContext.Activity.Text.Trim().ToLowerInvariant();
+
+                    if (utterance == "help")
                     {
-                        await dc.BeginDialogAsync(OrderDinnerDialogs.MainDialogId, null, cancellationToken);
+                        // Start a general help dialog. Dialogs already on the stack remain and will continue
+                        // normally if the help dialog exits normally.
+                        await dc.BeginDialogAsync(OrderDinnerDialogs.HelpDialogId, null, cancellationToken);
+                    }
+                    else if (utterance == "cancel")
+                    {
+                        // Cancel any dialog on the stack.
+                        await turnContext.SendActivityAsync("Canceled.", cancellationToken: cancellationToken);
+                        await dc.CancelAllDialogsAsync(cancellationToken);
+                    }
+                    else
+                    {
+                        await dc.ContinueDialogAsync(cancellationToken);
+
+                        // Check whether we replied. If not then clear the dialog stack and present the main menu.
+                        if (!turnContext.Responded)
+                        {
+                            await dc.CancelAllDialogsAsync(cancellationToken);
+                            await dc.BeginDialogAsync(OrderDinnerDialogs.MainDialogId, null, cancellationToken);
+                        }
                     }
 
                     break;
 
                 case ActivityTypes.ConversationUpdate:
 
-                    var activity = turnContext.Activity.AsConversationUpdateActivity();
+                    IConversationUpdateActivity activity = turnContext.Activity.AsConversationUpdateActivity();
                     if (activity.MembersAdded.Any(member => member.Id != activity.Recipient.Id))
                     {
                         await dc.BeginDialogAsync(OrderDinnerDialogs.MainDialogId, null, cancellationToken);

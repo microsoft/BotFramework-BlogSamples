@@ -51,7 +51,7 @@ namespace ComplexConversation
         /// <seealso cref="https://docs.microsoft.com/en-us/azure/bot-service/bot-service-manage-channels?view=azure-bot-service-4.0"/>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddBot<ComplexConversationBot>(options =>
+            services.AddBot<HandleInterruptionsBot>(options =>
             {
                 // Load the connected services from .bot file.
                 var botConfig = BotConfiguration.Load(@".\BotConfiguration.bot");
@@ -65,7 +65,7 @@ namespace ComplexConversation
                 options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
 
                 // Catches any errors that occur during a conversation turn and logs them.
-                ILogger logger = _loggerFactory.CreateLogger<ComplexConversationBot>();
+                ILogger logger = _loggerFactory.CreateLogger<HandleInterruptionsBot>();
                 options.OnTurnError = async (context, exception) =>
                 {
                     logger.LogError($"Exception caught : {exception}");
