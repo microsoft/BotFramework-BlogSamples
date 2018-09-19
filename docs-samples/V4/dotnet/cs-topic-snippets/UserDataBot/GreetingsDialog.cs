@@ -23,18 +23,18 @@
             // Define the main dialog and add it to the set.
             Add(new WaterfallDialog(MainDialog, new WaterfallStep[]
             {
-                async (step, cancellationToken) =>
+                async (stepContext, cancellationToken) =>
                 {
                     // Ask the user for their name.
-                    return await step.PromptAsync(TextPrompt, new PromptOptions
+                    return await stepContext.PromptAsync(TextPrompt, new PromptOptions
                     {
                         Prompt = MessageFactory.Text("What is your name?"),
-                    });
+                    }, cancellationToken);
                 },
-                async (step, cancellationToken) =>
+                async (stepContext, cancellationToken) =>
                 {
                     // Assume that they entered their name, and return the value.
-                    return await step.EndDialogAsync(step.Result);
+                    return await stepContext.EndDialogAsync(stepContext.Result, cancellationToken);
                 },
             }));
         }

@@ -18,8 +18,6 @@
 
     public class Startup
     {
-        private ILoggerFactory _loggerFactory;
-
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public Startup(IHostingEnvironment env)
@@ -38,22 +36,20 @@
         {
             services.AddBot<PrimitivePromptsBot>(options =>
             {
-                //// Load the connected services from .bot file.
-                //var botConfig = BotConfiguration.Load(@".\BotConfiguration.bot");
-                //var service = botConfig.Services.FirstOrDefault(s => s.Type == "endpoint");
-                //var endpointService = service as EndpointService;
-                //if (endpointService == null)
-                //{
-                //    throw new InvalidOperationException("The .bot file does not contain an endpoint.");
-                //}
+                // Load the connected services from .bot file.
+                var botConfig = BotConfiguration.Load(@".\BotConfiguration.bot");
+                var service = botConfig.Services.FirstOrDefault(s => s.Type == "endpoint");
+                var endpointService = service as EndpointService;
+                if (endpointService == null)
+                {
+                    throw new InvalidOperationException("The .bot file does not contain an endpoint.");
+                }
 
-                //options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
+                options.CredentialProvider = new SimpleCredentialProvider(endpointService.AppId, endpointService.AppPassword);
 
-                // Catches any errors that occur during a conversation turn and logs them.
-                // ILogger logger = _loggerFactory.CreateLogger<PrimitivePromptsBot>();
+                //Catches any errors that occur during a conversation turn and logs them.
                 options.OnTurnError = async (context, exception) =>
                 {
-                    //logger.LogError($"Exception caught : {exception}");
                     await context.TraceActivityAsync($"Exception caught : {exception}");
                     await context.SendActivityAsync("Sorry, it looks like something went wrong.");
                 };
@@ -67,8 +63,8 @@
                 options.State.Add(userState);
             });
 
-            // Create and register state accesssors.
-            // Acessors created here are passed into the IBot-derived class on every turn.
+            // Create and register state accessors.
+            // Accessors created here are passed into the IBot-derived class on every turn.
             services.AddSingleton<BotAccessors>(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;

@@ -5,15 +5,13 @@
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Dialogs;
-    using Microsoft.Bot.Builder.Integration;
     using Microsoft.Bot.Schema;
-    using Microsoft.Extensions.Options;
 
     /// <summary>Defines the bot for the persisting user data tutorial.</summary>
     public class UserDataBot : IBot
     {
-        /// <summary>The state property accessor for user data.</summary>
-        private IStatePropertyAccessor<UserData> UserDataAccessor { get; }
+        /// <summary>The bot's state and state property accessor objects.</summary>
+        private BotAccessors Accessors { get; }
 
         /// <summary>The dialog set that has the dialog to use.</summary>
         private GreetingsDialog GreetingsDialog { get; }
@@ -21,26 +19,24 @@
         /// <summary>Create a new instance of the bot.</summary>
         /// <param name="options">The options to use for our app.</param>
         /// <param name="greetingsDialog">An instance of the dialog set.</param>
-        public UserDataBot(IOptions<BotFrameworkOptions> options, GreetingsDialog greetingsDialog)
+        public UserDataBot(BotAccessors botAccessors)
         {
-            // Retrieve the user state middleware from the options, and create the state property accessor.
-            BotStateSet stateSet = options.Value.Middleware.OfType<BotStateSet>().FirstOrDefault();
-            UserState userState = stateSet.BotStates.OfType<UserState>().FirstOrDefault();
-            UserDataAccessor = userState.CreateProperty<UserData>("UserDataBot.UserData");
+            // Retrieve the bot's state and accessors.
+            Accessors = botAccessors;
 
-            // Record the dialog set to use to get the user's name. 
-            GreetingsDialog = greetingsDialog;
+            // Create the greetings dialog.
+            GreetingsDialog = new GreetingsDialog(Accessors.DialogStateAccessor);
         }
 
         /// <summary>Handles incoming activities to the bot.</summary>
-        /// <param name="turnContext">The context object for the current turn.</param>        
+        /// <param name="turnContext">The context object for the current turn.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects
         /// or threads to receive notice of cancellation.</param>
         /// <returns>A task that represents the work queued to execute.</returns>
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Retrieve user data from state.
-            UserData userData = await UserDataAccessor.GetAsync(turnContext, () => new UserData());
+            UserData userData = await Accessors.UserDataAccessor.GetAsync(turnContext, () => new UserData());
 
             // Establish context for our dialog from the turn context.
             DialogContext dc = await GreetingsDialog.CreateContextAsync(turnContext);
@@ -105,6 +101,13 @@
 
                     break;
             }
+
+            // Update the user data in the turn's state cache.
+            await Accessors.UserDataAccessor.SetAsync(turnContext, userData, cancellationToken);
+
+            // Persist any changes to storage.
+            await Accessors.UserState.SaveChangesAsync(turnContext, false, cancellationToken);
+            await Accessors.ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
         }
     }
 }

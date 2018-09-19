@@ -35,7 +35,7 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Register your bot
+            // Register your bot.
             services.AddBot<UserDataBot>(options =>
             {
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
@@ -45,7 +45,7 @@
                     await context.SendActivityAsync("Sorry, it looks like something went wrong!");
                 };
 
-                // Add state middleware, with persistent storage.
+                // Use persistent storage and create state management objects.
                 var CosmosSettings = Configuration.GetSection("CosmosDB");
                 IStorage storage = new CosmosDbStorage(
                     new CosmosDbStorageOptions
@@ -59,19 +59,18 @@
                 options.State.Add(new UserState(storage));
             });
 
-            // Register the dialog state accessor off of conversation state.
-            services.AddSingleton(sp =>
+            // Register the bot's state and state property accessor objects.
+            services.AddSingleton<BotAccessors>(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
+                var userState = options.State.OfType<UserState>().FirstOrDefault();
                 var conversationState = options.State.OfType<ConversationState>().FirstOrDefault();
-                return conversationState.CreateProperty<DialogState>("UserDataBot.DialogState");
-            });
 
-            // Register the main dialog set.
-            services.AddSingleton(sp =>
-            {
-                var dialogState = sp.GetRequiredService<IStatePropertyAccessor<DialogState>>();
-                return new GreetingsDialog(dialogState);
+                return new BotAccessors(userState, conversationState)
+                {
+                    UserDataAccessor = userState.CreateProperty<UserData>("UserDataBot.UserData"),
+                    DialogStateAccessor = conversationState.CreateProperty<DialogState>("UserDataBot.DialogState"),
+                };
             });
         }
 

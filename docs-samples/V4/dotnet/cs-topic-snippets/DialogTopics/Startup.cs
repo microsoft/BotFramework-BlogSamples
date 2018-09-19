@@ -1,8 +1,8 @@
 ﻿//#define Addition
 //#define Greeting
-//#define Hotel
+#define Hotel
 //#define Prompts
-#define IntegratedDialogs
+//#define IntegratedDialogs
 
 using System;
 using System.Linq;
@@ -108,14 +108,14 @@ namespace DialogTopics
                 };
 
                 IStorage dataStore = new MemoryStorage();
-                options.Middleware.Add(new ConversationState(dataStore));
+                options.State.Add(new ConversationState(dataStore));
             });
 
             // Create and register the dialog state accessor.
             services.AddSingleton(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                var convState = options.Middleware.OfType<ConversationState>().FirstOrDefault();
+                var convState = options.State.OfType<ConversationState>().FirstOrDefault();
                 return convState.CreateProperty<DialogState>($"DialogSet.DialogStateAccessor");
             });
 

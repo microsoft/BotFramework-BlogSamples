@@ -1,8 +1,8 @@
-﻿using Microsoft.Bot.Builder;
-using System;
-
-namespace PrimitivePrompts
+﻿namespace PrimitivePrompts
 {
+    using Microsoft.Bot.Builder;
+    using System;
+
     /// <summary>
     /// Contains the state and state property accessors for the primitive prompts bot.
     /// </summary>

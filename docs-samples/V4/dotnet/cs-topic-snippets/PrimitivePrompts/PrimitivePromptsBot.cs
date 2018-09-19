@@ -7,6 +7,8 @@
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Schema;
+    using Microsoft.Recognizers.Text;
+    using Microsoft.Recognizers.Text.Number;
 
     public class PrimitivePromptsBot : IBot
     {
@@ -145,6 +147,60 @@
                 // Save any state changes to storage.
                 await Accessors.ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
                 await Accessors.UserState.SaveChangesAsync(turnContext, false, cancellationToken);
+
+                /*
+
+                if (topicState.Prompt == "partySize")
+                {
+                    if (await ValidatePartySize(turnContext, turnContext.Activity.Text))
+                    {
+                        // Save user's response in our state, ReservationInfo, which
+                        // is a new class we've added to our state
+                        // UserFieldInfo partySize;
+                        partySize.SetValue(userProfile, turnContext.Activity.Text);
+
+                        // Ask next question.
+                        topicState.Prompt = "reserveName";
+                        await turnContext.SendActivityAsync("Who's name will this be under?");
+                    }
+                    else
+                    {
+                        // Ask again.
+                        await turnContext.SendActivityAsync("How many people are in your party?");
+                    }
+                }
+
+                */
+            }
+        }
+
+        private async Task<bool> ValidatePartySize(ITurnContext context, string value)
+        {
+            try
+            {
+                // Recognize the input as a number. This works for responses such as
+                // "twelve" as well as "12"
+                var result = NumberRecognizer.RecognizeNumber(value, Culture.English);
+
+                // Attempt to convert the Recognizer result to an integer
+                int.TryParse(result.First().Text, out int partySize);
+
+                if (partySize < 6)
+                {
+                    throw new Exception("Party size too small.");
+                }
+                else if (partySize > 20)
+                {
+                    throw new Exception("Party size too big.");
+                }
+
+                // If we got through this, the number is valid
+                return true;
+            }
+            catch (Exception)
+            {
+                await context.SendActivityAsync("Error with your party size. < br /> Please specify a number between 6 - 20.");
+                return false;
             }
         }
     }
