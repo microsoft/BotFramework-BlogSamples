@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComplexConversation", "Comp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexConversation", "ComplexConversation\ComplexConversation.csproj", "{021A72CB-404B-47EE-9CE4-2FF0C8886AF9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandleInterruptions", "HandleInterruptions\HandleInterruptions.csproj", "{13651C98-5D81-4A2F-A3AA-0F423410155D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{021A72CB-404B-47EE-9CE4-2FF0C8886AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{021A72CB-404B-47EE-9CE4-2FF0C8886AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{021A72CB-404B-47EE-9CE4-2FF0C8886AF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13651C98-5D81-4A2F-A3AA-0F423410155D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13651C98-5D81-4A2F-A3AA-0F423410155D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13651C98-5D81-4A2F-A3AA-0F423410155D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13651C98-5D81-4A2F-A3AA-0F423410155D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{A0622CEF-C8F4-4E87-869A-050F1A8F5203} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
 		{213D9E42-5D87-41FE-B4EE-4292003B9CEF} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
 		{021A72CB-404B-47EE-9CE4-2FF0C8886AF9} = {213D9E42-5D87-41FE-B4EE-4292003B9CEF}
+		{13651C98-5D81-4A2F-A3AA-0F423410155D} = {BDFF9C5E-BE02-446E-AA7C-BC33CB87C108}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {526596AC-2EE9-4491-B740-E8A548AB5005}
