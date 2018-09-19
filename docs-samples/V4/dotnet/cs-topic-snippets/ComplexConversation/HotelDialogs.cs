@@ -15,6 +15,51 @@
         /// <summary>The ID of the top-level dialog.</summary>
         public const string MainMenu = "mainMenu";
 
+        public HotelDialogs(IStatePropertyAccessor<DialogState> dialogStateAccessor)
+            : base(dialogStateAccessor)
+        {
+            // Add the prompts.
+            Add(new ChoicePrompt(Inputs.Choice));
+            Add(new NumberPrompt<int>(Inputs.Number));
+
+            // Define the steps for and add the main, welcome dialog.
+            WaterfallStep[] welcomeDialogSteps = new WaterfallStep[]
+            {
+                MainDialogSteps.PresentMenuAsync,
+                MainDialogSteps.ProcessInputAsync,
+                MainDialogSteps.RepeatMenuAsync,
+            };
+
+            Add(new WaterfallDialog(MainMenu, welcomeDialogSteps));
+
+            // Define the steps for and add the order-dinner dialog.
+            WaterfallStep[] orderDinnerDialogSteps = new WaterfallStep[]
+            {
+                OrderDinnerSteps.StartFoodSelectionAsync,
+                OrderDinnerSteps.GetRoomNumberAsync,
+                OrderDinnerSteps.ProcessOrderAsync,
+            };
+
+            Add(new WaterfallDialog(Dialogs.OrderDinner, orderDinnerDialogSteps));
+
+            // Define the steps for and add the order-prompt dialog.
+            WaterfallStep[] orderPromptDialogSteps = new WaterfallStep[]
+            {
+                OrderPromptSteps.PromptForItemAsync,
+                OrderPromptSteps.ProcessInputAsync,
+            };
+
+            Add(new WaterfallDialog(Dialogs.OrderPrompt, orderPromptDialogSteps));
+
+            // Define the steps for and add the reserve-table dialog.
+            WaterfallStep[] reserveTableDialogSteps = new WaterfallStep[]
+            {
+                ReserveTableSteps.StubAsync,
+            };
+
+            Add(new WaterfallDialog(Dialogs.ReserveTable, reserveTableDialogSteps));
+        }
+
         /// <summary>Contains the IDs for the other dialogs in the set.</summary>
         private static class Dialogs
         {
@@ -38,13 +83,66 @@
             public const string RoomNumber = "roomNumber";
         }
 
+        /// <summary>Contains the lists used to present options to the guest.</summary>
+        private static class Lists
+        {
+            /// <summary>Gets the options for the top-level dialog.</summary>
+            public static List<WelcomeChoice> WelcomeOptions { get; } = new List<WelcomeChoice>
+            {
+                new WelcomeChoice { Description = "Order dinner", DialogName = Dialogs.OrderDinner },
+                new WelcomeChoice { Description = "Reserve a table", DialogName = Dialogs.ReserveTable },
+            };
+
+            private static readonly List<string> _welcomeList = WelcomeOptions.Select(x => x.Description).ToList();
+
+            /// <summary>Gets the choices to present in the choice prompt for the top-level dialog.</summary>
+            public static IList<Choice> WelcomeChoices { get; } = ChoiceFactory.ToChoices(_welcomeList);
+
+            /// <summary>Gets the reprompt action for the top-level dialog.</summary>
+            public static Activity WelcomeReprompt
+            {
+                get
+                {
+                    var reprompt = MessageFactory.SuggestedActions(_welcomeList, "Please choose an option");
+                    reprompt.AttachmentLayout = AttachmentLayoutTypes.List;
+                    return reprompt as Activity;
+                }
+            }
+
+            /// <summary>Gets the options for the food-selection dialog.</summary>
+            public static List<MenuChoice> MenuOptions { get; } = new List<MenuChoice>
+            {
+                new MenuChoice { Name = "Potato Salad", Price = 5.99 },
+                new MenuChoice { Name = "Tuna Sandwich", Price = 6.89 },
+                new MenuChoice { Name = "Clam Chowder", Price = 4.50 },
+                new MenuChoice { Name = MenuChoice.Process, Price = double.NaN },
+                new MenuChoice { Name = MenuChoice.Cancel, Price = double.NaN },
+            };
+
+            private static readonly List<string> _menuList = MenuOptions.Select(x => x.Description).ToList();
+
+            /// <summary>Gets the choices to present in the choice prompt for the food-selection dialog.</summary>
+            public static IList<Choice> MenuChoices { get; } = ChoiceFactory.ToChoices(_menuList);
+
+            /// <summary>Gets the reprompt action for the food-selection dialog.</summary>
+            public static Activity MenuReprompt
+            {
+                get
+                {
+                    var reprompt = MessageFactory.SuggestedActions(_menuList, "Please choose an option");
+                    reprompt.AttachmentLayout = AttachmentLayoutTypes.List;
+                    return reprompt as Activity;
+                }
+            }
+        }
+
         /// <summary>Describes an option for the top-level dialog.</summary>
         private class WelcomeChoice
         {
-            /// <summary>The text to show the guest for this option.</summary>
+            /// <summary>Gets or sets the text to show the guest for this option.</summary>
             public string Description { get; set; }
 
-            /// <summary>The ID of the associated dialog for this option.</summary>
+            /// <summary>Gets or sets the ID of the associated dialog for this option.</summary>
             public string DialogName { get; set; }
         }
 
@@ -60,67 +158,14 @@
             /// <summary>The request text for processing the meal order.</summary>
             public const string Process = "Process order";
 
-            /// <summary>The name of the meal item or the request.</summary>
+            /// <summary>Gets or sets the name of the meal item or the request.</summary>
             public string Name { get; set; }
 
-            /// <summary>The price of the meal item; or NaN for a request.</summary>
+            /// <summary>Gets or sets the price of the meal item; or NaN for a request.</summary>
             public double Price { get; set; }
 
-            /// <summary>The text to show the guest for this option.</summary>
-            public string Description => (double.IsNaN(Price)) ? Name : $"{Name} - ${Price:0.00}";
-        }
-
-        /// <summary>Contains the lists used to present options to the guest.</summary>
-        private static class Lists
-        {
-            /// <summary>The options for the top-level dialog.</summary>
-            public static List<WelcomeChoice> WelcomeOptions { get; } = new List<WelcomeChoice>
-            {
-                new WelcomeChoice { Description = "Order dinner", DialogName = Dialogs.OrderDinner },
-                new WelcomeChoice { Description = "Reserve a table", DialogName = Dialogs.ReserveTable },
-            };
-
-            private static List<string> WelcomeList { get; } = WelcomeOptions.Select(x => x.Description).ToList();
-
-            /// <summary>The choices to present in the choice prompt for the top-level dialog.</summary>
-            public static IList<Choice> WelcomeChoices { get; } = ChoiceFactory.ToChoices(WelcomeList);
-
-            /// <summary>The reprompt action for the top-level dialog.</summary>
-            public static Activity WelcomeReprompt
-            {
-                get
-                {
-                    var reprompt = MessageFactory.SuggestedActions(WelcomeList, "Please choose an option");
-                    reprompt.AttachmentLayout = AttachmentLayoutTypes.List;
-                    return reprompt as Activity;
-                }
-            }
-
-            /// <summary>The options for the food-selection dialog.</summary>
-            public static List<MenuChoice> MenuOptions { get; } = new List<MenuChoice>
-            {
-                new MenuChoice { Name = "Potato Salad", Price = 5.99 },
-                new MenuChoice { Name = "Tuna Sandwich", Price = 6.89 },
-                new MenuChoice { Name = "Clam Chowder", Price = 4.50 },
-                new MenuChoice { Name = MenuChoice.Process, Price = double.NaN },
-                new MenuChoice { Name = MenuChoice.Cancel, Price = double.NaN },
-            };
-
-            private static List<string> MenuList { get; } = MenuOptions.Select(x => x.Description).ToList();
-
-            /// <summary>The choices to present in the choice prompt for the food-selection dialog.</summary>
-            public static IList<Choice> MenuChoices { get; } = ChoiceFactory.ToChoices(MenuList);
-
-            /// <summary>The reprompt action for the food-selection dialog.</summary>
-            public static Activity MenuReprompt
-            {
-                get
-                {
-                    var reprompt = MessageFactory.SuggestedActions(MenuList, "Please choose an option");
-                    reprompt.AttachmentLayout = AttachmentLayoutTypes.List;
-                    return reprompt as Activity;
-                }
-            }
+            /// <summary>Gets the text to show the guest for this option.</summary>
+            public string Description => double.IsNaN(Price) ? Name : $"{Name} - ${Price:0.00}";
         }
 
         /// <summary>Contains the guest's dinner order.</summary>
@@ -128,58 +173,12 @@
         {
             public OrderCart() : base() { }
 
-            public OrderCart(OrderCart other) : base()
-            {
-                if (other != null)
-                {
-                    AddRange(other);
-                }
-            }
+            public OrderCart(OrderCart other) : base(other) { }
         }
 
-        public HotelDialogs(IStatePropertyAccessor<DialogState> dialogStateAccessor)
-            : base(dialogStateAccessor)
-        {
-            // Add the prompts.
-            Add(new ChoicePrompt(Inputs.Choice));
-            Add(new NumberPrompt<int>(Inputs.Number));
-
-            // Define the steps for the main welcome dialog.
-            WaterfallStep[] welcomeDialogSteps = new WaterfallStep[]
-            {
-                MainDialogSteps.PresentMenuAsync,
-                MainDialogSteps.ProcessInputAsync,
-                MainDialogSteps.RepeatMenuAsync,
-            };
-
-            // Define the steps for the order dinner dialog.
-            WaterfallStep[] orderDinnerDialogSteps = new WaterfallStep[]
-            {
-                OrderDinnerSteps.StartFoodSelectionAsync,
-                OrderDinnerSteps.GetRoomNumberAsync,
-                OrderDinnerSteps.ProcessOrderAsync,
-            };
-
-            // Define the steps for the order dinner dialog.
-            WaterfallStep[] orderPromptDialogSteps = new WaterfallStep[]
-            {
-                OrderPromptSteps.PromptForItemAsync,
-                OrderPromptSteps.ProcessInputAsync,
-            };
-
-            // Define the steps for the order dinner dialog.
-            WaterfallStep[] reserveTableDialogSteps = new WaterfallStep[]
-            {
-                ReserveTableSteps.StubAsync,
-            };
-
-            // Add the dialogs.
-            Add(new WaterfallDialog(MainMenu, welcomeDialogSteps));
-            Add(new WaterfallDialog(Dialogs.OrderDinner, orderDinnerDialogSteps));
-            Add(new WaterfallDialog(Dialogs.OrderPrompt, orderPromptDialogSteps));
-            Add(new WaterfallDialog(Dialogs.ReserveTable, reserveTableDialogSteps));
-        }
-
+        /// <summary>
+        /// Contains the waterfall dialog steps for the main, welcome dialog.
+        /// </summary>
         private static class MainDialogSteps
         {
             public static async Task<DialogTurnResult> PresentMenuAsync(
@@ -221,6 +220,9 @@
             }
         }
 
+        /// <summary>
+        /// Contains the waterfall dialog steps for the order-dinner dialog.
+        /// </summary>
         private static class OrderDinnerSteps
         {
             public static async Task<DialogTurnResult> StartFoodSelectionAsync(
@@ -276,14 +278,18 @@
             }
         }
 
+        /// <summary>
+        /// Contains the waterfall dialog steps for the order-prompt dialog.
+        /// </summary>
         private static class OrderPromptSteps
         {
             public static async Task<DialogTurnResult> PromptForItemAsync(
                 WaterfallStepContext stepContext,
                 CancellationToken cancellationToken)
             {
-                // First time through, this will be null.
-                var cart = new OrderCart(stepContext.Options as OrderCart);
+                // First time through, options will be null.
+                var cart = (stepContext.Options is OrderCart oldCart && oldCart != null)
+                    ? new OrderCart(oldCart) : new OrderCart();
 
                 stepContext.Values[Outputs.OrderCart] = cart;
                 stepContext.Values[Outputs.OrderTotal] = cart.Sum(item => item.Price);
@@ -356,6 +362,9 @@
             }
         }
 
+        /// <summary>
+        /// Contains the waterfall dialog steps for the reserve-table dialog.
+        /// </summary>
         private static class ReserveTableSteps
         {
             public static async Task<DialogTurnResult> StubAsync(
