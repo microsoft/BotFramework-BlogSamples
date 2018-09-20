@@ -36,6 +36,17 @@
             };
 
             Add(new WaterfallDialog(MainDialogId, steps));
+
+            Add(new WaterfallDialog(HelpDialogId, new WaterfallStep[]
+            {
+                async (stepContext, cancellationToken) =>
+                {
+                    await stepContext.Context.SendActivityAsync(
+                        "This is the top-level help dialog.",
+                        cancellationToken: cancellationToken);
+                    return Dialog.EndOfTurn;
+                },
+            }));
         }
 
         /// <summary>
@@ -90,6 +101,8 @@
 
             if (response.Equals("process order", StringComparison.InvariantCultureIgnoreCase))
             {
+                // We should, in theory, validat that the order is not empty before proceding.
+
                 order.ReadyToProcess = true;
 
                 await stepContext.Context.SendActivityAsync(
