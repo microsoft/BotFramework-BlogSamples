@@ -1,0 +1,1 @@
+NOTE: This is the older version of the VSIX template. With the release of SDK v4, please use the latest VSIX available on [Visual Studio Market Place](https://marketplace.visualstudio.com/items?itemName=BotBuilder.BotBuilderV4). 
