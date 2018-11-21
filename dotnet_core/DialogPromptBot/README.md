@@ -5,17 +5,17 @@ This sample demonstrates how to use dialog prompts in your ASP.Net Core 2 bot to
 # To try this sample
 - Clone the samples repository
 ```bash
-git clone https://github.com/Microsoft/botframework-samples.git
+git clone https://github.com/Microsoft/BotFramework-Samples.git
 ```
-- [Optional] Update the `appsettings.json` file under `botframework-samples\dotnet_core\DialogPromptBot` with your botFileSecret.  For Azure Bot Service bots, you can find the botFileSecret under application settings.
+- [Optional] Update the `appsettings.json` file under `BotFramework-Samples\dotnet_core\DialogPromptBot` with your botFileSecret.  For Azure Bot Service bots, you can find the botFileSecret under application settings.
 # Prerequisites
 ## Visual Studio
-- Navigate to the samples folder (`botframework-samples\dotnet_core\DialogPromptBot`) and open DialogPromptBot.csproj in Visual Studio.
+- Navigate to the samples folder (`BotFramework-Samples\dotnet_core\DialogPromptBot`) and open DialogPromptBot.csproj in Visual Studio.
 - Hit F5.
 
 ## Visual Studio Code
-- Open `botframework-samples\dotnet_core\DialogPromptBot` sample folder.
-- Bring up a terminal, navigate to `botframework-samples\dotnet_core\DialogPromptBot` folder.
+- Open `BotFramework-Samples\dotnet_core\DialogPromptBot` sample folder.
+- Bring up a terminal, navigate to `BotFramework-Samples\dotnet_core\DialogPromptBot` folder.
 - Type 'dotnet run'.
 
 ## Testing the bot using Bot Framework Emulator
@@ -25,7 +25,7 @@ developers to test and debug their bots on localhost or running remotely through
 
 ## Connect to bot using Bot Framework Emulator **V4**
 - Launch the Bot Framework Emulator.
-- File -> Open bot and navigate to `botframework-samples\dotnet_core\DialogPromptBot` folder.
+- File -> Open bot and navigate to `BotFramework-Samples\dotnet_core\DialogPromptBot` folder.
 - Select `dialog-prompt.bot` file.
 
 # Deploy this bot to Azure
