@@ -16,7 +16,7 @@ git clone https://github.com/Microsoft/BotFramework-Samples.git
 - Hit F5.
 
 ## Visual Studio Code
-- Open `BotFramework-Samples\dotnet_core\<sample-name>` sample folder.
+- Open `BotFramework-Samples\SDKV4-Samples\dotnet_core\<sample-name>` sample folder.
 - Bring up a terminal, navigate to `BotFramework-Samples\dotnet_core\<sample-name>` folder.
 - Type 'dotnet run'.
 
@@ -27,31 +27,8 @@ developers to test and debug their bots on localhost or running remotely through
 
 ## Connect to bot using Bot Framework Emulator **V4**
 - Launch the Bot Framework Emulator.
-- File -> Open bot and navigate to `BotFramework-Samples\dotnet_core\<sample-name>` folder.
+- File -> Open bot and navigate to `BotFramework-Samples\SDKV4-Samples\dotnet_core\<sample-name>` folder.
 - Select `custom-prompt.bot` file.
 
-# Bot state
-A bot is inherently stateless. Once your bot is deployed, it may not run in the same process or on the same machine from one turn to the next.
-However, your bot may need to track the context of a conversation, so that it can manage its behavior and remember answers to previous questions.
-
-In this example, the bot's state is used to a track number of messages.
-- We use the bot's turn handler and user and conversation state properties to manage the flow of the conversation and the collection of input.
-- We ask the user a series of questions; parse, validate, and normalize their answers; and then save their input.
-
-# Deploy this bot to Azure
-You can use the [MSBot](https://github.com/microsoft/botbuilder-tools) Bot Builder CLI tool to clone and configure any services this sample depends on. 
-
-To install all Bot Builder tools - 
-```bash
-npm i -g msbot chatdown ludown qnamaker luis-apis botdispatch luisgen
-```
-To clone this bot, run
-```
-msbot clone services -f deploymentScripts/msbotClone -n <BOT-NAME> -l <Azure-location> --subscriptionId <Azure-subscription-id>
-```
 # Further reading
 - [Azure Bot Service Introduction](https://docs.microsoft.com/azure/bot-service/bot-service-overview-introduction)
-- [About bot state](https://docs.microsoft.com/azure/bot-service/bot-builder-concept-state)
-- [Managing conversation and user state](https://docs.microsoft.com/azure/bot-service/bot-builder-howto-v4-state)
-- [Prompt users for input](https://docs.microsoft.com/azure/bot-service/bot-builder-primitive-prompts)
-- [Write directly to storage](https://docs.microsoft.com/azure/bot-service/bot-builder-howto-v4-storage)
