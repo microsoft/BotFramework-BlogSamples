@@ -36,6 +36,7 @@ git clone https://github.com/Microsoft/BotFramework-Samples.git
 ## Connect to bot using Bot Framework Emulator **V4**
 
 - Launch the Bot Framework Emulator.
+
 - Select the **File** > **Open bot configuration** menu item and navigate to the `BotFramework-Samples\SDKV4-Samples\dotnet_core\PromptUsersForInput` folder.
 - Select the `custom-prompt.bot` file.
 
@@ -54,7 +55,3 @@ This sample is intended to be run and tested locally and is not designed to be d
 # Further reading
 
 - [Azure Bot Service Introduction](https://docs.microsoft.com/azure/bot-service/bot-service-overview-introduction)
-- [About bot state](https://docs.microsoft.com/azure/bot-service/bot-builder-concept-state)
-- [Managing conversation and user state](https://docs.microsoft.com/azure/bot-service/bot-builder-howto-v4-state)
-- [Prompt users for input](https://docs.microsoft.com/azure/bot-service/bot-builder-primitive-prompts)
-- [Write directly to storage](https://docs.microsoft.com/azure/bot-service/bot-builder-howto-v4-storage)
