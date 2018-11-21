@@ -7,17 +7,17 @@ The bot maintains user state to track the user's answers.
 # To try this sample
 - Clone the samples repository
 ```bash
-git clone https://github.com/Microsoft/botbuilder-samples.git
+git clone https://github.com/Microsoft/BotFramework-Samples.git
 ```
-- [Optional] Update the `appsettings.json` file under `botbuilder-samples\samples\csharp_dotnetcore\<sample-name>` with your botFileSecret.  For Azure Bot Service bots, you can find the botFileSecret under application settings.
+- [Optional] Update the `appsettings.json` file under `BotFramework-Samples\samples\dotnet_core\<sample-name>` with your botFileSecret.  For Azure Bot Service bots, you can find the botFileSecret under application settings.
 # Prerequisites
 ## Visual Studio
-- Navigate to the samples folder (`botbuilder-samples\samples\csharp_dotnetcore\<sample-name>`) and open \<sample-name>.csproj in Visual Studio.
+- Navigate to the samples folder (`BotFramework-Samples\dotnet_core\<sample-name>`) and open \<sample-name>.csproj in Visual Studio.
 - Hit F5.
 
 ## Visual Studio Code
-- Open `botbuilder-samples\samples\csharp_dotnetcore\<sample-name>` sample folder.
-- Bring up a terminal, navigate to `botbuilder-samples\samples\csharp_dotnetcore\<sample-name>` folder.
+- Open `BotFramework-Samples\dotnet_core\<sample-name>` sample folder.
+- Bring up a terminal, navigate to `BotFramework-Samples\dotnet_core\<sample-name>` folder.
 - Type 'dotnet run'.
 
 ## Testing the bot using Bot Framework Emulator
@@ -27,7 +27,7 @@ developers to test and debug their bots on localhost or running remotely through
 
 ## Connect to bot using Bot Framework Emulator **V4**
 - Launch the Bot Framework Emulator.
-- File -> Open bot and navigate to `botbuilder-samples\samples\csharp_dotnetcore\02.echo-with-counter` folder.
+- File -> Open bot and navigate to `BotFramework-Samples\dotnet_core\<sample-name>` folder.
 - Select `BotConfiguration.bot` file.
 
 # Bot state
