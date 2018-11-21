@@ -1,6 +1,6 @@
 # Bot Framework Samples
 
-This branch is for Bot Builder SDK V4 samples. 
+This branch is for Bot Builder SDK V4 samples used in the documentation. 
 
 ## Contributing
 
