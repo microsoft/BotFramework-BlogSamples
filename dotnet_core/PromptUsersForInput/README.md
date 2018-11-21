@@ -28,7 +28,7 @@ developers to test and debug their bots on localhost or running remotely through
 ## Connect to bot using Bot Framework Emulator **V4**
 - Launch the Bot Framework Emulator.
 - File -> Open bot and navigate to `BotFramework-Samples\dotnet_core\<sample-name>` folder.
-- Select `BotConfiguration.bot` file.
+- Select `custom-prompt.bot` file.
 
 # Bot state
 A bot is inherently stateless. Once your bot is deployed, it may not run in the same process or on the same machine from one turn to the next.
