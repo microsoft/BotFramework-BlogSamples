@@ -1,4 +1,4 @@
-# simplePrompts
+# Prompt users for input
 Sample code for **Create your own prompts to gather user input**
 
 This bot has been created using [Microsoft Bot Framework][bot-service-docs].
