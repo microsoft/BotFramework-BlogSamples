@@ -37,7 +37,6 @@
             For example, the <see cref="T:Microsoft.Bot.Builder.MemoryStorage"/> object and associated
             <see cref="T:Microsoft.Bot.Builder.IStatePropertyAccessor`1"/> object are created with a singleton lifetime.
             </summary>
-            <seealso cref="!:https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1"/>
         </member>
         <member name="M:Microsoft.BotBuilderSamples.StateBot.#ctor(Microsoft.BotBuilderSamples.StateBotAccessors,Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
@@ -58,7 +57,7 @@
         <member name="T:Microsoft.BotBuilderSamples.StateBotAccessors">
             <summary>
             This class is created as a Singleton and passed into the IBot-derived constructor.
-             - See <see cref="!:CustomPromptBotAccessors"/> constructor for how that is injected.
+             - See <see cref="T:Microsoft.BotBuilderSamples.StateBotAccessors"/> constructor for how that is injected.
              - See the Startup.cs file for more details on creating the Singleton that gets
                injected into the constructor.
             </summary>

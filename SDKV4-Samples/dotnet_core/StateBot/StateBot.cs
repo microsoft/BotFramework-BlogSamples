@@ -55,46 +55,53 @@ namespace Microsoft.BotBuilderSamples
             if (turnContext.Activity.Type == ActivityTypes.Message)
             {
                 // Get the state properties from the turn context.
-                UserProfile userProfile = await _accessors.UserProfileAccessor.GetAsync(turnContext, () => new UserProfile());
-                ConversationData conversationData = await _accessors.ConversationDataAccessor.GetAsync(turnContext, () => new ConversationData());
+                UserProfile userProfile =
+                    await _accessors.UserProfileAccessor.GetAsync(turnContext, () => new UserProfile());
+                ConversationData conversationData =
+                    await _accessors.ConversationDataAccessor.GetAsync(turnContext, () => new ConversationData());
 
-                // First time around this is set to false, so we will prompt user for name
-                if (!userProfile.PromptedUserForName)
+                if (string.IsNullOrEmpty(userProfile.Name))
                 {
-                    await turnContext.SendActivityAsync($"What is your name?");
+                    // First time around this is set to false, so we will prompt user for name.
+                    if (conversationData.PromptedUserForName)
+                    {
+                        // Set the name to what the user provided
+                        userProfile.Name = turnContext.Activity.Text?.Trim();
 
-                    // Set the flag to true, so we don't prompt in the next turn. 
-                    userProfile.PromptedUserForName = true;
+                        // Acknowledge that we got their name.
+                        await turnContext.SendActivityAsync($"Thanks {userProfile.Name}.");
 
-                    // Save uderProfile data using the accessors
+                        // Reset the flag to allow the bot to go though the cycle again.
+                        conversationData.PromptedUserForName = false;
+                    }
+                    else
+                    {
+                        // Prompt the user for their name.
+                        await turnContext.SendActivityAsync($"What is your name?");
+
+                        // Set the flag to true, so we don't prompt in the next turn.
+                        conversationData.PromptedUserForName = true;
+                    }
+
+                    // Save user state and save changes.
                     await _accessors.UserProfileAccessor.SetAsync(turnContext, userProfile);
                     await _accessors.UserState.SaveChangesAsync(turnContext);
                 }
                 else
                 {
-                    // Set the name to what the user provided
-                    userProfile.Name = turnContext.Activity.Text;
-
-                    // Reset the flag to allow the bot to go though the cycle again
-                    userProfile.PromptedUserForName = false;
-
-                    // Save the user data
-                    await _accessors.UserProfileAccessor.SetAsync(turnContext, userProfile);
-                    await _accessors.UserState.SaveChangesAsync(turnContext);
-
-                    // Add message details to the conversation data
-                    conversationData.MessageDetails.Add(turnContext.Activity.Timestamp.ToString());
-                    conversationData.MessageDetails.Add(turnContext.Activity.ChannelId.ToString());
-
-                    // Update state and save changes.
-                    await _accessors.ConversationDataAccessor.SetAsync(turnContext, conversationData);
-                    await _accessors.ConversationState.SaveChangesAsync(turnContext);
+                    // Add message details to the conversation data.
+                    conversationData.Timestamp = turnContext.Activity.Timestamp.ToString();
+                    conversationData.ChannelId = turnContext.Activity.ChannelId.ToString();
 
                     // Display state data
-                    await turnContext.SendActivityAsync($"User data: {userProfile.Name}");
-                    await turnContext.SendActivityAsync($"Message received at: {turnContext.Activity.Timestamp.ToString()}");
-                    await turnContext.SendActivityAsync($"Message received from: {conversationData.MessageDetails[1].ToString()}"); 
+                    await turnContext.SendActivityAsync($"{userProfile.Name} sent: {turnContext.Activity.Text}");
+                    await turnContext.SendActivityAsync($"Message received at: {conversationData.Timestamp}");
+                    await turnContext.SendActivityAsync($"Message received from: {conversationData.ChannelId}");
                 }
+
+                // Update conversation state and save changes.
+                await _accessors.ConversationDataAccessor.SetAsync(turnContext, conversationData);
+                await _accessors.ConversationState.SaveChangesAsync(turnContext);
             }
         }
     }
