@@ -1,19 +1,18 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using Microsoft.Bot.Schema;
-
 namespace Microsoft.BotBuilderSamples
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Bot.Builder;
+    using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Builder.Dialogs.Choices;
+    using Microsoft.Bot.Schema;
+
     /// <summary>
     /// Represents a bot that processes incoming activities.
     /// For each user interaction, an instance of this class is created and the OnTurnAsync method is called.
@@ -34,7 +33,6 @@ namespace Microsoft.BotBuilderSamples
         // Define the dialog and prompt names for the bot.
         private const string TopLevelDialog = "dialog-topLevel";
         private const string ReviewSelectionDialog = "dialog-reviewSeleciton";
-        private const string ConfirmationDialog = "dialog-confirmation";
         private const string NamePrompt = "prompt-name";
         private const string AgePrompt = "prompt-age";
         private const string SelectionPrompt = "prompt-companySlection";
@@ -126,8 +124,8 @@ namespace Microsoft.BotBuilderSamples
                         break;
                     case DialogTurnStatus.Complete:
                         // If we just finished the dialog, capture and display the results.
-                        var userInfo = results.Result as UserProfile;
-                        var status = "You are signed up to review "
+                        UserProfile userInfo = results.Result as UserProfile;
+                        string status = "You are signed up to review "
                             + (userInfo.CompaniesToReview.Count is 0 ? "no companies" : string.Join(" and ", userInfo.CompaniesToReview))
                             + ".";
                         await turnContext.SendActivityAsync(status);
@@ -177,129 +175,173 @@ namespace Microsoft.BotBuilderSamples
             }
         }
 
-        /// <summary>
-        /// One of the functions that make up the <see cref="WaterfallDialog"/>.
-        /// </summary>
-        /// <param name="stepContext">The <see cref="WaterfallStepContext"/> gives access to the executing dialog runtime.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="DialogTurnResult"/> to communicate some flow control back to the containing WaterfallDialog.</returns>
+        /// <summary>The first step of the top-level dialog.</summary>
+        /// <param name="stepContext">The waterfall step context for the current turn.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        /// <remarks>If the task is successful, the result contains a <see cref="DialogTurnResult"/> to
+        /// communicate some flow control back to the containing WaterfallDialog.</remarks>
         private static async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
+            // Create an object in which to collect the user's information within the dialog.
             stepContext.Values[UserInfo] = new UserProfile();
 
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            // Running a prompt here means the next WaterfallStep will be run when the users response is received.
+            // Ask the user to enter their name.
             return await stepContext.PromptAsync(
                 NamePrompt,
                 new PromptOptions { Prompt = MessageFactory.Text("Please enter your name.") },
                 cancellationToken);
         }
 
-        /// <summary>
-        /// One of the functions that make up the <see cref="WaterfallDialog"/>.
-        /// </summary>
-        /// <param name="stepContext">The <see cref="WaterfallStepContext"/> gives access to the executing dialog runtime.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="DialogTurnResult"/> to communicate some flow control back to the containing WaterfallDialog.</returns>
-        private async Task<DialogTurnResult> AgeStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        /// <summary>The second step of the top-level dialog.</summary>
+        /// <param name="stepContext">The waterfall step context for the current turn.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        /// <remarks>If the task is successful, the result contains a <see cref="DialogTurnResult"/> to
+        /// communicate some flow control back to the containing WaterfallDialog.</remarks>
+        private async Task<DialogTurnResult> AgeStepAsync(
+            WaterfallStepContext stepContext,
+            CancellationToken cancellationToken)
         {
+            // Set the user's name to what they entered in response to the name prompt.
             ((UserProfile)stepContext.Values[UserInfo]).Name = (string)stepContext.Result;
 
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog, here it is a Prompt Dialog.
+            // Ask the user to enter their age.
             return await stepContext.PromptAsync(
                 AgePrompt,
                 new PromptOptions { Prompt = MessageFactory.Text("Please enter your age.") },
                 cancellationToken);
         }
 
-        /// <summary>
-        /// One of the functions that make up the <see cref="WaterfallDialog"/>.
-        /// </summary>
-        /// <param name="stepContext">The <see cref="WaterfallStepContext"/> gives access to the executing dialog runtime.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="DialogTurnResult"/> to communicate some flow control back to the containing WaterfallDialog.</returns>
-        private async Task<DialogTurnResult> StartSelectionStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        /// <summary>The third step of the top-level dialog.</summary>
+        /// <param name="stepContext">The waterfall step context for the current turn.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        /// <remarks>If the task is successful, the result contains a <see cref="DialogTurnResult"/> to
+        /// communicate some flow control back to the containing WaterfallDialog.</remarks>
+        private async Task<DialogTurnResult> StartSelectionStepAsync(
+            WaterfallStepContext stepContext,
+            CancellationToken cancellationToken)
         {
-            var age = (int)stepContext.Result;
+            // Set the user's age to what they entered in response to the age prompt.
+            int age = (int)stepContext.Result;
             ((UserProfile)stepContext.Values[UserInfo]).Age = age;
 
-            // We can send messages to the user at any point in the WaterfallStep.
             if (age < 25)
             {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text("You must be 25 or older to participate."), cancellationToken);
+                // If they are too young, skip the review selection dialog, and pass an empty list to the next step.
+                await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text("You must be 25 or older to participate."),
+                    cancellationToken);
                 return await stepContext.NextAsync(new List<string>(), cancellationToken);
             }
             else
             {
-                // We can send messages to the user at any point in the WaterfallStep.
+                // Otherwise, start the review selection dialog.
                 return await stepContext.BeginDialogAsync(ReviewSelectionDialog, null, cancellationToken);
             }
         }
 
-        /// <summary>
-        /// One of the functions that make up the <see cref="WaterfallDialog"/>.
-        /// </summary>
-        /// <param name="stepContext">The <see cref="WaterfallStepContext"/> gives access to the executing dialog runtime.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/>.</param>
-        /// <returns>A <see cref="DialogTurnResult"/> to communicate some flow control back to the containing WaterfallDialog.</returns>
-        private async Task<DialogTurnResult> AcknowledgementStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        /// <summary>The final step of the top-level dialog.</summary>
+        /// <param name="stepContext">The waterfall step context for the current turn.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        /// <remarks>If the task is successful, the result contains a <see cref="DialogTurnResult"/> to
+        /// communicate some flow control back to the containing WaterfallDialog.</remarks>
+        private async Task<DialogTurnResult> AcknowledgementStepAsync(
+            WaterfallStepContext stepContext,
+            CancellationToken cancellationToken)
         {
-            var list = stepContext.Result as List<string>;
+            // Set the user's company selection to what they entered in the review-selection dialog.
+            List<string> list = stepContext.Result as List<string>;
             ((UserProfile)stepContext.Values[UserInfo]).CompaniesToReview = list ?? new List<string>();
 
-            // We can send messages to the user at any point in the WaterfallStep.
+            // Thank them for participating.
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text($"Thanks for participating, {((UserProfile)stepContext.Values[UserInfo]).Name}."),
                 cancellationToken);
 
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog, here it is the end.
+            // Exit the dialog, returning the collected user information.
             return await stepContext.EndDialogAsync(stepContext.Values[UserInfo], cancellationToken);
         }
 
+        /// <summary>The first step of the review-selection dialog.</summary>
+        /// <param name="stepContext">The waterfall step context for the current turn.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        /// <remarks>If the task is successful, the result contains a <see cref="DialogTurnResult"/> to
+        /// communicate some flow control back to the containing WaterfallDialog.</remarks>
         private async Task<DialogTurnResult> SelectionStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            var list = stepContext.Options as List<string> ?? new List<string>();
+            // Continue using the same selection list, if any, from the previous iteration of this dialog.
+            List<string> list = stepContext.Options as List<string> ?? new List<string>();
             stepContext.Values[CompaniesSelected] = list;
 
-            var status = "You are currently reviewing "
-                + (list.Count is 0 ? "no companies" : list[0])
-                + ".";
+            // Create a prompt message.
+            string message;
+            if (list.Count is 0)
+            {
+                message = $"Please choose a company to review, or `{DoneOption}` to finish.";
+            }
+            else
+            {
+                message = $"You have selected **{list[0]}**. You can review an additional company, " +
+                    $"or choose `{DoneOption}` to finish.";
+            }
 
-            var options = _companyOptions.ToList();
+            // Create the list of options to choose from.
+            List<string> options = _companyOptions.ToList();
             options.Add(DoneOption);
             if (list.Count > 0)
             {
                 options.Remove(list[0]);
             }
 
+            // Prompt the user for a choice.
             return await stepContext.PromptAsync(
                 SelectionPrompt,
                 new PromptOptions
                 {
-                    Prompt = MessageFactory.Text($"{status} Please choose a company to review, or type {DoneOption} to finish."),
+                    Prompt = MessageFactory.Text(message),
                     RetryPrompt = MessageFactory.Text("Please choose an option from the list."),
                     Choices = ChoiceFactory.ToChoices(options),
                 },
                 cancellationToken);
         }
 
+        /// <summary>The final step of the review-selection dialog.</summary>
+        /// <param name="stepContext">The waterfall step context for the current turn.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects
+        /// or threads to receive notice of cancellation.</param>
+        /// <returns>A task that represents the work queued to execute.</returns>
+        /// <remarks>If the task is successful, the result contains a <see cref="DialogTurnResult"/> to
+        /// communicate some flow control back to the containing WaterfallDialog.</remarks>
         private async Task<DialogTurnResult> LoopStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            var list = stepContext.Values[CompaniesSelected] as List<string>;
-            var choice = (FoundChoice)stepContext.Result;
-            var done = string.Equals(choice.Value, DoneOption, StringComparison.InvariantCultureIgnoreCase);
+            // Retrieve their selection list, the choice they made, and whether they chose to finish.
+            List<string> list = stepContext.Values[CompaniesSelected] as List<string>;
+            FoundChoice choice = (FoundChoice)stepContext.Result;
+            bool done = string.Equals(choice.Value, DoneOption, StringComparison.InvariantCultureIgnoreCase);
 
             if (!done)
             {
+                // If they chose a company, add it to the list.
                 list.Add(choice.Value);
             }
 
             if (done || list.Count is 2)
             {
+                // If they're done, exit and return their list.
                 return await stepContext.EndDialogAsync(list, cancellationToken);
             }
             else
             {
+                // Otherwise, repeat this dialog, passing in the list from this iteration.
                 return await stepContext.ReplaceDialogAsync(ReviewSelectionDialog, list, cancellationToken);
             }
         }
