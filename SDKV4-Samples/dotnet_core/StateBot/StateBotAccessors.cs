@@ -33,16 +33,27 @@ namespace Microsoft.BotBuilderSamples
         /// <remarks>Accessors require a unique name.</remarks>
         public static string UserProfileName { get; } = "UserProfile";
 
+        /// <summary>
+        /// Gets the accessor name for the conversation data property accessor.
+        /// </summary>
+        /// <value>The accessor name for the conversation data property accessor.</value>
+        /// <remarks>Accessors require a unique name.</remarks>
         public static string ConversationDataName { get; } = "ConversationData";
 
         /// <summary>
         /// Gets or sets the <see cref="IStatePropertyAccessor{T}"/> for the user profile property.
         /// </summary>
         /// <value>
-        /// The accessor stores the turn count for the conversation.
+        /// The accessor for the user profile property.
         /// </value>
         public IStatePropertyAccessor<UserProfile> UserProfileAccessor { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IStatePropertyAccessor{T}"/> for the conversation data property.
+        /// </summary>
+        /// <value>
+        /// The accessor for the conversation data property.
+        /// </value>
         public IStatePropertyAccessor<ConversationData> ConversationDataAccessor { get; set; }
 
         /// <summary>
@@ -52,7 +63,7 @@ namespace Microsoft.BotBuilderSamples
         public ConversationState ConversationState { get; }
 
         /// <summary>
-        /// Gets the <see cref="UserState"/> object for the conversation.
+        /// Gets the <see cref="UserState"/> object for the bot.
         /// </summary>
         /// <value>The <see cref="UserState"/> object.</value>
         public UserState UserState { get; }

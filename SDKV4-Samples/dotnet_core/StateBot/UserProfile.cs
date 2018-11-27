@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.BotBuilderSamples
 {
+    // Defines a state property used to track information about the user.
     public class UserProfile
     {
         public string Name { get; set; }
-
-        // Track whether we have already asked the user's name
-        public bool PromptedUserForName { get; set; } = false;
     }
 }
