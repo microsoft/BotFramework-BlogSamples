@@ -55,7 +55,7 @@ namespace Microsoft.BotBuilderSamples
         /// <summary>
         /// The <see cref="DialogSet"/> that contains all the Dialogs that can be used at runtime.
         /// </summary>
-        private DialogSet _dialogs;
+        private readonly DialogSet _dialogs;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ComplexDialogBot"/> class.
@@ -326,7 +326,7 @@ namespace Microsoft.BotBuilderSamples
             // Retrieve their selection list, the choice they made, and whether they chose to finish.
             List<string> list = stepContext.Values[CompaniesSelected] as List<string>;
             FoundChoice choice = (FoundChoice)stepContext.Result;
-            bool done = string.Equals(choice.Value, DoneOption, StringComparison.InvariantCultureIgnoreCase);
+            bool done = choice.Value == DoneOption;
 
             if (!done)
             {
