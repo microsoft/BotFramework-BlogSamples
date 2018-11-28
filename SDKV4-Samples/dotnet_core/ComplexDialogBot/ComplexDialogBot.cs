@@ -326,7 +326,7 @@ namespace Microsoft.BotBuilderSamples
             // Retrieve their selection list, the choice they made, and whether they chose to finish.
             List<string> list = stepContext.Values[CompaniesSelected] as List<string>;
             FoundChoice choice = (FoundChoice)stepContext.Result;
-            bool done = string.Equals(choice.Value, DoneOption, StringComparison.InvariantCultureIgnoreCase);
+            bool done = choice.Value == DoneOption;
 
             if (!done)
             {
