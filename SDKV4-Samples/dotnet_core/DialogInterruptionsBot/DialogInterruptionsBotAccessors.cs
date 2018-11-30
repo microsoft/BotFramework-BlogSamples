@@ -36,14 +36,6 @@ namespace Microsoft.BotBuilderSamples
         public IStatePropertyAccessor<DialogState> DialogStateAccessor { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="IStatePropertyAccessor{T}"/> for ConversationDialogState.
-        /// </summary>
-        /// <value>
-        /// The accessor stores the dialog state for the conversation.
-        /// </value>
-        public IStatePropertyAccessor<ConversationFlow> ConversationFlowAccessor { get; set; }
-
-        /// <summary>
         /// Gets or sets the <see cref="IStatePropertyAccessor{T}"/> for CounterState.
         /// </summary>
         /// <value>

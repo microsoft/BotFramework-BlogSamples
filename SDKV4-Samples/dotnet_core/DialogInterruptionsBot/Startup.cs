@@ -98,7 +98,6 @@ namespace Microsoft.BotBuilderSamples
                 var accessors = new DialogInterruptionsBotAccessors(conversationState, userState)
                 {
                     DialogStateAccessor = conversationState.CreateProperty<DialogState>("DialogState"),
-                    ConversationFlowAccessor = conversationState.CreateProperty<ConversationFlow>("ConversationFlow"),
                     UserProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile"),
                 };
 
