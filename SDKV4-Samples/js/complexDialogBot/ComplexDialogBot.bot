@@ -1,13 +1,52 @@
 {
     "name": "ComplexDialogBot",
+    "description": "",
     "services": [
         {
+            "type": "abs",
+            "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+            "subscriptionId": "0389857f-2464-451b-ac83-5f54d565b1a7",
+            "resourceGroup": "jf-registration-group",
+            "serviceName": "ComplexDialogBot",
+            "name": "ComplexDialogBot",
+            "id": "1",
+            "appId": "3dc6e586-761a-4f53-a86c-9068c13a8d34"
+        },
+        {
+            "type": "blob",
+            "connectionString": "DefaultEndpointsProtocol=https;AccountName=omplexia3982;AccountKey=i5x0MbMJdInaLDAS/sMY0lg5jG/RGoGWlwJiguutN4pn0Ow2bb7JuX9+psWMKLOwfUW5MYnkGTWFxaQSCc4gsQ==;",
+            "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+            "subscriptionId": "0389857f-2464-451b-ac83-5f54d565b1a7",
+            "resourceGroup": "jf-registration-group",
+            "serviceName": "omplexia3982",
+            "id": "2"
+        },
+        {
             "type": "endpoint",
-            "name": "development",
-            "endpoint": "http://localhost:3978/api/messages",
             "appId": "",
             "appPassword": "",
-            "id": "1"
+            "endpoint": "http://localhost:3978/api/messages",
+            "name": "development",
+            "id": "3"
+        },
+        {
+            "type": "endpoint",
+            "appId": "3dc6e586-761a-4f53-a86c-9068c13a8d34",
+            "appPassword": "nddakednI@h2b%!X",
+            "endpoint": "https://omplexialogo59uk.azurewebsites.net/api/messages",
+            "name": "production",
+            "id": "4"
+        },
+        {
+            "type": "appInsights",
+            "instrumentationKey": "b6f253df-2a26-4848-b4e7-f531057820fe",
+            "applicationId": "5caae2b8-030b-4683-9713-f098a9a9e319",
+            "apiKeys": {},
+            "tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+            "subscriptionId": "0389857f-2464-451b-ac83-5f54d565b1a7",
+            "resourceGroup": "jf-registration-group",
+            "serviceName": "ComplexDialogBotmbav3w",
+            "id": "5"
         }
     ],
     "padlock": "",
