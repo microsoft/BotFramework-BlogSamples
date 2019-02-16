@@ -12,8 +12,8 @@
         "watch": "nodemon ./index.js"
     },
     "dependencies": {
-        "botbuilder": "^4.1.5",
-        "botbuilder-dialogs": "^4.1.5",
+        "botbuilder": "^4.2.1",
+        "botbuilder-dialogs": "^4.2.1",
         "botframework-config": "^4.1.5",
         "dotenv": "^6.0.0",
         "restify": "^6.3.4"

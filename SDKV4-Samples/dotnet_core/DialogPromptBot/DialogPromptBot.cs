@@ -30,8 +30,13 @@ namespace Microsoft.BotBuilderSamples
         // Define identifiers for our dialogs and prompts.
         private const string ReservationDialog = "reservationDialog";
         private const string PartySizePrompt = "partyPrompt";
+        private const string SizeRangePrompt = "rangePrompt";
         private const string LocationPrompt = "locationPrompt";
         private const string ReservationDatePrompt = "reservationDatePrompt";
+
+        // Define keys for tracked values in the dialog.
+        private const string LocationKey = "location";
+        private const string PartySizeKey = "partySize";
 
         private readonly DialogSet _dialogSet;
         private readonly DialogPromptBotAccessors _accessors;
@@ -56,6 +61,7 @@ namespace Microsoft.BotBuilderSamples
             // Create the dialog set and add the prompts, including custom validation.
             _dialogSet = new DialogSet(_accessors.DialogStateAccessor);
             _dialogSet.Add(new NumberPrompt<int>(PartySizePrompt, PartySizeValidatorAsync));
+            _dialogSet.Add(new NumberPrompt<int>(SizeRangePrompt, RangeValidatorAsync));
             _dialogSet.Add(new ChoicePrompt(LocationPrompt));
             _dialogSet.Add(new DateTimePrompt(ReservationDatePrompt, DateValidatorAsync));
 
@@ -91,11 +97,13 @@ namespace Microsoft.BotBuilderSamples
                 case ActivityTypes.Message:
 
                     // Get the current reservation info from state.
-                    Reservation reservation = await _accessors.ReservationAccessor.GetAsync(
-                        turnContext, () => null, cancellationToken);
+                    var reservation = await _accessors.ReservationAccessor.GetAsync(
+                        turnContext,
+                        () => null,
+                        cancellationToken);
 
                     // Generate a dialog context for our dialog set.
-                    DialogContext dc = await _dialogSet.CreateContextAsync(turnContext, cancellationToken);
+                    var dc = await _dialogSet.CreateContextAsync(turnContext, cancellationToken);
 
                     if (dc.ActiveDialog is null)
                     {
@@ -116,7 +124,7 @@ namespace Microsoft.BotBuilderSamples
                     else
                     {
                         // Continue the dialog.
-                        DialogTurnResult dialogTurnResult = await dc.ContinueDialogAsync(cancellationToken);
+                        var dialogTurnResult = await dc.ContinueDialogAsync(cancellationToken);
 
                         // If the dialog completed this turn, record the reservation info.
                         if (dialogTurnResult.Status is DialogTurnStatus.Complete)
@@ -129,7 +137,8 @@ namespace Microsoft.BotBuilderSamples
 
                             // Send a confirmation message to the user.
                             await turnContext.SendActivityAsync(
-                                $"Your party of {reservation.Size} is confirmed for {reservation.Date}.",
+                                $"Your party of {reservation.Size} is confirmed for {reservation.Date}" +
+                                $" in {reservation.Location}.",
                                 cancellationToken: cancellationToken);
                         }
                     }
@@ -151,12 +160,22 @@ namespace Microsoft.BotBuilderSamples
             CancellationToken cancellationToken = default(CancellationToken))
         {
             // Prompt for the party size. The result of the prompt is returned to the next step of the waterfall.
+            //return await stepContext.PromptAsync(
+            //    PartySizePrompt,
+            //    new PromptOptions
+            //    {
+            //        Prompt = MessageFactory.Text("How many people is the reservation for?"),
+            //        RetryPrompt = MessageFactory.Text("How large is your party?"),
+            //    },
+            //    cancellationToken);
+
             return await stepContext.PromptAsync(
-                PartySizePrompt,
+                SizeRangePrompt,
                 new PromptOptions
                 {
                     Prompt = MessageFactory.Text("How many people is the reservation for?"),
                     RetryPrompt = MessageFactory.Text("How large is your party?"),
+                    Validations = new Range { Min = 3, Max = 8 },
                 },
                 cancellationToken);
         }
@@ -165,10 +184,10 @@ namespace Microsoft.BotBuilderSamples
         {
             // Record the party size information in the current dialog state.
             int size = (int)stepContext.Result;
-            stepContext.Values["size"] = size;
+            stepContext.Values[PartySizeKey] = size;
 
             return await stepContext.PromptAsync(
-                "locationPrompt",
+                LocationPrompt,
                 new PromptOptions
                 {
                     Prompt = MessageFactory.Text("Please choose a location."),
@@ -190,8 +209,8 @@ namespace Microsoft.BotBuilderSamples
             CancellationToken cancellationToken = default(CancellationToken))
         {
             // Record the party size information in the current dialog state.
-            var location = stepContext.Result;
-            stepContext.Values["location"] = location;
+            var location = (stepContext.Result as FoundChoice).Value;
+            stepContext.Values[LocationKey] = location;
 
             // Prompt for the party size. The result of the prompt is returned to the next step of the waterfall.
             return await stepContext.PromptAsync(
@@ -215,7 +234,7 @@ namespace Microsoft.BotBuilderSamples
             CancellationToken cancellationToken = default(CancellationToken))
         {
             // Retrieve the reservation date.
-            DateTimeResolution resolution = (stepContext.Result as IList<DateTimeResolution>).First();
+            var resolution = (stepContext.Result as IList<DateTimeResolution>).First();
             string time = resolution.Value ?? resolution.Start;
 
             // Send an acknowledgement to the user.
@@ -224,10 +243,11 @@ namespace Microsoft.BotBuilderSamples
                 cancellationToken: cancellationToken);
 
             // Return the collected information to the parent context.
-            Reservation reservation = new Reservation
+            var reservation = new Reservation
             {
                 Date = time,
-                Size = (int)stepContext.Values["size"],
+                Size = (int)stepContext.Values[PartySizeKey],
+                Location = (string)stepContext.Values[LocationKey],
             };
             return await stepContext.EndDialogAsync(reservation, cancellationToken);
         }
@@ -258,6 +278,37 @@ namespace Microsoft.BotBuilderSamples
             {
                 await promptContext.Context.SendActivityAsync(
                     "Sorry, we can only take reservations for parties of 6 to 20.",
+                    cancellationToken: cancellationToken);
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> RangeValidatorAsync(
+            PromptValidatorContext<int> promptContext,
+            CancellationToken cancellationToken)
+        {
+            // Check whether the input could be recognized as an integer.
+            if (!promptContext.Recognized.Succeeded)
+            {
+                await promptContext.Context.SendActivityAsync(
+                    "I'm sorry, I do not understand. Please enter the number of people in your party.",
+                    cancellationToken: cancellationToken);
+                return false;
+            }
+
+            // Check whether the party size is appropriate.
+            int size = promptContext.Recognized.Value;
+            var validRange = promptContext.Options.Validations as Range;
+            if (size < validRange.Min || size > validRange.Max)
+            {
+                await promptContext.Context.SendActivitiesAsync(
+                    new Activity[]
+                    {
+                        MessageFactory.Text($"Sorry, we can only take reservations for parties of {validRange.Min} to {validRange.Max}."),
+                        promptContext.Options.RetryPrompt,
+                    },
                     cancellationToken: cancellationToken);
                 return false;
             }
@@ -303,9 +354,18 @@ namespace Microsoft.BotBuilderSamples
             return false;
         }
 
+        public class Range
+        {
+            public int Min { get; set; }
+
+            public int Max { get; set; }
+        }
+
         public class Reservation
         {
             public int Size { get; set; }
+
+            public string Location { get; set; }
 
             public string Date { get; set; }
         }
