@@ -22,12 +22,15 @@ namespace Microsoft.BotBuilderSamples
         /// <param name="conversationState">The state object that stores the counter.</param>
         public DialogPromptBotAccessors(ConversationState conversationState)
         {
-            ConversationState = conversationState ?? throw new ArgumentNullException(nameof(conversationState));
+            ConversationState = conversationState
+                ?? throw new ArgumentNullException(nameof(conversationState));
         }
 
-        public static string DialogStateAccessorKey { get; } = "DialogPromptBotAccessors.DialogState";
+        public static string DialogStateAccessorKey { get; }
+            = "DialogPromptBotAccessors.DialogState";
 
-        public static string ReservationAccessorKey { get; } = "DialogPromptBotAccessors.Reservation";
+        public static string ReservationAccessorKey { get; }
+            = "DialogPromptBotAccessors.Reservation";
 
         /// <summary>
         /// Gets or sets the <see cref="IStatePropertyAccessor{T}"/> for CounterState.
