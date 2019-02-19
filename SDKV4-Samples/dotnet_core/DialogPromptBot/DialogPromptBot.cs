@@ -29,8 +29,8 @@ namespace Microsoft.BotBuilderSamples
     {
         // Define identifiers for our dialogs and prompts.
         private const string ReservationDialog = "reservationDialog";
-        private const string PartySizePrompt = "partyPrompt";
-        private const string SizeRangePrompt = "rangePrompt";
+        private const string PartySizePrompt = "partySizePrompt";
+        private const string SizeRangePrompt = "sizeRangePrompt";
         private const string LocationPrompt = "locationPrompt";
         private const string ReservationDatePrompt = "reservationDatePrompt";
 
@@ -89,7 +89,9 @@ namespace Microsoft.BotBuilderSamples
         /// <seealso cref="BotStateSet"/>
         /// <seealso cref="ConversationState"/>
         /// <seealso cref="IMiddleware"/>
-        public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task OnTurnAsync(
+            ITurnContext turnContext,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             switch (turnContext.Activity.Type)
             {
@@ -212,7 +214,6 @@ namespace Microsoft.BotBuilderSamples
             var location = (stepContext.Result as FoundChoice).Value;
             stepContext.Values[LocationKey] = location;
 
-            // Prompt for the party size. The result of the prompt is returned to the next step of the waterfall.
             return await stepContext.PromptAsync(
                 ReservationDatePrompt,
                 new PromptOptions
@@ -354,6 +355,7 @@ namespace Microsoft.BotBuilderSamples
             return false;
         }
 
+        /// <summary>Describes an acceptable range of values.</summary>
         public class Range
         {
             public int Min { get; set; }
@@ -361,6 +363,7 @@ namespace Microsoft.BotBuilderSamples
             public int Max { get; set; }
         }
 
+        /// <summary>Holds a user's reservation information.</summary>
         public class Reservation
         {
             public int Size { get; set; }

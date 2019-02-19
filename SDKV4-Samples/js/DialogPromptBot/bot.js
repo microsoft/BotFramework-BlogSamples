@@ -15,10 +15,6 @@ const SIZE_RANGE_PROMPT = 'rangePrompt';
 const LOCATION_PROMPT = 'locationPrompt';
 const RESERVATION_DATE_PROMPT = 'reservationDatePrompt';
 
-// Define keys for tracked values in the dialog.
-const LOCATION_KEY = "location";
-const PARTY_SIZE_KEY = "partySize";
-
 class DialogPromptBot {
     /**
      *
@@ -45,6 +41,115 @@ class DialogPromptBot {
             this.promptForReservationDate.bind(this),
             this.acknowledgeReservation.bind(this),
         ]));
+    }
+
+    /**
+     *
+     * @param {TurnContext} on turn context object.
+     */
+    async onTurn(turnContext) {
+        switch (turnContext.activity.type) {
+            case ActivityTypes.Message:
+                // Get the current reservation info from state.
+                const reservation = await this.reservationAccessor.get(turnContext, null);
+
+                // Generate a dialog context for our dialog set.
+                const dc = await this.dialogSet.createContext(turnContext);
+
+                if (!dc.activeDialog) {
+                    // If there is no active dialog, check whether we have a reservation yet.
+                    if (!reservation) {
+                        // If not, start the dialog.
+                        await dc.beginDialog(RESERVATION_DIALOG);
+                    }
+                    else {
+                        // Otherwise, send a status message.
+                        await turnContext.sendActivity(
+                            `We'll see you on ${reservation.date}.`);
+                    }
+                }
+                else {
+                    // Continue the dialog.
+                    const dialogTurnResult = await dc.continueDialog();
+
+                    // If the dialog completed this turn, record the reservation info.
+                    if (dialogTurnResult.status === DialogTurnStatus.complete) {
+                        await this.reservationAccessor.set(
+                            turnContext,
+                            dialogTurnResult.result);
+
+                        // Send a confirmation message to the user.
+                        await turnContext.sendActivity(
+                            `Your party of ${dialogTurnResult.result.size} is ` +
+                            `confirmed for ${dialogTurnResult.result.date} in ` +
+                            `${dialogTurnResult.result.location}.`);
+                    }
+                }
+
+                // Save the updated dialog state into the conversation state.
+                await this.conversationState.saveChanges(turnContext, false);
+                break;
+            case ActivityTypes.EndOfConversation:
+            case ActivityTypes.DeleteUserData:
+                break;
+            default:
+                break;
+        }
+    }
+
+    async promptForPartySize(stepContext) {
+        // Prompt for the party size. The result of the prompt is returned to the next step of the waterfall.
+        //return await stepContext.prompt(
+        //    PARTY_SIZE_PROMPT, {
+        //        prompt: 'How many people is the reservation for?',
+        //        retryPrompt: 'How large is your party?',
+        //    });
+        return await stepContext.prompt(
+            SIZE_RANGE_PROMPT, {
+                prompt: 'How many people is the reservation for?',
+                retryPrompt: 'How large is your party?',
+                validations: { min: 3, max: 8 },
+            });
+    }
+
+    async promptForLocation(stepContext) {
+        // Record the party size information in the current dialog state.
+        stepContext.values.size = stepContext.result;
+
+        // Prompt for location.
+        return await stepContext.prompt(LOCATION_PROMPT, {
+            prompt: 'Please choose a location.',
+            retryPrompt: 'Sorry, please choose a location from the list.',
+            choices: ['Redmond', 'Bellevue', 'Seattle'],
+        });
+    }
+
+    async promptForReservationDate(stepContext) {
+        // Record the location information in the current dialog state.
+        stepContext.values.location = stepContext.result.value;
+
+        return await stepContext.prompt(
+            RESERVATION_DATE_PROMPT, {
+                prompt: 'Great. When will the reservation be for?',
+                retryPrompt: 'What time should we make your reservation for?'
+            });
+    }
+
+    async acknowledgeReservation(stepContext) {
+        // Retrieve the reservation date.
+        const resolution = stepContext.result[0];
+        const time = resolution.value || resolution.start;
+
+        // Send an acknowledgement to the user.
+        await stepContext.context.sendActivity(
+            'Thank you. We will confirm your reservation shortly.');
+
+        // Return the collected information to the parent context.
+        return await stepContext.endDialog({
+            date: time,
+            size: stepContext.values.size,
+            location: stepContext.values.location
+        });
     }
 
     async partySizeValidator(promptContext) {
@@ -88,25 +193,11 @@ class DialogPromptBot {
         var size = promptContext.recognized.value;
         if (size < promptContext.options.validations.min
             || size > promptContext.options.validations.max) {
-            // This doesn't work:
-            // await promptContext.context.sendActivities([
-            //      'Sorry, we can only take reservations for parties of '
-            //      + `${promptContext.options.validations.min} to `
-            //      + `${promptContext.options.validations.max}.`,
-            //      promptContext.options.retryPrompt]);
-
-            // This works:
-            // await promptContext.context.sendActivity(promptContext.options.retryPrompt);
-
-            // This works:
-            //await promptContext.context.sendActivity(
-            //    'Sorry, we can only take reservations for parties of '
-            //    + `${promptContext.options.validations.min} to `
-            //    + `${promptContext.options.validations.max}.`);
-
-            // These don't work either:
-            // await promptContext.context.sendActivities([promptContext.options.retryPrompt]);
-            await promptContext.context.sendActivities(["Testing..."]);
+            await promptContext.context.sendActivity(
+                'Sorry, we can only take reservations for parties of '
+                + `${promptContext.options.validations.min} to `
+                + `${promptContext.options.validations.max}.`);
+            await promptContext.context.sendActivity(promptContext.options.retryPrompt);
             return false;
         }
 
@@ -140,109 +231,6 @@ class DialogPromptBot {
         await promptContext.context.sendActivity(
             "I'm sorry, we can't take reservations earlier than an hour from now.");
         return false;
-    }
-
-    async promptForPartySize(stepContext) {
-        // Prompt for the party size. The result of the prompt is returned to the next step of the waterfall.
-        return await stepContext.prompt(
-            SIZE_RANGE_PROMPT, {
-                prompt: 'How many people is the reservation for?',
-                retryPrompt: 'How large is your party?',
-                validations: { min: 3, max: 8 },
-            });
-    }
-
-    async promptForLocation(stepContext) {
-        // Record the party size information in the current dialog state.
-        stepContext.values.size = stepContext.result;
-
-        // Prompt for location
-        return await stepContext.prompt(
-            LOCATION_PROMPT, 'Select a location.', ['Redmond', 'Bellevue', 'Seattle']
-        );
-    }
-
-    async promptForReservationDate(stepContext) {
-        // Record the location information in the current dialog state.
-        stepContext.values.location = stepContext.result.value;
-
-        // Prompt for the party size. The result of the prompt is returned to the next step of the waterfall.
-        return await stepContext.prompt(
-            RESERVATION_DATE_PROMPT, {
-                prompt: 'Great. When will the reservation be for?',
-                retryPrompt: 'What time should we make your reservation for?'
-            });
-    }
-
-    async acknowledgeReservation(stepContext) {
-        // Retrieve the reservation date.
-        const resolution = stepContext.result[0];
-        const time = resolution.value || resolution.start;
-
-        // Send an acknowledgement to the user.
-        await stepContext.context.sendActivity(
-            'Thank you. We will confirm your reservation shortly.');
-
-        // Return the collected information to the parent context.
-        return await stepContext.endDialog({
-            date: time,
-            size: stepContext.values.size,
-            location: stepContext.values.location
-        });
-    }
-
-    /**
-     *
-     * @param {TurnContext} on turn context object.
-     */
-    async onTurn(turnContext) {
-        switch (turnContext.activity.type) {
-            case ActivityTypes.Message:
-                // Get the current reservation info from state.
-                const reservation = await this.reservationAccessor.get(turnContext, null);
-
-                // Generate a dialog context for our dialog set.
-                const dc = await this.dialogSet.createContext(turnContext);
-
-                if (!dc.activeDialog) {
-                    // If there is no active dialog, check whether we have a reservation yet.
-                    if (!reservation) {
-                        // If not, start the dialog.
-                        await dc.beginDialog(RESERVATION_DIALOG);
-                    }
-                    else {
-                        // Otherwise, send a status message.
-                        await turnContext.sendActivity(
-                            `We'll see you ${reservation.date}.`);
-                    }
-                }
-                else {
-                    // Continue the dialog.
-                    const dialogTurnResult = await dc.continueDialog();
-
-                    // If the dialog completed this turn, record the reservation info.
-                    if (dialogTurnResult.status === DialogTurnStatus.complete) {
-                        await this.reservationAccessor.set(
-                            turnContext,
-                            dialogTurnResult.result);
-
-                        // Send a confirmation message to the user.
-                        await turnContext.sendActivity(
-                            `Your party of ${dialogTurnResult.result.size} is ` +
-                            `confirmed for ${dialogTurnResult.result.date} in ` +
-                            `${dialogTurnResult.result.location}.`);
-                    }
-                }
-
-                // Save the updated dialog state into the conversation state.
-                await this.conversationState.saveChanges(turnContext, false);
-                break;
-            case ActivityTypes.EndOfConversation:
-            case ActivityTypes.DeleteUserData:
-                break;
-            default:
-                break;
-        }
     }
 }
 
