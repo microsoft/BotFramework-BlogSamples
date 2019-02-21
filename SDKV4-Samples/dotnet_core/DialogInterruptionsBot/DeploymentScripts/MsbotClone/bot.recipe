@@ -1,0 +1,33 @@
+{
+    "version": "1.0",
+    "resources": [
+        {
+            "type": "endpoint",
+            "id": "24",
+            "name": "Sample",
+            "url": "http://localhost:3978/api/messages"
+        },
+        {
+            "type": "endpoint",
+            "id": "2",
+            "name": "production",
+            "url": "https://your-bot-url.azurewebsites.net/api/messages"
+        },
+        {
+            "type": "abs",
+            "id": "3",
+            "name": "complex-dialog-Bot"
+        },
+        {
+            "type": "appInsights",
+            "id": "4",
+            "name": "complex-dialog-Insights"
+        },
+        {
+            "type": "blob",
+            "id": "5",
+            "name": "complex-dialog-Blob",
+            "container": "botstatestore"
+        }
+    ]
+}
