@@ -81,7 +81,10 @@ namespace Microsoft.BotBuilderSamples
             else
             {
                 // Add message details to the conversation data.
-                conversationData.Timestamp = turnContext.Activity.Timestamp.ToString();
+                // Convert saved Timestamp to local DateTimeOffset, then to string for display.
+                var messageTimeOffset = (DateTimeOffset) turnContext.Activity.Timestamp;
+                var localMessageTime = messageTimeOffset.ToLocalTime();
+                conversationData.Timestamp = localMessageTime.ToString();
                 conversationData.ChannelId = turnContext.Activity.ChannelId.ToString();
 
                 // Display state data.
