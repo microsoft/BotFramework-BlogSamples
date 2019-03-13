@@ -2,7 +2,8 @@
 // Licensed under the MIT License.
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,15 +23,11 @@ namespace Microsoft.BotBuilderSamples
     {
         private BotState _conversationState;
         private BotState _userState;
-        private StateBotAccessors _accessors;
-        private ILogger<StateBot> _logger;
 
-        public StateBot(ConversationState conversationState, UserState userState, ILogger<StateBot> logger)
+        public StateBot(ConversationState conversationState, UserState userState)
         {
             _conversationState = conversationState;
             _userState = userState;
-            _accessors = new StateBotAccessors(conversationState, userState);
-            _logger = logger;
         }
 
         /// <summary>The turn handler for the bot.</summary>
@@ -39,16 +36,22 @@ namespace Microsoft.BotBuilderSamples
         /// <param name="cancellationToken">(Optional) A <see cref="CancellationToken"/> that can be used by other objects
         /// or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> that represents the work queued to execute.</returns>
+
+        protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
+        {
+            await turnContext.SendActivityAsync("Welcome to State Bot Sample. Type anything to get started.");
+        }
+
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
             // Get the state properties from the turn context.
 
-            _accessors.ConversationDataAccessor =  _conversationState.CreateProperty<ConversationData>("StateBotAccessors.ConversationDataName");
-            ConversationData conversationData = await _accessors.ConversationDataAccessor.GetAsync(turnContext, () => new ConversationData());
+            var conversationStateAccessors =  _conversationState.CreateProperty<ConversationData>(nameof(ConversationData));
+            ConversationData conversationData = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationData());
 
 
-            _accessors.UserProfileAccessor = _userState.CreateProperty<UserProfile>("StateBotAccessors.UserProfile");
-            UserProfile userProfile = await _accessors.UserProfileAccessor.GetAsync(turnContext, () => new UserProfile());
+            var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
+            UserProfile userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
            
 
             if (string.IsNullOrEmpty(userProfile.Name))
@@ -60,7 +63,7 @@ namespace Microsoft.BotBuilderSamples
                     userProfile.Name = turnContext.Activity.Text?.Trim();
 
                     // Acknowledge that we got their name.
-                    await turnContext.SendActivityAsync($"Thanks {userProfile.Name}.");
+                    await turnContext.SendActivityAsync($"Thanks {userProfile.Name}. To see conversation data, type anything.");
 
                     // Reset the flag to allow the bot to go though the cycle again.
                     conversationData.PromptedUserForName = false;
@@ -74,9 +77,8 @@ namespace Microsoft.BotBuilderSamples
                     conversationData.PromptedUserForName = true;
                 }
 
-                // Save user state and save changes.
-                await _accessors.UserProfileAccessor.SetAsync(turnContext, userProfile);
-                await _accessors.UserState.SaveChangesAsync(turnContext);
+                // Save user state changes.
+                await _userState.SaveChangesAsync(turnContext);
             }
             else
             {
@@ -93,9 +95,8 @@ namespace Microsoft.BotBuilderSamples
                 await turnContext.SendActivityAsync($"Message received from: {conversationData.ChannelId}");
             }
 
-            // Update conversation state and save changes.
-            await _accessors.ConversationDataAccessor.SetAsync(turnContext, conversationData);
-            await _accessors.ConversationState.SaveChangesAsync(turnContext);
+            // Save conversation state changes.
+            await _conversationState.SaveChangesAsync(turnContext);
         }
     }
 }
