@@ -19,33 +19,29 @@ namespace Microsoft.BotBuilderSamples
     // each with dependency on distinct IBot types, this way ASP Dependency Injection can glue everything together without ambiguity.
     public class CustomPromptBot : ActivityHandler 
     {
-        private CustomPromptBotAccessors _accessors;
-        private ILogger _logger;
-
-        public CustomPromptBot(CustomPromptBotAccessors accessors, ILogger<CustomPromptBot> logger)
+        private BotState _userState;
+        private BotState _conversationState;
+        
+        public CustomPromptBot(ConversationState conversationState, UserState userState)
         {
-            _accessors = accessors;
-            _logger = logger;
+            _conversationState = conversationState;
+            _userState = userState;
         }
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Running dialog with Message Activity.");
+           
+            var conversationStateAccessors = _conversationState.CreateProperty<ConversationFlow>(nameof(ConversationFlow));
+            ConversationFlow flow = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationFlow());
 
-            _accessors.ConversationFlowAccessor = _accessors.ConversationState.CreateProperty<ConversationFlow>("CustomPromptBotAccessors.ConversationFlowName");
-            ConversationFlow flow = await _accessors.ConversationFlowAccessor.GetAsync(turnContext, () => new ConversationFlow());
-
-            _accessors.UserProfileAccessor = _accessors.UserState.CreateProperty<UserProfile>("CustomPromptBotAccessors.UserProfileName");
-            UserProfile profile = await _accessors.UserProfileAccessor.GetAsync(turnContext, () => new UserProfile());
+            var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
+            UserProfile profile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
 
             await FillOutUserProfileAsync(flow, profile, turnContext);
 
-            // Update state and save changes.
-            await _accessors.ConversationFlowAccessor.SetAsync(turnContext, flow);
-            await _accessors.ConversationState.SaveChangesAsync(turnContext);
-
-            await _accessors.UserProfileAccessor.SetAsync(turnContext, profile);
-            await _accessors.UserState.SaveChangesAsync(turnContext);
+            // Save changes.
+            await _conversationState.SaveChangesAsync(turnContext);
+            await _userState.SaveChangesAsync(turnContext);
         }
 
         private static async Task FillOutUserProfileAsync(ConversationFlow flow, UserProfile profile, ITurnContext turnContext)
