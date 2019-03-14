@@ -18,7 +18,10 @@ namespace Microsoft.BotBuilderSamples
         {
         }
 
-        protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
+        protected override async Task OnMembersAddedAsync(
+            IList<ChannelAccount> membersAdded,
+            ITurnContext<IConversationUpdateActivity> turnContext,
+            CancellationToken cancellationToken)
         {
             foreach (var member in membersAdded)
             {
@@ -26,8 +29,9 @@ namespace Microsoft.BotBuilderSamples
                 // To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards for more details.
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
-                    var reply = MessageFactory.Text($"Welcome to Complex Dialog Bot {member.Name}.  This bot provides a complex conversation, with multiple dialogs. " +
-                                                    "Type anything to get started.");
+                    var reply = MessageFactory.Text($"Welcome to Complex Dialog Bot {member.Name}. " +
+                        "This bot provides a complex conversation, with multiple dialogs. " +
+                        "Type anything to get started.");
                     await turnContext.SendActivityAsync(reply, cancellationToken);
                 }
             }

@@ -3,7 +3,6 @@
 
 namespace Microsoft.BotBuilderSamples
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -11,7 +10,6 @@ namespace Microsoft.BotBuilderSamples
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Dialogs;
     using Microsoft.Bot.Builder.Dialogs.Choices;
-    using Microsoft.Bot.Schema;
     using Microsoft.Extensions.Logging;
 
     public class MainDialog : ComponentDialog
@@ -29,7 +27,7 @@ namespace Microsoft.BotBuilderSamples
             "Adatum Corporation", "Contoso Suites", "Graphic Design Institute", "Wide World Importers",
         };
 
-        private ILogger<MainDialog> _logger;
+        private readonly ILogger<MainDialog> _logger;
 
         public MainDialog(ILogger<MainDialog> logger)
             : base(nameof(MainDialog))
@@ -56,7 +54,10 @@ namespace Microsoft.BotBuilderSamples
 
             InitialDialogId = "TopLevelDialog";
         }
-        private static async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+
+        private static async Task<DialogTurnResult> NameStepAsync(
+            WaterfallStepContext stepContext,
+            CancellationToken cancellationToken)
         {
             // Create an object in which to collect the user's information within the dialog.
             stepContext.Values[UserInfo] = new UserProfile();
@@ -87,7 +88,7 @@ namespace Microsoft.BotBuilderSamples
             CancellationToken cancellationToken)
         {
             // Set the user's age to what they entered in response to the age prompt.
-            int age = (int)stepContext.Result;
+            var age = (int)stepContext.Result;
             ((UserProfile)stepContext.Values[UserInfo]).Age = age;
 
             if (age < 25)
@@ -110,7 +111,7 @@ namespace Microsoft.BotBuilderSamples
             CancellationToken cancellationToken)
         {
             // Set the user's company selection to what they entered in the review-selection dialog.
-            List<string> list = stepContext.Result as List<string>;
+            var list = stepContext.Result as List<string>;
             ((UserProfile)stepContext.Values[UserInfo]).CompaniesToReview = list ?? new List<string>();
 
             // Thank them for participating.
@@ -122,10 +123,12 @@ namespace Microsoft.BotBuilderSamples
             return await stepContext.EndDialogAsync(stepContext.Values[UserInfo], cancellationToken);
         }
 
-        private async Task<DialogTurnResult> SelectionStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> SelectionStepAsync(
+            WaterfallStepContext stepContext,
+            CancellationToken cancellationToken)
         {
             // Continue using the same selection list, if any, from the previous iteration of this dialog.
-            List<string> list = stepContext.Options as List<string> ?? new List<string>();
+            var list = stepContext.Options as List<string> ?? new List<string>();
             stepContext.Values[CompaniesSelected] = list;
 
             // Create a prompt message.
@@ -141,7 +144,7 @@ namespace Microsoft.BotBuilderSamples
             }
 
             // Create the list of options to choose from.
-            List<string> options = _companyOptions.ToList();
+            var options = _companyOptions.ToList();
             options.Add(DoneOption);
             if (list.Count > 0)
             {
@@ -160,12 +163,14 @@ namespace Microsoft.BotBuilderSamples
                 cancellationToken);
         }
 
-        private async Task<DialogTurnResult> LoopStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> LoopStepAsync(
+            WaterfallStepContext stepContext,
+            CancellationToken cancellationToken)
         {
             // Retrieve their selection list, the choice they made, and whether they chose to finish.
-            List<string> list = stepContext.Values[CompaniesSelected] as List<string>;
-            FoundChoice choice = (FoundChoice)stepContext.Result;
-            bool done = choice.Value == DoneOption;
+            var list = stepContext.Values[CompaniesSelected] as List<string>;
+            var choice = (FoundChoice)stepContext.Result;
+            var done = choice.Value == DoneOption;
 
             if (!done)
             {
@@ -173,7 +178,7 @@ namespace Microsoft.BotBuilderSamples
                 list.Add(choice.Value);
             }
 
-            if (done || list.Count is 2)
+            if (done || list.Count >= 2)
             {
                 // If they're done, exit and return their list.
                 return await stepContext.EndDialogAsync(list, cancellationToken);

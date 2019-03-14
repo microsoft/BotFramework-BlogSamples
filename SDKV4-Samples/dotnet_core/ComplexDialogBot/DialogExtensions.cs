@@ -11,7 +11,12 @@ namespace Microsoft.BotBuilderSamples
     public static class DialogExtensions
     {
         
-        public static async Task Run(this Dialog dialog, ITurnContext turnContext, ConversationState conversationState, UserState userState, CancellationToken cancellationToken)
+        public static async Task Run(
+            this Dialog dialog,
+            ITurnContext turnContext,
+            ConversationState conversationState,
+            UserState userState,
+            CancellationToken cancellationToken)
         {
             var userStateAccessor = userState.CreateProperty<UserProfile>("UserProfile");
             var conversationStateAccessor = conversationState.CreateProperty<DialogState>("DialogState");
@@ -29,7 +34,7 @@ namespace Microsoft.BotBuilderSamples
                     // If there is no active dialog, we should clear the user info and start a new dialog.
                     await userStateAccessor.SetAsync(turnContext, new UserProfile(), cancellationToken);
                     await userState.SaveChangesAsync(turnContext, false, cancellationToken);
-                    await dialogContext.BeginDialogAsync(dialog.Id, null, cancellationToken);             
+                    await dialogContext.BeginDialogAsync(dialog.Id, null, cancellationToken);
                     break;
                 case DialogTurnStatus.Complete:
                     // If we just finished the dialog, capture and display the results.
