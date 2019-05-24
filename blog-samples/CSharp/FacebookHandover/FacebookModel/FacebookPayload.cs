@@ -16,10 +16,16 @@ namespace FacebookModel
         [JsonProperty("sender")]
         public FacebookApp Sender { get; set; }
 
-        /// <summary>
-        /// Gets or sets the request_thread_control of the control request.
-        /// </summary>
-        [JsonProperty("request_thread_control")]
+		/// <summary>
+		/// Gets or sets the recipient of the message.
+		/// </summary>
+		[JsonProperty("recipient")]
+		public FacebookApp Recipient { get; set; }
+
+		/// <summary>
+		/// Gets or sets the request_thread_control of the control request.
+		/// </summary>
+		[JsonProperty("request_thread_control")]
         public FacebookRequestThreadControl RequestThreadControl;
 
         /// <summary>

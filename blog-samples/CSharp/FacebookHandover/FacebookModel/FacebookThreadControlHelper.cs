@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
+using Microsoft.Bot.Schema;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -60,7 +61,7 @@ namespace FacebookModel
 						// Interpret response
 						var responseString = await response.Content.ReadAsStringAsync();
 						var responseObject = JObject.Parse(responseString);
-						var responseData = responseObject["data"] as IEnumerable<JObject>;
+						var responseData = responseObject["data"] as JArray;
 
 						return responseData.Select(receiver => receiver["id"].ToString()).ToList();
 					}
@@ -85,6 +86,16 @@ namespace FacebookModel
             var hod = new { recipient = new { id = userId }, target_app_id = targetAppId, metadata = message };
             return await PostAsync("pass_thread_control", pageToken, JsonConvert.SerializeObject(hod));
         }
-    }
 
+		public static void ApplyFacebookPayloadToTurnContext(ITurnContext turnContext, FacebookPayload facebookPayload)
+		{
+			var userId = facebookPayload.Sender.Id;
+			var pageId = facebookPayload.Recipient.Id;
+			var conversationId = string.Format("{0}-{1}", userId, pageId);
+
+			turnContext.Activity.From = new ChannelAccount(userId);
+			turnContext.Activity.Recipient = new ChannelAccount(pageId);
+			turnContext.Activity.Conversation = new ConversationAccount(id: conversationId);
+		}
+	}
 }

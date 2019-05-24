@@ -50,7 +50,7 @@ namespace Primary.Bots
 			switch (text)
 			{
 				case OPTION_PASS_PAGE_INBOX:
-					await turnContext.SendActivityAsync("Passing thread control to the page inbox.");
+					await turnContext.SendActivityAsync("Passing thread control to the page inbox...");
 					await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], PAGE_INBOX_ID, turnContext.Activity.From.Id, text);
 					break;
 
@@ -62,7 +62,7 @@ namespace Primary.Bots
 					{
 						if (receiver != PAGE_INBOX_ID)
 						{
-							await turnContext.SendActivityAsync("Passing thread control to the secondary app.");
+							await turnContext.SendActivityAsync("Passing thread control to the secondary app...");
 							await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], receiver, turnContext.Activity.From.Id, text);
 							break;
 						}
@@ -76,7 +76,7 @@ namespace Primary.Bots
 					break;
 
 				default:
-					await turnContext.SendActivityAsync(MessageFactory.Text($"Echo: {text}"), cancellationToken);
+					await ShowChoices(turnContext, cancellationToken);
 					break;
 			}
 		}
@@ -92,11 +92,6 @@ namespace Primary.Bots
 				if (facebookPayload.PassThreadControl != null)
 				{
 					await turnContext.SendActivityAsync($"Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message: {facebookPayload.PassThreadControl.Metadata}");
-					await ShowChoices(turnContext, cancellationToken);
-				}
-				else if (facebookPayload.TakeThreadControl != null)
-				{
-					await turnContext.SendActivityAsync($"Thread control is now passed to the primary app with the message: {facebookPayload.TakeThreadControl.Metadata}. Previous thread owner: {facebookPayload.TakeThreadControl.PreviousOwnerAppId}");
 					await ShowChoices(turnContext, cancellationToken);
 				}
 			}
@@ -157,6 +152,8 @@ namespace Primary.Bots
 					// At this point we know we are on Facebook channel, and can consume the Facebook custom payload
 					// present in channelData.
 
+					FacebookThreadControlHelper.ApplyFacebookPayloadToTurnContext(turnContext, facebookPayload);
+
 					// Thread Control Request
 					if (facebookPayload.RequestThreadControl != null)
 					{
@@ -192,7 +189,8 @@ namespace Primary.Bots
 			}
 			else
 			{
-				await turnContext.SendActivityAsync("The secondary app requested thread control but did not ask nicely. Thread control will not be passed");
+				await turnContext.SendActivityAsync("The secondary app requested thread control but did not ask nicely. Thread control will not be passed.");
+				await ShowChoices(turnContext, cancellationToken);
 			}
 		}
 

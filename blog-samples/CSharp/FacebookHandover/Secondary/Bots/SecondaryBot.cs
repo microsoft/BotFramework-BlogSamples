@@ -22,14 +22,12 @@ namespace Secondary.Bots
 {
 	public class SecondaryBot : ActivityHandler
 	{
-		private const string OPTION_PASS_PAGE_INBOX = "Pass to page inbox";
 		private const string OPTION_PASS_PRIMARY_BOT = "Pass to primary";
 		private const string OPTION_REQUEST_THREAD_CONTROL = "Receive request";
 		private const string OPTION_REQUEST_THREAD_CONTROL_NICELY = "Receive nice request";
 		private const string OPTION_TAKE_THREAD_CONTROL = "Have control taken";
-		private const string PAGE_INBOX_ID = "263902037430900";
 
-		private static readonly string[] _options = new[] { OPTION_PASS_PAGE_INBOX, OPTION_PASS_PRIMARY_BOT, OPTION_TAKE_THREAD_CONTROL };
+		private static readonly string[] _options = new[] { OPTION_PASS_PRIMARY_BOT, OPTION_TAKE_THREAD_CONTROL };
 
 		private readonly ILogger _logger;
 		private readonly IConfiguration _configuration;
@@ -46,15 +44,10 @@ namespace Secondary.Bots
 
 			switch (text)
 			{
-				case OPTION_PASS_PAGE_INBOX:
-					await turnContext.SendActivityAsync("Passing thread control to the page inbox.");
-					await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], PAGE_INBOX_ID, turnContext.Activity.From.Id, text);
-					break;
-
 				case OPTION_PASS_PRIMARY_BOT:
-					await turnContext.SendActivityAsync("Passing thread control to the primary app.");
-					await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], _configuration["FacebookPrimaryAppID"], turnContext.Activity.From.Id, text);
-
+					await turnContext.SendActivityAsync("Passing thread control to the primary app...");
+					// A null target app ID will automatically pass control to the primary receiver
+					await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], null, turnContext.Activity.From.Id, text);
 					break;
 
 				case OPTION_TAKE_THREAD_CONTROL:
@@ -62,7 +55,7 @@ namespace Secondary.Bots
 					break;
 
 				default:
-					await turnContext.SendActivityAsync(MessageFactory.Text($"Echo: {text}"), cancellationToken);
+					await ShowChoices(turnContext, cancellationToken);
 					break;
 			}
 		}
@@ -82,8 +75,9 @@ namespace Secondary.Bots
 				}
 				else if (facebookPayload.TakeThreadControl != null)
 				{
-					await turnContext.SendActivityAsync($"Thread control is now passed to the primary app with the message: {facebookPayload.TakeThreadControl.Metadata}. Previous thread owner: {facebookPayload.TakeThreadControl.PreviousOwnerAppId}");
-					await ShowChoices(turnContext, cancellationToken);
+					await turnContext.SendActivityAsync($"Thread control is now passed to the primary app with the message: {facebookPayload.TakeThreadControl.Metadata}."
+						+ $" Previous thread owner: {facebookPayload.TakeThreadControl.PreviousOwnerAppId}."
+						+ $" Send a message to have the primary app respond.");
 				}
 			}
 
