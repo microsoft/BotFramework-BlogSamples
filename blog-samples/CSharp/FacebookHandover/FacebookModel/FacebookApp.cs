@@ -3,12 +3,12 @@
 
 using Newtonsoft.Json;
 
-namespace Secondary.FacebookModel
+namespace FacebookModel
 {
     /// <summary>
     /// Defines a Facebook sender.
     /// </summary>
-    public class FacebookSender
+    public class FacebookApp
     {
         /// <summary>
         /// The Facebook Id of the sender.

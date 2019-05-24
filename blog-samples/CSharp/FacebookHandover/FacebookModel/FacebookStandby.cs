@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace Secondary.FacebookModel
+namespace FacebookModel
 {
     /// <summary>
     /// A Facebook stanby event payload definition.
@@ -23,9 +23,9 @@ namespace Secondary.FacebookModel
     public class FacebookStandby
     {
         [JsonProperty("sender")]
-        public FacebookSender Sender;
+        public FacebookApp Sender;
         [JsonProperty("recipient")]
-        public FacebookRecipient Recipient;
+        public FacebookApp Recipient;
         [JsonProperty("timestamp")]
         public long Timestamp;
         [JsonProperty("message")]
