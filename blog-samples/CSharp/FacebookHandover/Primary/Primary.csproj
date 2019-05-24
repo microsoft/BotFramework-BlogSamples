@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\FacebookModel\FacebookApp.cs" Link="FacebookModel\FacebookApp.cs" />
+    <Compile Include="..\FacebookModel\FacebookPassThreadControl.cs" Link="FacebookModel\FacebookPassThreadControl.cs" />
+    <Compile Include="..\FacebookModel\FacebookPayload.cs" Link="FacebookModel\FacebookPayload.cs" />
+    <Compile Include="..\FacebookModel\FacebookRequestThreadControl.cs" Link="FacebookModel\FacebookRequestThreadControl.cs" />
+    <Compile Include="..\FacebookModel\FacebookStandby.cs" Link="FacebookModel\FacebookStandby.cs" />
+    <Compile Include="..\FacebookModel\FacebookTakeThreadControl.cs" Link="FacebookModel\FacebookTakeThreadControl.cs" />
+    <Compile Include="..\FacebookModel\FacebookThreadControlHelper.cs" Link="FacebookModel\FacebookThreadControlHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Bot.Builder.Dialogs" Version="4.4.4" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.4.3" />
@@ -15,5 +25,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="FacebookModel\" />
+    </ItemGroup>
 
 </Project>
