@@ -23,9 +23,9 @@ namespace FacebookModel
     public class FacebookStandby
     {
         [JsonProperty("sender")]
-        public FacebookApp Sender;
+        public FacebookPage Sender;
         [JsonProperty("recipient")]
-        public FacebookApp Recipient;
+        public FacebookPage Recipient;
         [JsonProperty("timestamp")]
         public long Timestamp;
         [JsonProperty("message")]

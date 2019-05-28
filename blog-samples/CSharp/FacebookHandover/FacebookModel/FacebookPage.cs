@@ -8,7 +8,7 @@ namespace FacebookModel
     /// <summary>
     /// Defines a Facebook sender.
     /// </summary>
-    public class FacebookApp
+    public class FacebookPage
     {
         /// <summary>
         /// The Facebook Id of the sender.
