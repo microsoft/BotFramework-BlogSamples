@@ -20,124 +20,124 @@ using Newtonsoft.Json.Linq;
 
 namespace Secondary.Bots
 {
-	public class SecondaryBot : ActivityHandler
-	{
-		private const string OPTION_PASS_PRIMARY_BOT = "Pass to primary";
-		private const string OPTION_REQUEST_THREAD_CONTROL = "Receive request";
-		private const string OPTION_REQUEST_THREAD_CONTROL_NICELY = "Receive nice request";
-		private const string OPTION_TAKE_THREAD_CONTROL = "Have control taken";
+    public class SecondaryBot : ActivityHandler
+    {
+        private const string OPTION_PASS_PRIMARY_BOT = "Pass to primary";
+        private const string OPTION_REQUEST_THREAD_CONTROL = "Receive request";
+        private const string OPTION_REQUEST_THREAD_CONTROL_NICELY = "Receive nice request";
+        private const string OPTION_TAKE_THREAD_CONTROL = "Have control taken";
 
-		private static readonly string[] _options = new[] { OPTION_PASS_PRIMARY_BOT, OPTION_TAKE_THREAD_CONTROL };
+        private static readonly string[] _options = new[] { OPTION_PASS_PRIMARY_BOT, OPTION_TAKE_THREAD_CONTROL };
 
-		private readonly ILogger _logger;
-		private readonly IConfiguration _configuration;
+        private readonly ILogger _logger;
+        private readonly IConfiguration _configuration;
 
-		public SecondaryBot(ILogger<SecondaryBot> logger, IConfiguration configuration)
-		{
-			_logger = logger;
-			_configuration = configuration;
-		}
+        public SecondaryBot(ILogger<SecondaryBot> logger, IConfiguration configuration)
+        {
+            _logger = logger;
+            _configuration = configuration;
+        }
 
-		protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
-		{
-			var text = turnContext.Activity.Text;
+        protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        {
+            var text = turnContext.Activity.Text;
 
-			switch (text)
-			{
-				case OPTION_PASS_PRIMARY_BOT:
-					await turnContext.SendActivityAsync("Passing thread control to the primary app...");
-					// A null target app ID will automatically pass control to the primary receiver
-					await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], null, turnContext.Activity.From.Id, text);
-					break;
+            switch (text)
+            {
+                case OPTION_PASS_PRIMARY_BOT:
+                    await turnContext.SendActivityAsync("Passing thread control to the primary app...");
+                    // A null target app ID will automatically pass control to the primary receiver
+                    await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], null, turnContext.Activity.From.Id, text);
+                    break;
 
-				case OPTION_TAKE_THREAD_CONTROL:
-					// Do nothing because the primary receiver should react to this instead
-					break;
+                case OPTION_TAKE_THREAD_CONTROL:
+                    // Do nothing because the primary receiver should react to this instead
+                    break;
 
-				default:
-					await ShowChoices(turnContext, cancellationToken);
-					break;
-			}
-		}
+                default:
+                    await ShowChoices(turnContext, cancellationToken);
+                    break;
+            }
+        }
 
-		protected override async Task OnConversationUpdateActivityAsync(ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
-		{
-			_logger.LogInformation("SecondaryBot - Processing a ConversationUpdate Activity.");
+        protected override async Task OnConversationUpdateActivityAsync(ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("SecondaryBot - Processing a ConversationUpdate Activity.");
 
-			var facebookPayload = (turnContext.Activity.ChannelData as JObject)?.ToObject<FacebookPayload>();
+            var facebookPayload = (turnContext.Activity.ChannelData as JObject)?.ToObject<FacebookPayload>();
 
-			if (facebookPayload != null)
-			{
-				if (facebookPayload.PassThreadControl != null)
-				{
-					await turnContext.SendActivityAsync($"Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message: {facebookPayload.PassThreadControl.Metadata}");
-					await ShowChoices(turnContext, cancellationToken);
-				}
-				else if (facebookPayload.TakeThreadControl != null)
-				{
-					await turnContext.SendActivityAsync($"Thread control is now passed to the primary app with the message: {facebookPayload.TakeThreadControl.Metadata}."
-						+ $" Previous thread owner: {facebookPayload.TakeThreadControl.PreviousOwnerAppId}."
-						+ $" Send a message to have the primary app respond.");
-				}
-			}
+            if (facebookPayload != null)
+            {
+                if (facebookPayload.PassThreadControl != null)
+                {
+                    await turnContext.SendActivityAsync($"Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message: {facebookPayload.PassThreadControl.Metadata}");
+                    await ShowChoices(turnContext, cancellationToken);
+                }
+                else if (facebookPayload.TakeThreadControl != null)
+                {
+                    await turnContext.SendActivityAsync($"Thread control is now passed to the primary app with the message: {facebookPayload.TakeThreadControl.Metadata}."
+                        + $" Previous thread owner: {facebookPayload.TakeThreadControl.PreviousOwnerAppId}."
+                        + $" Send a message to have the primary app respond.");
+                }
+            }
 
-			await base.OnConversationUpdateActivityAsync(turnContext, cancellationToken);
-		}
-		protected override async Task OnEventActivityAsync(ITurnContext<IEventActivity> turnContext, CancellationToken cancellationToken)
-		{
-			_logger.LogInformation("SecondaryBot - Processing an Event Activity.");
+            await base.OnConversationUpdateActivityAsync(turnContext, cancellationToken);
+        }
+        protected override async Task OnEventActivityAsync(ITurnContext<IEventActivity> turnContext, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("SecondaryBot - Processing an Event Activity.");
 
-			// Analyze Facebook payload from EventActivity.Value
-			await ProcessFacebookMessage(turnContext, turnContext.Activity.Value, cancellationToken);
-		}
+            // Analyze Facebook payload from EventActivity.Value
+            await ProcessFacebookMessage(turnContext, turnContext.Activity.Value, cancellationToken);
+        }
 
-		private async Task<bool> ProcessFacebookMessage(ITurnContext turnContext, object data, CancellationToken cancellationToken)
-		{
-			return await ProcessStandbyPayload(turnContext, data, cancellationToken);
-		}
+        private async Task<bool> ProcessFacebookMessage(ITurnContext turnContext, object data, CancellationToken cancellationToken)
+        {
+            return await ProcessStandbyPayload(turnContext, data, cancellationToken);
+        }
 
-		private async Task<bool> ProcessStandbyPayload(ITurnContext turnContext, object data, CancellationToken cancellationToken)
-		{
-			if (turnContext.Activity.Name?.Equals("standby", StringComparison.InvariantCultureIgnoreCase) == true)
-			{
-				var standbys = (data as JObject)?.ToObject<FacebookStandbys>();
-				if (standbys != null)
-				{
-					foreach (var standby in standbys.Standbys)
-					{
-						await OnFacebookStandby(turnContext, standby, cancellationToken);
-						return true;
-					}
-				}
-			}
+        private async Task<bool> ProcessStandbyPayload(ITurnContext turnContext, object data, CancellationToken cancellationToken)
+        {
+            if (turnContext.Activity.Name?.Equals("standby", StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                var standbys = (data as JObject)?.ToObject<FacebookStandbys>();
+                if (standbys != null)
+                {
+                    foreach (var standby in standbys.Standbys)
+                    {
+                        await OnFacebookStandby(turnContext, standby, cancellationToken);
+                        return true;
+                    }
+                }
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		protected virtual async Task OnFacebookStandby(ITurnContext turnContext, FacebookStandby facebookStandby, CancellationToken cancellationToken)
-		{
-			_logger.LogInformation("SecondaryBot - Standby message received.");
+        protected virtual async Task OnFacebookStandby(ITurnContext turnContext, FacebookStandby facebookStandby, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("SecondaryBot - Standby message received.");
 
-			var text = facebookStandby?.Message?.Text;
+            var text = facebookStandby?.Message?.Text;
 
-			if (text?.Equals(OPTION_REQUEST_THREAD_CONTROL, StringComparison.InvariantCultureIgnoreCase) == true)
-			{
-				await FacebookThreadControlHelper.RequestThreadControlAsync(_configuration["FacebookPageToken"], facebookStandby.Sender.Id, "give me control");
-			}
-			else if (text?.Equals(OPTION_REQUEST_THREAD_CONTROL_NICELY, StringComparison.InvariantCultureIgnoreCase) == true)
-			{
-				await FacebookThreadControlHelper.RequestThreadControlAsync(_configuration["FacebookPageToken"], facebookStandby.Sender.Id, "please");
-			}
-		}
+            if (text?.Equals(OPTION_REQUEST_THREAD_CONTROL, StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                await FacebookThreadControlHelper.RequestThreadControlAsync(_configuration["FacebookPageToken"], facebookStandby.Sender.Id, "give me control");
+            }
+            else if (text?.Equals(OPTION_REQUEST_THREAD_CONTROL_NICELY, StringComparison.InvariantCultureIgnoreCase) == true)
+            {
+                await FacebookThreadControlHelper.RequestThreadControlAsync(_configuration["FacebookPageToken"], facebookStandby.Sender.Id, "please");
+            }
+        }
 
-		private static async Task ShowChoices(ITurnContext turnContext, CancellationToken cancellationToken)
-		{
-			// Create choices
-			var choices = _options.Select(option => new Choice(option)).ToList();
+        private static async Task ShowChoices(ITurnContext turnContext, CancellationToken cancellationToken)
+        {
+            // Create choices
+            var choices = _options.Select(option => new Choice(option)).ToList();
 
-			// Create the message
-			var message = ChoiceFactory.ForChannel(turnContext.Activity.ChannelId, choices, "Please type a message or choose an option");
-			await turnContext.SendActivityAsync(message, cancellationToken);
-		}
-	}
+            // Create the message
+            var message = ChoiceFactory.ForChannel(turnContext.Activity.ChannelId, choices, "Please type a message or choose an option");
+            await turnContext.SendActivityAsync(message, cancellationToken);
+        }
+    }
 }
