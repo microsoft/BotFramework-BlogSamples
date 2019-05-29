@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\FacebookModel\FacebookApp.cs" Link="FacebookModel\FacebookApp.cs" />
+    <Compile Include="..\FacebookModel\FacebookPage.cs" Link="FacebookModel\FacebookPage.cs" />
     <Compile Include="..\FacebookModel\FacebookPassThreadControl.cs" Link="FacebookModel\FacebookPassThreadControl.cs" />
     <Compile Include="..\FacebookModel\FacebookPayload.cs" Link="FacebookModel\FacebookPayload.cs" />
     <Compile Include="..\FacebookModel\FacebookRequestThreadControl.cs" Link="FacebookModel\FacebookRequestThreadControl.cs" />

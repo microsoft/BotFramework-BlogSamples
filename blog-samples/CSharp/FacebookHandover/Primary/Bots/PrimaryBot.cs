@@ -181,11 +181,17 @@ namespace Primary.Bots
             {
                 await turnContext.SendActivityAsync("The secondary app requested thread control. Passing thread control to the secondary app...");
 
-                await FacebookThreadControlHelper.PassThreadControlAsync(
+                var success = await FacebookThreadControlHelper.PassThreadControlAsync(
                     _configuration["FacebookPageToken"],
                     facebookPayload.RequestThreadControl.RequestedOwnerAppId,
                     facebookPayload.Sender.Id,
                     "allowing thread control");
+
+				if (!success)
+				{
+					// Account for situations when the primary receiver doesn't have thread control
+					await turnContext.SendActivityAsync("Thread control could not be passed.");
+				}
             }
             else
             {
