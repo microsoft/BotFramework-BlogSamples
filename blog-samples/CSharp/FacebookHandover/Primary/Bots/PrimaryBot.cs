@@ -187,11 +187,11 @@ namespace Primary.Bots
                     facebookPayload.Sender.Id,
                     "allowing thread control");
 
-				if (!success)
-				{
-					// Account for situations when the primary receiver doesn't have thread control
-					await turnContext.SendActivityAsync("Thread control could not be passed.");
-				}
+                if (!success)
+                {
+                    // Account for situations when the primary receiver doesn't have thread control
+                    await turnContext.SendActivityAsync("Thread control could not be passed.");
+                }
             }
             else
             {
