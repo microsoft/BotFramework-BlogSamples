@@ -25,14 +25,43 @@ namespace Primary.Bots
     /// </summary>
     public class PrimaryBot : ActivityHandler
     {
+        /// <summary>
+        /// This option passes thread control from the primary receiver to the page inbox.
+        /// </summary>
         private const string OPTION_PASS_PAGE_INBOX = "Pass to page inbox";
+        /// <summary>
+        /// This option passes thread control from the primary receiver to a secondary receiver.
+        /// </summary>
         private const string OPTION_PASS_SECONDARY_BOT = "Pass to secondary";
+        /// <summary>
+        /// This option is ignored by this bot.
+        /// The secondary bot is meant to be listening for this phrase as a standby event
+        /// and respond to it by requesting thread control.
+        /// </summary>
         private const string OPTION_REQUEST_THREAD_CONTROL = "Receive request";
+        /// <summary>
+        /// This option is ignored by this bot.
+        /// The secondary bot is meant to be listening for this phrase as a standby event
+        /// and respond to it by requesting thread control with "polite" metadata.
+        /// </summary>
         private const string OPTION_REQUEST_THREAD_CONTROL_NICELY = "Receive nice request";
+        /// <summary>
+        /// This is not an option for this bot,
+        /// but this bot is meant to recognize the phrase in a standby event while the secondary bot has thread control
+        /// and respond to it by taking thread control from the secondary bot.
+        /// </summary>
         private const string OPTION_TAKE_THREAD_CONTROL = "Have control taken";
+        /// <summary>
+        /// The constant ID representing the page inbox
+        /// </summary>
         private const string PAGE_INBOX_ID = "263902037430900";
 
-        private static readonly string[] _options = new[] { OPTION_PASS_PAGE_INBOX, OPTION_PASS_SECONDARY_BOT, OPTION_REQUEST_THREAD_CONTROL, OPTION_REQUEST_THREAD_CONTROL_NICELY };
+        private static readonly List<Choice> _options = new[] {
+            OPTION_PASS_PAGE_INBOX,
+            OPTION_PASS_SECONDARY_BOT,
+            OPTION_REQUEST_THREAD_CONTROL,
+            OPTION_REQUEST_THREAD_CONTROL_NICELY,
+        }.Select(option => new Choice(option)).ToList();
 
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
@@ -50,7 +79,7 @@ namespace Primary.Bots
             switch (text)
             {
                 case OPTION_PASS_PAGE_INBOX:
-                    await turnContext.SendActivityAsync("Passing thread control to the page inbox...");
+                    await turnContext.SendActivityAsync("Primary Bot: Passing thread control to the page inbox...");
                     await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], PAGE_INBOX_ID, turnContext.Activity.From.Id, text);
                     break;
 
@@ -62,7 +91,7 @@ namespace Primary.Bots
                     {
                         if (receiver != PAGE_INBOX_ID)
                         {
-                            await turnContext.SendActivityAsync("Passing thread control to the secondary app...");
+                            await turnContext.SendActivityAsync($"Primary Bot: Passing thread control to {receiver}...");
                             await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], receiver, turnContext.Activity.From.Id, text);
                             break;
                         }
@@ -91,7 +120,7 @@ namespace Primary.Bots
             {
                 if (facebookPayload.PassThreadControl != null)
                 {
-                    await turnContext.SendActivityAsync($"Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message: {facebookPayload.PassThreadControl.Metadata}");
+                    await turnContext.SendActivityAsync($"Primary Bot: Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message \"{facebookPayload.PassThreadControl.Metadata}\"");
                     await ShowChoices(turnContext, cancellationToken);
                 }
             }
@@ -122,8 +151,9 @@ namespace Primary.Bots
                     foreach (var standby in standbys.Standbys)
                     {
                         await OnFacebookStandby(turnContext, standby, cancellationToken);
-                        return true;
                     }
+
+                    return true;
                 }
             }
 
@@ -152,7 +182,7 @@ namespace Primary.Bots
                     // At this point we know we are on Facebook channel, and can consume the Facebook custom payload
                     // present in channelData.
 
-                    FacebookThreadControlHelper.ApplyFacebookPayloadToTurnContext(turnContext, facebookPayload);
+                    turnContext.ApplyFacebookPayload(facebookPayload);
 
                     // Thread Control Request
                     if (facebookPayload.RequestThreadControl != null)
@@ -166,7 +196,7 @@ namespace Primary.Bots
             {
                 if (turnContext.Activity.ChannelId != Channels.Facebook)
                 {
-                    await turnContext.SendActivityAsync("This sample is intended to be used with a Facebook bot.");
+                    await turnContext.SendActivityAsync("Primary Bot: This sample is intended to be used with a Facebook bot.");
                 }
             }
 
@@ -177,36 +207,36 @@ namespace Primary.Bots
         {
             _logger.LogInformation("PrimaryBot - Thread Control Request message received.");
 
+            string requestedOwnerAppId = facebookPayload.RequestThreadControl.RequestedOwnerAppId;
+
             if (facebookPayload.RequestThreadControl.Metadata == "please")
             {
-                await turnContext.SendActivityAsync("The secondary app requested thread control. Passing thread control to the secondary app...");
+                await turnContext.SendActivityAsync($"Primary Bot: {requestedOwnerAppId} requested thread control nicely. Passing thread control...");
 
                 var success = await FacebookThreadControlHelper.PassThreadControlAsync(
                     _configuration["FacebookPageToken"],
-                    facebookPayload.RequestThreadControl.RequestedOwnerAppId,
+                    requestedOwnerAppId,
                     facebookPayload.Sender.Id,
                     "allowing thread control");
 
                 if (!success)
                 {
                     // Account for situations when the primary receiver doesn't have thread control
-                    await turnContext.SendActivityAsync("Thread control could not be passed.");
+                    await turnContext.SendActivityAsync("Primary Bot: Thread control could not be passed.");
                 }
             }
             else
             {
-                await turnContext.SendActivityAsync("The secondary app requested thread control but did not ask nicely. Thread control will not be passed.");
-                await ShowChoices(turnContext, cancellationToken);
+                await turnContext.SendActivityAsync($"Primary Bot: {requestedOwnerAppId} requested thread control but did not ask nicely."
+                    + " Thread control will not be passed."
+                    + " Send any message to continue.");
             }
         }
 
         private static async Task ShowChoices(ITurnContext turnContext, CancellationToken cancellationToken)
         {
-            // Create choices
-            var choices = _options.Select(option => new Choice(option)).ToList();
-
             // Create the message
-            var message = ChoiceFactory.ForChannel(turnContext.Activity.ChannelId, choices, "Please type a message or choose an option");
+            var message = ChoiceFactory.ForChannel(turnContext.Activity.ChannelId, _options, "Primary Bot: Please type a message or choose an option");
             await turnContext.SendActivityAsync(message, cancellationToken);
         }
     }

@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 namespace FacebookModel
 {
     /// <summary>
-    /// Defines a Facebook sender.
+    /// Defines a Facebook PSID.
     /// </summary>
-    public class FacebookPage
+    public class FacebookPsid
     {
         /// <summary>
-        /// The Facebook Id of the sender.
+        /// A Facebook page-scoped ID.
         /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; }

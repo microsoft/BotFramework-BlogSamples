@@ -14,13 +14,13 @@ namespace FacebookModel
         /// Gets or sets the sender of the message.
         /// </summary>
         [JsonProperty("sender")]
-        public FacebookPage Sender { get; set; }
+        public FacebookPsid Sender { get; set; }
 
 		/// <summary>
 		/// Gets or sets the recipient of the message.
 		/// </summary>
 		[JsonProperty("recipient")]
-		public FacebookPage Recipient { get; set; }
+		public FacebookPsid Recipient { get; set; }
 
 		/// <summary>
 		/// Gets or sets the request_thread_control of the control request.

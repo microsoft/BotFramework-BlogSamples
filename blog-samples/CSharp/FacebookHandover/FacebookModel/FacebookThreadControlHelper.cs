@@ -87,7 +87,12 @@ namespace FacebookModel
             return await PostToFacebookAPIAsync("pass_thread_control", pageToken, JsonConvert.SerializeObject(content));
         }
 
-        public static void ApplyFacebookPayloadToTurnContext(ITurnContext turnContext, FacebookPayload facebookPayload)
+        /// <summary>
+        /// This extension method populates a turn context's activity with conversation and user information from a Facebook payload.
+        /// This is necessary because a turn context needs that information to send messages to a conversation,
+        /// and event activities don't necessarily come with that information already in place.
+        /// </summary>
+        public static void ApplyFacebookPayload(this ITurnContext turnContext, FacebookPayload facebookPayload)
         {
             var userId = facebookPayload.Sender.Id;
             var pageId = facebookPayload.Recipient.Id;

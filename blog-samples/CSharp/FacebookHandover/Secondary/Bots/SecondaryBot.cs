@@ -11,23 +11,42 @@ using System.Threading.Tasks;
 using FacebookModel;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs.Choices;
-using Microsoft.Bot.Connector;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Secondary.Bots
 {
     public class SecondaryBot : ActivityHandler
     {
+        /// <summary>
+        /// This option passes thread control from the secondary receiver to a primary receiver.
+        /// </summary>
         private const string OPTION_PASS_PRIMARY_BOT = "Pass to primary";
-        private const string OPTION_REQUEST_THREAD_CONTROL = "Receive request";
-        private const string OPTION_REQUEST_THREAD_CONTROL_NICELY = "Receive nice request";
+        /// <summary>
+        /// This option is ignored by this bot.
+        /// The primary bot is meant to be listening for this phrase as a standby event
+        /// and respond to it by taking thread control.
+        /// </summary>
         private const string OPTION_TAKE_THREAD_CONTROL = "Have control taken";
+        /// <summary>
+        /// This is not an option for this bot,
+        /// but this bot is meant to recognize the phrase in a standby event while the primary bot has thread control
+        /// and respond to it by requesting thread control from the primary bot.
+        /// </summary>
+        private const string OPTION_REQUEST_THREAD_CONTROL = "Receive request";
+        /// <summary>
+        /// This is not an option for this bot,
+        /// but this bot is meant to recognize the phrase in a standby event while the primary bot has thread control
+        /// and respond to it by requesting thread control from the primary bot with "polite" metadata.
+        /// </summary>
+        private const string OPTION_REQUEST_THREAD_CONTROL_NICELY = "Receive nice request";
 
-        private static readonly string[] _options = new[] { OPTION_PASS_PRIMARY_BOT, OPTION_TAKE_THREAD_CONTROL };
+        private static readonly List<Choice> _options = new[] {
+            OPTION_PASS_PRIMARY_BOT,
+            OPTION_TAKE_THREAD_CONTROL,
+        }.Select(option => new Choice(option)).ToList();
 
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
@@ -45,7 +64,7 @@ namespace Secondary.Bots
             switch (text)
             {
                 case OPTION_PASS_PRIMARY_BOT:
-                    await turnContext.SendActivityAsync("Passing thread control to the primary app...");
+                    await turnContext.SendActivityAsync("Secondary Bot: Passing thread control to the primary receiver...");
                     // A null target app ID will automatically pass control to the primary receiver
                     await FacebookThreadControlHelper.PassThreadControlAsync(_configuration["FacebookPageToken"], null, turnContext.Activity.From.Id, text);
                     break;
@@ -70,14 +89,14 @@ namespace Secondary.Bots
             {
                 if (facebookPayload.PassThreadControl != null)
                 {
-                    await turnContext.SendActivityAsync($"Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message: {facebookPayload.PassThreadControl.Metadata}");
+                    await turnContext.SendActivityAsync($"Secondary Bot: Thread control is now passed to {facebookPayload.PassThreadControl.NewOwnerAppId} with the message \"{facebookPayload.PassThreadControl.Metadata}\"");
                     await ShowChoices(turnContext, cancellationToken);
                 }
                 else if (facebookPayload.TakeThreadControl != null)
                 {
-                    await turnContext.SendActivityAsync($"Thread control is now passed to the primary app with the message: {facebookPayload.TakeThreadControl.Metadata}."
-                        + $" Previous thread owner: {facebookPayload.TakeThreadControl.PreviousOwnerAppId}."
-                        + $" Send a message to have the primary app respond.");
+                    await turnContext.SendActivityAsync($"Secondary Bot: Thread control was taken by the primary receiver with the message \"{facebookPayload.TakeThreadControl.Metadata}\"."
+                        + $" The previous thread owner was {facebookPayload.TakeThreadControl.PreviousOwnerAppId}."
+                        + $" Send any message to continue.");
                 }
             }
 
@@ -88,15 +107,10 @@ namespace Secondary.Bots
             _logger.LogInformation("SecondaryBot - Processing an Event Activity.");
 
             // Analyze Facebook payload from EventActivity.Value
-            await ProcessFacebookMessage(turnContext, turnContext.Activity.Value, cancellationToken);
+            await ProcessStandbyPayload(turnContext, turnContext.Activity.Value, cancellationToken);
         }
 
-        private async Task<bool> ProcessFacebookMessage(ITurnContext turnContext, object data, CancellationToken cancellationToken)
-        {
-            return await ProcessStandbyPayload(turnContext, data, cancellationToken);
-        }
-
-        private async Task<bool> ProcessStandbyPayload(ITurnContext turnContext, object data, CancellationToken cancellationToken)
+        private async Task ProcessStandbyPayload(ITurnContext turnContext, object data, CancellationToken cancellationToken)
         {
             if (turnContext.Activity.Name?.Equals("standby", StringComparison.InvariantCultureIgnoreCase) == true)
             {
@@ -106,12 +120,9 @@ namespace Secondary.Bots
                     foreach (var standby in standbys.Standbys)
                     {
                         await OnFacebookStandby(turnContext, standby, cancellationToken);
-                        return true;
                     }
                 }
             }
-
-            return false;
         }
 
         protected virtual async Task OnFacebookStandby(ITurnContext turnContext, FacebookStandby facebookStandby, CancellationToken cancellationToken)
@@ -132,11 +143,8 @@ namespace Secondary.Bots
 
         private static async Task ShowChoices(ITurnContext turnContext, CancellationToken cancellationToken)
         {
-            // Create choices
-            var choices = _options.Select(option => new Choice(option)).ToList();
-
             // Create the message
-            var message = ChoiceFactory.ForChannel(turnContext.Activity.ChannelId, choices, "Please type a message or choose an option");
+            var message = ChoiceFactory.ForChannel(turnContext.Activity.ChannelId, _options, "Secondary Bot: Please type a message or choose an option");
             await turnContext.SendActivityAsync(message, cancellationToken);
         }
     }
