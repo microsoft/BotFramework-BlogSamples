@@ -12,13 +12,13 @@ namespace FacebookModel
     /// </summary>
     public class FacebookPassThreadControl
     {
-		/// <summary>
-		/// The app id of the new owner.
-		/// </summary>
-		/// <remarks>
-		/// 263902037430900 for the page inbox.
-		/// </remarks>
-		[JsonProperty("new_owner_app_id")]
+        /// <summary>
+        /// The app id of the new owner.
+        /// </summary>
+        /// <remarks>
+        /// 263902037430900 for the page inbox.
+        /// </remarks>
+        [JsonProperty("new_owner_app_id")]
         public string NewOwnerAppId;
 
         /// <summary>

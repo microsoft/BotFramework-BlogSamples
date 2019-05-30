@@ -12,13 +12,13 @@ namespace FacebookModel
     /// </summary>
     public class FacebookTakeThreadControl
     {
-		/// <summary>
-		/// The app id of the previous owner.
-		/// </summary>
-		/// <remarks>
-		/// 263902037430900 for the page inbox.
-		/// </remarks>
-		[JsonProperty("previous_owner_app_id")]
+        /// <summary>
+        /// The app id of the previous owner.
+        /// </summary>
+        /// <remarks>
+        /// 263902037430900 for the page inbox.
+        /// </remarks>
+        [JsonProperty("previous_owner_app_id")]
         public string PreviousOwnerAppId;
 
         /// <summary>
