@@ -1,6 +1,11 @@
 # Please note: this sample is now deprecated
 
-See the [Speech updates](#speech-updates) section for more information.
+See the [Additional resources](#additional-resources) section below for updated information.
+
+## Additional resources
+
+* For more information on how to use the Web Chat control with speech recognition, see [Enable speech in the Web Chat channel](https://docs.microsoft.com/en-us/bot-framework/channel-connect-webchat-speech).
+* You can [download the source code](https://github.com/Microsoft/BotFramework-WebChat) for the web chat control on GitHub. The Web Chat repo also hosts a number of its own samples, including speech samples.
 
 # Enable speech in the Web Chat control
 
@@ -69,31 +74,3 @@ If the user types instead of speaking a response, Web Chat turns off the speech 
 > Google Chrome supports the browser speech recognizer. However, Chrome may block the microphone in the following cases:
 > * If the URL of the page that contains Web Chat begins with `http://` instead of `https://`.
 > * If the URL is a local file using the `file://` protocol instead of `http://localhost:8000`.
-
-## Additional resources
-
-* For more information on how to use the Web Chat control with speech recognition, see [Enable speech in the Web Chat channel](https://docs.microsoft.com/en-us/bot-framework/channel-connect-webchat-speech).
-* You can [download the source code](https://github.com/Microsoft/BotFramework-WebChat) for the web chat control on GitHub.
-* The [Bing Speech API documentation](https://docs.microsoft.com/en-us/azure/cognitive-services/speech/home) provides more information on the Bing Speech API.
-
-
-# Speech Updates
-
-As of October 2018, Bing Speech has been deprecated in favor of the new API, Cognitive Speech Services. Since Bing Speech is now in sunset, new keys can no longer be created. This sample is still available for Web Chat v3 users who already possess a Bing Speech API key.
-
-The Cognitive Speech Speech Services API is active and available for customer implementation in v4 of Web Chat. **Bing Speech and Speech Services are not interchangeable APIs**. There is currently no plan to make Cognitive Speech Services backwards-compatible with v3 of Web Chat. Please see below for a list of Web Chat v4 samples for Bing Speech (deprecated), Cognitive Speech Services, and Web Speech API.
-
-## Speech Samples list as of 2/14/2019
-
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sample&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Description                                                                                                                                                                                  | Link                                                                                                                 |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
-| [`06.a.cognitive-services-bing-speech-js`](https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/06.a.cognitive-services-bing-speech-js)                                   | Introduces speech-to-text and text-to-speech ability using the (deprecated) Cognitive Services Bing Speech API and JavaScript.                                                                                                      | [Bing Speech with JS Demo](https://microsoft.github.io/BotFramework-WebChat/06.a.cognitive-services-bing-speech-js)  |
-| [`06.b.cognitive-services-bing-speech-react`](https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/06.b.cognitive-services-bing-speech-react)                             | Introduces speech-to-text and text-to-speech ability using the (deprecated) Cognitive Services Bing Speech API and React.                                                                                                           | [Bing Speech with React Demo](https://microsoft.github.io/BotFramework-WebChat/06.b.cognitive-services-bing-speech-react)|
-| [`06.c.cognitive-services-speech-services-js`](https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/06.c.cognitive-services-speech-services-js)                           | Introduces speech-to-text and text-to-speech ability using Cognitive Services Speech Services API.                                                                                                                                  | [Speech Services with JS Demo](https://microsoft.github.io/BotFramework-WebChat/6.c.cognitive-services-speech-services-js)|
-| [`06.d.speech-web-browser`](https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/06.d.speech-web-browser)                                                                 | Demonstrates how to implement text-to-speech using Web Chat's browser-based Web Speech API. (link to W3C standard in the sample)                                                                                                    | [Web Speech API Demo](https://microsoft.github.io/BotFramework-WebChat/06.d.speech-web-browser)                      |
-| [`06.e.cognitive-services-speech-services-with-lexical-result`](https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/06.e.cognitive-services-speech-services-with-lexical-result) | Demonstrates how to use lexical result from Cognitive Services Speech Services API.                                                                                                                                         | [Lexical Result Demo](https://microsoft.github.io/BotFramework-WebChat/06.e.cognitive-services-speech-services-with-lexical-result)|
-| [`06.f.hybrid-speech`](https://github.com/Microsoft/BotFramework-WebChat/tree/master/samples/06.f.hybrid-speech)                                                                           | Demonstrates how to use both browser-based Web Speech API for speech-to-text, and Cognitive Services Speech Services API for text-to-speech.                                                                                        | [Hybrid Speech Demo](https://microsoft.github.io/BotFramework-WebChat/06.f.hybrid-speech)                            |
-
-## Other resources
-- [Bing Speech Documentation](https://docs.microsoft.com/en-us/azure/cognitive-services/speech/home)
-- [Cognitive Speech Speech Services website](https://azure.microsoft.com/en-us/services/cognitive-services/speech-services/)
