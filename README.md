@@ -1,5 +1,5 @@
 # Bot Framework Samples
-This repo contains samples that are specifically used in the docs. You can find additional [SDK V4](https://github.com/Microsoft/BotBuilder-Samples/tree/master/samples) and [SDK V3](https://github.com/Microsoft/BotBuilder-Samples/tree/v3-sdk-samples) in the BotBuilder-Samples repo.
+This repo contains samples that are specifically used in the blog posts. You can find additional [SDK V4](https://github.com/Microsoft/BotBuilder-Samples/tree/master/samples) and [SDK V3](https://github.com/Microsoft/BotBuilder-Samples/tree/v3-sdk-samples) in the BotBuilder-Samples repo.
 
 ## Contributing
 
