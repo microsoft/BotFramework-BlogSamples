@@ -24,7 +24,7 @@ namespace Microsoft.BotBuilderSamples
     public class Startup
     {
         private ILoggerFactory _loggerFactory;
-        private bool _isProduction = false;
+        private readonly bool _isProduction = false;
 
         public Startup(IHostingEnvironment env)
         {
@@ -53,15 +53,43 @@ namespace Microsoft.BotBuilderSamples
         /// <seealso cref="IStatePropertyAccessor{T}"/>
         public void ConfigureServices(IServiceCollection services)
         {
+            var secretKey = Configuration.GetSection("botFileSecret")?.Value;
+            var botFilePath = Configuration.GetSection("botFilePath")?.Value;
+
+            // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
+            var botConfig = BotConfiguration.Load(botFilePath ?? @".\dialog-prompt.bot", secretKey);
+            services.AddSingleton(sp => botConfig
+                ?? throw new InvalidOperationException($"The .bot config file could not be loaded. ({botConfig})"));
+
+            // The Memory Storage used here is for local bot debugging only. When the bot
+            // is restarted, everything stored in memory will be gone.
+            IStorage dataStore = new MemoryStorage();
+
+            // Create Conversation State object.
+            // The Conversation State object is where we persist anything at the conversation-scope.
+            var conversationState = new ConversationState(dataStore);
+
+            // Create and register state accesssors.
+            // Acessors created here are passed into the IBot-derived class on every turn.
+            services.AddSingleton<DialogPromptBotAccessors>(sp =>
+            {
+                // Create the custom state accessor.
+                // State accessors enable other components to read and write individual properties of state.
+                var accessors = new DialogPromptBotAccessors(conversationState)
+                {
+                    DialogStateAccessor =
+                        conversationState.CreateProperty<DialogState>(
+                            DialogPromptBotAccessors.DialogStateAccessorKey),
+                    ReservationAccessor =
+                        conversationState.CreateProperty<DialogPromptBot.Reservation>(
+                            DialogPromptBotAccessors.ReservationAccessorKey),
+                };
+
+                return accessors;
+            });
+
             services.AddBot<DialogPromptBot>(options =>
             {
-                var secretKey = Configuration.GetSection("botFileSecret")?.Value;
-                var botFilePath = Configuration.GetSection("botFilePath")?.Value;
-
-                // Loads .bot configuration file and adds a singleton that your Bot can access through dependency injection.
-                var botConfig = BotConfiguration.Load(botFilePath ?? @".\dialog-prompt.bot", secretKey);
-                services.AddSingleton(sp => botConfig ?? throw new InvalidOperationException($"The .bot config file could not be loaded. ({botConfig})"));
-
                 // Retrieve current endpoint.
                 var environment = _isProduction ? "production" : "development";
                 var service = botConfig.Services.Where(s => s.Type == "endpoint" && s.Name == environment).FirstOrDefault();
@@ -81,61 +109,6 @@ namespace Microsoft.BotBuilderSamples
                     logger.LogError($"Exception caught : {exception}");
                     await context.SendActivityAsync("Sorry, it looks like something went wrong.");
                 };
-
-                // The Memory Storage used here is for local bot debugging only. When the bot
-                // is restarted, everything stored in memory will be gone.
-                IStorage dataStore = new MemoryStorage();
-
-                // For production bots use the Azure Blob or
-                // Azure CosmosDB storage providers. For the Azure
-                // based storage providers, add the Microsoft.Bot.Builder.Azure
-                // Nuget package to your solution. That package is found at:
-                // https://www.nuget.org/packages/Microsoft.Bot.Builder.Azure/
-                // Uncomment the following lines to use Azure Blob Storage
-                // //Storage configuration name or ID from the .bot file.
-                // const string StorageConfigurationId = "<STORAGE-NAME-OR-ID-FROM-BOT-FILE>";
-                // var blobConfig = botConfig.FindServiceByNameOrId(StorageConfigurationId);
-                // if (!(blobConfig is BlobStorageService blobStorageConfig))
-                // {
-                //    throw new InvalidOperationException($"The .bot file does not contain an blob storage with name '{StorageConfigurationId}'.");
-                // }
-                // // Default container name.
-                // const string DefaultBotContainer = "<DEFAULT-CONTAINER>";
-                // var storageContainer = string.IsNullOrWhiteSpace(blobStorageConfig.Container) ? DefaultBotContainer : blobStorageConfig.Container;
-                // IStorage dataStore = new Microsoft.Bot.Builder.Azure.AzureBlobStorage(blobStorageConfig.ConnectionString, storageContainer);
-
-                // Create Conversation State object.
-                // The Conversation State object is where we persist anything at the conversation-scope.
-                var conversationState = new ConversationState(dataStore);
-
-                options.State.Add(conversationState);
-            });
-
-            // Create and register state accesssors.
-            // Acessors created here are passed into the IBot-derived class on every turn.
-            services.AddSingleton<DialogPromptBotAccessors>(sp =>
-            {
-                var options = sp.GetRequiredService<IOptions<BotFrameworkOptions>>().Value;
-                if (options == null)
-                {
-                    throw new InvalidOperationException("BotFrameworkOptions must be configured prior to setting up the state accessors");
-                }
-
-                var conversationState = options.State.OfType<ConversationState>().FirstOrDefault();
-                if (conversationState == null)
-                {
-                    throw new InvalidOperationException("ConversationState must be defined and added before adding conversation-scoped state accessors.");
-                }
-
-                // Create the custom state accessor.
-                // State accessors enable other components to read and write individual properties of state.
-                var accessors = new DialogPromptBotAccessors(conversationState)
-                {
-                    DialogStateAccessor = conversationState.CreateProperty<DialogState>(DialogPromptBotAccessors.DialogStateAccessorKey),
-                    ReservationAccessor = conversationState.CreateProperty<DialogPromptBot.Reservation>(DialogPromptBotAccessors.ReservationAccessorKey),
-                };
-
-                return accessors;
             });
         }
 

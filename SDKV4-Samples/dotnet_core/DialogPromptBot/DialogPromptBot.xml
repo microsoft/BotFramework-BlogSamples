@@ -7,21 +7,22 @@
         <member name="T:Microsoft.BotBuilderSamples.DialogPromptBot">
             <summary>
             Represents a bot that processes incoming activities.
-            For each user interaction, an instance of this class is created and the OnTurnAsync method is called.
-            This is a Transient lifetime service.  Transient lifetime services are created
-            each time they're requested. For each Activity received, a new instance of this
-            class is created. Objects that are expensive to construct, or have a lifetime
-            beyond the single turn, should be carefully managed.
-            For example, the <see cref="T:Microsoft.Bot.Builder.MemoryStorage"/> object and associated
-            <see cref="T:Microsoft.Bot.Builder.IStatePropertyAccessor`1"/> object are created with a singleton lifetime.
+            For each user interaction, an instance of this class is created and the OnTurnAsync method
+            is called. This is a Transient lifetime service.  Transient lifetime services are created
+            each time they're requested. For each Activity received, a new instance of this class is
+            created. Objects that are expensive to construct, or have a lifetime beyond the single
+            turn, should be carefully managed. For example, the <see cref="T:Microsoft.Bot.Builder.MemoryStorage"/> object and
+            associated <see cref="T:Microsoft.Bot.Builder.IStatePropertyAccessor`1"/> object are created with a singleton lifetime.
             </summary>
         </member>
         <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.#ctor(Microsoft.BotBuilderSamples.DialogPromptBotAccessors,Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.BotBuilderSamples.DialogPromptBot"/> class.
             </summary>
-            <param name="accessors">A class containing <see cref="T:Microsoft.Bot.Builder.IStatePropertyAccessor`1"/> used to manage state.</param>
-            <param name="loggerFactory">A <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> that is hooked to the Azure App Service provider.</param>
+            <param name="accessors">A class containing <see cref="T:Microsoft.Bot.Builder.IStatePropertyAccessor`1"/> used
+            to manage state.</param>
+            <param name="loggerFactory">A <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> that is hooked to the Azure
+            App Service provider.</param>
         </member>
         <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.OnTurnAsync(Microsoft.Bot.Builder.ITurnContext,System.Threading.CancellationToken)">
             <summary>
@@ -31,8 +32,8 @@
             </summary>
             <param name="turnContext">A <see cref="T:Microsoft.Bot.Builder.ITurnContext"/> containing all the data needed
             for processing this conversation turn. </param>
-            <param name="cancellationToken">(Optional) A <see cref="T:System.Threading.CancellationToken"/> that can be used by other objects
-            or threads to receive notice of cancellation.</param>
+            <param name="cancellationToken">(Optional) A <see cref="T:System.Threading.CancellationToken"/> that can
+            be used by other objects or threads to receive notice of cancellation.</param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> that represents the work queued to execute.</returns>
             <seealso cref="T:Microsoft.Bot.Builder.BotStateSet"/>
             <seealso cref="T:Microsoft.Bot.Builder.ConversationState"/>
@@ -46,9 +47,16 @@
             <returns>A task that represents the work queued to execute.</returns>
             <remarks>If the task is successful, the result contains information from this step.</remarks>
         </member>
+        <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.PromptForLocationAsync(Microsoft.Bot.Builder.Dialogs.WaterfallStepContext,System.Threading.CancellationToken)">
+            <summary>Second step of the main dialog: prompt for location.</summary>
+            <param name="stepContext">The context for the waterfall step.</param>
+            <param name="cancellationToken">A cancellation token that can be used by other objects
+            or threads to receive notice of cancellation.</param>
+            <returns>A task that represents the work queued to execute.</returns>
+            <remarks>If the task is successful, the result contains information from this step.</remarks>
+        </member>
         <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.PromptForReservationDateAsync(Microsoft.Bot.Builder.Dialogs.WaterfallStepContext,System.Threading.CancellationToken)">
-            <summary>Second step of the main dialog: record the party size and prompt for the
-            reservation date.</summary>
+            <summary>Third step of the main dialog: prompt for the reservation date.</summary>
             <param name="stepContext">The context for the waterfall step.</param>
             <param name="cancellationToken">A cancellation token that can be used by other objects
             or threads to receive notice of cancellation.</param>
@@ -56,14 +64,14 @@
             <remarks>If the task is successful, the result contains information from this step.</remarks>
         </member>
         <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.AcknowledgeReservationAsync(Microsoft.Bot.Builder.Dialogs.WaterfallStepContext,System.Threading.CancellationToken)">
-            <summary>Third step of the main dialog: return the collected party size and reservation date.</summary>
+            <summary>Last step of the main dialog: return the collected reservation information.</summary>
             <param name="stepContext">The context for the waterfall step.</param>
             <param name="cancellationToken">A cancellation token that can be used by other objects
             or threads to receive notice of cancellation.</param>
             <returns>A task that represents the work queued to execute.</returns>
             <remarks>If the task is successful, the result contains information from this step.</remarks>
         </member>
-        <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.PartySizeValidatorAsync(Microsoft.Bot.Builder.Dialogs.PromptValidatorContext{System.Int32},System.Threading.CancellationToken)">
+        <member name="M:Microsoft.BotBuilderSamples.DialogPromptBot.RangeValidatorAsync(Microsoft.Bot.Builder.Dialogs.PromptValidatorContext{System.Int32},System.Threading.CancellationToken)">
             <summary>Validates whether the party size is appropriate to make a reservation.</summary>
             <param name="promptContext">The validation context.</param>
             <param name="cancellationToken">A cancellation token that can be used by other objects
@@ -80,6 +88,12 @@
             <returns>A task that represents the work queued to execute.</returns>
             <remarks>Reservations must be made at least an hour in advance.
             If the task is successful, the result indicates whether the input was valid.</remarks>
+        </member>
+        <member name="T:Microsoft.BotBuilderSamples.DialogPromptBot.Range">
+            <summary>Describes an acceptable range of values.</summary>
+        </member>
+        <member name="T:Microsoft.BotBuilderSamples.DialogPromptBot.Reservation">
+            <summary>Holds a user's reservation information.</summary>
         </member>
         <member name="T:Microsoft.BotBuilderSamples.DialogPromptBotAccessors">
             <summary>
