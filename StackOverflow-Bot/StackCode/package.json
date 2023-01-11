@@ -43,9 +43,9 @@
     "devDependencies": {
         "@types/mocha": "^2.2.32",
         "@types/node": "^6.0.40",
-        "mocha": "^2.5.3",
+        "mocha": "^10.2.0",
         "typescript": "^2.9.1",
-        "vscode": "^1.0.0"
+        "vscode": "^1.1.37"
     },
     "dependencies": {
         "express": "^4.16.3",
