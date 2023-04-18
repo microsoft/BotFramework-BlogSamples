@@ -14,7 +14,7 @@
     "@types/restify": "^5.0.8",
     "@microsoft/recognizers-text-data-types-timex-expression": "^1.0.1",
     "botbuilder": "^4.0.0-preview1.2",
-    "botbuilder-ai": "^4.0.0-preview1.2",
+    "botbuilder-ai": "^4.19.3",
     "botbuilder-core": "^4.0.0-preview1.2",
     "botbuilder-dialogs": "^4.0.0-preview1.2",
     "node": "^10.4.0",
