@@ -14,7 +14,7 @@
     "lodash": "^4.17.10",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
-    "restify": "^5.2.1"
+    "restify": "^11.1.0"
   },
   "engines": {
     "node": "8.1.4"
